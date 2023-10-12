@@ -1,0 +1,59 @@
+{
+	"totals": 20,
+	"movies": [
+		{
+			"movie_id": "MV001",
+			"name": "The Nun II",
+			"director": "Micheal Chaves",
+			"cast": "Storm Reid, Bonnie Aarons, Anna Popplewell, Taissa Farmiga",
+			"release_date": "4/9/2013",
+			"running_time": 110,
+			"language": "EN",
+			"rating": 225.5,
+			"number_of_ratings": 60,
+			"description": "Lấy bối cảnh nước Pháp năm 1956, cùng cái chết bí ẩn của một linh mục, một giai thoại đáng sợ và ám ảnh sẽ mở ra. Phần phim tiếp tục xoay quanh nhân vật chính - Sơ Irene - do Taissa Farmiga thủ vai.  Là phần phim tiếp nối câu chuyện năm 2019 của The Nun, bộ phim hứa hẹn sẽ tiếp tục hé lộ đến khán giả những khía cạnh mới đằng sau câu chuyện về hồn ma nữ tu từng reo rắc biết bao nỗi ám ảnh này. Bầu không khí u ám, quỷ dị vốn là điểm mạnh của các bộ phim thuộc thương hiệu The Conjuring sẽ tiếp tục được thể hiện trong The Nun II. Điều này khiến tựa phim về ma sơ Valak hứa hẹn sẽ trở thành tác phẩm kinh dị nổi bật bậc nhất nửa cuối năm nay.  Phim mới Ác Quỷ Ma Sơ II ra mắt tại các rạp chiếu phim từ 08.09.2023",
+			"trailer": "...",
+			"poster": "https://dummyimage.com/250x350/000/fff&text=The+Nun+II",
+			"rated": "T18",
+			"slug": "the-nun-ii",
+			"producer": "Warner Bros",
+			"genres": [
+				{
+					"genre_id": "Horror",
+					"genre_name": "Kinh dị"
+				}
+			]
+		},
+		{
+			"movie_id": "MV002",
+			"name": "A Haunting in venice",
+			"director": "Kenneth Branagh",
+			"cast": "Kenneth Branagh, Kelly Reilly, Dương Tử Quỳnh",
+			"release_date": "15/9/2013",
+			"running_time": 102,
+			"language": "EN",
+			"rating": 200.5,
+			"number_of_ratings": 60,
+			"description": "Án Mạng Ở Venice lấy bối cảnh hậu Thế Chiến II tại thành phố Venice vào đêm Halloween. Thám tử lừng danh Hercule Poirot bất đắc dĩ phải tham dự một buổi cầu hồn với sự xuất hiện của bà đồng “Dương Tử Quỳnh” tại một dinh thự hoang tàn và u ám. Khi một trong những vị khách bị giết chết, vị thám tử này bị ép buộc rơi vào một thế giới đầy bóng tối và ngập tràn những bí mật.  Phim mới Án Mạng Ở Venice ra mắt tại các rạp chiếu phim từ 15.09.2023",
+			"trailer": "...",
+			"poster": "https://dummyimage.com/250x350/000/fff&text=A+Haunting+in+venice",
+			"rated": "T18",
+			"slug": "a-haunting-in-venice",
+			"producer": "20th Century Studios",
+			"genres": [
+				{
+					"genre_id": "Horror",
+					"genre_name": "Kinh dị"
+				},
+				{
+					"genre_id": "Drama",
+					"genre_name": "Tâm lý"
+				},
+				{
+					"genre_id": "Crime",
+					"genre_name": "Tội phạm"
+				}
+			]
+		}
+	]
+}
