@@ -7,8 +7,30 @@ import Layout from '../components/layouts/Layout';
 import { PATHS } from '../constants/path';
 
 //Lazy loading pages
-const Movies = React.lazy(() => import('../../pages/Movie/List'));
-const MovieDetail = React.lazy(() => import('../../pages/Movie/Detail'));
+
+//landing
+const Landing = React.lazy(() => import('../../pages/client/landing/Landing'));
+
+//auth
+const Auth = React.lazy(() => import('../../pages/client/Auth/Authentication'));
+
+//movies
+const Movies = React.lazy(() => import('../../pages/client/movies/Movies'));
+const MovieDetail = React.lazy(
+	() => import('../../pages/client/movieDetail/MovieDetail')
+);
+
+//cinema
+const Cinema = React.lazy(() => import('../../pages/client/cinema/Cinema'));
+//profile
+const profile = React.lazy(() => import('../../pages/client/profile/Profile'));
+//payment
+const payment = React.lazy(() => import('../../pages/client/payment/Payment'));
+//tickets
+const tickets = React.lazy(
+	() => import('../../pages/client/seatPlan/SeatPlan')
+);
+//
 
 const loading = () => <div className="">loading</div>;
 
@@ -28,7 +50,12 @@ const LoadComponent = ({ component: Component }: LoadComponentProps) => {
 
 const homeRoute = {
 	path: PATHS.HOME.IDENTITY,
-	element: <></>,
+	element: <LoadComponent component={Landing} />,
+};
+
+const authRoute = {
+	path: PATHS.AUTH.IDENTITY,
+	element: <LoadComponent component={Auth} />,
 };
 
 const movieRoutes = {
@@ -45,12 +72,62 @@ const movieRoutes = {
 	],
 };
 
+const cinemaRoutes = {
+	path: PATHS.CINEMA.IDENTITY,
+	children: [
+		{
+			path: PATHS.CINEMA.LIST,
+			element: <LoadComponent component={Cinema} />,
+		},
+	],
+};
+
+const profileRoutes = {
+	path: PATHS.PROFILE.IDENTITY,
+	children: [
+		{
+			path: PATHS.PROFILE.DETAIL,
+			element: <LoadComponent component={profile} />,
+		},
+		{
+			path: PATHS.PROFILE.EXCHANGE,
+			element: <LoadComponent component={profile} />,
+		},
+	],
+};
+
+const paymentRoute = {
+	path: PATHS.PAYMENT.IDENTITY,
+	children: [
+		{
+			path: PATHS.PAYMENT.DETAIL,
+			element: <LoadComponent component={payment} />,
+		},
+	],
+};
+
+const ticketRoute = {
+	path: PATHS.TICKETS.IDENTITY,
+	children: [
+		{
+			path: PATHS.TICKETS.DETAIL,
+			element: <LoadComponent component={tickets} />,
+		},
+	],
+};
+
 function AllRoutes() {
 	return useRoutes([
+		authRoute,
 		{
 			path: '/',
 			element: <Layout />,
-			children: [homeRoute, movieRoutes],
+			children: [homeRoute, movieRoutes, cinemaRoutes],
+		},
+		{
+			path: '/',
+			element: <ProtectedRoute component={Layout} />,
+			children: [paymentRoute, profileRoutes, ticketRoute],
 		},
 		{
 			path: '/',

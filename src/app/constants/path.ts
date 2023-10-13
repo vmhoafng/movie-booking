@@ -12,6 +12,11 @@ export const PATHS = {
 	REGISTER: {
 		IDENTITY: 'register',
 	},
+
+	AUTH: {
+		IDENTITY: 'auth',
+	},
+
 	MOVIES: {
 		IDENTITY: 'movies',
 		LIST: '',

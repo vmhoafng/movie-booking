@@ -3,6 +3,7 @@ import { useRedux } from '../hooks';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import path from 'path';
+import { PATHS } from '../constants/path';
 
 type ProtectedRouteTypes = {
 	component: React.ComponentType;
@@ -20,10 +21,10 @@ function ProtectedRoute({
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (!isAuthenticated) navigate('/login');
+		if (!isAuthenticated) navigate(`${PATHS.AUTH.IDENTITY}`);
 	}, [isAuthenticated, navigate]);
 
-	if (role && role !== 'expectedRole') {
+	if (role && role !== 'Admin') {
 		// If a role is specified and it's not the expected role, navigate somewhere else.
 		return <Navigate to="/" />;
 	}
