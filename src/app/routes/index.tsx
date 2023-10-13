@@ -21,7 +21,7 @@ const MovieDetail = React.lazy(
 );
 
 //cinema
-const Cinema = React.lazy(() => import('../../pages/client/cinema/Cinema'));
+const Cinema = React.lazy(() => import('../../pages/client/cinema'));
 //profile
 const profile = React.lazy(() => import('../../pages/client/profile/Profile'));
 //payment
