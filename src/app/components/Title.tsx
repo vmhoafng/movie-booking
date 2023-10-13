@@ -9,11 +9,11 @@ interface TitleProps {
 
 function Title({ children, active, onClick }: TitleProps) {
   return (
-    <div onClick={onClick} className="w-full">
+    <div onClick={onClick} className=" cursor-pointer">
       <h2
         className={clsx(
-          `uppercase font-bold`,
-          active && "border-b border-highlight w-fit"
+          `uppercase font-bold text-white border-b hover:border-highlight transition-all duration-300`,
+          active ? "border-highlight w-fit" : "border-transparent"
         )}
       >
         {children}

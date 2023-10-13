@@ -1,11 +1,11 @@
 // import axios from "axios";
-// import { signIn, useSession } from "next-auth/react";
+// import { signIn, useSession } from "auth/react";
 import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import Input from "../components/inputs/Input";
-import AuthSocialButton from "./AuthSocialButton";
+import AuthSocialButton from "../../../../app/components/button/SocialButton";
 import Button from "../../../../app/components/button/Button";
 import { toast } from "react-hot-toast";
 
@@ -16,8 +16,6 @@ const AuthForm = () => {
   // const navigate = useNavigate();
   const [variant, setVariant] = useState<Variant>("LOGIN");
   const [isLoading, setIsLoading] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   // useEffect(() => {
   //   if (session?.status === "authenticated") {
   //     navigate("/");
