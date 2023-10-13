@@ -5,7 +5,6 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import Input from "../components/inputs/Input";
-import AuthSocialButton from "../../../../app/components/button/AuthSocialButton";
 import Button from "../../../../app/components/button/Button";
 import { toast } from "react-hot-toast";
 
@@ -146,7 +145,6 @@ const AuthForm = () => {
               required
               id="name"
               label="Name"
-              
             />
           )}
           <Input
@@ -225,7 +223,7 @@ const AuthForm = () => {
           </div>
 
           <div className="mt-6 flex gap-2">
-            <AuthSocialButton
+            {/* <AuthSocialButton
               icon={"BsGithub"}
               onClick={() => socialAction("github")}
             />
@@ -236,7 +234,7 @@ const AuthForm = () => {
             <AuthSocialButton
               icon={"BsFacebook"}
               onClick={() => socialAction("facebook")}
-            />
+            /> */}
           </div>
         </div>
       </div>
