@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
@@ -10,9 +12,15 @@ const MovieDetail = React.lazy(() => import('../../pages/Movie/Detail'));
 
 const loading = () => <div className="">loading</div>;
 
-const LoadComponent = ({ component: Component }) => {
+type LoadComponentProps = {
+	component: React.LazyExoticComponent<() => JSX.Element>;
+};
+
+const LoadComponent = ({ component: Component }: LoadComponentProps) => {
 	return (
+		//@ts-ignore
 		<Suspense fallback={loading()}>
+			{/* @ts-ignore */}
 			<Component />
 		</Suspense>
 	);
@@ -46,8 +54,8 @@ function AllRoutes() {
 		},
 		{
 			path: '/',
-			element: <ProtectedRoute />,
-			// element: <ProtectedRoute role={"Admin"} RouteComponent={AdminLayout} />,
+			// element: <ProtectedRoute />,
+			element: <ProtectedRoute role={'Admin'} component={Layout} />,
 			children: [],
 			// children: [ {
 			// 	path: 'dashboard',

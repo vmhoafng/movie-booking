@@ -7,13 +7,13 @@ import { useEffect, useState } from 'react';
  * @returns {string} - The debounced value.
  */
 
-export default function useDebounce(value, delay = 1000) {
+export default function useDebounce<T>(value: T, delay?: number): T {
 	//khởi tao state
-	const [debounceValue, setDebounceValue] = useState(value);
+	const [debounceValue, setDebounceValue] = useState<T>(value);
 
 	//khởi tạo debounce, delay 1s
 	useEffect(() => {
-		const timer = setTimeout(() => setDebounceValue(value), delay);
+		const timer = setTimeout(() => setDebounceValue(value), delay || 1000);
 
 		return () => {
 			clearTimeout(timer);
