@@ -6,6 +6,17 @@ export const PATHS = {
 	HOME: {
 		IDENTITY: '',
 	},
+	LOGIN: {
+		IDENTITY: 'login',
+	},
+	REGISTER: {
+		IDENTITY: 'register',
+	},
+
+	AUTH: {
+		IDENTITY: 'auth',
+	},
+
 	MOVIES: {
 		IDENTITY: 'movies',
 		LIST: '',

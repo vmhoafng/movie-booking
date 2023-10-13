@@ -1,11 +1,10 @@
-import React from "react";
-import Routes from "./app/routes/Routes";
+import React from 'react';
+import Routes from './app/routes/Routes';
 
-import "./App.css";
-import Movies from "./pages/client/movies/Movies";
+import './App.css';
 
 function App() {
-  return <Movies />;
+	return <Routes />;
 }
 
 export default App;
