@@ -1,6 +1,19 @@
 import React from "react";
 import clsx from "clsx";
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
+interface InputProps {
+  label: string;
+  id: string;
+  type?: string;
+  required?: boolean;
+  register: UseFormRegister<FieldValues>;
+  errors: FieldErrors;
+  disabled?: boolean;
+  placeholder: string;
+  borderWhite?: boolean;
+  col: boolean;
+}
 const Input = ({
   label,
   id,
@@ -12,14 +25,12 @@ const Input = ({
   placeholder,
   borderWhite,
   col,
-}) => {
+}: InputProps) => {
   return (
     <div
       className={clsx(
         `flex`,
-        col
-          ? "flex-col items-start gap-1"
-          : "items-center justify-between"
+        col ? "flex-col items-start gap-1" : "items-center justify-between"
       )}
     >
       <label
