@@ -1,8 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* @font-face {
-  font-family: "Roboto";
-  src: url(./fonts/Roboto-Regular.ttf) format("ttf");
-} */
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap");
+* {
+  font-family: "Comfortaa", sans-serif;
+}
+html,
+body,
+:root {
+  height: 100%;
+}

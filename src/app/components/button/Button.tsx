@@ -1,6 +1,23 @@
 import React from "react";
 import clsx from "clsx";
-function Button({ children, type, fullWidth, highlight, onClick, disabled }) {
+interface ButtonProps {
+  type?: "button" | "submit" | "reset" | undefined;
+  fullWidth?: boolean;
+  children: React.ReactNode;
+  onClick?: () => void;
+  secondary?: boolean;
+  danger?: boolean;
+  disabled?: boolean;
+  highlight?: boolean;
+}
+function Button({
+  children,
+  type,
+  fullWidth,
+  highlight,
+  onClick,
+  disabled,
+}: ButtonProps) {
   return (
     <button
       onClick={onClick}
@@ -12,7 +29,7 @@ function Button({ children, type, fullWidth, highlight, onClick, disabled }) {
       rounded-full
       px-10
       py-2
-      text-lg
+      mx-auto
       font-semibold
       focus-visible:outline
       focus-visible:outline-2
