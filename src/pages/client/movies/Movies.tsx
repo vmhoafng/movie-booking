@@ -1,6 +1,7 @@
 import React from "react";
 import Title from "../../../app/components/Title";
 import { useParams } from "react-router";
+import Poster from "../../../app/components/Poster";
 function Movies() {
   const { params } = useParams();
   return (
@@ -10,7 +11,9 @@ function Movies() {
           <Title active={params === "showing"}>Phim đang chiếu</Title>
           <Title active={params === "coming-soon"}>Phim sắp chiếu</Title>
         </div>
-        <div></div>
+        <div>
+          <Poster name={"gay"} subname="gay"/>
+        </div>
       </div>
     </div>
   );
