@@ -6,7 +6,6 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 import Input from "../components/inputs/Input";
-import AuthSocialButton from "../../../../app/components/button/SocialButton";
 import Button from "../../../../app/components/button/Button";
 import { toast } from "react-hot-toast";
 
@@ -234,24 +233,24 @@ const AuthForm = () => {
                   </div>
                </div>
 
-               <div className="mt-6 flex gap-2">
-                  <AuthSocialButton
-                     icon={"BsGithub"}
-                     onClick={() => socialAction("github")}
-                  />
-                  <AuthSocialButton
-                     icon={"BsGoogle"}
-                     onClick={() => socialAction("google")}
-                  />
-                  <AuthSocialButton
-                     icon={"BsFacebook"}
-                     onClick={() => socialAction("facebook")}
-                  />
-               </div>
-            </div>
-         </div>
+          <div className="mt-6 flex gap-2">
+            {/* <AuthSocialButton
+              icon={"BsGithub"}
+              onClick={() => socialAction("github")}
+            />
+            <AuthSocialButton
+              icon={"BsGoogle"}
+              onClick={() => socialAction("google")}
+            />
+            <AuthSocialButton
+              icon={"BsFacebook"}
+              onClick={() => socialAction("facebook")}
+            /> */}
+          </div>
+        </div>
       </div>
-   );
+    </div>
+  );
 };
 
 export default AuthForm;
