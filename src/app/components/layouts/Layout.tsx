@@ -9,7 +9,7 @@ const loading = () => <div className=""></div>;
 
 function Layout() {
   return (
-    <div className="h-full bg-bgPrimary ">
+    <div className="h-full ">
       <DesktopNavbar />
       <MobileNavbar />
       <main className="h-full">
