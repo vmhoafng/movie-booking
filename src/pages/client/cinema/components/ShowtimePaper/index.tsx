@@ -1,4 +1,5 @@
 import React from 'react';
+import Poster from '../../../../../app/components/Poster';
 
 function Time() {
 	return (
@@ -23,7 +24,14 @@ function ShowtimePaper() {
 				<p className="text-[13px] uppercase text-white text-opacity-60">
 					Biệt đội đánh thuê
 				</p>
-				<p className="text-[11px] md:text-[13px]">1hrs 42mins</p>
+				<div className="">
+					<div className="">
+						<i className="w-3 h-3">
+							<img src="./clock.svg" alt="" />
+						</i>
+					</div>
+					<p className="text-[11px] md:text-[13px]">1hrs 42mins</p>
+				</div>
 				<div className="flex flex-1 flex-wrap items-start gap-[10px] ">
 					<Time />
 					<Time />
