@@ -2,7 +2,7 @@ import React from 'react';
 
 function Time() {
 	return (
-		<div className="text-center md:flex-[0_0_4.6875rem] border rounded-[4px] text-xs md:text-[15px] leading-[1.0625rem] md:px-5 md:py-3 py-1 px-[10px]">
+		<div className="  text-center lg:h-[35px] xl:h-11 border rounded-[4px] text-xs md:text-[15px] max-lg:leading-[1.0625rem] md:px-5 md:py-3 py-1 px-[10px]">
 			21:00
 		</div>
 	);
@@ -24,7 +24,7 @@ function ShowtimePaper() {
 					Biệt đội đánh thuê
 				</p>
 				<p className="text-[11px] md:text-[13px]">1hrs 42mins</p>
-				<div className="flex flex-1 flex-wrap gap-[10px] ">
+				<div className="flex flex-1 flex-wrap items-start gap-[10px] ">
 					<Time />
 					<Time />
 					<Time />
