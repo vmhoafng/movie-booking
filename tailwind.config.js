@@ -8,7 +8,7 @@ module.exports = {
         bgPrimary: "#001232", // background of container
         bgPrimaryLayer: "rgba(0, 18, 50, 0.8)", // layer of image background
         bgPrimaryBar: "rgba(5, 17, 63, 0.8)", // header, navbar, footer, sidebar
-        lightPrimary: "#31AFD7", // toggle button, more icon
+        lightPrimary: "#314C81", //"#31AFD7" toggle button, more icon
         borderColor: "#314C81", // button background, border
         disabled: "#AA52A1",
         highlight: "#31D7A9",
