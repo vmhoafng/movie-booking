@@ -12,7 +12,7 @@ function Title({ children, active, onClick }: TitleProps) {
     <div onClick={onClick} className=" cursor-pointer">
       <h2
         className={clsx(
-          `uppercase font-bold text-white border-b hover:border-highlight transition-all duration-300`,
+          `uppercase xl:text-[22px] font-bold text-white border-b hover:border-highlight transition-all duration-300`,
           active ? "border-highlight w-fit" : "border-transparent"
         )}
       >
