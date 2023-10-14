@@ -13,7 +13,15 @@ interface PosterProps {
 
 function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
   return (
-    <div className="flex flex-col border-transparent rounded [box-shadow:_2px_2px_4px_0px_rgba(0, 0, 0, 0.50);] overflow-hidden group">
+    <div
+      className="w-fit
+        flex
+        flex-col
+        border-transparent
+        rounded
+        [box-shadow:_2px_2px_4px_0px_rgba(0, 0, 0, 0.50);]
+        overflow-hidden group"
+    >
       <div className={clsx(`relative`, horizontal)}>
         <Image
           horizontal={horizontal}
@@ -42,7 +50,11 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
           </Button>
         </div>
       </div>
-      <div className="relative flex flex-col gap-[10px] py-5">
+      <div className="relative
+          flex
+          flex-col
+          gap-[10px]
+          py-5">
         <div
           className="
           absolute 

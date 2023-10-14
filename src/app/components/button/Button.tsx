@@ -34,7 +34,8 @@ function Button({
         `
       flex
       justify-center
-      px-10
+      px-5
+      md:px-10
       py-2
       mx-auto
       font-semibold
