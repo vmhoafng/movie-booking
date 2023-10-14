@@ -21,22 +21,13 @@ function Movies() {
           <Title active={params === "showing"}>Phim đang chiếu</Title>
           <Title active={params === "coming-soon"}>Phim sắp chiếu</Title>
         </div>
-        {width > 900 ? (
+        {/* {width > 900 ? (
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             onSwiper={(swiper: SwiperType) => console.log(swiper)}
             onSlideChange={() => console.log("slide change")}
             breakpoints={{
-              390: {
-                width: 395,
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              680: {
-                width: 640,
-                slidesPerView: 3,
-                spaceBetween: 30,
-              },
+      
               900: {
                 width: 790,
                 slidesPerView: 3.8,
@@ -103,7 +94,15 @@ function Movies() {
             <Poster name={"gay"} subname="gay" />
             <Poster name={"gay"} subname="gay" />
           </div>
-        )}
+        )} */}
+        <div className="w-fit grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 gap-5 xl:gap-[30px]">
+          <Poster name={"gaygaygaygaygaygaygaygaygaygaygaygay"} subname="gay" />
+          <Poster name={"gay"} subname="gay" />
+          <Poster name={"gay"} subname="gay" />
+          <Poster name={"gay"} subname="gay" />
+          <Poster name={"gay"} subname="gay" />
+          <Poster name={"gay"} subname="gay" />
+        </div>
       </div>
     </div>
   );
