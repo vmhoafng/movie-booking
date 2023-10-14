@@ -11,11 +11,11 @@ function Movies() {
           <Title active={params === "showing"}>Phim đang chiếu</Title>
           <Title active={params === "coming-soon"}>Phim sắp chiếu</Title>
         </div>
-        <div className="w-full grid grid-cols-2 md:grid-cols-3 auto-cols-max">
-          <Poster  name={"gaygaygaygaygaygaygaygaygaygaygaygay"} subname="gay"/> 
-          <Poster  name={"gay"} subname="gay"/> 
-          <Poster  name={"gay"} subname="gay"/> 
-          <Poster  name={"gay"} subname="gay"/> 
+        <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 auto-cols-max">
+          <Poster name={"gaygaygaygaygaygaygaygaygaygaygaygay"} subname="gay" />
+          <Poster name={"gay"} subname="gay" />
+          <Poster name={"gay"} subname="gay" />
+          <Poster name={"gay"} subname="gay" />
         </div>
       </div>
     </div>

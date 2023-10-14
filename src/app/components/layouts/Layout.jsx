@@ -12,7 +12,7 @@ function Layout() {
 		<div className="h-full">
 			<DesktopNavbar />
 			<MobileNavbar />
-			<main className="lg:px-60 h-full">
+			<main className="h-full">
 				<Suspense fallback={loading()}>
 					<Outlet />
 				</Suspense>
