@@ -95,7 +95,7 @@ function Movies() {
             <Poster name={"gay"} subname="gay" />
           </div>
         )} */}
-        <div className="w-fit grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 gap-5 xl:gap-[30px]">
+        <div className="w-fit grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 gap-5 xl:gap-[20px]">
           <Poster name={"gaygaygaygaygaygaygaygaygaygaygaygay"} subname="gay" />
           <Poster name={"gay"} subname="gay" />
           <Poster name={"gay"} subname="gay" />

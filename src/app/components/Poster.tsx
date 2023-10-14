@@ -14,7 +14,7 @@ interface PosterProps {
 function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
   return (
     <div
-      className="w-fit
+      className="
         flex
         flex-col
         border-transparent
