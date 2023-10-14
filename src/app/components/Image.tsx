@@ -6,14 +6,28 @@ interface ImageProps {
   alt: string;
   width?: number;
   height?: number;
+  horizontal?: boolean;
 }
 
-const Image: React.FC<ImageProps> = ({ src, alt, width, height }) => {
+const Image: React.FC<ImageProps> = ({
+  src,
+  alt,
+  width,
+  height,
+  horizontal,
+}) => {
   return (
     <img
       src={src}
       alt={alt}
-      className={clsx(width && `w-[${width}px]`, height && `h-[${height}px]`)}
+      className={clsx(
+        "object-cover shadow-[2px_2px_4px_0_rgba(0,0,0,0.5)]",
+        horizontal
+          ? "w-[220px] h-[145px] md:w-[250px] md:h-[165px]"
+          : "w-[200px] h-[300px] md:w-[290px] md:h-[430px]",
+        width && `w-[${width}px]`,
+        height && `h-[${height}px]`
+      )}
     />
   );
 };

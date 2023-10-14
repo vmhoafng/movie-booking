@@ -3,12 +3,16 @@ import clsx from "clsx";
 interface ButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
   fullWidth?: boolean;
+  rounded?: boolean;
   children: React.ReactNode;
   onClick?: () => void;
   secondary?: boolean;
   danger?: boolean;
   disabled?: boolean;
   highlight?: boolean;
+  uppercase?: boolean;
+  borderWhite?: boolean;
+  sm?: boolean;
 }
 function Button({
   children,
@@ -17,6 +21,10 @@ function Button({
   highlight,
   onClick,
   disabled,
+  rounded,
+  uppercase,
+  borderWhite,
+  sm,
 }: ButtonProps) {
   return (
     <button
@@ -26,7 +34,6 @@ function Button({
         `
       flex
       justify-center
-      rounded-full
       px-10
       py-2
       mx-auto
@@ -38,7 +45,6 @@ function Button({
       text-white
       shadow-md
       shadow-black/25
-      border-0
       cursor-pointer
       hover:opacity-90
       transition-all
@@ -48,7 +54,11 @@ function Button({
         disabled && "opacity-50 cursor-default",
         highlight
           ? "bg-highlight"
-          : "bg-gradient-to-r from-gradientStart from-10% via-gradientMid via-50% to-gradientStop to-100%"
+          : "bg-gradient-to-r from-gradientStart from-10% via-gradientMid via-50% to-gradientStop to-100%",
+        rounded ? "rounded" : "rounded-full",
+        uppercase && "uppercase",
+        borderWhite ? "border-[2px]" : "border-0",
+        sm && "px-5"
       )}
     >
       <span

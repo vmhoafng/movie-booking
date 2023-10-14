@@ -12,7 +12,7 @@ function Movies() {
           <Title active={params === "coming-soon"}>Phim sắp chiếu</Title>
         </div>
         <div>
-          <Poster name={"gay"} subname="gay"/>
+          <Poster  name={"gay"} subname="gay"/>
         </div>
       </div>
     </div>
