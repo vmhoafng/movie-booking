@@ -73,8 +73,8 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
           className={clsx(
             "uppercase text-white font-bold transition-all duration-100 ease-linear group-hover:px-[10px] truncate",
             horizontal
-              ? "text-[15px] lg:text-base max-w-[220px] lg:max-w-[250px]"
-              : "max-w-[200px] lg:max-w-[290px]"
+              ? "text-[15px] xl:text-base max-w-[220px] xl:max-w-[250px]"
+              : "max-w-[200px] xl:max-w-[290px]"
           )}
         >
           {name}
@@ -83,8 +83,8 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
           className={clsx(
             "uppercase text-white/60 font-bold transition-all duration-100 ease-linear group-hover:px-[10px]",
             horizontal
-              ? "text-xs lg:text-[13px] max-w-[220px] lg:max-w-[250px]"
-              : "text-sm max-w-[200px] lg:max-w-[290px]"
+              ? "text-xs xl:text-[13px] max-w-[220px] xl:max-w-[250px]"
+              : "text-sm max-w-[200px] xl:max-w-[290px]"
           )}
         >
           {subname}

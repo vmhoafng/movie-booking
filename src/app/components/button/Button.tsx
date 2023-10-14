@@ -35,7 +35,7 @@ function Button({
       flex
       justify-center
       px-5
-      lg:px-10
+      xl:px-10
       py-2
       mx-auto
       font-semibold
@@ -44,7 +44,7 @@ function Button({
       focus-visible:outline-offset-2
       select-none
       text-white
-      shadow-lg
+      shadow-xl
       shadow-black/25
       cursor-pointer
       hover:opacity-90
