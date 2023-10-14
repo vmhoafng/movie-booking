@@ -2,7 +2,7 @@ import React from 'react';
 
 function CinemaDetail() {
 	return (
-		<div className="text-[15px]">
+		<div className=" flex-1 text-[15px]">
 			<h3 className=" inline-block border-b-2 border-highlight md:text-[18px] ">
 				THÔNG TIN CHI TIẾT
 			</h3>
