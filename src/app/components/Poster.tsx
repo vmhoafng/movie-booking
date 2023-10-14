@@ -59,8 +59,10 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
         ></div>
         <div
           className={clsx(
-            "uppercase text-white font-bold transition-all duration-100 ease-linear group-hover:px-[10px]",
-            horizontal && "text-[15px] md:text-base"
+            "uppercase text-white font-bold transition-all duration-100 ease-linear group-hover:px-[10px] truncate",
+            horizontal
+              ? "text-[15px] md:text-base max-w-[220px] md:max-w-[250px]"
+              : "max-w-[200px] md:max-w-[290px]"
           )}
         >
           {name}
@@ -68,7 +70,9 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
         <div
           className={clsx(
             "uppercase text-white/60 font-bold transition-all duration-100 ease-linear group-hover:px-[10px]",
-            horizontal ? "text-sm" : "text-sm"
+            horizontal
+              ? "text-xs md:text-[13px] max-w-[220px] md:max-w-[250px]"
+              : "text-sm max-w-[200px] md:max-w-[290px]"
           )}
         >
           {subname}
