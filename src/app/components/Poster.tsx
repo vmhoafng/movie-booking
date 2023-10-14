@@ -28,7 +28,7 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
           `relative`,
           horizontal
             ? "w-[220px] h-[145px] xl:w-[250px] xl:h-[165px]"
-            : "w-[200px] h-[300px] xl:w-[290px] xl:h-[430px]"
+            : "w-[190px] h-[300px] xl:w-[290px] xl:h-[430px]"
         )}
       >
         <Image
@@ -65,7 +65,7 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
           flex-col
           gap-[10px]
           py-5`,
-          horizontal ? "w-[220px] xl:w-[250px]" : "w-[200px] xl:w-[290px]"
+          horizontal ? "w-[220px] xl:w-[250px]" : "w-[190px] xl:w-[290px]"
         )}
       >
         <div
