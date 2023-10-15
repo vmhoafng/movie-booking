@@ -48,13 +48,13 @@ function Button({
       select-none
       text-white
       text-lg
-      shadow-xl
       shadow-black/25
       cursor-pointer
       hover:opacity-90
       transition-all
       duration-200
       font-inter
+      shadow-[2px_2px_8px_0px_rgba(0,0,0,0.25)]
       `,
         fullWidth && "w-full",
         disabled && "opacity-50 cursor-default",
