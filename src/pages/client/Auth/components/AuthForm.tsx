@@ -6,10 +6,10 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 import Input from "../components/inputs/Input";
-import AuthSocialButton from "../../../../app/components/button/SocialButton";
 import Button from "../../../../app/components/button/Button";
 import { toast } from "react-hot-toast";
 import LoadingAnimation from "../../../../app/components/loading/LoadingAnimation";
+import AuthSocialButton from "../../../../app/components/button/AuthSocialButton";
 
 type Variant = "LOGIN" | "REGISTER";
 
