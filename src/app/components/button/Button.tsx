@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 interface ButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
+  size: "large" | "medium" | "small";
   fullWidth?: boolean;
   rounded?: boolean;
   children: React.ReactNode;
@@ -17,6 +18,7 @@ interface ButtonProps {
 function Button({
   children,
   type,
+  size,
   fullWidth,
   highlight,
   onClick,
