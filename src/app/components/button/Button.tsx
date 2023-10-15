@@ -66,7 +66,7 @@ function Button({
     >
       <span
         className="
-          [text-shadow:0.5px_0.5px_1px_var(--tw-shadow-color)]
+          [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
           shadow-black/50
           "
       >
