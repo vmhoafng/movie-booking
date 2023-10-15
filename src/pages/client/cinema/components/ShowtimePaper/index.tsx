@@ -27,12 +27,12 @@ function ShowtimePaper() {
 				<div className="">
 					<div className="">
 						<i className="w-3 h-3">
-							<img src="./clock.svg" alt="" />
+							<img src="./assets/icons/clock.svg" alt="" />
 						</i>
 					</div>
 					<p className="text-[11px] md:text-[13px]">1hrs 42mins</p>
 				</div>
-				<div className="flex flex-1 flex-wrap items-start gap-[10px] ">
+				<div className="flex  flex-wrap items-start gap-[10px] ">
 					<Time />
 					<Time />
 					<Time />
