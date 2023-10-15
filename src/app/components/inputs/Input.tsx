@@ -29,13 +29,18 @@ const Input = ({
   return (
     <div
       className={clsx(
-        `flex gap-2 w-full`,
-        col ? "flex-col items-start gap-1" : "items-center justify-between"
+        `flex w-full py-[3px]`,
+        col
+          ? "flex-col items-start gap-1"
+          : "items-center justify-between gap-2"
       )}
     >
       <label
         htmlFor={id}
-        className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
+        className={clsx(
+          "text-white/90 text-[15px] font-bold leading-6",
+          !col && "min-w-[200px]"
+        )}
       >
         <span
           className="
@@ -57,8 +62,6 @@ const Input = ({
           `
             form-input
             block
-            h-[35px]
-            min-w-[200px]
             w-full
             rounded
             border
@@ -78,7 +81,7 @@ const Input = ({
           // errors[id] && "focus:ring-rose-500",
           borderWhite && "border-white/50 focus:border-white/50",
           disabled && "opacity-50 cursor-default",
-          !col && "max-w-lg"
+          col ? "h-10" : "h-[35px]"
         )}
       />
     </div>

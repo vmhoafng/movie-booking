@@ -14,6 +14,8 @@ interface ButtonProps {
   uppercase?: boolean;
   borderWhite?: boolean;
   sm?: boolean;
+  md?: boolean;
+  lg?: boolean;
 }
 function Button({
   children,
@@ -28,6 +30,8 @@ function Button({
   uppercase,
   borderWhite,
   sm,
+  md,
+  lg,
 }: ButtonProps) {
   return (
     <button
@@ -37,8 +41,6 @@ function Button({
         `
       flex
       justify-center
-      px-5
-      xl:px-10
       py-2
       mx-auto
       font-semibold
@@ -53,7 +55,6 @@ function Button({
       hover:opacity-90
       transition-all
       duration-200
-      font-inter
       shadow-[2px_2px_8px_0px_rgba(0,0,0,0.25)]
       `,
         fullWidth && "w-full",
@@ -66,7 +67,9 @@ function Button({
         rounded ? "rounded" : "rounded-full",
         uppercase && "uppercase",
         borderWhite ? "border-[2px]" : "border-0",
-        sm && "px-5"
+        sm && "px-5",
+        md && "px-10",
+        lg && "px-[66px]"
       )}
     >
       <span

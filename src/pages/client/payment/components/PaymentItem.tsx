@@ -49,16 +49,14 @@ function PaymentItem() {
       <Title>Payment</Title>
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex flex-col gap-[10px] py-4">
-        <div className="min-w-fit">
-          <Input
-            borderWhite
-            col={width < 680}
-            id="name"
-            label="Hình thức thanh toán"
-            register={register}
-            errors={errors}
-          />
-        </div>
+        <Input
+          borderWhite
+          col={width < 680}
+          id="payment"
+          label="Hình thức thanh toán"
+          register={register}
+          errors={errors}
+        />
         <Input
           borderWhite
           col={width < 680}
@@ -70,7 +68,7 @@ function PaymentItem() {
         <Input
           borderWhite
           col={width < 680}
-          id="Email"
+          id="email"
           label="Email"
           register={register}
           errors={errors}
