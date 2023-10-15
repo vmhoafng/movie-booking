@@ -32,13 +32,17 @@ function PaymentItem() {
          w-[360px]
          md:w-[640px]
          lg:w-[520px]
+         xl:w-[660px]
+         2xl:w-[710px]
          px-5
+         pb-5
          md:px-10
          md:pb-10
-         pb-5
          lg:px-[50px]
+         lg:pb-6
          border
-         border-borderColor"
+         border-borderColor
+         shadow-[4px_4px_30px_0px_rgba(0,0,0,0.50)]"
     >
       <Title>Payment</Title>
       <div className="w-full border-t border-dashed border-borderColor" />
@@ -81,7 +85,7 @@ function PaymentItem() {
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex flex-col items-center gap-2 font-inter">
         <div className="w-full flex justify-between pt-2">
-          <div className="text-white/90 text-[15px] leading-6 md:pb-[10px]">
+          <div className="text-white/90 text-[15px] leading-6 md:pb-[10px] lg:py-5">
             Sử dụng điểm thành viên (50.000)
           </div>
         </div>

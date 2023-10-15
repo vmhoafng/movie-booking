@@ -1,10 +1,10 @@
 import React from "react";
 
-interface SubTitleProps {
+interface BookingTitleProps {
   children: React.ReactNode;
 }
 
-function SubTitle({ children }: SubTitleProps) {
+function BookingTitle({ children }: BookingTitleProps) {
   return (
     <h3 className="text-white/90 uppercase text-sm font-semibold leading-6">
       <span
@@ -19,4 +19,4 @@ function SubTitle({ children }: SubTitleProps) {
   );
 }
 
-export default SubTitle;
+export default BookingTitle;

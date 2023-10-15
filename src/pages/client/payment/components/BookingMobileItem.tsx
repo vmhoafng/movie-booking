@@ -1,8 +1,9 @@
 import React from "react";
 import Title from "./Title";
-import SubTitle from "./SubTitle";
+import BookingTitle from "./BookingTitle";
+import BookingSubtitle from "./BookingSubtitle";
 
-function BookingItem() {
+function BookingMobileItem() {
   return (
     <div
       className="
@@ -24,10 +25,10 @@ function BookingItem() {
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex py-[10px] justify-between">
         <div className="flex flex-col w-[148px]">
-          <SubTitle>The NUN</SubTitle>
-          <div className="text-white/60 text-sm leading-6">Phụ đề</div>
+          <BookingTitle>The NUN</BookingTitle>
+          <BookingSubtitle>Phụ đề</BookingSubtitle>
         </div>
-        <div className="flex flex-col text-white text-sm font-semibold leading-6 text-right">
+        <div className="flex flex-col items-end text-white text-sm font-semibold leading-6">
           <span
             className="
                   [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
@@ -49,50 +50,23 @@ function BookingItem() {
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex flex-col py-[10px]">
         <div className="flex items-center justify-between">
-          <SubTitle>Ghế (2)</SubTitle>
-          <div className="text-white/60 text-sm font-semibold leading-6 text-right">
-            <span
-              className="
-                  [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
-                  shadow-black/50
-          "
-            >
-              H1, H2
-            </span>
-          </div>
+          <BookingTitle>Ghế (2)</BookingTitle>
+          <BookingSubtitle>H1, H2</BookingSubtitle>
         </div>
         <div className="flex items-center justify-between">
-          <SubTitle>Giá vé</SubTitle>
-          <div className="text-white/60 text-sm font-semibold leading-6 text-right">
-            <span
-              className="
-                  [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
-                  shadow-black/50
-          "
-            >
-              135.000 VND
-            </span>
-          </div>
+          <BookingTitle>Giá vé</BookingTitle>
+          <BookingSubtitle>135.000 VND</BookingSubtitle>
         </div>
       </div>
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full py-[10px]">
         <div className="flex items-center justify-between">
-          <SubTitle>Tổng</SubTitle>
-          <div className="text-highlight text-sm font-semibold leading-6 text-right">
-            <span
-              className="
-                  [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
-                  shadow-black/50
-          "
-            >
-              270.000 VND
-            </span>
-          </div>
+          <BookingTitle>Tổng</BookingTitle>
+          <BookingSubtitle highlight>270.000 VND</BookingSubtitle>
         </div>
       </div>
     </div>
   );
 }
 
-export default BookingItem;
+export default BookingMobileItem;
