@@ -46,12 +46,14 @@ function Button({
       focus-visible:outline-offset-2
       select-none
       text-white
+      text-lg
       shadow-xl
       shadow-black/25
       cursor-pointer
       hover:opacity-90
       transition-all
       duration-200
+      font-inter
       `,
         fullWidth && "w-full",
         disabled && "opacity-50 cursor-default",

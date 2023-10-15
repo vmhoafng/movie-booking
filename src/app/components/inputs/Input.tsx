@@ -29,13 +29,13 @@ const Input = ({
   return (
     <div
       className={clsx(
-        `flex w-full`,
+        `flex gap-2 w-full`,
         col ? "flex-col items-start gap-1" : "items-center justify-between"
       )}
     >
       <label
         htmlFor={id}
-        className="text-white/90 text-[15px] font-bold leading-6 min-w-fit"
+        className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
       >
         <span
           className="

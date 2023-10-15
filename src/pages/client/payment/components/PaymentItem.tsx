@@ -3,7 +3,9 @@ import Title from "./Title";
 import Input from "../../../../app/components/inputs/Input";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import Button from "../../../../app/components/button/Button";
+import useWindowDimensions from "../../../../app/hooks/useWindowDimensions";
 function PaymentItem() {
+  const { width } = useWindowDimensions();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -21,13 +23,39 @@ function PaymentItem() {
   };
 
   return (
-    <div className="bg-bgPrimaryLayer flex flex-col items-center w-80 px-5 pb-5">
+    <div
+      className="
+         bg-bgPrimaryLayer
+         flex
+         flex-col
+         items-center
+         w-[360px]
+         md:w-[640px]
+         lg:w-[520px]
+         px-5
+         md:px-10
+         md:pb-10
+         pb-5
+         lg:px-[50px]
+         border
+         border-borderColor"
+    >
       <Title>Payment</Title>
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex flex-col gap-[10px] py-4">
+        <div className="min-w-fit">
+          <Input
+            borderWhite
+            col={width < 680}
+            id="name"
+            label="Hình thức thanh toán"
+            register={register}
+            errors={errors}
+          />
+        </div>
         <Input
           borderWhite
-          col
+          col={width < 680}
           id="name"
           label="Họ và Tên"
           register={register}
@@ -35,15 +63,7 @@ function PaymentItem() {
         />
         <Input
           borderWhite
-          col
-          id="name"
-          label="Họ và Tên"
-          register={register}
-          errors={errors}
-        />
-        <Input
-          borderWhite
-          col
+          col={width < 680}
           id="Email"
           label="Email"
           register={register}
@@ -51,7 +71,7 @@ function PaymentItem() {
         />
         <Input
           borderWhite
-          col
+          col={width < 680}
           id="phoneNumber"
           label="Số điện thoại"
           register={register}
@@ -59,9 +79,9 @@ function PaymentItem() {
         />
       </div>
       <div className="w-full border-t border-dashed border-borderColor" />
-      <div className="w-full flex flex-col items-center gap-2">
+      <div className="w-full flex flex-col items-center gap-2 font-inter">
         <div className="w-full flex justify-between pt-2">
-          <div className="text-white/90 text-[15px] leading-6">
+          <div className="text-white/90 text-[15px] leading-6 md:pb-[10px]">
             Sử dụng điểm thành viên (50.000)
           </div>
         </div>

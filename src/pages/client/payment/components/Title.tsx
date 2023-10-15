@@ -6,7 +6,7 @@ interface TitleProps {
 
 function Title({ children }: TitleProps) {
   return (
-    <h2 className="h-12 py-2 text-white/90 font-semibold uppercase">
+    <h2 className="h-12 py-2 text-white/90 font-semibold uppercase font-inter flex items-center">
       <span
         className="
     leading-10

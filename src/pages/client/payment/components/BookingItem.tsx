@@ -4,22 +4,45 @@ import SubTitle from "./SubTitle";
 
 function BookingItem() {
   return (
-    <div className="bg-bgPrimaryLayer flex flex-col items-center w-80 px-5 h-64">
+    <div
+      className="
+          bg-bgPrimaryLayer
+          lg:hidden
+          flex
+          flex-col
+          items-center
+          w-[360px]
+          md:w-[640px]
+          px-5
+          md:px-10
+          h-64
+          font-inter
+          border
+          border-borderColor"
+    >
       <Title>Booking sumary</Title>
       <div className="w-full border-t border-dashed border-borderColor" />
-      <div className="flex py-[10px] justify-between">
+      <div className="w-full flex py-[10px] justify-between">
         <div className="flex flex-col w-[148px]">
           <SubTitle>The NUN</SubTitle>
           <div className="text-white/60 text-sm leading-6">Phụ đề</div>
         </div>
-        <div className="text-white text-sm font-semibold leading-6 text-right">
+        <div className="flex flex-col text-white text-sm font-semibold leading-6 text-right">
           <span
             className="
                   [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
                   shadow-black/50
           "
           >
-            An Dương Vương | RAP 1 15:30 | CN 17/09
+            An Dương Vương | RAP 1
+          </span>
+          <span
+            className="
+                  [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
+                  shadow-black/50
+          "
+          >
+            15:30 | CN 17/09
           </span>
         </div>
       </div>

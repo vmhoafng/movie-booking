@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-
+const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -15,6 +15,11 @@ module.exports = {
         gradientStart: "rgba(255, 67, 67, 0.85)",
         gradientMid: " #AA52A1",
         gradientStop: "#002DBB",
+      },
+      fontFamily: {
+        body: ['"Comfortaa"'],
+        comfortaa: ['"Comfortaa"', ...defaultTheme.fontFamily.sans],
+        inter: ['"Inter"', ...defaultTheme.fontFamily.sans],
       },
     },
     screens: {
