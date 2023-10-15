@@ -24,11 +24,11 @@ function BookingMobileItem() {
       <Title>Booking sumary</Title>
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex py-[10px] justify-between">
-        <div className="flex flex-col w-[148px]">
+        <div className="flex flex-col w-[148px] text-sm md:text-[15px] ">
           <BookingTitle>The NUN</BookingTitle>
           <BookingSubtitle>Phụ đề</BookingSubtitle>
         </div>
-        <div className="flex flex-col items-end text-white text-sm font-semibold leading-6">
+        <div className="flex flex-col items-end text-white text-sm md:text-[15px]  font-semibold leading-6">
           <span
             className="
                   [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
@@ -49,18 +49,18 @@ function BookingMobileItem() {
       </div>
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex flex-col py-[10px]">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between text-sm md:text-[15px] ">
           <BookingTitle>Ghế (2)</BookingTitle>
           <BookingSubtitle>H1, H2</BookingSubtitle>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between text-sm md:text-[15px] ">
           <BookingTitle>Giá vé</BookingTitle>
           <BookingSubtitle>135.000 VND</BookingSubtitle>
         </div>
       </div>
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full py-[10px]">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between text-sm md:text-[16px] ">
           <BookingTitle>Tổng</BookingTitle>
           <BookingSubtitle highlight>270.000 VND</BookingSubtitle>
         </div>

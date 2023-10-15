@@ -10,7 +10,7 @@ function BookingSubtitle({ children, highlight }: BookingSubTitleProps) {
   return (
     <div
       className={clsx(
-        `text-sm font-semibold leading-6`,
+        `font-semibold leading-6`,
         highlight ? "text-highlight" : "text-white/60"
       )}
     >

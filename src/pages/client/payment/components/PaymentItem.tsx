@@ -85,7 +85,7 @@ function PaymentItem() {
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex flex-col items-center gap-2 font-inter">
         <div className="w-full flex justify-between pt-2">
-          <div className="text-white/90 text-[15px] leading-6 md:pb-[10px] lg:py-5">
+          <div className="text-white/90 text-[15px] lg:text-sm 2xl:text-base leading-6 md:pb-[10px] lg:py-5">
             Sử dụng điểm thành viên (50.000)
           </div>
         </div>
@@ -95,7 +95,7 @@ function PaymentItem() {
         <Button highlight fullWidth>
           Thanh toán
         </Button>
-        <div className="text-lightPrimary text-[15px] font-semibold leading-6">
+        <div className="text-lightPrimary font-semibold leading-6 cursor-pointer">
           <span
             className="
                   [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
