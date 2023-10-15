@@ -3,9 +3,11 @@ import Title from "./Title";
 import Input from "../../../../app/components/inputs/Input";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import Button from "../../../../app/components/button/Button";
+import SwitchButton from "../../../../app/components/button/SwitchButton";
 import useWindowDimensions from "../../../../app/hooks/useWindowDimensions";
 function PaymentItem() {
   const { width } = useWindowDimensions();
+  const [enabled, setEnabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -84,10 +86,16 @@ function PaymentItem() {
       </div>
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex flex-col items-center gap-2 font-inter">
-        <div className="w-full flex justify-between pt-2">
+        <div className="w-full flex items-center justify-between pt-2">
           <div className="text-white/90 text-[15px] lg:text-sm 2xl:text-base leading-6 md:pb-[10px] lg:py-5">
             Sử dụng điểm thành viên (50.000)
           </div>
+          <SwitchButton
+            enabled={enabled}
+            setEnabled={() => {
+              setEnabled(!enabled);
+            }}
+          />
         </div>
         <div className="w-full text-white/50 font-semibold text-[13px] leading-6">
           *Vui lòng kiểm tra thông tin trước khi thanh toán.
