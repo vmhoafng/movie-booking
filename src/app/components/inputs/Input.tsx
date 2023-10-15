@@ -57,6 +57,7 @@ const Input = ({
         type={type}
         disabled={disabled}
         placeholder={placeholder}
+        pattern={type === "tel" ? "^(03|07|08|09|01[2-9])+([0-9]{8})$" : undefined}
         // {...register(id, { required })}
         className={clsx(
           `

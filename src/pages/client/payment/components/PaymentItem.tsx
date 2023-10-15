@@ -69,6 +69,7 @@ function PaymentItem() {
           borderWhite
           col={width < 680}
           id="email"
+          type="email"
           label="Email"
           register={register}
           errors={errors}
