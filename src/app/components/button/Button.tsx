@@ -21,6 +21,7 @@ function Button({
   size,
   fullWidth,
   highlight,
+  secondary,
   onClick,
   disabled,
   rounded,
@@ -57,9 +58,11 @@ function Button({
       `,
         fullWidth && "w-full",
         disabled && "opacity-50 cursor-default",
-        highlight
-          ? "bg-highlight"
-          : "bg-gradient-to-r from-gradientStart from-10% via-gradientMid via-50% to-gradientStop to-100%",
+        highlight && "bg-highlight",
+        secondary && "bg-borderColor",
+        !highlight &&
+          !secondary &&
+          "bg-gradient-to-r from-gradientStart from-10% via-gradientMid via-50% to-gradientStop to-100%",
         rounded ? "rounded" : "rounded-full",
         uppercase && "uppercase",
         borderWhite ? "border-[2px]" : "border-0",
