@@ -44,10 +44,8 @@ function BookingDesktopItem() {
         </div>
       </div>
       <div className="w-full relative border-t border-dashed border-borderColor">
-        {/* @ts-ignore */}
-        <div class="w-[34px] h-[34px] absolute rounded-full gradient-to-r top-[-18px] -left-12"></div>
-        {/* @ts-ignore */}
-        <div class="w-[34px] h-[34px] absolute rounded-full gradient-to-l top-[-18px] left-[calc(100%+14px)]"></div>
+        <div className="w-[34px] h-[34px] absolute rounded-full gradient-to-r top-[-18px] -left-12"></div>
+        <div className="w-[34px] h-[34px] absolute rounded-full gradient-to-l top-[-18px] left-[calc(100%+14px)]"></div>
       </div>
       <div className="w-full flex flex-col py-[15px]">
         <div className="flex flex-col">

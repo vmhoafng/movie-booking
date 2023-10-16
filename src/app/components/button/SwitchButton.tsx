@@ -11,7 +11,7 @@ function SwitchButton({ enabled, setEnabled }: SwitchButtonProps) {
       checked={enabled}
       onChange={setEnabled}
       className={`${
-        enabled ? "bg-highlight" : "bg-white/70"
+        enabled ? "bg-lightPrimary" : "bg-white/70"
       } relative inline-flex h-[25px] w-[50px] items-center rounded-full`}
     >
       <span className="sr-only">Enable notifications</span>
