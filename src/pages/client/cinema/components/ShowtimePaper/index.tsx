@@ -1,6 +1,5 @@
 import React from 'react';
 import Poster from '../../../../../app/components/Poster';
-import ShowtimeTime from '../../../../../app/components/ShowtimeTime';
 
 function ShowtimePaper() {
 	return (
@@ -27,9 +26,7 @@ function ShowtimePaper() {
 						<p className="text-[11px] md:text-[13px]">1hrs 42mins</p>
 					</div>
 				</div>
-				<div className="flex  flex-wrap items-start gap-[10px] ">
-					<ShowtimeTime to="home" time="22:00" />
-				</div>
+				<div className="flex  flex-wrap items-start gap-[10px] "></div>
 			</div>
 		</div>
 	);
