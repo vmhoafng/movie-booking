@@ -14,7 +14,7 @@ function Layout() {
       <MobileNavbar />
       <main className="h-full">
         <Suspense fallback={loading()}>
-          <Outlet />
+          <Outlet />z
         </Suspense>
       </main>
       <DesktopFooter />

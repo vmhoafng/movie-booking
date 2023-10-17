@@ -21,7 +21,7 @@ function AccountItem() {
     setIsLoading(true);
   };
   return (
-    <div className="w-[395px] md:w-[640px] lg:w-[344px] xl:w-[470px] 2xl:w-[550px] flex flex-col gap-[25px] py-10 lg:py-5">
+    <div className="w-full lg:w-[344px] xl:w-[470px] 2xl:w-[550px] flex flex-col gap-[25px] py-10 lg:py-5">
       <div className="flex flex-col gap-[10px]">
         <Input
           id="name"
@@ -32,7 +32,7 @@ function AccountItem() {
         />
         <div className="w-full flex gap-[10px] lg:flex-col xl:flex-row xl:gap-[30px] 2xl:gap-5">
           <Input
-            id="name"
+            id="date"
             label="Ngày sinh"
             type="date"
             col
@@ -41,7 +41,7 @@ function AccountItem() {
             endIcon="/assets/icons/twitter.svg"
           />
           <Input
-            id="name"
+            id="gender"
             label="Giới tính"
             col
             register={register}

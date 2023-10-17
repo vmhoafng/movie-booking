@@ -1,42 +1,42 @@
 import React from "react";
 import clsx from "clsx";
 interface ButtonProps {
-   type?: "button" | "submit" | "reset" | undefined;
-   fullWidth?: boolean;
-   rounded?: boolean;
-   children: React.ReactNode;
-   onClick?: () => void;
-   secondary?: boolean;
-   danger?: boolean;
-   disabled?: boolean;
-   highlight?: boolean;
-   uppercase?: boolean;
-   borderWhite?: boolean;
-   small?: boolean;
-   medium?: boolean;
-   large?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
+  fullWidth?: boolean;
+  rounded?: boolean;
+  children: React.ReactNode;
+  onClick?: () => void;
+  secondary?: boolean;
+  danger?: boolean;
+  disabled?: boolean;
+  highlight?: boolean;
+  uppercase?: boolean;
+  borderWhite?: boolean;
+  small?: boolean;
+  medium?: boolean;
+  large?: boolean;
 }
 function Button({
-   children,
-   type,
-   fullWidth,
-   highlight,
-   secondary,
-   onClick,
-   disabled,
-   rounded,
-   uppercase,
-   borderWhite,
-   small,
-   medium,
-   large,
+  children,
+  type,
+  fullWidth,
+  highlight,
+  secondary,
+  onClick,
+  disabled,
+  rounded,
+  uppercase,
+  borderWhite,
+  small,
+  medium,
+  large,
 }: ButtonProps) {
-   return (
-      <button
-         onClick={onClick}
-         type={type}
-         className={clsx(
-            `
+  return (
+    <button
+      onClick={onClick}
+      type={type}
+      className={clsx(
+        `
       flex
       justify-center
       py-2
@@ -54,31 +54,24 @@ function Button({
       duration-200
       shadow-[2px_2px_8px_0px_rgba(0,0,0,0.25)]
       `,
-            fullWidth && "w-full",
-            disabled && "opacity-50 cursor-default",
-            highlight && "bg-highlight",
-            secondary && "bg-borderColor",
-            !highlight &&
-               !secondary &&
-               "bg-gradient-to-r from-gradientStart from-10% via-gradientMid via-50% to-gradientStop to-100%",
-            rounded ? "rounded" : "rounded-full",
-            uppercase && "uppercase",
-            borderWhite ? "border-[2px]" : "border-0",
-            small && "px-5",
-            medium && "px-10",
-            large && "px-[66px]"
-         )}
-      >
-         <span
-            className="
-          [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
-          shadow-black/50
-          "
-         >
-            {children}
-         </span>
-      </button>
-   );
+        fullWidth && "w-full",
+        disabled && "opacity-50 cursor-default",
+        highlight && "bg-highlight",
+        secondary && "bg-borderColor",
+        !highlight &&
+          !secondary &&
+          "bg-gradient-to-r from-gradientStart from-10% via-gradientMid via-50% to-gradientStop to-100%",
+        rounded ? "rounded" : "rounded-full",
+        uppercase && "uppercase",
+        borderWhite ? "border-[2px]" : "border-0",
+        small && "px-5",
+        medium && "px-10",
+        large && "px-[66px]"
+      )}
+    >
+      {children}
+    </button>
+  );
 }
 
 export default Button;

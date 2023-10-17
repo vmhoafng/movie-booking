@@ -14,14 +14,7 @@ function BookingSubtitle({ children, highlight }: BookingSubTitleProps) {
         highlight ? "text-highlight" : "text-white/60"
       )}
     >
-      <span
-        className="
-        [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
-        shadow-black/50
-"
-      >
-        {children}
-      </span>
+      {children}
     </div>
   );
 }

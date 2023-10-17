@@ -29,22 +29,8 @@ function BookingMobileItem() {
           <BookingSubtitle>Phụ đề</BookingSubtitle>
         </div>
         <div className="flex flex-col items-end text-white text-sm md:text-[15px]  font-semibold leading-6">
-          <span
-            className="
-                  [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
-                  shadow-black/50
-          "
-          >
-            An Dương Vương | RAP 1
-          </span>
-          <span
-            className="
-                  [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
-                  shadow-black/50
-          "
-          >
-            15:30 | CN 17/09
-          </span>
+          <span>An Dương Vương | RAP 1</span>
+          <span>15:30 | CN 17/09</span>
         </div>
       </div>
       <div className="w-full border-t border-dashed border-borderColor" />
