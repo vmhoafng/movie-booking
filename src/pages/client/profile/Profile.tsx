@@ -12,8 +12,6 @@ export default function Profile() {
           xl:w-[960px]
           2xl:w-[1200px]
           md:mx-auto
-          px-[15px]
-          md:px-0
           flex
           flex-col
           justify-start

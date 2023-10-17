@@ -4,11 +4,7 @@ import PaymentItem from "./components/PaymentItem";
 export default function Payment() {
   return (
     <div
-      className=""
-      style={{ backgroundImage: `url('/assets/images/bg-01.jpg')` }}
-    >
-      <div
-        className="flex
+      className="flex
       flex-col
       lg:flex-row
       justify-center
@@ -20,12 +16,11 @@ export default function Payment() {
       gap-[10px]
       lg:gap-5
       2xl:gap-20
-      bg-bgPrimary/80"
-      >
-        <BookingMobileItem />
-        <PaymentItem />
-        <BookingDesktopItem />
-      </div>
+     "
+    >
+      <BookingMobileItem />
+      <PaymentItem />
+      <BookingDesktopItem />
     </div>
   );
 }
