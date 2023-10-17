@@ -20,7 +20,7 @@ function Layout({ backgroundImage }: LayoutProps) {
         className="object-cover"
         style={{ backgroundImage: backgroundImage }}
       >
-        <div className="bg-bgPrimary/80">
+        <div className={backgroundImage ? "bg-bgPrimary/80" : "bg-bgPrimary"}>
           <main className="h-full">
             <div className="container md:mx-auto">
               <Suspense fallback={loading()}>
