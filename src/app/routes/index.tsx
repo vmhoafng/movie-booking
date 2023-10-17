@@ -124,6 +124,7 @@ function AllRoutes() {
 			element: <Layout />,
 			children: [homeRoute, movieRoutes, cinemaRoutes],
 		},
+
 		{
 			path: '/',
 			element: <ProtectedRoute component={Layout} />,
