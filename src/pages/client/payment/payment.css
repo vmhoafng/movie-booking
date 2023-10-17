@@ -1,0 +1,8 @@
+.gradient-to-r {
+  background: transparent;
+  background: linear-gradient(90deg, transparent 50%, #021339 50%);
+}
+.gradient-to-l {
+  background: #021339;
+  background: linear-gradient(90deg, #021339 50%, transparent 50%);
+}
