@@ -7,7 +7,7 @@ function BookingMobileItem() {
   return (
     <div
       className="
-          bg-bgPrimaryLayer
+          bg-[#0A1E5ECC]
           lg:hidden
           flex
           flex-col

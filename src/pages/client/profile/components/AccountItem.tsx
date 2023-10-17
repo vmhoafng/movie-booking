@@ -33,14 +33,16 @@ function AccountItem() {
         <div className="w-full flex gap-[10px] lg:flex-col xl:flex-row xl:gap-[30px] 2xl:gap-5">
           <Input
             id="name"
-            label="Họ và Tên"
+            label="Ngày sinh"
+            type="date"
             col
             register={register}
             errors={errors}
+            endIcon="/assets/icons/twitter.svg"
           />
           <Input
             id="name"
-            label="Họ và Tên"
+            label="Giới tính"
             col
             register={register}
             errors={errors}

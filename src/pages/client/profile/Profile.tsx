@@ -16,7 +16,7 @@ export default function Profile() {
         items-center
         lg:items-start
         py-[50px]
-        bg-bgPrimary/90"
+        bg-bgPrimary/80"
       >
         <h2
           className="

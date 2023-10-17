@@ -7,7 +7,7 @@ function BookingDesktopItem() {
   return (
     <div
       className="
-          bg-bgPrimaryLayer
+          bg-[#0A1E5ECC]
           hidden
           lg:flex
           flex-col
