@@ -39,6 +39,8 @@ function Button({
         `
       flex
       justify-center
+      px-5
+      lg:px-10
       py-2
       mx-auto
       font-semibold
@@ -49,7 +51,7 @@ function Button({
       text-white
       shadow-black/25
       cursor-pointer
-      hover:opacity-90
+      lg:hover:opacity-90
       transition-all
       duration-200
       shadow-[2px_2px_8px_0px_rgba(0,0,0,0.25)]
@@ -64,7 +66,6 @@ function Button({
         rounded ? "rounded" : "rounded-full",
         uppercase && "uppercase",
         borderWhite ? "border-[2px]" : "border-0",
-        small && "px-5",
         medium && "px-10",
         large && "px-[66px]"
       )}

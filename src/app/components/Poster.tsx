@@ -50,7 +50,7 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
             duration-100
             ease-linear
             opacity-0
-            group-hover:opacity-100
+            lg:group-hover:opacity-100
             "
             >
                <Button
@@ -86,12 +86,12 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
           duration-100
           ease-linear
           opacity-0
-          group-hover:opacity-100
+          lg:group-hover:opacity-100
         "
             ></div>
             <div
                className={clsx(
-                  "uppercase text-white font-bold transition-all duration-100 ease-linear group-hover:px-[10px] truncate",
+                  "uppercase text-white font-bold transition-all duration-100 ease-linear lg:group-hover:px-[10px] truncate",
                   horizontal && "text-[15px] xl:text-base"
                )}
             >
@@ -99,7 +99,7 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
             </div>
             <div
                className={clsx(
-                  "uppercase text-white/60 font-bold transition-all duration-100 ease-linear group-hover:px-[10px]",
+                  "uppercase text-white/60 font-bold transition-all duration-100 ease-linear lg:group-hover:px-[10px]",
                   horizontal ? "text-xs xl:text-[13px]" : "text-sm "
                )}
             >
