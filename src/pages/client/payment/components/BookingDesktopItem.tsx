@@ -2,7 +2,6 @@ import React from "react";
 import Title from "./Title";
 import BookingTitle from "./BookingTitle";
 import BookingSubtitle from "./BookingSubtitle";
-import "../payment.css";
 function BookingDesktopItem() {
   return (
     <div

@@ -103,14 +103,7 @@ function PaymentItem() {
           Thanh toán
         </Button>
         <div className="text-lightPrimary font-semibold leading-6 cursor-pointer">
-          <span
-            className="
-                  [text-shadow:1px_1px_2px_var(--tw-shadow-color)]
-                  shadow-black/50
-          "
-          >
-            Quay lại
-          </span>
+          Quay lại
         </div>
       </div>
     </div>

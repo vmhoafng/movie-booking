@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import clsx from "clsx";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
@@ -28,6 +28,20 @@ const Input = ({
   col,
   endIcon,
 }: InputProps) => {
+  const handlePattern = (type: string) => {
+    let pattern = "";
+    switch (type) {
+      case "tel":
+        pattern = "^(03|07|08|09|01[2-9])+([0-9]{8})$";
+        break;
+      case "date":
+        pattern = "";
+        break;
+      default:
+        break;
+    }
+    return pattern;
+  };
   return (
     <div
       className={clsx(
@@ -60,9 +74,7 @@ const Input = ({
           type={type}
           disabled={disabled}
           placeholder={placeholder}
-          pattern={
-            type === "tel" ? "^(03|07|08|09|01[2-9])+([0-9]{8})$" : undefined
-          }
+          pattern={handlePattern(type!)}
           // {...register(id, { required })}
           className={clsx(
             `
@@ -83,6 +95,8 @@ const Input = ({
             autofill:bg-highlight
             autofill:text-primary
             focus:border-borderColor
+            relative
+            z-20
           `,
             // errors[id] && "focus:ring-rose-500",
             borderWhite && "border-white/50 focus:border-white/50",
@@ -90,9 +104,13 @@ const Input = ({
             col ? "h-10" : "h-[35px]"
           )}
         />
-        <div className="absolute w-full left-0 right-0 ml-0 mr-0">
-          <img src={endIcon} alt="" />
-        </div>
+        {endIcon && (
+          <button
+            className="select-none absolute flex items-center h-full right-[15px] top-0"
+          >
+            <img src={endIcon} alt="" className="w-5 h-5 drop-shadow-[0.5px_0.5px_1px_rgba(0,0,0,0.50)]" />
+          </button>
+        )}
       </div>
     </div>
   );
