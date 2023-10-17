@@ -53,7 +53,7 @@ const Input = ({
           {!col && ":"}
         </span>
       </label>
-      <div>
+      <div className="w-full">
         <input
           id={id}
           type={type}
