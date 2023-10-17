@@ -12,19 +12,24 @@ interface ButtonProps {
   highlight?: boolean;
   uppercase?: boolean;
   borderWhite?: boolean;
-  sm?: boolean;
+  small?: boolean;
+  medium?: boolean;
+  large?: boolean;
 }
 function Button({
   children,
   type,
   fullWidth,
   highlight,
+  secondary,
   onClick,
   disabled,
   rounded,
   uppercase,
   borderWhite,
-  sm,
+  small,
+  medium,
+  large,
 }: ButtonProps) {
   return (
     <button
@@ -44,27 +49,30 @@ function Button({
       focus-visible:outline-offset-2
       select-none
       text-white
-      shadow-lg
       shadow-black/25
       cursor-pointer
-      hover:opacity-90
+      lg:hover:opacity-90
       transition-all
       duration-200
+      shadow-[2px_2px_8px_0px_rgba(0,0,0,0.25)]
       `,
         fullWidth && "w-full",
         disabled && "opacity-50 cursor-default",
-        highlight
-          ? "bg-highlight"
-          : "bg-gradient-to-r from-gradientStart from-10% via-gradientMid via-50% to-gradientStop to-100%",
+        highlight && "bg-highlight",
+        secondary && "bg-borderColor",
+        !highlight &&
+          !secondary &&
+          "bg-gradient-to-r from-gradientStart from-10% via-gradientMid via-50% to-gradientStop to-100%",
         rounded ? "rounded" : "rounded-full",
         uppercase && "uppercase",
         borderWhite ? "border-[2px]" : "border-0",
-        sm && "px-5"
+        medium && "px-10",
+        large && "px-[66px]"
       )}
     >
       <span
         className="
-          [text-shadow:0.5px_0.5px_1px_var(--tw-shadow-color)]
+          [text-shadow:0.5px_0.5px_2px_var(--tw-shadow-color)]
           shadow-black/50
           "
       >
