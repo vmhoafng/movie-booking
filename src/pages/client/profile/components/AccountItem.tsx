@@ -66,7 +66,7 @@ function AccountItem() {
         />
       </div>
       <div className="hidden xl:block w-full border-t border-dashed border-borderColor" />
-      <Button lg secondary fullWidth={width > 900}>
+      <Button large secondary fullWidth={width > 900}>
         Cập nhật
       </Button>
     </div>

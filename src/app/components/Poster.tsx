@@ -58,8 +58,8 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
                   rounded
                   uppercase
                   borderWhite
-                  sm={horizontal}
-                  size="medium"
+                  small={horizontal}
+                  medium={!horizontal}
                >
                   buy ticket
                </Button>

@@ -49,7 +49,7 @@ function PasswordItem() {
         />
       </div>
       <div className="hidden xl:block w-full border-t border-dashed border-borderColor" />
-      <Button lg secondary fullWidth={width > 900}>
+      <Button large secondary fullWidth={width > 900}>
         Thay đổi
       </Button>
     </div>
