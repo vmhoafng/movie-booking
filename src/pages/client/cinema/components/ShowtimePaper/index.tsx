@@ -1,13 +1,6 @@
 import React from 'react';
 import Poster from '../../../../../app/components/Poster';
-
-function Time() {
-	return (
-		<div className="  text-center lg:h-[35px] xl:h-11 border rounded-[4px] text-xs md:text-[15px] max-lg:leading-[1.0625rem] md:px-5 md:py-3 py-1 px-[10px]">
-			21:00
-		</div>
-	);
-}
+import ShowtimeTime from '../../../../../app/components/ShowtimeTime';
 
 function ShowtimePaper() {
 	return (
@@ -24,27 +17,18 @@ function ShowtimePaper() {
 				<p className="text-[13px] uppercase text-white text-opacity-60">
 					Biệt đội đánh thuê
 				</p>
-				<div className="">
+				<div className="flex gap-2 ">
 					<div className="">
 						<i className="w-3 h-3">
 							<img src="./assets/icons/clock.svg" alt="" />
 						</i>
 					</div>
-					<p className="text-[11px] md:text-[13px]">1hrs 42mins</p>
+					<div className="">
+						<p className="text-[11px] md:text-[13px]">1hrs 42mins</p>
+					</div>
 				</div>
 				<div className="flex  flex-wrap items-start gap-[10px] ">
-					<Time />
-					<Time />
-					<Time />
-					<Time />
-					<Time />
-					<Time />
-					<Time />
-					<Time />
-					<Time />
-					<Time />
-					<Time />
-					<Time />
+					<ShowtimeTime to="home" time="22:00" />
 				</div>
 			</div>
 		</div>
