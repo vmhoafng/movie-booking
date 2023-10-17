@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { clsx } from "clsx";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
-import { log } from "console";
 
 interface InputProps {
    label: string;

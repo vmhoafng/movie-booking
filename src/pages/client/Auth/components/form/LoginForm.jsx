@@ -50,7 +50,7 @@ const LoginForm = () => {
             Quên mật khẩu?
          </span>
          <div>
-            <Button size="large" type="submit">
+            <Button lg type="submit">
                Đăng nhập
             </Button>
          </div>
