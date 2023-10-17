@@ -69,7 +69,14 @@ function Button({
         large && "px-[66px]"
       )}
     >
-      {children}
+      <span
+        className="
+          [text-shadow:0.5px_0.5px_2px_var(--tw-shadow-color)]
+          shadow-black/50
+          "
+      >
+        {children}
+      </span>
     </button>
   );
 }
