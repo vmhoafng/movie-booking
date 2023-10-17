@@ -33,8 +33,8 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
          >
             <Image
                horizontal={horizontal}
-               src={src || "assets/images/poster.png"}
-               alt={alt || "assets/images/poster.png"}
+               src={src || "/assets/images/poster.png"}
+               alt={alt || "/assets/images/poster.png"}
             />
             <div
                className="

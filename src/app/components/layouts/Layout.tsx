@@ -8,19 +8,19 @@ import { Outlet } from "react-router-dom";
 const loading = () => <div className=""></div>;
 
 function Layout() {
-  return (
-    <div className="h-full ">
-      <DesktopNavbar />
-      <MobileNavbar />
-      <main className="h-full">
-        <Suspense fallback={loading()}>
-          <Outlet />
-        </Suspense>
-      </main>
-      <DesktopFooter />
-      <MobileFooter />
-    </div>
-  );
+   return (
+      <div className="h-full ">
+         {/* <DesktopNavbar /> */}
+         {/* <MobileNavbar /> */}
+         <main className="h-full">
+            <Suspense fallback={loading()}>
+               <Outlet />
+            </Suspense>
+         </main>
+         <DesktopFooter />
+         <MobileFooter />
+      </div>
+   );
 }
 
 export default Layout;
