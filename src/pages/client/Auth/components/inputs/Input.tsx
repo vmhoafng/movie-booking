@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { clsx } from "clsx";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import { log } from "console";
 
 interface InputProps {
    label: string;
@@ -10,6 +11,8 @@ interface InputProps {
    register: UseFormRegister<FieldValues>;
    errors: FieldErrors;
    disabled?: boolean;
+   min?: string;
+   max?: string;
    placeholder?: string;
 }
 const Input: React.FC<InputProps> = ({
@@ -21,8 +24,12 @@ const Input: React.FC<InputProps> = ({
    errors,
    disabled,
    placeholder,
+   min,
+   max,
 }) => {
-   const [value, setValue] = useState("");
+   console.log(errors[id]);
+
+   // const [value, setValue] = useState("");
    return (
       <div id="auth" className="flex flex-col items-start gap-1">
          <label
@@ -30,17 +37,35 @@ const Input: React.FC<InputProps> = ({
             className="text-white/70 uppercase leading-8 text-[15px]"
          >
             {label}
-            {required && <span className="text-red-500">*</span>}
+            {required && (
+               <span className="text-red-500 text-sm lowercase">
+                  *
+                  {(() => {
+                     switch (errors[id]?.type) {
+                        case "required":
+                           return `Bắt buộc.`;
+                        case "email":
+                           return `Không đúng định dạng.`;
+                        case "min":
+                           return `Tối thiểu ${min} kí tự.`;
+                        case "max":
+                           return `Tối đa ${max} kí tự.`;
+                        default:
+                           return "";
+                     }
+                  })()}
+               </span>
+            )}
          </label>
          <input
             id={id}
             type={type}
             disabled={disabled}
             placeholder={placeholder}
-            value={value}
+            // value={value}
             autoComplete="off"
-            onChange={(e) => setValue(e.target.value)}
-            // {...register(id, { required })}
+            {...register(id)}
+            // onChange={(e) => setValue(e.target.value)}
             className={clsx(
                `
                block
@@ -55,11 +80,12 @@ const Input: React.FC<InputProps> = ({
                text-white
                border-0
                border-b
-               border-borderColor
                selection:bg-borderColor
                placeholder:text-borderColor
+               focus:ring-borderColor
+               focus:border-borderColor
                `,
-               // errors[id] && "focus:ring-rose-500",
+               errors[id]?.message ? "border-rose-500" : "border-borderColor",
                disabled && "opacity-50 cursor-default"
             )}
          />

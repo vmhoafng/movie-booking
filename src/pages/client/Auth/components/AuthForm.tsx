@@ -2,14 +2,10 @@
 // import { signIn, useSession } from "auth/react";
 import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
-
-import Input from "../components/inputs/Input";
-import Button from "../../../../app/components/button/Button";
-import { toast } from "react-hot-toast";
 import LoadingAnimation from "../../../../app/components/loading/LoadingAnimation";
 import AuthSocialButton from "../../../../app/components/button/AuthSocialButton";
+import LoginForm from "./form/LoginForm";
+import RegisterForm from "./form/RegisterForm";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -47,16 +43,6 @@ type Variant = "LOGIN" | "REGISTER";
 //       [validationSchema]
 //    );
 // };
-
-const validationSchema = yup.object().shape({
-   fullname: yup.string().required(),
-   email: yup.string().email().required(),
-   password: yup.string().min(6).required(),
-   confirmPassword: yup
-      .string()
-      .oneOf([yup.ref("password")])
-      .required(),
-});
 
 const AuthForm = () => {
    // const session = useSession();
@@ -165,65 +151,8 @@ const AuthForm = () => {
                   </div>
                </h2>
             </div>
-            <form
-               className="w-full space-y-6"
-               onSubmit={handleSubmit(onSubmit)}
-            >
-               {variant === "REGISTER" && (
-                  <Input
-                     disabled={isLoading}
-                     register={register}
-                     errors={errors}
-                     required
-                     id="fullname"
-                     label="Họ tên"
-                     placeholder="Enter your name"
-                  />
-               )}
-               <Input
-                  disabled={isLoading}
-                  register={register}
-                  errors={errors}
-                  required
-                  id="email"
-                  label="Email"
-                  type="email"
-                  placeholder="example@gmail.com"
-               />
-               <Input
-                  disabled={isLoading}
-                  register={register}
-                  errors={errors}
-                  required
-                  id="password"
-                  label="Mật khẩu"
-                  type="password"
-                  placeholder="Password"
-               />
-               {variant === "REGISTER" && (
-                  <Input
-                     disabled={isLoading}
-                     register={register}
-                     errors={errors}
-                     required
-                     id="confirmPassword"
-                     label="Xác nhận mật khẩu"
-                     type="password"
-                     placeholder="Password"
-                  />
-               )}
-            </form>
-            {variant === "LOGIN" && (
-               <span className="block w-full mt-4 text-right text-sm text-borderColor hover:cursor-pointer hover:text-lightPrimary transition-colors duration-200">
-                  Quên mật khẩu?
-               </span>
-            )}
+            {variant === "LOGIN" ? <LoginForm /> : <RegisterForm />}
             <div className="flex flex-col gap-8 justify-center items-center text-sm mt-8 px-2 text-white/90">
-               <div>
-                  <Button disabled={isLoading} size="large" type="submit">
-                     {variant === "LOGIN" ? "Đăng nhập" : "Đăng kí"}
-                  </Button>
-               </div>
                <div className="flex gap-2">
                   <div>
                      {variant === "LOGIN"
