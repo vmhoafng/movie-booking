@@ -47,7 +47,6 @@ function Button({
       focus-visible:outline-offset-2
       select-none
       text-white
-      text-lg
       shadow-black/25
       cursor-pointer
       hover:opacity-90
