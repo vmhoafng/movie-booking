@@ -131,16 +131,20 @@ function AllRoutes() {
     },
     {
       path: "/",
-      element: <ProtectedRoute component={Layout} />,
-      children: [profileRoutes, ticketRoute],
+      element: <ProtectedRoute component={Layout} backgroundImage="bg-01.jpg" />,
+      children: [ticketRoute],
     },
     {
       path: "/",
       element: (
-        <ProtectedRoute
-          component={Layout}
-          backgroundImage="bg-03.jpg"
-        />
+        <ProtectedRoute component={Layout} backgroundImage="bg-03.jpg" />
+      ),
+      children: [profileRoutes],
+    },
+    {
+      path: "/",
+      element: (
+        <ProtectedRoute component={Layout} backgroundImage="bg-04.jpg" />
       ),
       children: [paymentRoute],
     },
