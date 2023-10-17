@@ -38,6 +38,7 @@ function AccountItem() {
             col
             register={register}
             errors={errors}
+            endIcon="/assets/icons/twitter.svg"
           />
           <Input
             id="name"

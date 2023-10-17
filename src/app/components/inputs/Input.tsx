@@ -26,6 +26,7 @@ const Input = ({
   placeholder,
   borderWhite,
   col,
+  endIcon,
 }: InputProps) => {
   return (
     <div
@@ -53,7 +54,7 @@ const Input = ({
           {!col && ":"}
         </span>
       </label>
-      <div className="w-full">
+      <div className="w-full relative">
         <input
           id={id}
           type={type}
@@ -89,6 +90,9 @@ const Input = ({
             col ? "h-10" : "h-[35px]"
           )}
         />
+        <div className="absolute w-full left-0 right-0 ml-0 mr-0">
+          <img src={endIcon} alt="" />
+        </div>
       </div>
     </div>
   );

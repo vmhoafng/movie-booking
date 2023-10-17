@@ -1,5 +1,5 @@
 /* Input.tsx date */
-input [type="date"]::-webkit-calendar-picker-indicator {
+input[type="date"]::-webkit-calendar-picker-indicator {
   background: transparent;
   bottom: 0;
   color: transparent;
