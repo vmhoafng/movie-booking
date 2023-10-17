@@ -78,7 +78,7 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
             <div
                className="
           absolute 
-          bg-white/60
+          bg-white/10
           h-full
           w-full
           top-0
