@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       colors: {
         bgPrimary: "#001232", // background of container
-        bgPrimaryLayer: "#0A1E5ECC", //rgba(0, 18, 50, 0.8) layer of image background
+        bgPrimaryLayer: "rgba(0, 18, 50, 0.8)", //#0A1E5ECC layer of image background
         bgPrimaryBar: "rgba(5, 17, 63, 0.8)", // header, navbar, footer, sidebar
         lightPrimary: "#31AFD7", // toggle button, more icon
         borderColor: "#314C81", // button background, border
@@ -17,7 +17,6 @@ module.exports = {
         gradientStop: "#002DBB",
       },
       fontFamily: {
-        body: ['"Comfortaa"'],
         comfortaa: ['"Comfortaa"', ...defaultTheme.fontFamily.sans],
         inter: ['"Inter"', ...defaultTheme.fontFamily.sans],
       },

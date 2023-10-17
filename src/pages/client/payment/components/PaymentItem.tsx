@@ -27,7 +27,7 @@ function PaymentItem() {
   return (
     <div
       className="
-         bg-bgPrimaryLayer
+         bg-[#0A1E5ECC]
          flex
          flex-col
          items-center

@@ -1,0 +1,22 @@
+/* Input.tsx date */
+input [type="date"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+}
+/* Payment.tsx */
+.gradient-to-r {
+  background: transparent;
+  background: linear-gradient(90deg, transparent 50%, #021339 50%);
+}
+.gradient-to-l {
+  background: #021339;
+  background: linear-gradient(90deg, #021339 50%, transparent 50%);
+}

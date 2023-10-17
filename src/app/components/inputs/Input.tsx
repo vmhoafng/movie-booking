@@ -13,6 +13,7 @@ interface InputProps {
   placeholder?: string;
   borderWhite?: boolean;
   col?: boolean;
+  endIcon?: string;
 }
 const Input = ({
   label,
@@ -52,15 +53,18 @@ const Input = ({
           {!col && ":"}
         </span>
       </label>
-      <input
-        id={id}
-        type={type}
-        disabled={disabled}
-        placeholder={placeholder}
-        pattern={type === "tel" ? "^(03|07|08|09|01[2-9])+([0-9]{8})$" : undefined}
-        // {...register(id, { required })}
-        className={clsx(
-          `
+      <div>
+        <input
+          id={id}
+          type={type}
+          disabled={disabled}
+          placeholder={placeholder}
+          pattern={
+            type === "tel" ? "^(03|07|08|09|01[2-9])+([0-9]{8})$" : undefined
+          }
+          // {...register(id, { required })}
+          className={clsx(
+            `
             form-input
             block
             w-full
@@ -79,12 +83,13 @@ const Input = ({
             autofill:text-primary
             focus:border-borderColor
           `,
-          // errors[id] && "focus:ring-rose-500",
-          borderWhite && "border-white/50 focus:border-white/50",
-          disabled && "opacity-50 cursor-default",
-          col ? "h-10" : "h-[35px]"
-        )}
-      />
+            // errors[id] && "focus:ring-rose-500",
+            borderWhite && "border-white/50 focus:border-white/50",
+            disabled && "opacity-50 cursor-default",
+            col ? "h-10" : "h-[35px]"
+          )}
+        />
+      </div>
     </div>
   );
 };
