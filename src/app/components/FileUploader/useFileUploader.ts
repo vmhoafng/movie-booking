@@ -1,7 +1,10 @@
 import { useCallback, useState } from 'react';
 import { TFile } from './FileUpload.type';
 
-export default function useFileUploader(showPreview: boolean = true) {
+export default function useFileUploader(
+	showPreview: boolean = true,
+	maxFiles: number = 8
+) {
 	const [selectedFiles, setSelectedFiles] = useState<TFile[]>([]);
 
 	/**
