@@ -31,7 +31,7 @@ function PaymentItem() {
          flex
          flex-col
          items-center
-         w-[360px]
+         w-full
          md:w-[640px]
          lg:w-[520px]
          xl:w-[660px]

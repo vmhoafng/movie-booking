@@ -23,7 +23,7 @@ export const PATHS = {
 		DETAIL: `${ROUTE_PARAMS.MOVIE_ID}`,
 	},
 	CINEMA: {
-		IDENTITY: 'cinemas',
+		IDENTITY: 'cinema',
 		LIST: '',
 	},
 	PROFILE: {

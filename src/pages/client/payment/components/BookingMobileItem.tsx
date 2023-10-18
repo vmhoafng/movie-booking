@@ -12,7 +12,7 @@ function BookingMobileItem() {
           flex
           flex-col
           items-center
-          w-[360px]
+          w-full
           md:w-[640px]
           px-5
           md:px-10
