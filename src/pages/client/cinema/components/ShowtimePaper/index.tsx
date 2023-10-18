@@ -3,7 +3,7 @@ import Poster from '../../../../../app/components/Poster';
 
 function ShowtimePaper() {
 	return (
-		<div className="bg-bgPrimary flex gap-5 pt-5 pb-5">
+		<div className="  last:border-b-0 border-b-[1px] flex gap-5 pt-5 pb-5">
 			<div className=" w-[9.375rem] md:w-[13.75rem] flex-[0_0_30%] ">
 				<img
 					className=" w-full"

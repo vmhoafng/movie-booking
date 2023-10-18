@@ -5,6 +5,8 @@ import SelectInput, {
 } from '../../../../../app/components/inputs/SelectInput';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useSearchParams } from 'react-router-dom';
+import Title from '../../../../../app/components/Title';
+import Input from '../../../../../app/components/inputs/Input';
 
 function Showtimes() {
 	const options: SelectOption[] = [
@@ -34,19 +36,20 @@ function Showtimes() {
 			<h3 className=" inline-block border-b-2 border-highlight md:text-[18px] ">
 				LỊCH CHIẾU
 			</h3>
-			<div className="flex w-full lg:flex-row flex-col">
+			{/* <Title active>LỊCH CHIẾU</Title> */}
+			<div className="flex w-full mt-[25px] lg:flex-row flex-col">
 				<SelectInput
 					options={options}
 					placeholder="Chọn rạp"
-					inputClassName="flex-1"
+					inputClassName="flex-[0_0_50%]"
 					value={cinema}
 					//@ts-ignore
 					endIcon={ChevronDownIcon}
-					onChange={handleOnChange}
+					// onChange={handleOnChange}
 				/>
-				<div className="">input</div>
+				{/* <Input type="date" label="" /> */}
 			</div>
-			<div className="flex flex-[0_0_41.25rem] flex-col bg-lightPrimary gap-[1px] ">
+			<div className="flex flex-col gap-[1px] ">
 				<ShowtimePaper />
 				<ShowtimePaper />
 				<ShowtimePaper />

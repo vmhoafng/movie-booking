@@ -4,7 +4,7 @@ import CinemaDetail from './components/CinemaDetail';
 
 function Cinema() {
 	return (
-		<div className=" bg-bgPrimary text-white flex flex-col border xl:flex-row xl:gap-10  ">
+		<div className=" text-white flex flex-col  xl:flex-row xl:gap-10  ">
 			<Showtimes />
 			<CinemaDetail />
 		</div>
