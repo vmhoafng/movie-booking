@@ -6,6 +6,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Layout from '../components/layouts/Layout';
 import { PATHS } from '../constants/path';
 import LoadingAnimation from '../components/loading/LoadingAnimation';
+import AdminLayout from '../components/layouts/AdminLayout';
 
 //Lazy loading pages
 
@@ -31,8 +32,23 @@ const payment = React.lazy(() => import('../../pages/client/payment/Payment'));
 const tickets = React.lazy(
 	() => import('../../pages/client/seatPlan/SeatPlan')
 );
-//
+//Admin -
 
+//Movie
+const movieListAdmin = React.lazy(
+	() => import('../../pages/admin/Movies/List/MovieList')
+);
+
+//Cinema
+
+const cinemaListAdmin = React.lazy(
+	() => import('../../pages/admin/Cinemas/List')
+);
+const cinemaDetailAdmin = React.lazy(
+	() => import('../../pages/admin/Cinemas/Detail')
+);
+
+//Loading
 const loading = () => <LoadingAnimation />;
 
 type LoadComponentProps = {
@@ -117,6 +133,31 @@ const ticketRoute = {
 	],
 };
 
+//Admin
+const movieManageRoutes = {
+	path: PATHS.ADMIN.MOVIES.IDENTITY,
+	children: [
+		{
+			path: PATHS.ADMIN.MOVIES.LIST,
+			element: <LoadComponent component={movieListAdmin} />,
+		},
+	],
+};
+
+const cinemaManageRoutes = {
+	path: PATHS.ADMIN.CINEMA.IDENTITY,
+	children: [
+		{
+			path: PATHS.ADMIN.CINEMA.LIST,
+			element: <LoadComponent component={cinemaListAdmin} />,
+		},
+		{
+			path: PATHS.ADMIN.CINEMA.DETAIL,
+			element: <LoadComponent component={cinemaDetailAdmin} />,
+		},
+	],
+};
+
 function AllRoutes() {
 	return useRoutes([
 		authRoute,
@@ -135,6 +176,7 @@ function AllRoutes() {
 			element: (
 				<ProtectedRoute component={Layout} backgroundImage="bg-01.jpg" />
 			),
+
 			children: [ticketRoute],
 		},
 		{
@@ -152,14 +194,11 @@ function AllRoutes() {
 			children: [paymentRoute],
 		},
 		{
-			path: '/',
+			path: PATHS.ADMIN.IDENTITY,
 			// element: <ProtectedRoute />,
-			element: <ProtectedRoute role={'Admin'} component={Layout} />,
-			children: [],
-			// children: [ {
-			// 	path: 'dashboard',
-			//	element :<LoadComponent component={Dashboard}/>,
-			// }],
+			// element: <ProtectedRoute role={'Admin'} component={AdminLayout} />,
+			element: <ProtectedRoute component={AdminLayout} />,
+			children: [movieManageRoutes, cinemaManageRoutes],
 		},
 	]);
 }
