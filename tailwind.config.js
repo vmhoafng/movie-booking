@@ -13,6 +13,7 @@ module.exports = {
         gradientStart: "rgba(255, 67, 67, 0.85)",
         gradientMid: " #AA52A1",
         gradientStop: "#002DBB",
+        textinf: "rgba(255, 255, 255, 0.60)",
       },
     },
   },
