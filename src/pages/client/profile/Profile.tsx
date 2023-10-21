@@ -1,16 +1,12 @@
 import { useState } from "react";
 import AccountItem from "./components/AccountItem";
 import PasswordItem from "./components/PasswordItem";
-
+import CurrencyHistoryItem from "./components/CurrencyHistoryItem";
 export default function Profile() {
   return (
     <div
       className="
           w-full
-          md:w-[640px]
-          lg:w-[790px]
-          xl:w-[960px]
-          2xl:w-[1200px]
           md:mx-auto
           flex
           flex-col
@@ -20,20 +16,28 @@ export default function Profile() {
           py-[50px]
          "
     >
-      <h2
+      <div
         className="
+              flex
+              justify-between
               w-full
               border-b-[2px]
-              border-borderColor
+              border-borderColor"
+      >
+        <h2
+          className="
               font-bold
               uppercase
               text-white
               2xl:text-xl
-              text-left
-              mx-auto"
-      >
-        Thông tin Tài khoản
-      </h2>
+              text-left"
+        >
+          Thông tin Tài khoản
+        </h2>
+        <div className="relative">
+          <CurrencyHistoryItem />
+        </div>
+      </div>
       <div
         className="
             w-full
