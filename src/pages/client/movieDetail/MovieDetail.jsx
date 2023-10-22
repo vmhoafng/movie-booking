@@ -8,8 +8,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import Poster from "../../../app/components/Poster";
-import useWindowDimensions from "../../../app/hooks/useWindowDimensions";
+import Poster from "@/app/components/Poster";
+import useWindowDimensions from "@/app/hooks/useWindowDimensions";
 // import Swiper from "swiper";
 
 const showtime = [
