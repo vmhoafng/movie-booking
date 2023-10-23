@@ -1,4 +1,11 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, {
+	AxiosInstance,
+	AxiosResponse,
+	AxiosRequestConfig,
+	AxiosError,
+} from 'axios';
+import { error } from 'console';
+import authUtils from '../auth';
 
 const instance: AxiosInstance = axios.create({
 	baseURL:
@@ -8,12 +15,56 @@ const instance: AxiosInstance = axios.create({
 	timeout: 30000,
 });
 
+instance.interceptors.response.use(
+	(response) => {
+		return response;
+	},
+	(error: any) => {
+		let message: string;
+
+		switch (error.response!.status) {
+			case 401:
+				message = 'Invalid credentials';
+				break;
+			case 403:
+				message = 'Access forbidden';
+				break;
+			case 404:
+				message = `Something bad happened :'(`;
+				break;
+
+			default: {
+				message =
+					error.response && error.response.data
+						? error.response.data.message
+						: error.message || error;
+			}
+		}
+		return Promise.reject(message);
+	}
+);
+
+const controller = new AbortController();
+
 export const Axios = {
 	axiosGet: (
 		endpoint: string,
 		params?: AxiosRequestConfig
 	): Promise<AxiosResponse> => {
 		return instance.get(endpoint, params);
+	},
+
+	axiosGetWithToken: (
+		endpoint: string,
+		params?: AxiosRequestConfig
+	): Promise<AxiosResponse> => {
+		return instance.get(endpoint, {
+			headers: {
+				Authorization: 'Bearer ' + authUtils.getSessionToken(),
+			},
+
+			...params,
+		});
 	},
 
 	axiosPost: (
