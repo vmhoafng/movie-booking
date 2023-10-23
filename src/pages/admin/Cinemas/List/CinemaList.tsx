@@ -4,7 +4,7 @@ import SwitchButton from '../../../../app/components/button/SwitchButton';
 
 function CinemaList() {
 	return (
-		<div>
+		<>
 			<Table
 				header={[
 					'Ảnh',
@@ -15,7 +15,7 @@ function CinemaList() {
 					'Ngày sinh',
 					'Điểm',
 					'Kích hoạt',
-					'Tác  vụ',
+					'Tác vụ',
 				]}
 				row={(row) => {
 					return (
@@ -43,7 +43,11 @@ function CinemaList() {
 								<span>30/10/2003</span>
 							</div>
 							<div className="py-3">
-								<span>1000</span>
+								<span>
+									<button onClick={() => console.log(row.phone_number)}>
+										test
+									</button>
+								</span>
 							</div>
 							<div className="py-3">
 								<SwitchButton
@@ -81,7 +85,7 @@ function CinemaList() {
 					},
 				]}
 			/>
-		</div>
+		</>
 	);
 }
 

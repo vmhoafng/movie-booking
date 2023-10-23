@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useDebounce } from '../../../hooks';
 
 export default function useSearchTopbar() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [searchValue, setSearchValue] = useState<string>('');
 	const debouncedValue = useDebounce(searchValue);
-
+	const location = useLocation();
 	const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchValue(e.target.value);
 	};
 
 	useEffect(() => {
-		setSearchParams(searchValue ? { q: searchValue } : {});
+		setSearchValue(() => '');
+	}, [location.pathname]);
+
+	useEffect(() => {
+		setSearchParams(searchValue && { ...searchParams, q: searchValue });
 	}, [debouncedValue]);
 
-	return { handleOnChange, searchParams };
+	return { handleOnChange, searchParams, setSearchParams, searchValue };
 }
