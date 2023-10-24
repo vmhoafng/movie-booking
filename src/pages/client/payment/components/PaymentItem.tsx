@@ -1,31 +1,39 @@
 import React, { useState } from "react";
 import Title from "./Title";
-import Input from "../../../../app/components/inputs/Input";
+import Input from "@/app/components/inputs/Input";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
-import Button from "../../../../app/components/button/Button";
-import SwitchButton from "../../../../app/components/button/SwitchButton";
-import useWindowDimensions from "../../../../app/hooks/useWindowDimensions";
+import Button from "@/app/components/button/Button";
+import SwitchButton from "@/app/components/button/SwitchButton";
+import useWindowDimensions from "@/app/hooks/useWindowDimensions";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 function PaymentItem() {
   const { width } = useWindowDimensions();
   const [enabled, setEnabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const validationSchema = yup.object().shape({
+    payment: yup.string().required(),
+    email: yup.string().email().required(),
+    name: yup.string().required(),
+    phoneNumber: yup.number().required(),
+    // password: yup.string().required().min(6),
+    // confirmPassword: yup.string().oneOf([yup.ref("password")]),
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
+    resolver: yupResolver<FieldValues>(validationSchema),
   });
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
+    console.log(data);
   };
-
   return (
-    <div
+    <form
       className="
          bg-[#0A1E5ECC]
          flex
@@ -45,6 +53,7 @@ function PaymentItem() {
          border
          border-borderColor
          shadow-[4px_4px_30px_0px_rgba(0,0,0,0.50)]"
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Title>Payment</Title>
       <div className="w-full border-t border-dashed border-borderColor" />
@@ -99,14 +108,14 @@ function PaymentItem() {
         <div className="w-full text-white/50 font-semibold text-[13px] leading-6">
           *Vui lòng kiểm tra thông tin trước khi thanh toán.
         </div>
-        <Button highlight fullWidth>
+        <Button highlight fullWidth type="submit">
           Thanh toán
         </Button>
         <div className="text-lightPrimary font-semibold leading-6 cursor-pointer">
           Quay lại
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 

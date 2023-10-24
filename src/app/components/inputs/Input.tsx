@@ -7,8 +7,8 @@ interface InputProps {
   id: string;
   type?: string;
   required?: boolean;
-  register: UseFormRegister<FieldValues>;
-  errors: FieldErrors;
+  register?: UseFormRegister<FieldValues>;
+  errors?: FieldErrors;
   disabled?: boolean;
   placeholder?: string;
   borderWhite?: boolean;
@@ -38,6 +38,7 @@ const Input = ({
         pattern = "";
         break;
       default:
+        pattern = "";
         break;
     }
     return pattern;
@@ -74,8 +75,9 @@ const Input = ({
           type={type}
           disabled={disabled}
           placeholder={placeholder}
-          pattern={handlePattern(type!)}
-          // {...register(id, { required })}
+          autoComplete="off"
+          //@ts-ignore
+          {...register(id, { required })}
           className={clsx(
             `
             form-input
@@ -98,17 +100,19 @@ const Input = ({
             relative
             z-20
           `,
-            // errors[id] && "focus:ring-rose-500",
+            errors?.[id] && "focus:ring-rose-500",
             borderWhite && "border-white/50 focus:border-white/50",
             disabled && "opacity-50 cursor-default",
             col ? "h-10" : "h-[35px]"
           )}
         />
         {endIcon && (
-          <button
-            className="select-none absolute flex items-center h-full right-[15px] top-0"
-          >
-            <img src={endIcon} alt="" className="w-5 h-5 drop-shadow-[0.5px_0.5px_1px_rgba(0,0,0,0.50)]" />
+          <button className="select-none absolute flex items-center h-full right-[15px] top-0">
+            <img
+              src={endIcon}
+              alt=""
+              className="w-5 h-5 drop-shadow-[0.5px_0.5px_1px_rgba(0,0,0,0.50)]"
+            />
           </button>
         )}
       </div>

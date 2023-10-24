@@ -56,7 +56,7 @@ function BookingDesktopItem() {
       <div className="w-full py-[15px]">
         <div className="flex items-center justify-between">
           <BookingTitle>Tổng</BookingTitle>
-          <BookingSubtitle highlight>270.000 VND</BookingSubtitle>
+          <BookingTitle highlight>270.000 VND</BookingTitle>
         </div>
       </div>
     </div>

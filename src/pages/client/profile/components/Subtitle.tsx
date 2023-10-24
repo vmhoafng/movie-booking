@@ -7,7 +7,7 @@ interface BookingSubTitleProps {
 
 function BookingSubtitle({ children }: BookingSubTitleProps) {
   return (
-    <div className={clsx(`uppercase text-sm leading-6 text-white/60`)}>
+    <div className={clsx(`text-sm md:leading-6 truncate text-white/60`)}>
       {children}
     </div>
   );

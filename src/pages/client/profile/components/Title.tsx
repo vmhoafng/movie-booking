@@ -10,8 +10,8 @@ function BookingTitle({ children, highlight }: BookingTitleProps) {
   return (
     <h3
       className={clsx(
-        `uppercase text-sm leading-6 font-semibold `,
-        highlight ? "text-highlight" : "text-white/90"
+        `font-bold text-sm md:leading-6 uppercase`,
+        highlight ? "text-highlight" : "text-white/90 "
       )}
     >
       {children}

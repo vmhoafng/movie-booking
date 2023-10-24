@@ -48,7 +48,7 @@ function BookingMobileItem() {
       <div className="w-full py-[10px]">
         <div className="flex items-center justify-between text-sm md:text-[16px] ">
           <BookingTitle>Tổng</BookingTitle>
-          <BookingSubtitle highlight>270.000 VND</BookingSubtitle>
+          <BookingTitle highlight>270.000 VND</BookingTitle>
         </div>
       </div>
     </div>
