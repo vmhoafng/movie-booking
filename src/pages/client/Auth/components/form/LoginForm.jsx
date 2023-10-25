@@ -1,13 +1,13 @@
 import React from "react";
 import Input from "../inputs/Input";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Button from "../../../../../app/components/button/Button";
 
 const validationSchema = yup.object().shape({
-   email: yup.string().email().required(),
-   password: yup.string().required().min(6),
+   email: yup.string().email("không đúng định dạng.").required("bắt buộc."),
+   password: yup.string().required("bắt buộc.").min(6),
 });
 
 const LoginForm = () => {
@@ -50,7 +50,7 @@ const LoginForm = () => {
             Quên mật khẩu?
          </span>
          <div>
-            <Button lg type="submit">
+            <Button large type="submit">
                Đăng nhập
             </Button>
          </div>

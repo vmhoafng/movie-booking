@@ -8,8 +8,8 @@ const ShowTimeBoard = ({ times, cinema }) => {
             {cinema}
          </h2>
          <div className="flex flex-wrap gap-2">
-            {times.map((time) => {
-               return <ScheduleButton time={time} to="/payment"/>;
+            {times?.map((time) => {
+               return <ScheduleButton time={time?.start_time} to="/payment" />;
             })}
          </div>
       </div>
