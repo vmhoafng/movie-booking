@@ -1,6 +1,7 @@
 import React from "react";
 import { clsx } from "clsx";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import { error } from "console";
 
 interface InputProps {
    label: string;
@@ -26,7 +27,7 @@ const Input: React.FC<InputProps> = ({
    min,
    max,
 }) => {
-   console.log(errors[id]);
+   // console.log(errors[id]);
 
    // const [value, setValue] = useState("");
    return (
@@ -38,21 +39,7 @@ const Input: React.FC<InputProps> = ({
             {label}
             {required && (
                <span className="text-red-500 text-sm lowercase">
-                  *
-                  {(() => {
-                     switch (errors[id]?.type) {
-                        case "required":
-                           return `Bắt buộc.`;
-                        case "email":
-                           return `Không đúng định dạng.`;
-                        case "min":
-                           return `Tối thiểu ${min} kí tự.`;
-                        case "max":
-                           return `Tối đa ${max} kí tự.`;
-                        default:
-                           return "";
-                     }
-                  })()}
+                  * {errors[id]?.message?.toString()}
                </span>
             )}
          </label>
