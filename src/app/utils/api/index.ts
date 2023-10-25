@@ -44,8 +44,6 @@ instance.interceptors.response.use(
 	}
 );
 
-const controller = new AbortController();
-
 export const Axios = {
 	axiosGet: (
 		endpoint: string,

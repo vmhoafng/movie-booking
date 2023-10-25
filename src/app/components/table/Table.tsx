@@ -1,9 +1,7 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback } from 'react';
 import { PaginationButtonProps, TableProps } from './Table.type';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
-import useSearchTopbar from '../inputs/SearchTopbar/useSearchTopbar';
 import useWindowDimensions from '@/app/hooks/useWindowDimensions';
-import { number } from 'yup';
 import useTable from './useTable';
 
 function PaginationButton({
@@ -25,7 +23,16 @@ function PaginationButton({
 	);
 }
 
-function Table({ header, row, initialState, handleOnChangePage }: TableProps) {
+const loading = () => (
+	<div className="">
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae consectetur,
+		rerum quibusdam officia odit quasi possimus. Omnis repellendus quidem rem
+		dolor excepturi molestias, officiis veritatis dolorum hic praesentium quae
+		obcaecati!.
+	</div>
+);
+
+function Table({ header, row, handleOnChangePage }: TableProps) {
 	const {
 		handleNext,
 		handlePrev,
@@ -33,15 +40,37 @@ function Table({ header, row, initialState, handleOnChangePage }: TableProps) {
 		data,
 		isOnFirstPage,
 		isOnLastPage,
-	} = useTable(initialState);
+		totalPages,
+	} = useTable();
 
 	const { width } = useWindowDimensions();
 	const isLaptop = width <= 1450;
 
 	const DataRow = useCallback(() => {
+		if (!data.length) {
+			// eslint-disable-next-line no-lone-blocks
+
+			return (
+				<>
+					{Array(7)
+						.fill(0)
+						.map((_, i) => {
+							return (
+								<div
+									key={`loading-${i}`}
+									className="w-[1150px] col-span-full  mb-4.5"
+								>
+									<div className=" animate-pulse h-2.5 w-full rounded-full bg-gray-500"></div>
+								</div>
+							);
+						})}
+				</>
+			);
+		}
+
 		return (
 			<div className={`contents  text-[15px]"`}>
-				{(data || []).map((obj, index: number) => {
+				{data.map((obj, index: number) => {
 					return (
 						<div
 							className={`${
@@ -63,7 +92,7 @@ function Table({ header, row, initialState, handleOnChangePage }: TableProps) {
 		<div
 			className={`w-full px-6 ${
 				isLaptop ? 'flex flex-row flex-wrap' : 'grid'
-			}  gap-x-9 items-center justify-center bg-[#021339] border-borderColor border rounded`}
+			}  gap-x-9 gap-y-3 items-center justify-center bg-[#021339] border-borderColor border rounded`}
 			style={{
 				...(!isLaptop && {
 					gridTemplateColumns: `repeat(${header.length},max-content)`,
@@ -73,23 +102,23 @@ function Table({ header, row, initialState, handleOnChangePage }: TableProps) {
 			<div className={`${isLaptop ? 'hidden' : 'contents'}  text-[15px]"`}>
 				{header.map((item) => {
 					return (
-						<div key={`header-${item}`} className="py-[10px] ">
+						<div key={`header-${item}`} className="py-[15px] ">
 							{item}
 						</div>
 					);
 				})}
 			</div>
-			{DataRow()}
-			<div className="flex items-center border-t justify-between col-span-full py-5">
+			<DataRow />
+			<div className="flex flex-[0_0_100%] items-center border-t justify-between col-span-full py-5">
 				<div>
 					<p className="p-[10px]">Showing 1 to 5 of 5 users</p>
 				</div>
-				<div className="flex items-center justify-center gap-2">
+				<div className="flex items-center  justify-center gap-2">
 					<PaginationButton handleOnClick={handlePrev} disabled={isOnFirstPage}>
 						<ChevronLeftIcon className="h-5 w-5" />
 					</PaginationButton>
 
-					{Array(5)
+					{Array(totalPages)
 						.fill(0)
 						.map((_, index) => {
 							return (

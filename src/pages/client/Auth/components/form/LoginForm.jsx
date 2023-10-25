@@ -35,7 +35,7 @@ const LoginForm = () => {
 
 	return (
 		<>
-			{userLoggedIn && <Navigate to={`/${location.state.from}`} replace />}
+			{userLoggedIn && <Navigate to={`${location.state.from}`} replace />}
 
 			<form className="w-full space-y-6" onSubmit={handleSubmit(onSubmit)}>
 				<Input

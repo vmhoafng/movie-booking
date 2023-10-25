@@ -5,8 +5,7 @@ type Cell = {
 
 export type TableProps = {
 	header: string[];
-	row: (row: any) => JSX.Element;
-	initialState: Object[];
+	row: (row: any, index?: number) => JSX.Element;
 	handleOnChangePage?: () => void;
 };
 
@@ -15,7 +14,7 @@ export type TableHeaderProps = {
 };
 
 export type TableRowProps = {
-	row: (row: any) => JSX.Element;
+	row: (row: any, index?: number) => JSX.Element;
 	initialState: Object[];
 };
 

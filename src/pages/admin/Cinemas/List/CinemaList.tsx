@@ -1,8 +1,25 @@
 import React from 'react';
-import Table from '../../../../app/components/table';
-import SwitchButton from '../../../../app/components/button/SwitchButton';
+import Table from '@/app/components/table';
+import SwitchButton from '@/app/components/button/SwitchButton';
+import useTable from '@/app/components/table/useTable';
 
 function CinemaList() {
+	const { data, setData } = useTable();
+
+	const handleOnClick = (row: any) => {
+		const result = data.map((user) => {
+			if (user.email === row.email) {
+				return {
+					...user,
+					verify: !row.verify,
+				};
+			}
+			return user;
+		});
+
+		setData([...result]);
+	};
+
 	return (
 		<>
 			<Table
@@ -17,7 +34,7 @@ function CinemaList() {
 					'Kích hoạt',
 					'Tác vụ',
 				]}
-				row={(row) => {
+				row={(row, index) => {
 					return (
 						<>
 							<div className="py-3">
@@ -28,62 +45,33 @@ function CinemaList() {
 								/>
 							</div>
 							<div className=" truncate py-3">
-								<span className="truncate">Nguyễn Trương Khánh Hoàng</span>
+								<span className="truncate">{row.full_name}</span>
 							</div>
 							<div className="py-3 truncate">
-								<span className="truncate">hn26677@gmail.com</span>
+								<span className="truncate">{row.email}</span>
 							</div>
 							<div className="py-3">
-								<span>Nam</span>
+								<span>{row.gender ? 'Nam' : 'Nữ'}</span>
 							</div>
 							<div className="py-3">
-								<span className="truncate">0363855850</span>
+								<span className="truncate">{row.phone_number}</span>
 							</div>
 							<div className="py-3">
-								<span>30/10/2003</span>
+								<span>{row.date_of_birth}</span>
 							</div>
 							<div className="py-3">
-								<span>
-									<button onClick={() => console.log(row.phone_number)}>
-										test
-									</button>
-								</span>
+								<span>{row.point}</span>
 							</div>
 							<div className="py-3">
 								<SwitchButton
-									enabled={row.isActive}
-									setEnabled={() => {
-										return !row.isActive;
-									}}
+									enabled={row.verify}
+									setEnabled={() => handleOnClick(row)}
 								/>
 							</div>
 							<div className="py-3">...</div>
 						</>
 					);
 				}}
-				initialState={[
-					{
-						img: '',
-						name: 'Nguyễn Trương Khánh Hoàng',
-						gender: 'Nam',
-						phone_number: '0363855850',
-						isActive: false,
-					},
-					{
-						img: '',
-						name: 'Nguyễn Trương Khánh Hoàng',
-						gender: 'Nam',
-						phone_number: '0363855850',
-						isActive: true,
-					},
-					{
-						img: '',
-						name: 'Nguyễn Trương Khánh Hoàng',
-						gender: 'Nam',
-						phone_number: '0363855850',
-						isActive: false,
-					},
-				]}
 			/>
 		</>
 	);

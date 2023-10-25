@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import useSearchTopbar from '../inputs/SearchTopbar/useSearchTopbar';
 import { Axios } from '@/app/utils/api';
 
-export default function useTable(initialState: any[]) {
-	const [data, setData] = useState(initialState);
+export default function useTable() {
+	const [data, setData] = useState<any[]>([]);
 
 	const { searchParams, setSearchParams } = useSearchTopbar();
 	const [currentPage, setCurrentPage] = useState<number>(1);
@@ -14,12 +14,20 @@ export default function useTable(initialState: any[]) {
 		[currentPage, data.length]
 	);
 
+	const totalPages = Math.floor(data.length / 10);
+
+	const fetchData = async () => {
+		const { data: dataFromBE } = await Axios.axiosGetWithToken('admin/users');
+		setData([...dataFromBE.data]);
+	};
+
 	useEffect(() => {
 		setSearchParams({
 			page: `${currentPage}`,
 			...(searchParams.get('q') && { q: searchParams.get('q') || '' }),
 		});
-	}, [currentPage, searchParams]);
+		fetchData();
+	}, [currentPage, searchParams, setSearchParams]);
 
 	const handlePrev = () => {
 		if (isOnFirstPage) {
@@ -45,8 +53,10 @@ export default function useTable(initialState: any[]) {
 		handlePrev,
 		handleOnClickPage,
 		currentPage,
+		setData,
 		isOnFirstPage,
 		isOnLastPage,
 		data,
+		totalPages,
 	};
 }
