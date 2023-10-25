@@ -1,6 +1,7 @@
 import api from '@/app/services/api';
 import { ICinema, ICinemaList } from '@/app/types/cinema';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getShowtimeByCinema } from '../slices/showtimeSlice';
 
 type TCinemaState = {
 	cinemas: ICinema[];
@@ -19,6 +20,13 @@ const getCinemas = createAsyncThunk<ICinemaList>(
 	async (_, thunkApi) => {
 		const { data } = await api.cinemaService.getAll();
 		return data;
+	}
+);
+
+const showtimeByCinema = createAsyncThunk(
+	'@@cinema/showtime',
+	(payload: { cinemaId: string; date: string }, thunkApi) => {
+		thunkApi.dispatch(getShowtimeByCinema());
 	}
 );
 
