@@ -1,5 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { ENDPOINTS, getEndPoint } from '@/app/constants/endpoint';
+import { ICinemaShowtimeList } from '@/app/types/cinema';
 import { IMovieShowTimeListByDate } from '@/app/types/movie';
 import { Axios } from '@/app/utils/api';
 import { AxiosResponse } from 'axios';
@@ -18,7 +19,10 @@ export default {
 			}
 		);
 	},
-	getShowtimeByCinema: async (id: string, date: string) => {
+	getShowtimeByCinema: async (
+		id: string,
+		date: string
+	): Promise<AxiosResponse<ICinemaShowtimeList>> => {
 		return await Axios.axiosGet(
 			getEndPoint(ENDPOINTS.GET_SHOWTIME_BY_CINEMA_DATE, {
 				cinemaId: id,
