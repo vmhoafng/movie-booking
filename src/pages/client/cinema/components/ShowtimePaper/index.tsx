@@ -1,5 +1,4 @@
 import React from 'react';
-import Poster from '../../../../../app/components/Poster';
 
 function ShowtimePaper() {
 	return (

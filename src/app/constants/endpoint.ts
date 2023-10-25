@@ -8,6 +8,7 @@ export const ENDPOINTS = {
 	SHOWTIME_SEAT: `landing/showtime/${ROUTE_PARAMS.SHOWTIME_ID}/seats`,
 	MOVIE_GENRES: `landing/movieGenres`,
 	CINEMA_DETAILS: `landing/cinema/${ROUTE_PARAMS.CINEMA_ID}`,
+	CINEMA_LIST: `landing/cinemas`,
 };
 
 export const getEndPoint = (endpoint: string, arg: Object) => {

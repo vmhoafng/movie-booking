@@ -5,15 +5,14 @@ import SelectInput, {
 } from '../../../../../app/components/inputs/SelectInput';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useSearchParams } from 'react-router-dom';
-import Title from '../../../../../app/components/Title';
-import Input from '../../../../../app/components/inputs/Input';
+import { Axios } from '@/app/utils/api';
+import api from '@/app/services/api';
+import { useRedux } from '@/app/hooks';
 
 function Showtimes() {
-	const options: SelectOption[] = [
-		{ value: 'a', label: 'Rạp CINEMA Gò vấp' },
-		{ value: 'b', label: 'b' },
-	];
+	const { appSelector, dispatch } = useRedux();
 
+	const [options, setOption] = useState<SelectOption[]>([]);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [cinema, setCinema] = useState<SelectOption>();
 	useEffect(() => {
@@ -27,8 +26,23 @@ function Showtimes() {
 		);
 	}, [searchParams]);
 
+	const { cinemas } = appSelector((state) => state.cinema);
+
 	const handleOnChange = (e: SelectOption) => {
 		setSearchParams({ cinema: e.label });
+	};
+
+	const handleOnClick = async () => {
+		const { data } = await Axios.axiosGet('landing/cinemas', {
+			params: {
+				size: 10,
+				page: 1,
+			},
+		});
+
+		console.log(data);
+
+		setOption([...data.data]);
 	};
 
 	return (
@@ -45,7 +59,8 @@ function Showtimes() {
 					value={cinema}
 					//@ts-ignore
 					endIcon={ChevronDownIcon}
-					// onChange={handleOnChange}
+					onChange={handleOnChange}
+					onClick={handleOnClick}
 				/>
 				{/* <Input type="date" label="" /> */}
 			</div>
