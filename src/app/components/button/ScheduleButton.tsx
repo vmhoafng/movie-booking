@@ -27,7 +27,7 @@ function ScheduleButton({ time, to, small }: ScheduleButtonProps) {
               text-center
              "
             >
-               {time.slice(0, 5)}
+               {time}
             </span>
          </button>
       </Link>

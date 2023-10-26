@@ -71,7 +71,7 @@ const showtime = [
    },
 ];
 
-function MovieDetail({movie}) {
+function MovieDetail({ movie }) {
    const { width } = useWindowDimensions();
    const [trailer, setTrailer] = useState(true);
    const movieDetail = useRef();
@@ -80,11 +80,10 @@ function MovieDetail({movie}) {
    const dispatch = useDispatch();
 
    useEffect(() => {
-      dispatch(getMovieList("showing-now"));
-      dispatch(getShowtimeByMovie("mv-00010", "2023-10-23"));
+      dispatch(getMovieList({ movieStatus: "showing-now", page: 1, size: 4 }));
+      dispatch(getShowtimeByMovie({ id: "mv-0001", date: "2023-10-23" }));
    }, [dispatch]);
 
-   // console.log(movieData);
    console.log(showtimeData);
    return (
       <>
@@ -284,7 +283,7 @@ function MovieDetail({movie}) {
                         {showtimeData.cinemas?.map((cinema) => {
                            return (
                               <ShowTimeBoard
-                                 times={cinema.showtime}
+                                 showtimes={cinema.showtime}
                                  cinema={cinema.name}
                                  key={cinema.id}
                               />
