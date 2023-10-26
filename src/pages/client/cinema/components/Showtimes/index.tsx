@@ -5,25 +5,47 @@ import SelectInput, {
 } from '../../../../../app/components/inputs/SelectInput';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useSearchParams } from 'react-router-dom';
+import { Axios } from '@/app/utils/api';
+import api from '@/app/services/api';
+import { useRedux } from '@/app/hooks';
+import { getCinemas, selectCinema, showtimeByCinema } from '@/app/redux/cinema';
+import { getShowtimeByCinema } from '@/app/redux/slices/showtimeSlice';
 
 function Showtimes() {
-	const options: SelectOption[] = [
-		{ value: 'a', label: 'Rạp CINEMA Gò vấp' },
-		{ value: 'b', label: 'b' },
-	];
+	const { appSelector, dispatch } = useRedux();
+	const { cinemas, selected, isLoading } = appSelector((state) => state.cinema);
 
+	const [options, setOption] = useState<SelectOption[]>([]);
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [cinema, setCinema] = useState<SelectOption>();
-	useEffect(() => {
-		const cinemaParam = searchParams.get('cinema') || '';
-		setCinema(() =>
-			options.find((a) => {
-				const regex = new RegExp(`^${cinemaParam}$`);
 
-				return regex.test(a.label);
-			})
-		);
-	}, [searchParams]);
+	useEffect(() => {
+		dispatch(getCinemas());
+	}, [dispatch]);
+
+	useEffect(() => {
+		const optionized = cinemas.map((c) => {
+			return { label: c.name, value: c.id };
+		});
+		setOption([...optionized]);
+	}, [isLoading, cinemas]);
+
+	useEffect(() => {
+		const cinemaParams = searchParams.get('cinema');
+		if (cinemaParams) {
+			const index = options.findIndex(
+				(option) => option.label === cinemaParams
+			);
+			if (index !== -1) {
+				// dispatch(selectCinema(index));
+				dispatch(
+					showtimeByCinema({
+						cinemaId: options[index].value,
+						date: '2023-10-23',
+					})
+				);
+			}
+		}
+	}, [dispatch, searchParams, options, selected]);
 
 	const handleOnChange = (e: SelectOption) => {
 		setSearchParams({ cinema: e.label });
@@ -34,19 +56,20 @@ function Showtimes() {
 			<h3 className=" inline-block border-b-2 border-highlight md:text-[18px] ">
 				LỊCH CHIẾU
 			</h3>
-			<div className="flex w-full lg:flex-row flex-col">
+			{/* <Title active>LỊCH CHIẾU</Title> */}
+			<div className="flex w-full mt-[25px] lg:flex-row flex-col">
 				<SelectInput
 					options={options}
 					placeholder="Chọn rạp"
-					inputClassName="flex-1"
-					value={cinema}
+					inputClassName="flex-[0_0_50%]"
+					value={options[selected!]}
 					//@ts-ignore
 					endIcon={ChevronDownIcon}
 					onChange={handleOnChange}
 				/>
-				<div className="">input</div>
+				{/* <Input type="date" label="" /> */}
 			</div>
-			<div className="flex flex-[0_0_41.25rem] flex-col bg-lightPrimary gap-[1px] ">
+			<div className="flex flex-col gap-[1px] ">
 				<ShowtimePaper />
 				<ShowtimePaper />
 				<ShowtimePaper />
