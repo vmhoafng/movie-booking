@@ -1,11 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import Title from "../../../app/components/Title";
-import { useParams } from "react-router";
 import Poster from "../../../app/components/poster/Poster";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import { useSearchParams } from "react-router-dom";
 import { useRedux } from "@/app/hooks";
 import { getByStatus } from "@/app/redux/movies/movies.slice";
@@ -14,17 +9,19 @@ type ParamsType = "coming-soon" | "showing-now";
 function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { appSelector, dispatch } = useRedux();
-  const { movies, isLoading } = appSelector((state) => state.movies);
+
+  useEffect(() => {
+    setSearchParams({ q: "showing-now" });
+  }, []);
   useEffect(() => {
     dispatch(
       getByStatus({
         status: searchParams.get("q") as ParamsType,
       })
     );
-  }, [searchParams]);
-  useEffect(() => {
-    setSearchParams({ q: "showing-now" });
-  }, []);
+  }, [searchParams, dispatch]);
+  const { movies, isLoading } = appSelector((state) => state.movies);
+  console.log(movies);
   const renderMovies = useCallback(() => {
     if (isLoading)
       return (

@@ -12,7 +12,7 @@ export const store = configureStore({
     movie: movieSlice.reducer,
     showtime: showtimeSlice.reducer,
     cinema: cinemaReducer,
-    movies: moviesSlice,
+    movies: moviesSlice.reducer,
   },
 });
 

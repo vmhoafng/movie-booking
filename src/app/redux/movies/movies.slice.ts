@@ -25,13 +25,13 @@ const moviesSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getByStatus.fulfilled, (state, action) => {
-        state.movies = action.payload.data[0].movies;
+        state.movies = [...action.payload.data[0].movies];
         state.isLoading = false;
       })
-      .addCase(getByStatus.pending, (state, action) => {
+      .addCase(getByStatus.pending, (state) => {
         state.isLoading = true;
       });
   },
 });
 
-export default moviesSlice.reducer;
+export default moviesSlice;

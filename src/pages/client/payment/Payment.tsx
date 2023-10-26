@@ -1,6 +1,6 @@
 import BookingMobileItem from "./components/BookingMobileItem";
 import BookingDesktopItem from "./components/BookingDesktopItem";
-import PaymentItem from "./components/PaymentItem";
+import PaymentItem from "./components/PaymentForm";
 export default function Payment() {
   return (
     <div

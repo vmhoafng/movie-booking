@@ -20,7 +20,7 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
         flex-col
         border-transparent
         rounded
-        [box-shadow:_2px_2px_4px_0px_rgba(0,0,0,0.50)] group"
+        group"
     >
       <div
         className={clsx(
