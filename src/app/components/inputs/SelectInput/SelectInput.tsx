@@ -17,7 +17,6 @@ function SelectInput({
 	optionClassName,
 	onChange,
 	value,
-	onClick,
 }: SelectInputProps) {
 	const [selected, setSelected] = useState<SelectOption>(
 		placeholder ? { value: '', label: placeholder } : options[0]
@@ -42,12 +41,7 @@ function SelectInput({
 				}}
 			>
 				<div className="relative mt-1">
-					<Listbox.Button
-						onClick={() => {
-							onClick && onClick();
-						}}
-						className="bg-[#EFEFEF]/20 relative w-full rounded border text-left  pl-[15px] "
-					>
+					<Listbox.Button className="bg-[#EFEFEF]/20 relative w-full rounded border text-left  pl-[15px] ">
 						<span
 							className={`block truncate text-[15px] ${
 								!selected.value && 'text-slate-300'

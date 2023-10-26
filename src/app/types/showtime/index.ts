@@ -8,3 +8,13 @@ export type IShowtime = {
 	start_time: string;
 	running_time: number;
 };
+
+export type IShowtimeGetByCinema = {
+	cinemaId: string;
+	date: string;
+};
+
+export type IShowtimeGetByMovie = {
+	movieId: string;
+	date: string;
+};

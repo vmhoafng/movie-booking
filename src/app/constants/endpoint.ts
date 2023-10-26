@@ -9,6 +9,9 @@ export const ENDPOINTS = {
 	MOVIE_GENRES: `landing/movieGenres`,
 	CINEMA_DETAILS: `landing/cinema/${ROUTE_PARAMS.CINEMA_ID}`,
 	CINEMA_LIST: `landing/cinemas`,
+	ADMIN :{
+		
+	}
 };
 
 export const getEndPoint = (endpoint: string, arg: Object) => {

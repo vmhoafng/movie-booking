@@ -8,41 +8,47 @@ import { useSearchParams } from 'react-router-dom';
 import { Axios } from '@/app/utils/api';
 import api from '@/app/services/api';
 import { useRedux } from '@/app/hooks';
+import { getCinemas, selectCinema, showtimeByCinema } from '@/app/redux/cinema';
+import { getShowtimeByCinema } from '@/app/redux/slices/showtimeSlice';
 
 function Showtimes() {
 	const { appSelector, dispatch } = useRedux();
+	const { cinemas, selected, isLoading } = appSelector((state) => state.cinema);
 
 	const [options, setOption] = useState<SelectOption[]>([]);
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [cinema, setCinema] = useState<SelectOption>();
+
 	useEffect(() => {
-		const cinemaParam = searchParams.get('cinema') || '';
-		setCinema(() =>
-			options.find((a) => {
-				const regex = new RegExp(`^${cinemaParam}$`);
+		dispatch(getCinemas());
+	}, [dispatch]);
 
-				return regex.test(a.label);
-			})
-		);
-	}, [searchParams]);
+	useEffect(() => {
+		const optionized = cinemas.map((c) => {
+			return { label: c.name, value: c.id };
+		});
+		setOption([...optionized]);
+	}, [isLoading, cinemas]);
 
-	const { cinemas } = appSelector((state) => state.cinema);
+	useEffect(() => {
+		const cinemaParams = searchParams.get('cinema');
+		if (cinemaParams) {
+			const index = options.findIndex(
+				(option) => option.label === cinemaParams
+			);
+			if (index !== -1) {
+				// dispatch(selectCinema(index));
+				dispatch(
+					showtimeByCinema({
+						cinemaId: options[index].value,
+						date: '2023-10-23',
+					})
+				);
+			}
+		}
+	}, [dispatch, searchParams, options, selected]);
 
 	const handleOnChange = (e: SelectOption) => {
 		setSearchParams({ cinema: e.label });
-	};
-
-	const handleOnClick = async () => {
-		const { data } = await Axios.axiosGet('landing/cinemas', {
-			params: {
-				size: 10,
-				page: 1,
-			},
-		});
-
-		console.log(data);
-
-		setOption([...data.data]);
 	};
 
 	return (
@@ -56,11 +62,10 @@ function Showtimes() {
 					options={options}
 					placeholder="Chọn rạp"
 					inputClassName="flex-[0_0_50%]"
-					value={cinema}
+					value={options[selected!]}
 					//@ts-ignore
 					endIcon={ChevronDownIcon}
 					onChange={handleOnChange}
-					onClick={handleOnClick}
 				/>
 				{/* <Input type="date" label="" /> */}
 			</div>
