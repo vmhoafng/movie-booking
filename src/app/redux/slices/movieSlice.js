@@ -10,8 +10,8 @@ const initialState = {
 
 export const getMovieList = createAsyncThunk(
    "getMovieList",
-   async (movieStatus) => {
-      let res = await api.movie.getMoviesByStatus(movieStatus);
+   async ({ movieStatus, page, size }) => {
+      let res = await api.movie.getMoviesByStatus(movieStatus, page, size);
       return res.data;
    }
 );
@@ -19,15 +19,13 @@ export const getMovieList = createAsyncThunk(
 const movieSlice = createSlice({
    name: "movies",
    initialState,
-   reducers: {
-      
-   },
+   reducers: {},
    extraReducers: (builder) => {
       builder.addCase(getMovieList.pending, (state) => {
          state.isLoading = true;
       });
       builder.addCase(getMovieList.fulfilled, (state, action) => {
-         state.movies = [...action.payload[0].movies];
+         state.movies = [...action.payload.data[0].movies];
          state.isLoading = false;
          state.isError = false;
       });

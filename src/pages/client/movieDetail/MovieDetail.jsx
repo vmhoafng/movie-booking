@@ -80,11 +80,10 @@ function MovieDetail({ movie }) {
    const dispatch = useDispatch();
 
    useEffect(() => {
-      dispatch(getMovieList("showing-now"));
-      dispatch(getShowtimeByMovie("mv-00010", "2023-10-23"));
+      dispatch(getMovieList({ movieStatus: "showing-now", page: 1, size: 4 }));
+      dispatch(getShowtimeByMovie({ id: "mv-0001", date: "2023-10-23" }));
    }, [dispatch]);
 
-   // console.log(showtimeData);
    return (
       <>
          {movieData.isLoading && <LoadingAnimation />}
@@ -283,7 +282,7 @@ function MovieDetail({ movie }) {
                         {showtimeData.cinemas?.map((cinema) => {
                            return (
                               <ShowTimeBoard
-                                 times={cinema.showtime}
+                                 showtimes={cinema.showtime}
                                  cinema={cinema.name}
                                  key={cinema.id}
                               />
