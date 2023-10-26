@@ -18,8 +18,7 @@ function PaymentItem() {
     email: yup.string().email().required(),
     name: yup.string().required(),
     phoneNumber: yup.number().required(),
-    // password: yup.string().required().min(6),
-    // confirmPassword: yup.string().oneOf([yup.ref("password")]),
+    isUsingPoint: yup.boolean().default(false),
   });
   const {
     register,
@@ -99,10 +98,14 @@ function PaymentItem() {
             Sử dụng điểm thành viên (50.000)
           </div>
           <SwitchButton
+            register={register}
+            id="isUsingPoint"
             enabled={enabled}
             setEnabled={() => {
               setEnabled(!enabled);
             }}
+            disabled={isLoading}
+            error={errors}
           />
         </div>
         <div className="w-full text-white/50 font-semibold text-[13px] leading-6">

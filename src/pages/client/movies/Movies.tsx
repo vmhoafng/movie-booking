@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Title from "../../../app/components/Title";
 import { useParams } from "react-router";
-import Poster from "../../../app/components/Poster";
+import Poster from "../../../app/components/poster/Poster";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -9,7 +9,7 @@ import "swiper/css/scrollbar";
 import { useSearchParams } from "react-router-dom";
 import { useRedux } from "@/app/hooks";
 import { getByStatus } from "@/app/redux/movies/movies.slice";
-import MovieSkeletion from "./MovieSkeletion";
+import MovieSkeletion from "../../../app/components/poster/PosterSkeletion";
 type ParamsType = "coming-soon" | "showing-now";
 function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -52,7 +52,7 @@ function Movies() {
   }, [isLoading]);
   return (
     <div className="bg-bgPrimary w-full">
-      <div className="mt-24 mx-auto w-[395px] md:w-[640px] lg:w-[790px] xl:w-[960px] 2xl:w-[1200px] overflow-hidden">
+      <div className="mt-24 mx-auto">
         <div className="flex flex-col gap-10 items-start justify-center py-14 bg-bgPrimary">
           <div className="flex gap-10">
             <Title

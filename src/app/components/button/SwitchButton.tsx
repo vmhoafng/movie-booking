@@ -1,14 +1,30 @@
 import { Switch } from "@headlessui/react";
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
 interface SwitchButtonProps {
+  id: string;
+  register: UseFormRegister<FieldValues>;
+  disabled?: boolean;
+  error: FieldErrors;
   enabled: boolean;
   setEnabled: () => void;
 }
 
-function SwitchButton({ enabled, setEnabled }: SwitchButtonProps) {
+function SwitchButton({
+  enabled,
+  setEnabled,
+  register,
+  id,
+  disabled,
+  error,
+}: SwitchButtonProps) {
+  console.log(error);
+
   return (
     <Switch
-      checked={enabled}
+      disabled={disabled}
+      {...register(id)}
+      checked={!!enabled}
       onChange={setEnabled}
       className={`${
         enabled ? "bg-lightPrimary" : "bg-white/70"

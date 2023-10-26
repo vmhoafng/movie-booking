@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import Poster from "@/app/components/Poster";
+import Poster from "@/app/components/poster/Poster";
 import useWindowDimensions from "@/app/hooks/useWindowDimensions";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovieList } from "@/app/redux/slices/movieSlice";
