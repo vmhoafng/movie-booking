@@ -13,8 +13,8 @@ const ShowTimeBoard = ({ showtimes, cinema }) => {
                return (
                   <ScheduleButton
                      time={showtime?.start_time}
-                     id={showtime.id}
-                     to="/ticket"
+                     id={showtime?.id}
+                     to={`/ticket/${showtime.id}`}
                   />
                );
             })}
