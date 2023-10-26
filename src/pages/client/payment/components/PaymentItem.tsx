@@ -18,8 +18,7 @@ function PaymentItem() {
     email: yup.string().email().required(),
     name: yup.string().required(),
     phoneNumber: yup.number().required(),
-    // password: yup.string().required().min(6),
-    // confirmPassword: yup.string().oneOf([yup.ref("password")]),
+    usePoints: yup.number(),
   });
   const {
     register,
