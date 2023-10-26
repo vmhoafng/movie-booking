@@ -26,7 +26,7 @@ function Movies() {
     setSearchParams({ q: "showing-now" });
   }, []);
   const renderMovies = useCallback(() => {
-    if (true)
+    if (isLoading)
       return (
         <>
           {Array(9)
