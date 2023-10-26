@@ -9,7 +9,8 @@ import { Axios } from '@/app/utils/api';
 import api from '@/app/services/api';
 import { useRedux } from '@/app/hooks';
 import { getCinemas, selectCinema, showtimeByCinema } from '@/app/redux/cinema';
-import { getShowtimeByCinema } from '@/app/redux/slices/showtimeSlice';
+
+import Input from '@/app/components/inputs/Input';
 
 function Showtimes() {
 	const { appSelector, dispatch } = useRedux();
@@ -67,7 +68,7 @@ function Showtimes() {
 					endIcon={ChevronDownIcon}
 					onChange={handleOnChange}
 				/>
-				{/* <Input type="date" label="" /> */}
+				<Input id="calendar" type="date" label="" endIcon="./calendar.svg" />
 			</div>
 			<div className="flex flex-col gap-[1px] ">
 				<ShowtimePaper />
