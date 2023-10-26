@@ -5,7 +5,7 @@ type MovieSkeletionProps = {
 };
 function MovieSkeletion({ horizontal }: MovieSkeletionProps) {
   return (
-    <div role="status" className="w-fit shadow animate-pulse md:p-6">
+    <div role="status" className="w-fit shadow animate-pulse">
       <div
         className="
         w-fit
@@ -13,7 +13,7 @@ function MovieSkeletion({ horizontal }: MovieSkeletionProps) {
         flex-col
         border-transparent
         rounded
-        [box-shadow:_2px_2px_4px_0px_rgba(0, 0, 0, 0.50);] group"
+        [box-shadow:_2px_2px_4px_0px_rgba(0,0,0,0.50)] group"
       >
         <div
           className={clsx(
@@ -40,12 +40,13 @@ function MovieSkeletion({ horizontal }: MovieSkeletionProps) {
           flex
           flex-col
           gap-[10px]
-          py-5`,
+          py-5
+          px-3`,
             horizontal ? "w-[220px] xl:w-[250px]" : "w-[190px] xl:w-[290px]"
           )}
         >
           <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-          <div className="h-2.5 w-full bg-gray-200 rounded-full dark:bg-gray-700"></div>
+          <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
       </div>
     </div>
