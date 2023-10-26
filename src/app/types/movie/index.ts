@@ -55,7 +55,7 @@ export type IMovieShowTimeListByDate = IMovie & {
 };
 
 export type IgetByStatus = {
-  status?: "coming-soon" | "showing-now";
+  status: "coming-soon" | "showing-now";
   page?: number;
   size?: number;
 };
