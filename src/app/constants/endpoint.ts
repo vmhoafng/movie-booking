@@ -1,10 +1,6 @@
+import { ROUTE_PARAMS } from './path';
+
 export const ENDPOINTS = {
-<<<<<<< HEAD
-	MOVIES: {
-		LIST: 'movies',
-		DETAIL: 'movies/:movie_id',
-	},
-=======
 	MOVIE_BY_STATUS: `landing/status/movies`,
 	GET_SHOWTIME_BY_CINEMA_DATE: `landing/cinema/${ROUTE_PARAMS.CINEMA_ID}/showtime`,
 	SHOWTIME_BY_MOVIE: `lading/movie/${ROUTE_PARAMS.MOVIE_ID}/showtime`,
@@ -13,9 +9,7 @@ export const ENDPOINTS = {
 	MOVIE_GENRES: `landing/movieGenres`,
 	CINEMA_DETAILS: `landing/cinema/${ROUTE_PARAMS.CINEMA_ID}`,
 	CINEMA_LIST: `landing/cinemas`,
-	ADMIN :{
-		
-	}
+	ADMIN: {},
 };
 
 export const getEndPoint = (endpoint: string, arg: Object) => {
@@ -26,5 +20,4 @@ export const getEndPoint = (endpoint: string, arg: Object) => {
 		newEndpoint = endpoint.replace(regex, arg[key]);
 	});
 	return newEndpoint;
->>>>>>> nolb226/finish-cinema-screen
 };
