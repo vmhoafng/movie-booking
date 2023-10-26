@@ -26,12 +26,12 @@ function ScheduleButton({ time, to, small }: ScheduleButtonProps) {
               shadow-black/50
               text-center
              "
-        >
-          {time}
-        </span>
-      </button>
-    </Link>
-  );
+            >
+               {time}
+            </span>
+         </button>
+      </Link>
+   );
 }
 
 export default ScheduleButton;
