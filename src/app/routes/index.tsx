@@ -5,6 +5,8 @@ import { useRoutes } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Layout from '../components/layouts/Layout';
 import { PATHS } from '../constants/path';
+import LoadingAnimation from '../components/loading/LoadingAnimation';
+import AdminLayout from '../components/layouts/AdminLayout';
 
 //Lazy loading pages
 
@@ -21,7 +23,7 @@ const MovieDetail = React.lazy(
 );
 
 //cinema
-const Cinema = React.lazy(() => import('../../pages/client/cinema/Cinema'));
+const Cinema = React.lazy(() => import('../../pages/client/cinema'));
 //profile
 const profile = React.lazy(() => import('../../pages/client/profile/Profile'));
 //payment
@@ -30,9 +32,24 @@ const payment = React.lazy(() => import('../../pages/client/payment/Payment'));
 const tickets = React.lazy(
 	() => import('../../pages/client/seatPlan/SeatPlan')
 );
-//
+//Admin -
 
-const loading = () => <div className="">loading</div>;
+//Movie
+const movieListAdmin = React.lazy(
+	() => import('../../pages/admin/Movies/List/MovieList')
+);
+
+//Cinema
+
+const cinemaListAdmin = React.lazy(
+	() => import('../../pages/admin/Cinemas/List')
+);
+const cinemaDetailAdmin = React.lazy(
+	() => import('../../pages/admin/Cinemas/Detail')
+);
+
+//Loading
+const loading = () => <LoadingAnimation />;
 
 type LoadComponentProps = {
 	component: React.LazyExoticComponent<() => JSX.Element>;
@@ -116,28 +133,72 @@ const ticketRoute = {
 	],
 };
 
+//Admin
+const movieManageRoutes = {
+	path: PATHS.ADMIN.MOVIES.IDENTITY,
+	children: [
+		{
+			path: PATHS.ADMIN.MOVIES.LIST,
+			element: <LoadComponent component={movieListAdmin} />,
+		},
+	],
+};
+
+const cinemaManageRoutes = {
+	path: PATHS.ADMIN.CINEMA.IDENTITY,
+	children: [
+		{
+			path: PATHS.ADMIN.CINEMA.LIST,
+			element: <LoadComponent component={cinemaListAdmin} />,
+		},
+		{
+			path: PATHS.ADMIN.CINEMA.DETAIL,
+			element: <LoadComponent component={cinemaDetailAdmin} />,
+		},
+	],
+};
+
 function AllRoutes() {
 	return useRoutes([
 		authRoute,
 		{
 			path: '/',
 			element: <Layout />,
-			children: [homeRoute, movieRoutes, cinemaRoutes],
+			children: [homeRoute, movieRoutes],
 		},
 		{
 			path: '/',
-			element: <ProtectedRoute component={Layout} />,
-			children: [paymentRoute, profileRoutes, ticketRoute],
+			element: <Layout backgroundImage="bg-03.jpg" />,
+			children: [cinemaRoutes],
 		},
 		{
 			path: '/',
+			element: (
+				<ProtectedRoute component={Layout} backgroundImage="bg-01.jpg" />
+			),
+
+			children: [ticketRoute],
+		},
+		{
+			path: '/',
+			element: (
+				<ProtectedRoute component={Layout} backgroundImage="bg-03.jpg" />
+			),
+			children: [profileRoutes],
+		},
+		{
+			path: '/',
+			element: (
+				<ProtectedRoute component={Layout} backgroundImage="bg-04.jpg" />
+			),
+			children: [paymentRoute],
+		},
+		{
+			path: PATHS.ADMIN.IDENTITY,
 			// element: <ProtectedRoute />,
-			element: <ProtectedRoute role={'Admin'} component={Layout} />,
-			children: [],
-			// children: [ {
-			// 	path: 'dashboard',
-			//	element :<LoadComponent component={Dashboard}/>,
-			// }],
+			// element: <ProtectedRoute role={'Admin'} component={AdminLayout} />,
+			element: <ProtectedRoute component={AdminLayout} />,
+			children: [movieManageRoutes, cinemaManageRoutes],
 		},
 	]);
 }
