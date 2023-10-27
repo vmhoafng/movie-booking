@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Axios } from '../../utils/api';
 import authUtils from '../../utils/auth';
 import { SignalIcon } from '@heroicons/react/20/solid';
+import { IPostLoginPayload } from '@/app/types/auth';
 // import { access } from 'fs';
 
 // initial state
@@ -42,7 +43,7 @@ type UserData = {
 
 export const login = createAsyncThunk(
 	'@@auth/login',
-	async (payload, thunkApi) => {
+	async (payload: IPostLoginPayload, thunkApi) => {
 		const { data } = await Axios.axiosPost('auth/authenticate', payload, {
 			signal: thunkApi.signal,
 		});
