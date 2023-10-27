@@ -10,6 +10,7 @@ export const ENDPOINTS = {
 	MOVIE_GENRES: `landing/movieGenres`,
 	CINEMA_DETAILS: `landing/cinema/${ROUTE_PARAMS.CINEMA_ID}`,
 	CINEMA_LIST: `landing/cinemas`,
+	PROFILE: 'currentUser',
 	ADMIN: {},
 };
 

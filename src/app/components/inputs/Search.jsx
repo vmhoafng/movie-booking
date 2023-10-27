@@ -27,11 +27,11 @@ export default function Example() {
         );
 
   return (
-    <div className="w-full">
+    <div className="md:w-full">
       <Combobox value={selected} onChange={setSelected}>
-        <div className="w-full h[40]">
-          <div className="flex items-center justify-between relative px-5 gap-7 rounded-full bg-white/10 w-full h-full ">
-            <div className="w-full h-[40px]">
+        <div className="md:w-[600px] md:h[40]">
+          <div className="flex items-center justify-between relative px-5 gap-7 rounded-full bg-white/10 md:w-[600px] h-full ">
+            <div className="md:w-[600px] md:h-[40px]">
               <button className="h-full bg-transparent border-none">
                 <MagnifyingGlassIcon className="h-3 w-3 text-gray-500" />
               </button>

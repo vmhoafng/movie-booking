@@ -1,121 +1,68 @@
-import React, { useState } from "react";
-import Title from "./Title";
-import Input from "@/app/components/inputs/Input";
-import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
-import Button from "@/app/components/button/Button";
-import SwitchButton from "@/app/components/button/SwitchButton";
-import useWindowDimensions from "@/app/hooks/useWindowDimensions";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-function PaymentItem() {
-  const { width } = useWindowDimensions();
-  const [enabled, setEnabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const validationSchema = yup.object().shape({
-    payment: yup.string().required(),
-    email: yup.string().email().required(),
-    name: yup.string().required(),
-    phoneNumber: yup.number().required(),
-    // password: yup.string().required().min(6),
-    // confirmPassword: yup.string().oneOf([yup.ref("password")]),
-  });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldValues>({
-    resolver: yupResolver<FieldValues>(validationSchema),
-  });
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
-    console.log(data);
-  };
+import clsx from "clsx";
+import React from "react";
+interface PaymentItemProps {
+  label: string;
+  disabled?: boolean;
+  borderWhite?: boolean;
+  col?: boolean;
+  value?: string;
+}
+function PaymentItem({
+  label,
+  disabled,
+  borderWhite,
+  col,
+  value,
+}: PaymentItemProps) {
   return (
-    <form
-      className="
-         bg-[#0A1E5ECC]
-         flex
-         flex-col
-         items-center
-         w-full
-         md:w-[640px]
-         lg:w-[520px]
-         xl:w-[660px]
-         2xl:w-[710px]
-         px-5
-         pb-5
-         md:px-10
-         md:pb-10
-         lg:px-[50px]
-         lg:pb-6
-         border
-         border-borderColor
-         shadow-[4px_4px_30px_0px_rgba(0,0,0,0.50)]"
-      onSubmit={handleSubmit(onSubmit)}
+    <div
+      className={clsx(
+        `flex w-full py-[3px]`,
+        col
+          ? "flex-col items-start gap-1"
+          : "items-center justify-between gap-2"
+      )}
     >
-      <Title>Payment</Title>
-      <div className="w-full border-t border-dashed border-borderColor" />
-      <div className="w-full flex flex-col gap-[10px] py-4">
-        <Input
-          borderWhite
-          col={width < 680}
-          id="payment"
-          label="Hình thức thanh toán"
-          register={register}
-          errors={errors}
-        />
-        <Input
-          borderWhite
-          col={width < 680}
-          id="name"
-          label="Họ và Tên"
-          register={register}
-          errors={errors}
-        />
-        <Input
-          borderWhite
-          col={width < 680}
-          id="email"
-          type="email"
-          label="Email"
-          register={register}
-          errors={errors}
-        />
-        <Input
-          borderWhite
-          col={width < 680}
-          id="phoneNumber"
-          label="Số điện thoại"
-          register={register}
-          errors={errors}
-        />
-      </div>
-      <div className="w-full border-t border-dashed border-borderColor" />
-      <div className="w-full flex flex-col items-center gap-2 font-inter">
-        <div className="w-full flex items-center justify-between pt-2">
-          <div className="text-white/90 text-[15px] lg:text-sm 2xl:text-base leading-6 md:pb-[10px] lg:py-5">
-            Sử dụng điểm thành viên (50.000)
-          </div>
-          <SwitchButton
-            enabled={enabled}
-            setEnabled={() => {
-              setEnabled(!enabled);
-            }}
-          />
-        </div>
-        <div className="w-full text-white/50 font-semibold text-[13px] leading-6">
-          *Vui lòng kiểm tra thông tin trước khi thanh toán.
-        </div>
-        <Button highlight fullWidth type="submit">
-          Thanh toán
-        </Button>
-        <div className="text-lightPrimary font-semibold leading-6 cursor-pointer">
-          Quay lại
+      <label
+        className={clsx(
+          "text-white/90 text-[15px] font-bold leading-6",
+          !col && "min-w-[200px]"
+        )}
+      >
+        <span
+          className="
+                [text-shadow:0.5px_0.5px_1px_var(--tw-shadow-color)]
+                shadow-black/50
+        "
+        >
+          {label}
+          {!col && ":"}
+        </span>
+      </label>
+      <div className="w-full relative">
+        <div
+          className={clsx(
+            `
+          w-full
+          rounded
+          border
+          px-[15px]
+          shadow-sm
+          bg-white/10
+          text-white/90
+          border-borderColor
+          selection:bg-highlight
+          selection:text-primary
+        `,
+            borderWhite && "border-white/50 focus:border-white/50",
+            disabled && "opacity-50 cursor-default",
+            col ? "h-10 leading-10" : "h-[35px] leading-[35px]"
+          )}
+        >
+          {value}
         </div>
       </div>
-    </form>
+    </div>
   );
 }
 
