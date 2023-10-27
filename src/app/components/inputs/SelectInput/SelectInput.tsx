@@ -40,8 +40,8 @@ function SelectInput({
 					setSelected(e);
 				}}
 			>
-				<div className="relative mt-1">
-					<Listbox.Button className="bg-[#EFEFEF]/20 relative w-full rounded border text-left  pl-[15px] ">
+				<div className="relative">
+					<Listbox.Button className="bg-[#EFEFEF]/20 relative w-full rounded border text-left py-[1px]  pl-[15px] ">
 						<span
 							className={`block truncate text-[15px] ${
 								!selected.value && 'text-slate-300'
