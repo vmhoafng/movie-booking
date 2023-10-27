@@ -11,7 +11,7 @@ function Movies() {
   const { appSelector, dispatch } = useRedux();
 
   useEffect(() => {
-    setSearchParams({ q: "showing-now" });
+    setSearchParams({ q: searchParams.get("q") ||"showing-now" });
   }, []);
   useEffect(() => {
     dispatch(
