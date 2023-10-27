@@ -195,9 +195,7 @@ function AllRoutes() {
 		},
 		{
 			path: PATHS.ADMIN.IDENTITY,
-			// element: <ProtectedRoute />,
-			// element: <ProtectedRoute role={'Admin'} component={AdminLayout} />,
-			element: <ProtectedRoute component={AdminLayout} />,
+			element: <ProtectedRoute role="ADMIN" component={AdminLayout} />,
 			children: [movieManageRoutes, cinemaManageRoutes],
 		},
 	]);
