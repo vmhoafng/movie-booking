@@ -1,17 +1,16 @@
+// @ts-nocheck
 import React from "react";
 import Input from "../inputs/Input";
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Button from "../../../../../app/components/button/Button";
 
 const validationSchema = yup.object().shape({
-   fullname: yup.string().required("bắt buộc"),
-   email: yup.string().email("không đúng định dạng.").required("bắt buộc"),
-   password: yup.string().required("bắt buộc").min(6, "tối thiểu 6 kí tự."),
-   confirmPassword: yup
-      .string()
-      .oneOf([yup.ref("password")], "không trùng khớp."),
+   fullname: yup.string().required,
+   email: yup.string().email().required(),
+   password: yup.string().required().min(6),
+   confirmPassword: yup.string().oneOf([yup.ref("password")]),
 });
 
 const RegisterForm = () => {
@@ -45,7 +44,7 @@ const RegisterForm = () => {
             required
             id="email"
             label="Email"
-            type="text"
+            type="email"
             placeholder="example@gmail.com"
          />
          <Input
@@ -70,7 +69,7 @@ const RegisterForm = () => {
             placeholder="Password"
          />
          <div>
-            <Button large type="submit">
+            <Button size="large" type="submit">
                Đăng kí
             </Button>
          </div>

@@ -1,32 +1,58 @@
-import React from 'react';
-import Poster from '../../../../../app/components/Poster';
+import React, { useMemo } from 'react';
+import { ShowtimePaperProps } from './ShowtimePaper.type';
+import ScheduleButton from '@/app/components/button/ScheduleButton';
+import { useRedux } from '@/app/hooks';
 
-function ShowtimePaper() {
+function ShowtimePaper({ movie }: ShowtimePaperProps) {
+	const { appSelector } = useRedux();
+	const { date } = appSelector((state) => state.cinema);
+	const { running_time, name, sub_name, poster, showtimes } = movie;
+	const hours = Math.floor(running_time / 60);
+	const minutes = running_time % 60;
+
+	const showtimeByDate = useMemo(() => {
+		const currentDate = new Date(date);
+		return (showtimes || []).filter((show) => {
+			const startDate = new Date(show.start_date);
+
+			if (startDate.getTime() === currentDate.getTime()) {
+				return true;
+			}
+			return false;
+		});
+	}, [date, showtimes]);
+
+	if (!showtimeByDate?.length) {
+		return <></>;
+	}
+
 	return (
-		<div className="bg-bgPrimary flex gap-5 pt-5 pb-5">
+		<div className="last:border-b-0 border-b-[1px] flex gap-5 pt-5 pb-5">
 			<div className=" w-[9.375rem] md:w-[13.75rem] flex-[0_0_30%] ">
-				<img
-					className=" w-full"
-					src="https://cdn.discordapp.com/attachments/1159668660340789259/1162023805259100200/bgBo-removebg-preview.png?ex=653a6e00&is=6527f900&hm=7de54060006c1ca49d4e47c1407aea3975458c23b29630cbdd8847f7076cd797&"
-					alt=""
-				/>
+				<img className=" w-full" src={poster} alt={name} />
 			</div>
 			<div className="flex gap-2 flex-col ">
-				<p className="uppercase text-sm md:text-[16px]">EXPEND4ABLES</p>
+				<p className="uppercase text-sm md:text-[16px]">{name}</p>
 				<p className="text-[13px] uppercase text-white text-opacity-60">
-					Biệt đội đánh thuê
+					{sub_name}
 				</p>
 				<div className="flex gap-2 ">
-					<div className="">
+					<div>
 						<i className="w-3 h-3">
 							<img src="./assets/icons/clock.svg" alt="" />
 						</i>
 					</div>
-					<div className="">
-						<p className="text-[11px] md:text-[13px]">1hrs 42mins</p>
+					<div>
+						<p className="text-[11px] text-lightPrimary md:text-[13px]">
+							{hours} hrs {minutes} mins
+						</p>
 					</div>
 				</div>
-				<div className="flex  flex-wrap items-start gap-[10px] "></div>
+				<div className="flex  flex-wrap items-start gap-[10px] ">
+					{showtimeByDate.map((st) => {
+						return <ScheduleButton time={st.start_time} key={st.id} to="" />;
+					})}
+				</div>
 			</div>
 		</div>
 	);

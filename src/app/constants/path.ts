@@ -1,7 +1,8 @@
 export const ROUTE_PARAMS = {
-   MOVIE_ID: ":movieId",
-   CINEMA_ID: ":cinemaId",
-   USER_ID: ":userId",
+	MOVIE_ID: ':movieId',
+	CINEMA_ID: ':cinemaId',
+	USER_ID: ':userId',
+	SHOWTIME_ID: ':showTimeId',
 };
 
 export const PATHS = {
