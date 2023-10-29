@@ -284,15 +284,6 @@ function MovieDetail({ movie }) {
                               />
                            );
                         })}
-                        {/* {showtime.map((item) => {
-                           return (
-                              <ShowTimeBoard
-                                 times={item.times}
-                                 cinema={item.cinema}
-                                 key={item.key}
-                              />
-                           );
-                        })} */}
                      </div>
                      <div className="flex flex-col xl:hidden gap-3 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor overflow-hidden">
                         <Title active>Phim đang chiếu</Title>
@@ -303,9 +294,9 @@ function MovieDetail({ movie }) {
 
                            breakpoints={{
                               390: {
-                                 width: width,
-                                 slidesPerView: 2,
-                                 spaceBetween: 10,
+                                 // width: width,
+                                 slidesPerView: 3,
+                                 spaceBetween: 8,
                               },
                               680: {
                                  slidesPerView: 3,
@@ -332,127 +323,6 @@ function MovieDetail({ movie }) {
                         </Swiper>
                      </div>
                   </div>
-                  <div className="flex flex-col w-full gap-4 text-base font-bold">
-                     <div className="flex w-full gap-4">
-                        <span className="text-white/60">Quốc gia:</span>
-                        <span className="text-white/90 line-clamp-1 ">Mỹ</span>
-                     </div>
-                     <div className="flex w-full gap-4">
-                        <span className="text-white/60">Nhà sản xuất:</span>
-                        <span className="text-white/90 line-clamp-1">
-                           20th Century Studios
-                        </span>
-                     </div>
-                     <div className="flex w-full gap-4">
-                        <span className="text-white/60">Diễn viên:</span>
-                        <span className="text-white/90 line-clamp-1  flex-1">
-                           Kenneth Branagh, Kelly Reilly, Dương Tử Quỳnh
-                        </span>
-                     </div>
-                     <div className="flex w-full gap-4">
-                        <span className="text-white/60">Đạo diễn:</span>
-                        <span className="text-white/90 line-clamp-1">
-                           Kenneth Branagh
-                        </span>
-                     </div>
-                     <div className="flex w-full gap-4">
-                        <span className="text-white/60">Ngày khởi chiếu:</span>
-                        <span className="text-white/90 line-clamp-1">
-                           15/9/2023
-                        </span>
-                     </div>
-                  </div>
-               </div>
-               <div className="flex flex-col gap-5 justify-center items-start py-6 border-b border-dashed border-borderColor">
-                  <Title active>Nội dung</Title>
-                  <p className="text-white/60">
-                     Án Mạng Ở Venice lấy bối cảnh hậu Thế Chiến II tại thành
-                     phố Venice vào đêm Halloween. Thám tử lừng danh Hercule
-                     Poirot bất đắc dĩ phải tham dự một buổi cầu hồn với sự xuất
-                     hiện của bà đồng “Dương Tử Quỳnh” tại một dinh thự hoang
-                     tàn và u ám. Khi một trong những vị khách bị giết chết, vị
-                     thám tử này bị ép buộc rơi vào một thế giới đầy bóng tối và
-                     ngập tràn những bí mật.
-                  </p>
-               </div>
-               <div className="flex flex-col gap-5 justify-center items-start py-6 border-b border-dashed border-borderColor">
-                  <div className="flex gap-6">
-                     <Title active>Trailer</Title>
-                     <Title>Hình ảnh</Title>
-                  </div>
-                  <iframe
-                     title="trailer"
-                     // width="full"
-                     height="315"
-                     className="w-full"
-                     src="https://www.youtube.com/embed/yEddsSwweyE"
-                  ></iframe>
-               </div>
-               <div className="flex flex-col justify-center items-start py-6 border-b border-dashed border-borderColor">
-                  <Title active>Lịch chiếu</Title>
-                  {showtime.map((item) => {
-                     return (
-                        <ShowTimeBoard
-                           times={item.times}
-                           cinema={item.cinema}
-                           key={item.key}
-                        />
-                     );
-                  })}
-               </div>
-               <div className="flex flex-col gap-5 justify-center items-start py-6 border-b border-dashed border-borderColor overflow-hidden">
-                  <Title active>Phim sắp chiếu</Title>
-
-                  <Swiper
-                     modules={[Navigation, Pagination, Scrollbar, A11y]}
-                     // onSwiper={(swiper: SwiperType) => console.log(swiper)}
-                     onSlideChange={() => console.log("slide change")}
-                     className="lg:hidden"
-                     breakpoints={{
-                        390: {
-                           width: width,
-                           slidesPerView: 1.8,
-                           spaceBetween: 10,
-                        },
-                     }}
-                  >
-                     <SwiperSlide>
-                        <Poster
-                           name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                           subname="gay"
-                        />
-                     </SwiperSlide>
-                     <SwiperSlide>
-                        <Poster
-                           name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                           subname="gay"
-                        />
-                     </SwiperSlide>
-                     <SwiperSlide>
-                        <Poster
-                           name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                           subname="gay"
-                        />
-                     </SwiperSlide>
-                     <SwiperSlide>
-                        <Poster
-                           name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                           subname="gay"
-                        />
-                     </SwiperSlide>
-                     <SwiperSlide>
-                        <Poster
-                           name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                           subname="gay"
-                        />
-                     </SwiperSlide>
-                     <SwiperSlide>
-                        <Poster
-                           name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                           subname="gay"
-                        />
-                     </SwiperSlide>
-                  </Swiper>
                </div>
             </div>
          ) : (
