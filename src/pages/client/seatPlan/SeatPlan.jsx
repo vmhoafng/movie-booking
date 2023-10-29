@@ -1,9 +1,12 @@
 import api from "../../../app/services/api";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Title from "../payment/components/Title";
+import Title from "../../../app/components/Title";
 import BookingTitle from "../payment/components/BookingTitle";
 import BookingSubtitle from "../payment/components/BookingSubtitle";
+import SeatRow from "./components/SeatRow";
+import Button from "../../../app/components/button/Button";
+import Ticket from "./components/Ticket";
 
 function SeatPlan() {
    const { showtimeId } = useParams();
@@ -13,6 +16,7 @@ function SeatPlan() {
    const getSeatPlan = async (showtimeId) => {
       try {
          let res = await api.showtime.getSeatsByShowtime(showtimeId);
+         console.log(res.data);
          setSeats([...res.data.room.seats]);
       } catch (error) {
          console.log(error);
@@ -33,70 +37,43 @@ function SeatPlan() {
 
    useEffect(() => {
       let temp = splitArrayIntoChunks(seats || [], 15);
-      setSeatRow([temp]);
+      setSeatRow(temp);
    }, [seats]);
 
-   console.log(seatRow);
+   // console.log(seatRow);
 
    return (
-      <div>
-         <div>payment</div>
-         <div
-            className="
-          bg-[#0A1E5ECC]
-          hidden
-          lg:flex
-          flex-col
-          items-center
-          w-[250px]
-          xl:w-[280px]
-          2xl:w-[300px]
-          px-[30px]
-          font-inter
-          border
-          border-borderColor"
-         >
-            <Title>Booking sumary</Title>
-            <div className="w-full border-t border-dashed border-borderColor" />
-            <div className="w-full flex py-[10px] justify-between">
-               <div className="flex flex-col w-[148px]">
-                  <BookingTitle>The NUN</BookingTitle>
-                  <BookingSubtitle>Phụ đề</BookingSubtitle>
+      <div className="w-full h-fit flex flex-col gap-5 sm:py-6 sm:pb-10 xl:flex-row xl:gap-14 xl:py-12 2xl:gap-20 ">
+         <div className="flex flex-col sm:gap-5 xl:gap-6 flex-1 h-[510px] ">
+            <Title active>Chọn ghế</Title>
+            <div className="flex flex-col justify-center sm:bg-[#0A1E5ECC] sm:border-borderColor sm:border-2 sm:py-8 sm:px-3 md:px-5 md:gap-4 lg:px-14 lg:gap-4 xl:bg-transparent xl:px-0 xl:gap-6 xl:border-none xl:py-5 2xl:px-5">
+               <div className="w-full flex flex-col gap-[2px]">
+                  {seatRow?.map((row) => {
+                     return <SeatRow row={row} key={row.row}></SeatRow>;
+                  })}
                </div>
-            </div>
-            <div className="w-full border-t border-dashed border-borderColor" />
-            <div className="w-full flex flex-col text-white gap-[15px] my-[15px] font-semibold leading-6">
-               <div className="flex flex-col">
-                  <BookingTitle>Rạp</BookingTitle>
-                  <BookingSubtitle>An Dương Vương | RAP 1</BookingSubtitle>
+               <div className="flex flex-col gap-1 items-center font-inter mt-2">
+                  <span className="uppercase text-sm text-white/70">
+                     screen
+                  </span>
+                  <div className="w-[600px] lg:w-[500px] sm:w-[450px] h-1 bg-borderColor"></div>
+                  <div className="w-[400px] lg:w-[333px] sm:w-[300px] h-[2px] bg-borderColor"></div>
                </div>
-               <div className="flex flex-col">
-                  <BookingTitle>Suất chiếu</BookingTitle>
-                  <BookingSubtitle>15:30 | CN 17/09</BookingSubtitle>
-               </div>
-               <div className="flex flex-col">
-                  <BookingTitle>Ghế (2)</BookingTitle>
-                  <BookingSubtitle>H1, H2</BookingSubtitle>
-               </div>
-            </div>
-            <div className="w-full relative border-t border-dashed border-borderColor">
-               <div className="w-[34px] h-[34px] absolute rounded-full gradient-to-r top-[-18px] -left-12"></div>
-               <div className="w-[34px] h-[34px] absolute rounded-full gradient-to-l top-[-18px] left-[calc(100%+14px)]"></div>
-            </div>
-            <div className="w-full flex flex-col py-[15px]">
-               <div className="flex flex-col">
-                  <BookingTitle>Giá vé</BookingTitle>
-                  <BookingSubtitle>135.000 VND</BookingSubtitle>
-               </div>
-            </div>
-            <div className="w-full border-t border-dashed border-borderColor" />
-            <div className="w-full py-[15px]">
-               <div className="flex items-center justify-between">
-                  <BookingTitle>Tổng</BookingTitle>
-                  <BookingSubtitle highlight>270.000 VND</BookingSubtitle>
+               <div className="flex gap-4 justify-center items-center font-inter">
+                  <div className="flex justify-center items-center gap-3">
+                     <div className="w-4 h-4 rounded-sm bg-gradientStart"></div>
+                     <span className="text-white/90 text-sm">Ghế đã bán</span>
+                  </div>
+                  <div className="flex justify-center items-center gap-3">
+                     <div className="w-4 h-4 rounded-sm bg-highlight"></div>
+                     <span className="text-white/90 text-sm">
+                        Ghế đang chọn
+                     </span>
+                  </div>
                </div>
             </div>
          </div>
+         <Ticket></Ticket>
       </div>
    );
 }
