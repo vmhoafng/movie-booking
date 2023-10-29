@@ -16,14 +16,6 @@ const ShowTimeBoard = ({ showtimes, cinema }) => {
                      to={`/ticket/${showtime.id}`}
                   />
                );
-            {showtimes?.map((showtime) => {
-               return (
-                  <ScheduleButton
-                     time={showtime?.start_time}
-                     id={showtime?.id}
-                     to={`/ticket/${showtime.id}`}
-                  />
-               );
             })}
          </div>
       </div>
