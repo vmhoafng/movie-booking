@@ -5,7 +5,7 @@ import Button from "../../../../app/components/button/Button";
 
 const Ticket = () => {
    return (
-      <div className="bg-[#0A1E5ECC] flex flex-col items-center sm:pb-4 md:px-8 lg:px-12  xl:w-[240px] xl:py-2 xl:px-[30px] 2xl:w-[300px] 2xl:px-9 font-inter border-2 xl:border border-borderColor">
+      <div className="bg-[#0A1E5ECC] flex flex-col items-center sm:text-sm sm:pb-4 sm:px-4 md:px-8 lg:px-12  xl:w-[240px] xl:py-2 xl:px-[30px] 2xl:w-[300px] 2xl:px-9 font-inter border-2 xl:border border-borderColor">
          <h2 className="py-4 uppercase text-white/90 font-bold">
             Booking sumary
          </h2>

@@ -47,7 +47,7 @@ function SeatPlan() {
          <div className="flex flex-col sm:gap-5 xl:gap-6 flex-1 h-[510px] ">
             <Title active>Chọn ghế</Title>
             <div className="flex flex-col justify-center sm:bg-[#0A1E5ECC] sm:border-borderColor sm:border-2 sm:py-8 sm:px-3 md:px-5 md:gap-4 lg:px-14 lg:gap-4 xl:bg-transparent xl:px-0 xl:gap-6 xl:border-none xl:py-5 2xl:px-5">
-               <div className="w-full flex flex-col gap-[2px]">
+               <div className="w-full flex flex-col gap-[2px] overflow-x-scroll pb-2">
                   {seatRow?.map((row) => {
                      return <SeatRow row={row} key={row.row}></SeatRow>;
                   })}
@@ -56,8 +56,8 @@ function SeatPlan() {
                   <span className="uppercase text-sm text-white/70">
                      screen
                   </span>
-                  <div className="w-[600px] lg:w-[500px] sm:w-[450px] h-1 bg-borderColor"></div>
-                  <div className="w-[400px] lg:w-[333px] sm:w-[300px] h-[2px] bg-borderColor"></div>
+                  <div className="w-[600px] lg:w-[500px] md:w-[450px] sm:w-[300px] h-1 bg-borderColor"></div>
+                  <div className="w-[400px] lg:w-[333px] md:w-[300px] sm:w-[200px] h-[2px] bg-borderColor"></div>
                </div>
                <div className="flex gap-4 justify-center items-center font-inter">
                   <div className="flex justify-center items-center gap-3">
