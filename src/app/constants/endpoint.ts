@@ -3,7 +3,7 @@ import { ROUTE_PARAMS } from './path';
 export const ENDPOINTS = {
 	MOVIE_BY_STATUS: `landing/status/movies`,
 	GET_SHOWTIME_BY_CINEMA_DATE: `landing/cinema/${ROUTE_PARAMS.CINEMA_ID}/showtime`,
-	CINEMA_MOVIES_SHOWTIME: '',
+	CINEMA_MOVIES_SHOWTIME: 'landing/cinema/movie/showtime',
 	SHOWTIME_BY_MOVIE: `lading/movie/${ROUTE_PARAMS.MOVIE_ID}/showtime`,
 	SEARCH_MOVIE: `landing/searchMovie`,
 	SHOWTIME_SEAT: `landing/showtime/${ROUTE_PARAMS.SHOWTIME_ID}/seats`,

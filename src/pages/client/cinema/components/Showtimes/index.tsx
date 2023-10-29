@@ -1,61 +1,59 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useCallback } from 'react';
 import ShowtimePaper from '../ShowtimePaper';
-import SelectInput, {
-	SelectOption,
-} from '../../../../../app/components/inputs/SelectInput';
+import SelectInput from '../../../../../app/components/inputs/SelectInput';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { useSearchParams } from 'react-router-dom';
-import { Axios } from '@/app/utils/api';
-import api from '@/app/services/api';
-import { useRedux } from '@/app/hooks';
-import { getCinemas, selectCinema, showtimeByCinema } from '@/app/redux/cinema';
 
-import Input from '@/app/components/inputs/Input';
 import { CalendarIcon } from '@heroicons/react/24/outline';
+import { useShowtimes } from './useShowtimes';
 
 function Showtimes() {
-	const { appSelector, dispatch } = useRedux();
-	const { cinemas, selected, isLoading } = appSelector((state) => state.cinema);
+	const {
+		movies,
+		options,
+		handleOnChange,
+		handleOnPickDate,
+		date,
+		selected,
+		isLoading,
+	} = useShowtimes();
 
-	const [options, setOption] = useState<SelectOption[]>([]);
-	const [searchParams, setSearchParams] = useSearchParams();
-
-
-
-	useEffect(() => {
-		const optionized = cinemas.map((c) => {
-			return { label: c.name, value: c.id };
-		});
-		setOption([...optionized]);
-	}, [isLoading, cinemas]);
-
-	useEffect(() => {
-		const cinemaParams = searchParams.get('cinema');
-		if (cinemaParams) {
-			const index = options.findIndex(
-				(option) => option.label === cinemaParams
-			);
-			if (index !== -1) {
-				// dispatch(selectCinema(index));
-				dispatch(
-					showtimeByCinema({
-						cinemaId: options[index].value,
-						date: '2023-10-23',
-					})
-				);
-			}
+	const renderMovies = useCallback(() => {
+		if (isLoading) {
+			Array(7)
+				.fill(0)
+				.map((_, i) => {
+					return (
+						<div
+							key={`skeleton-${i}`}
+							className="flex gap-5 h-[230px] animate-pulse py-5 bg-gray-500"
+						>
+							{/* <div className="w-[9.375rem] rounded h-[11.875rem]  bg-gray-600  md:w-[13.75rem] flex-[0_0_30%]"></div>
+					<div className="flex flex-1 gap-2 flex-col">
+						<div className="h-5 w-1/2 rounded-full bg-gray-600"></div>
+						<div className="h-[19.5px]  w-1/2  rounded-full bg-gray-600"></div>
+						<div className="h-[19.5px] w-1/2 rounded-full bg-gray-600"></div>
+						<div className="h-9 w-[75px] "></div>
+					</div> */}
+						</div>
+					);
+				});
 		}
-	}, [dispatch, searchParams, options, selected]);
 
-	const handleOnChange = (e: SelectOption) => {
-		setSearchParams({ cinema: e.label });
-	};
-
-	console.log(searchParams.values);
-
-	const handleOnPickDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchParams({ date: e.target.value });
-	};
+		return (
+			<>
+				{movies
+					.slice()
+					.sort((a, b) => {
+						const ratingA = a.rating / a.number_of_ratings;
+						const ratingB = b.rating / b.number_of_ratings;
+						return ratingA - ratingB;
+					})
+					.map((movie) => (
+						<ShowtimePaper movie={movie} />
+					))}
+			</>
+		);
+	}, [movies]);
 
 	return (
 		<div className="flex-[0_1_70%]">
@@ -67,7 +65,8 @@ function Showtimes() {
 				<SelectInput
 					options={options}
 					placeholder="Chọn rạp"
-					inputClassName="flex-[0_0_50%]"
+					inputClassName="flex-1"
+					optionClassName="py-1 hover:bg-highlight"
 					value={options[selected!]}
 					//@ts-ignore
 					endIcon={ChevronDownIcon}
@@ -75,28 +74,24 @@ function Showtimes() {
 				/>
 				<label
 					htmlFor="date-picker"
-					className="flex items-center  justify-between flex-[0_0_50%] text-[15px] pl-[15px] bg-[#EFEFEF]/20 rounded border"
+					className="items-center relative justify-between flex-1 text-[15px] pl-[15px] bg-[#EFEFEF]/20 rounded border"
 				>
 					<input
 						id="date-picker"
 						type="date"
+						value={date}
 						onChange={handleOnPickDate}
-						className="border-none bg-transparent relative text-[14px] outline-none"
+						className="border-none w-full bg-transparent relative text-[14px] outline-none"
 						name="date-picker"
 						placeholder="YYYY-MM-DD"
 					/>
-					<span className="pr-[15px]">
+					<span className="] absolute top-[1px] right-[15px]">
 						<CalendarIcon className="h-5 w-5" />
 					</span>
 				</label>
 			</div>
 
-			<div className="flex flex-col gap-[1px] ">
-				<ShowtimePaper />
-				<ShowtimePaper />
-				<ShowtimePaper />
-				<ShowtimePaper />
-			</div>
+			<div className="flex flex-col mt-[25px] gap-[1px] ">{renderMovies()}</div>
 		</div>
 	);
 }

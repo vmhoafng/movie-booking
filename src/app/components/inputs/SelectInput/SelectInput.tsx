@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SelectInputProps, SelectOption } from './SelectInput.type';
 import { Listbox, Transition } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 function SelectInput({
 	id,
@@ -62,7 +61,7 @@ function SelectInput({
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
 					>
-						<Listbox.Options className="absolute mt-1 max-h-60 py-3 px-4 bg-[#31375A] border-2 rounded w-full">
+						<Listbox.Options className="absolute z-[1] mt-1 max-h-60 overflow-y-scroll py-3 px-4 bg-[#31375A] border-2 rounded w-full">
 							{options.map((option) => {
 								return (
 									<Listbox.Option

@@ -6,14 +6,14 @@ import { getCinemas } from '@/app/redux/cinema';
 
 function Cinema() {
 	const { appSelector, dispatch } = useRedux();
-	const { cinemas } = appSelector((state) => state.cinema);
+	const { cinemas, selected } = appSelector((state) => state.cinema);
 	useEffect(() => {
 		if (!cinemas.length) dispatch(getCinemas());
-	}, [dispatch]);
+	}, [dispatch, cinemas.length]);
 	return (
-		<div className=" text-white flex flex-col  xl:flex-row xl:gap-10  ">
+		<div className=" text-white min-h-[1440px] flex flex-col pt-5 xl:flex-row xl:gap-10  ">
 			<Showtimes />
-			<CinemaDetail />
+			{selected !== -1 && <CinemaDetail cinema={cinemas[selected]} />}
 		</div>
 	);
 }
