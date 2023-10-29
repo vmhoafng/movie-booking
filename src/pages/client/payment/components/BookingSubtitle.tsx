@@ -3,17 +3,11 @@ import React from "react";
 
 interface BookingSubTitleProps {
   children: React.ReactNode;
-  highlight?: boolean;
 }
 
-function BookingSubtitle({ children, highlight }: BookingSubTitleProps) {
+function BookingSubtitle({ children }: BookingSubTitleProps) {
   return (
-    <div
-      className={clsx(
-        `font-semibold leading-6`,
-        highlight ? "text-highlight" : "text-white/60"
-      )}
-    >
+    <div className={clsx(`uppercase text-sm leading-6 text-white/60`)}>
       {children}
     </div>
   );
