@@ -5,7 +5,7 @@ export type IShowtime = {
 	status: boolean;
 	format: IMovieFormat;
 	start_date: string;
-	start_time: string;
+	start_time: number;
 	running_time: number;
 };
 
