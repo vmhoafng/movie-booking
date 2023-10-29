@@ -1,10 +1,4 @@
-import axios, {
-	AxiosInstance,
-	AxiosResponse,
-	AxiosRequestConfig,
-	AxiosError,
-} from 'axios';
-import { error } from 'console';
+import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 import authUtils from '../auth';
 
 const instance: AxiosInstance = axios.create({
@@ -72,6 +66,20 @@ export const Axios = {
 	): Promise<AxiosResponse> => {
 		return instance.post(endpoint, body, params);
 	},
+
+	axiosPostWithToken: (
+		endpoint: string,
+		body: any,
+		params?: AxiosRequestConfig
+	): Promise<AxiosResponse> => {
+		return instance.post(endpoint, body, {
+			...params,
+			headers: {
+				Authorization: 'Bearer ' + authUtils.getSessionToken(),
+			},
+		});
+	},
+
 	axiosPut: (
 		endpoint: string,
 		body: any,
@@ -79,10 +87,29 @@ export const Axios = {
 	): Promise<AxiosResponse> => {
 		return instance.put(endpoint, body, params);
 	},
+
+	axiosPutWithToken: (
+		endpoint: string,
+		body: any,
+		params?: AxiosRequestConfig
+	): Promise<AxiosResponse> => {
+		return instance.put(endpoint, body, {
+			...params,
+			headers: {
+				Authorization: 'Bearer ' + authUtils.getSessionToken(),
+			},
+		});
+	},
+
 	axiosDelete: (
 		endpoint: string,
 		params?: AxiosRequestConfig
 	): Promise<AxiosResponse> => {
-		return instance.delete(endpoint, params);
+		return instance.delete(endpoint, {
+			...params,
+			headers: {
+				Authorization: 'Bearer ' + authUtils.getSessionToken(),
+			},
+		});
 	},
 };
