@@ -53,6 +53,7 @@ function Button({
             transition-all
             duration-200
             shadow-[2px_2px_8px_0px_rgba(0,0,0,0.25)]
+            font-inter
             `,
             fullWidth && "w-full",
             disabled && "opacity-50 cursor-default",

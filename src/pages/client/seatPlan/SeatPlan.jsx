@@ -47,7 +47,7 @@ function SeatPlan() {
          <div className="flex flex-col sm:gap-5 xl:gap-6 flex-1 h-[510px] ">
             <Title active>Chọn ghế</Title>
             <div className="flex flex-col justify-center sm:bg-[#0A1E5ECC] sm:border-borderColor sm:border-2 sm:py-8 sm:px-3 md:px-5 md:gap-4 lg:px-14 lg:gap-4 xl:bg-transparent xl:px-0 xl:gap-6 xl:border-none xl:py-5 2xl:px-5">
-               <div className="w-full flex flex-col gap-[2px] overflow-x-scroll pb-2">
+               <div className="w-full flex flex-col gap-[2px] sm:overflow-x-scroll md:overflow-hidden pb-2">
                   {seatRow?.map((row) => {
                      return <SeatRow row={row} key={row.row}></SeatRow>;
                   })}

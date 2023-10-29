@@ -8,12 +8,17 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import Poster from "@/app/components/poster/Poster";
-import useWindowDimensions from "@/app/hooks/useWindowDimensions";
+
+import useWindowDimensions from "../../../app/hooks/useWindowDimensions";
+import Button from "../../../app/components/button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { getMovieList } from "@/app/redux/slices/movieSlice";
-import { getShowtimeByMovie } from "@/app/redux/slices/showtimeSlice";
-import LoadingAnimation from "@/app/components/loading/LoadingAnimation";
+import { getMovieList } from "../../../app/redux/slices/movieSlice";
+import LoadingAnimation from "../../../app/components/loading/LoadingAnimation";
+import {
+   getShowtimeByCinema,
+   getShowtimeByMovie,
+} from "../../../app/redux/slices/showtimeSlice";
+import Poster from "@/app/components/poster/Poster";
 // import Swiper from "swiper";
 
 const showtime = [
@@ -80,12 +85,13 @@ function MovieDetail({ movie }) {
       dispatch(getShowtimeByMovie({ id: "mv-0001", date: "2023-10-23" }));
    }, [dispatch]);
 
+   console.log(showtimeData);
    return (
       <>
          {movieData.isLoading && <LoadingAnimation />}
          {!movieData.isError ? (
             <div className="w-full px-[15px] md:px-0 md:mx-auto bg-bgPrimary">
-               <div className="w-full xl:flex xl:gap-14 2xl:gap-20">
+               <div className="w-full xl:flex xl:gap-14 2xl:gap-24">
                   <div
                      className="xl:w-[calc(100%-300px-80px)] lg:text-sm lg:py-2"
                      ref={movieDetail}
@@ -178,7 +184,7 @@ function MovieDetail({ movie }) {
                            </div>
                         </div>
                      </div>
-                     <div className="flex flex-col gap-3 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
+                     <div className="flex flex-col gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
                         <Title active>Nội dung</Title>
                         <p className="text-white/60 md:text-sm">
                            Án Mạng Ở Venice lấy bối cảnh hậu Thế Chiến II tại
@@ -191,7 +197,7 @@ function MovieDetail({ movie }) {
                            mật.
                         </p>
                      </div>
-                     <div className="w-full overflow-hidden flex flex-col gap-3 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
+                     <div className="w-full overflow-hidden flex flex-col gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
                         <div className="flex gap-6">
                            <Title
                               active={trailer}
@@ -273,7 +279,7 @@ function MovieDetail({ movie }) {
                            )}
                         </div>
                      </div>
-                     <div className="flex flex-col justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
+                     <div className="flex flex-col gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
                         <Title active>Lịch chiếu</Title>
                         {showtimeData.cinemas?.map((cinema) => {
                            return (
@@ -284,8 +290,17 @@ function MovieDetail({ movie }) {
                               />
                            );
                         })}
+                        {/* {showtime.map((item) => {
+                           return (
+                              <ShowTimeBoard
+                                 times={item.times}
+                                 cinema={item.cinema}
+                                 key={item.key}
+                              />
+                           );
+                        })} */}
                      </div>
-                     <div className="flex flex-col xl:hidden gap-3 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor overflow-hidden">
+                     <div className="flex flex-col xl:hidden gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor overflow-hidden">
                         <Title active>Phim đang chiếu</Title>
                         <Swiper
                            modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -294,9 +309,9 @@ function MovieDetail({ movie }) {
 
                            breakpoints={{
                               390: {
-                                 // width: width,
-                                 slidesPerView: 3,
-                                 spaceBetween: 8,
+                                 width: width,
+                                 slidesPerView: 2,
+                                 spaceBetween: 10,
                               },
                               680: {
                                  slidesPerView: 3,
@@ -323,10 +338,30 @@ function MovieDetail({ movie }) {
                         </Swiper>
                      </div>
                   </div>
+
+                  <div className="w-fit hidden xl:flex xl:flex-col gap-5 justify-start items-start py-6 xl:py-8">
+                     <Title active>Phim đang chiếu</Title>
+                     <div className="flex flex-col w-fit gap-4">
+                        {movieData?.movies.map((movie) => {
+                           return (
+                              <Poster
+                                 horizontal
+                                 key={movie.id}
+                                 src={movie.poster}
+                                 name={movie.name}
+                                 subname={movie.sub_name}
+                              />
+                           );
+                        })}
+                     </div>
+                     <Button fullWidth medium onClick={() => {}}>
+                        Xem thêm
+                     </Button>
+                  </div>
                </div>
             </div>
          ) : (
-            <div></div>
+            <p>{movieData.errorMessage}</p>
          )}
       </>
    );
