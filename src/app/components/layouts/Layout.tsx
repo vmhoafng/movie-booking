@@ -16,7 +16,7 @@ function Layout({ backgroundImage }: LayoutProps) {
 	return (
 		<div className="h-full w-full ">
 			<DesktopNavbar />
-			<MobileNavbar />
+			{/* <MobileNavbar /> */}
 			<div
 				className="object-cover"
 				style={{ backgroundImage: `url('/assets/images/${backgroundImage}')` }}
@@ -32,7 +32,7 @@ function Layout({ backgroundImage }: LayoutProps) {
 				</div>
 			</div>
 			<DesktopFooter />
-			<MobileFooter />
+			{/* <MobileFooter /> */}
 		</div>
 	);
 }

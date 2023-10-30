@@ -1,14 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
 
 html,
 body,
 #root {
-	height: 100%;
-	font-family: 'Comfortaa', sans-serif;
-	text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.5);
+   height: 100%;
+   font-family: "Comfortaa", sans-serif;
+   text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Change Autocomplete styles in Chrome*/
@@ -23,37 +23,38 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-	filter: none;
-	-webkit-text-fill-color: white;
-	-webkit-box-shadow: none;
-	box-shadow: 0 0 0px 1000px rgba(5, 17, 63, 0.1) inset;
-	transition: transparent 5000s ease-in-out 0s;
-	color: white;
-	-webkit-background-clip: text !important;
+   filter: none;
+   -webkit-text-fill-color: white;
+   -webkit-box-shadow: none;
+   box-shadow: 0 0 0px 1000px rgba(5, 17, 63, 0.1) inset;
+   transition: transparent 5000s ease-in-out 0s;
+   color: white;
+   -webkit-background-clip: text !important;
 }
 
 /* Width */
 ::-webkit-scrollbar {
-	width: 4px;
+   width: 4px;
+   height: 4px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-	background: #f1f1f1;
+   background: #f1f1f1;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: #888;
+   background: #888;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	background: #555;
+   background: #555;
 }
 
 @layer components {
-	.container {
-		@apply sm:max-w-none md:max-w-[640px] lg:max-w-[790px] xl:max-w-[960px] 2xl:max-w-[1200px];
-	}
+   .container {
+      @apply sm:max-w-none md:max-w-[640px] lg:max-w-[790px] xl:max-w-[960px] 2xl:max-w-[1200px];
+   }
 }

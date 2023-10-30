@@ -3,12 +3,7 @@ import { Axios } from '@/app/utils/api';
 
 const cinemaService = {
 	getAll: async () => {
-		return await Axios.axiosGet(ENDPOINTS.CINEMA_LIST, {
-			params: {
-				size: 10,
-				page: 1,
-			},
-		});
+		return await Axios.axiosGet(ENDPOINTS.CINEMA_MOVIES_SHOWTIME);
 	},
 };
 
