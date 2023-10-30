@@ -5,12 +5,12 @@ const Seat = ({ seat }) => {
    return (
       <div
          className={clsx(
-            "h-8 w-8 border-2 border-bgPrimary text-bgPrimary",
-            seat?.status ? "bg-borderColor" : "bg-gradientStart",
+            "flex justify-center items-center h-8 w-8 border-2 border-bgPrimary rounded-lg text-center hover:bg-highlight cursor-pointer transition-colors duration-150",
+            seat?.status ? "bg-borderColor" : "bg-gradientStart hover:none",
             seat?.isReserved && "bg-highlight"
          )}
       >
-         {seat?.seat_id}
+         <span className="text-sm">{seat?.row_index}</span>
       </div>
    );
 };
