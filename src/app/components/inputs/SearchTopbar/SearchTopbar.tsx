@@ -2,7 +2,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import useSearchTopbar from './useSearchTopbar';
 
 function SearchTopBar() {
-	const { handleOnChange } = useSearchTopbar();
+	const { handleOnChange, searchValue } = useSearchTopbar();
 
 	return (
 		<label
@@ -15,6 +15,7 @@ function SearchTopBar() {
 			<div className="w-full">
 				<input
 					onChange={handleOnChange}
+					value={searchValue}
 					id="search-input"
 					name="search-input"
 					type="text"

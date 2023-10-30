@@ -1,38 +1,54 @@
-import React from "react";
-import { useRedux } from "../hooks";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import path from "path";
-import { PATHS } from "../constants/path";
+import React from 'react';
+import { useRedux } from '../hooks';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import path from 'path';
+import { PATHS } from '../constants/path';
+import authUtils from '../utils/auth';
+import { getCurrentUser } from '../redux/auth';
 
 type ProtectedRouteTypes = {
-  component: React.ComponentType;
-  role?: string;
-  backgroundImage?: string;
+	component: React.ComponentType;
+	role?: string;
+	backgroundImage?: string;
 };
 
 function ProtectedRoute({
-  component: RouteComponent,
-  role,
-  backgroundImage,
+	component: RouteComponent,
+	role,
+	backgroundImage,
 }: ProtectedRouteTypes) {
-  const { appSelector } = useRedux();
+	const { dispatch, appSelector } = useRedux();
+	const location = useLocation();
+	const navigate = useNavigate();
+	const { user } = appSelector((state) => state.auth);
 
-  const { isAuthenticated } = appSelector((state) => state.user);
+	useEffect(() => {
+		if (!user.role && authUtils.isAuthenticated()) {
+			const promise = dispatch(getCurrentUser());
+			return () => promise.abort();
+		}
+	}, []);
 
-  const navigate = useNavigate();
+	useEffect(() => {
+		if (!authUtils.isAuthenticated())
+			navigate(`/${PATHS.AUTH.IDENTITY}`, {
+				state: {
+					from: location.pathname,
+				},
+			});
+	}, [navigate, location.pathname]);
 
-  useEffect(() => {
-    if (!isAuthenticated) navigate(`${PATHS.AUTH.IDENTITY}`);
-  }, [isAuthenticated, navigate]);
+	if (role) {
+		const regex = new RegExp(`^${role}$`);
 
-  if (role && role !== "Admin") {
-    // If a role is specified and it's not the expected role, navigate somewhere else.
-    return <Navigate to="/" />;
-  }
+		regex.test(user.role) && (
+			<Navigate to={{ pathname: `/${PATHS.HOME.IDENTITY}` }} replace />
+		);
+	}
 
-  //@ts-ignore
-  return <RouteComponent backgroundImage={backgroundImage} />;
+	//@ts-ignore
+	return <RouteComponent backgroundImage={backgroundImage} />;
 }
 
 export default ProtectedRoute;
