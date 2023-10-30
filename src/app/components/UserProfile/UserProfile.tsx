@@ -1,5 +1,4 @@
 import React from 'react';
-import useSearchTopbar from '../inputs/SearchTopbar/useSearchTopbar';
 
 function UserProfile() {
 	return (

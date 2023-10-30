@@ -1,8 +1,3 @@
-type Cell = {
-	text: string;
-	className?: string;
-};
-
 export type TableProps = {
 	header: string[];
 	row: (row: any, index?: number) => JSX.Element;

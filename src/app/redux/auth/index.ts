@@ -3,6 +3,7 @@ import { Axios } from '../../utils/api';
 import authUtils from '../../utils/auth';
 import { SignalIcon } from '@heroicons/react/20/solid';
 import { IPostLoginPayload } from '@/app/types/auth';
+import { ENDPOINTS } from '@/app/constants/endpoint';
 // import { access } from 'fs';
 
 // initial state
@@ -54,7 +55,7 @@ export const login = createAsyncThunk(
 export const getCurrentUser = createAsyncThunk(
 	'@@auth/getCurrentUser',
 	async (_, thunkApi) => {
-		const { data } = await Axios.axiosGetWithToken('currentUser', {
+		const { data } = await Axios.axiosGetWithToken(ENDPOINTS.PROFILE.DATA, {
 			signal: thunkApi.signal,
 		});
 

@@ -47,27 +47,6 @@ function Table({ header, row, handleOnChangePage }: TableProps) {
 	const isLaptop = width <= 1450;
 
 	const DataRow = useCallback(() => {
-		if (!data.length) {
-			// eslint-disable-next-line no-lone-blocks
-
-			return (
-				<>
-					{Array(7)
-						.fill(0)
-						.map((_, i) => {
-							return (
-								<div
-									key={`loading-${i}`}
-									className="w-[1150px] col-span-full  mb-4.5"
-								>
-									<div className=" animate-pulse h-2.5 w-full rounded-full bg-gray-500"></div>
-								</div>
-							);
-						})}
-				</>
-			);
-		}
-
 		return (
 			<div className={`contents  text-[15px]"`}>
 				{data.map((obj, index: number) => {
@@ -131,7 +110,6 @@ function Table({ header, row, handleOnChangePage }: TableProps) {
 								</PaginationButton>
 							);
 						})}
-					<PaginationButton>...</PaginationButton>
 					<PaginationButton handleOnClick={handleNext} disabled={isOnLastPage}>
 						<ChevronRightIcon className="h-5 w-5" />
 					</PaginationButton>

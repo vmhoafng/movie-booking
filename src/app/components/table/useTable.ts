@@ -17,7 +17,12 @@ export default function useTable() {
 	const totalPages = Math.floor(data.length / 10);
 
 	const fetchData = async () => {
-		const { data: dataFromBE } = await Axios.axiosGetWithToken('admin/users');
+		const { data: dataFromBE } = await Axios.axiosGetWithToken('admin/users', {
+			params: {
+				page: currentPage,
+				size: 10,
+			},
+		});
 		setData([...dataFromBE.data]);
 	};
 
