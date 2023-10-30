@@ -1,7 +1,5 @@
-import React from 'react';
-
 function CinemaList() {
-	return <div>CinemaList</div>;
+	return <div className="">CinemaList</div>;
 }
 
 export default CinemaList;
