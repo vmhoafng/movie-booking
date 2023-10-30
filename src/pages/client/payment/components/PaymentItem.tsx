@@ -45,7 +45,8 @@ function PaymentItem({
           className={clsx(
             `
           w-full
-          max-w-[210px]
+          lg:max-w-[210px]
+          xl:max-w-none
           rounded
           border
           px-[15px]
