@@ -43,7 +43,7 @@ function Movies() {
             src={movie.poster}
             alt={movie.slug}
             onClick={() => {}}
-            to={`/movies/movieDetail/${movie.slug}`}
+            to={`/movies/movieDetail/?q=${movie.slug}`}
           />
         ))}
       </>
