@@ -47,7 +47,6 @@ const movieSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getMovieDetail.fulfilled, (state, action) => {
-      console.log(action?.payload);
       state.detail = {...action.payload};
       state.isLoading = false;
       state.isError = false;
