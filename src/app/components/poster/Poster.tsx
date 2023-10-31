@@ -2,6 +2,7 @@ import React from "react";
 import Image from "../Image";
 import clsx from "clsx";
 import Button from "../button/Button";
+import { Link } from "react-router-dom";
 
 interface PosterProps {
   src?: string;
@@ -9,9 +10,19 @@ interface PosterProps {
   horizontal?: boolean;
   name: string;
   subname: string;
+  to?: string;
+  onClick?: () => void;
 }
 
-function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
+function Poster({
+  src,
+  alt,
+  horizontal,
+  name,
+  subname,
+  to,
+  onClick,
+}: PosterProps) {
   return (
     <div
       className="
@@ -59,8 +70,9 @@ function Poster({ src, alt, horizontal, name, subname }: PosterProps) {
             borderWhite
             small={horizontal}
             medium={!horizontal}
+            onClick={onClick}
           >
-            buy ticket
+            <Link to={to!}> buy ticket</Link>
           </Button>
         </div>
       </div>
