@@ -51,7 +51,7 @@ function Movies() {
   }, [isLoading]);
   return (
     <div className="bg-bgPrimary w-full">
-      <div className="mt-24 mx-auto">
+      <div className="mx-auto">
         <div className="flex flex-col gap-10 items-start justify-center py-14 bg-bgPrimary">
           <div className="flex gap-10">
             <Title
