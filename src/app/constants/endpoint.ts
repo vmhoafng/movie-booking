@@ -1,4 +1,4 @@
-import { ROUTE_PARAMS } from './path';
+import { ROUTE_PARAMS } from "./path";
 
 export const ENDPOINTS = {
 	MOVIE_BY_STATUS: `landing/status/movies`,
@@ -10,16 +10,25 @@ export const ENDPOINTS = {
 	MOVIE_GENRES: `landing/movieGenres`,
 	CINEMA_DETAILS: `landing/cinema/${ROUTE_PARAMS.CINEMA_ID}`,
 	CINEMA_LIST: `landing/cinemas`,
-	PROFILE: 'currentUser',
+	PROFILE: {
+		DATA: 'profile',
+		CHECKPASSWORD: 'checkPassword',
+	},
+
+	AUTH: {
+		FORGOT_PASSWORD: 'auth/sendToResetPass',
+		RESET_PATH: 'auth/resetPass',
+	},
+
 	ADMIN: {},
 };
 
 export const getEndPoint = (endpoint: string, arg: Object) => {
-	let newEndpoint = '';
-	Object.keys(arg).forEach((key) => {
-		const regex = new RegExp('(:' + key + ')', 'g');
-		//@ts-ignore
-		newEndpoint = endpoint.replace(regex, arg[key]);
-	});
-	return newEndpoint;
+  let newEndpoint = "";
+  Object.keys(arg).forEach((key) => {
+    const regex = new RegExp("(:" + key + ")", "g");
+    //@ts-ignore
+    newEndpoint = endpoint.replace(regex, arg[key]);
+  });
+  return newEndpoint;
 };

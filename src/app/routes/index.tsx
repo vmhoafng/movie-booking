@@ -48,6 +48,15 @@ const cinemaDetailAdmin = React.lazy(
 	() => import('../../pages/admin/Cinemas/Detail')
 );
 
+const userListAdmin = React.lazy(() => import('@/pages/admin/Accounts/List'));
+const userDetailAdmin = React.lazy(
+	() => import('@/pages/admin/Accounts/Detail')
+);
+
+const movieDetailAdmin = React.lazy(
+	() => import('@/pages/admin/Movies/Detail')
+);
+
 //Loading
 const loading = () => <LoadingAnimation />;
 
@@ -141,6 +150,10 @@ const movieManageRoutes = {
 			path: PATHS.ADMIN.MOVIES.LIST,
 			element: <LoadComponent component={movieListAdmin} />,
 		},
+		{
+			path: PATHS.ADMIN.MOVIES.DETAIL,
+			element: <LoadComponent component={movieDetailAdmin} />,
+		},
 	],
 };
 
@@ -154,6 +167,20 @@ const cinemaManageRoutes = {
 		{
 			path: PATHS.ADMIN.CINEMA.DETAIL,
 			element: <LoadComponent component={cinemaDetailAdmin} />,
+		},
+	],
+};
+
+const userAdminRoute = {
+	path: PATHS.ADMIN.USERS.IDENTITY,
+	children: [
+		{
+			path: PATHS.ADMIN.USERS.LIST,
+			element: <LoadComponent component={userListAdmin} />,
+		},
+		{
+			path: PATHS.ADMIN.USERS.DETAIL,
+			element: <LoadComponent component={userDetailAdmin} />,
 		},
 	],
 };
@@ -195,10 +222,8 @@ function AllRoutes() {
 		},
 		{
 			path: PATHS.ADMIN.IDENTITY,
-			// element: <ProtectedRoute />,
-			// element: <ProtectedRoute role={'Admin'} component={AdminLayout} />,
-			element: <ProtectedRoute component={AdminLayout} />,
-			children: [movieManageRoutes, cinemaManageRoutes],
+			element: <ProtectedRoute role="ADMIN" component={AdminLayout} />,
+			children: [movieManageRoutes, cinemaManageRoutes, userAdminRoute],
 		},
 	]);
 }

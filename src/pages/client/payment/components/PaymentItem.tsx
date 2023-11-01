@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import React from "react";
+import "../css/Payment.css";
 interface PaymentItemProps {
   label: string;
   disabled?: boolean;
@@ -44,6 +45,8 @@ function PaymentItem({
           className={clsx(
             `
           w-full
+          lg:max-w-[210px]
+          xl:max-w-none
           rounded
           border
           px-[15px]
@@ -53,6 +56,9 @@ function PaymentItem({
           border-borderColor
           selection:bg-highlight
           selection:text-primary
+          overflow-x-scroll
+          overflow-y-hidden
+          container-snap
         `,
             borderWhite && "border-white/50 focus:border-white/50",
             disabled && "opacity-50 cursor-default",
