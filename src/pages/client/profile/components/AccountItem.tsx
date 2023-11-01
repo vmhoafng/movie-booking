@@ -3,6 +3,10 @@ import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import Input from "@/app/components/inputs/Input";
 import Button from "@/app/components/button/Button";
 import useWindowDimensions from "@/app/hooks/useWindowDimensions";
+import SelectInput from "@/app/components/inputs/SelectInput";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+
+import clsx from "clsx";
 function AccountItem() {
   const { width } = useWindowDimensions();
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +33,7 @@ function AccountItem() {
           col
           register={register}
           errors={errors}
+          required
         />
         <div className="w-full flex gap-[10px] lg:flex-col xl:flex-row xl:gap-[30px] 2xl:gap-5">
           <Input
@@ -38,15 +43,53 @@ function AccountItem() {
             col
             register={register}
             errors={errors}
-            endIcon="/assets/icons/twitter.svg"
+            endIcon="/assets/icons/calendar.svg"
           />
-          <Input
-            id="gender"
-            label="Giới tính"
-            col
-            register={register}
-            errors={errors}
-          />
+          <div className="flex w-full py-[3px] flex-col items-start gap-1">
+            <label
+              className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
+              htmlFor="gender"
+            >
+              Giới tính
+            </label>
+            <SelectInput
+              id="gender"
+              options={[
+                { label: "", value: "" },
+                { label: "Nam", value: "Nam" },
+                { label: "Nữ", value: "Nữ" },
+                { label: "Khác", value: "Khác" },
+              ]}
+              name="gender"
+              onChange={() => {}}
+              inputClassName="w-full"
+              optionClassName="
+                z-30
+                text-white/90
+                hover:bg-white/10
+                px-[15px] 
+                py-2
+                transition-all
+                duration-150"
+              buttonClassName="
+                text-start
+                block
+                w-full
+                px-[15px]
+                rounded
+                border
+                shadow-sm
+                bg-white/10
+                outline-0
+                text-white/90
+                border-borderColor
+                focus:border-borderColor
+                relative
+                h-10"
+              //@ts-ignore
+              endIcon={ChevronDownIcon}
+            />
+          </div>
         </div>
         <Input
           id="email"

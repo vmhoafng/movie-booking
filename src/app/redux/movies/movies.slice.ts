@@ -1,20 +1,33 @@
 import api from "@/app/services/api";
-import { IMovie, IgetByStatus } from "@/app/types/movie";
+import { IMovie, IMovieSlug, IgetByStatus } from "@/app/types/movie";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface IMoviesState {
   movies: IMovie[];
   isLoading: boolean;
+  isError: boolean;
+  errorMessage: string;
+  detail: IMovie;
 }
 
 const initialState: IMoviesState = {
   movies: [],
+  detail: {} as IMovie,
   isLoading: false,
+  isError: false,
+  errorMessage: "",
 };
 export const getByStatus = createAsyncThunk(
   "@@movies/getByStatus",
   async (payload: IgetByStatus, thunkApi) => {
     const { data } = await api.moviesService.getAll(payload);
+    return data;
+  }
+);
+export const getMovieDetail = createAsyncThunk(
+  "@@movies/getMovieDetail",
+  async (payload: IMovieSlug, thunkApi) => {
+    const { data } = await api.moviesService.getMovieSlug(payload);
     return data;
   }
 );
@@ -29,6 +42,13 @@ const moviesSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getByStatus.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getMovieDetail.fulfilled, (state, action) => {
+        state.detail = { ...action.payload };
+        state.isLoading = false;
+      })
+      .addCase(getMovieDetail.pending, (state) => {
         state.isLoading = true;
       });
   },

@@ -3,6 +3,7 @@ export const ROUTE_PARAMS = {
 	CINEMA_ID: ':cinemaId',
 	USER_ID: ':userId',
 	SHOWTIME_ID: ':showTimeId',
+   MOVIE_SLUG: ':movieSlug',
 };
 
 export const PATHS = {
