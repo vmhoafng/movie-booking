@@ -76,7 +76,7 @@ const Input = ({
           placeholder={placeholder}
           autoComplete="off"
           //@ts-ignore
-          {...register(id, { required })}
+          {...(register && register(id, { required }))}
           className={clsx(
             `
             form-input

@@ -11,7 +11,7 @@ function Movies() {
   const { appSelector, dispatch } = useRedux();
 
   useEffect(() => {
-    setSearchParams({ q: "showing-now" });
+    setSearchParams({ q: searchParams.get("q") || "showing-now" });
   }, []);
   useEffect(() => {
     dispatch(
@@ -42,6 +42,8 @@ function Movies() {
             subname={movie.sub_name}
             src={movie.poster}
             alt={movie.slug}
+            onClick={() => {}}
+            to={`/movies/movieDetail/?q=${movie.slug}`}
           />
         ))}
       </>
