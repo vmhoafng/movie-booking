@@ -19,58 +19,6 @@ import {
    getShowtimeByMovie,
 } from "../../../app/redux/slices/showtimeSlice";
 import Poster from "@/app/components/poster/Poster";
-// import Swiper from "swiper";
-
-const showtime = [
-   {
-      key: 1,
-      cinema: "Cinema An Duong Vuong",
-      times: [
-         "20:11",
-         "21:00",
-         "20:11",
-         "21:00",
-         "20:11",
-         "21:00",
-         "20:11",
-         "21:00",
-         "20:11",
-         "21:00",
-      ],
-   },
-   {
-      key: 2,
-      cinema: "Cinema Go Vap",
-      times: [
-         "20:11",
-         "21:00",
-         "20:11",
-         "21:00",
-         "20:11",
-         "21:00",
-         "20:11",
-         "21:00",
-         "20:11",
-         "21:00",
-      ],
-   },
-   {
-      key: 3,
-      cinema: "Cinema Quan 12",
-      times: [
-         "20:11",
-         "21:00",
-         "20:11",
-         "21:00",
-         "20:11",
-         "21:00",
-         "20:11",
-         "21:00",
-         "20:11",
-         "21:00",
-      ],
-   },
-];
 
 function MovieDetail({ movie }) {
    const { width } = useWindowDimensions();
