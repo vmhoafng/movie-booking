@@ -57,7 +57,7 @@ function SelectInput({
             </span>
             {Icon && (
               <span className="absolute inset-y-0 right-0 pr-[15px] flex items-center">
-                <Icon/>
+                <Icon className="w-5 h-5" />
               </span>
             )}
           </Listbox.Button>
@@ -67,7 +67,7 @@ function SelectInput({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 z-30 bg-bgPrimaryLayer border border-borderColor rounded w-full flex flex-col">
+            <Listbox.Options className="absolute mt-1 z-30 bg-bgPrimary border border-borderColor rounded w-full flex flex-col">
               {options
                 .filter((option) => option.label !== "")
                 .map((option) => {
