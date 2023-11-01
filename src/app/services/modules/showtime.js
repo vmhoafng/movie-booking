@@ -4,17 +4,17 @@ import axios from "axios";
 export default {
    getShowtimeByMovie: (id, date) => {
       return axios.get(
-         `http://localhost:8080/api/v1/landing/movie/${id}/showtime?date=${date}`
+         `${process.env.REACT_APP_BOOKING_MOVIE_API_URL}/landing/movie/${id}/showtime?date=${date}`
       );
    },
    getShowtimeByCinema: (id, date) => {
       return axios.get(
-         `http://localhost:8080/api/v1/landing/cinema/${id}/showtime?${date}`
+         `${process.env.REACT_APP_BOOKING_MOVIE_API_URL}/landing/cinema/${id}/showtime?${date}`
       );
    },
    getSeatsByShowtime: (id) => {
       return axios.get(
-         `http://localhost:8080/api/v1/landing/showtime/${id}/seats`
+         `${process.env.REACT_APP_BOOKING_MOVIE_API_URL}/landing/showtime/${id}/seats`
       );
    },
 };
