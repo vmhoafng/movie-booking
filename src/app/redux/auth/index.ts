@@ -4,7 +4,21 @@ import authUtils from '../../utils/auth';
 import { SignalIcon } from '@heroicons/react/20/solid';
 import { IPostLoginPayload } from '@/app/types/auth';
 import { ENDPOINTS } from '@/app/constants/endpoint';
+import { IPostBill } from '@/app/types/payment';
+import api from '@/app/services/api';
 // import { access } from 'fs';
+
+type UserData = {
+	token: string;
+	email: string;
+	gender: string;
+	point: number;
+	verify: boolean | undefined;
+	role: string;
+	full_name: string;
+	date_of_birth: string;
+	phone_number: string;
+};
 
 // initial state
 type IUserInitialState = {
@@ -21,25 +35,13 @@ const initialState: IUserInitialState = {
 		date_of_birth: '',
 		email: '',
 		full_name: '',
-		gender: undefined,
+		gender: '',
 		phone_number: '',
 		point: 0,
 		role: '',
 		token: '',
 		verify: undefined,
 	},
-};
-
-type UserData = {
-	token: string;
-	email: string;
-	gender: true | undefined;
-	point: number;
-	verify: boolean | undefined;
-	role: string;
-	full_name: string;
-	date_of_birth: string;
-	phone_number: string;
 };
 
 export const login = createAsyncThunk(
@@ -58,7 +60,6 @@ export const getCurrentUser = createAsyncThunk(
 		const { data } = await Axios.axiosGetWithToken(ENDPOINTS.PROFILE.DATA, {
 			signal: thunkApi.signal,
 		});
-
 		return data;
 	}
 );
@@ -71,6 +72,8 @@ export const userSlice = createSlice({
 		resetAuth: (state) => {
 			state = { ...initialState };
 		},
+
+		selectSeat: (state, action) => {},
 	},
 	extraReducers(builder) {
 		builder

@@ -3,10 +3,12 @@
 import movie from '../modules/movie';
 import showtime from '../modules/showtime';
 import cinemaService from '../modules/cinema';
-import moviesService from  "../modules//movies/movies.service"
+import moviesService from '../modules//movies/movies.service';
+import { paymetService } from '../modules/payment';
 export default {
 	movie,
 	showtime,
 	cinemaService,
-	moviesService
+	moviesService,
+	paymetService,
 };

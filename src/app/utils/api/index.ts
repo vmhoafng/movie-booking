@@ -73,10 +73,10 @@ export const Axios = {
 		params?: AxiosRequestConfig
 	): Promise<AxiosResponse> => {
 		return instance.post(endpoint, body, {
-			...params,
 			headers: {
 				Authorization: 'Bearer ' + authUtils.getSessionToken(),
 			},
+			...params,
 		});
 	},
 
@@ -94,10 +94,10 @@ export const Axios = {
 		params?: AxiosRequestConfig
 	): Promise<AxiosResponse> => {
 		return instance.put(endpoint, body, {
-			...params,
 			headers: {
 				Authorization: 'Bearer ' + authUtils.getSessionToken(),
 			},
+			...params,
 		});
 	},
 
