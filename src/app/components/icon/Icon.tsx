@@ -57,15 +57,16 @@ export type IconType =
 
 interface IconProps {
   icon: IconType;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
+  className?: string;
 }
-function Icon({ icon, width, height }: IconProps) {
+function Icon({ icon, width = 20, height = 20, className }: IconProps) {
   return (
     <img
       src={Icons[icon]}
       alt=""
-      className={`w-[${width}px] h-[${height}px] drop-shadow-[0.5px_0.5px_1px_rgba(0,0,0,0.50)]`}
+      className={`w-[${width}px] h-[${height}px] drop-shadow-[0.5px_0.5px_1px_rgba(0,0,0,0.50)] ${className}`}
     />
   );
 }

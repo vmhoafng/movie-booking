@@ -33,7 +33,7 @@ function AvatarItem() {
             border-borderColor"
         />
         <div className="absolute right-0 bottom-4 lg:bottom-1 2xl:bottom-4">
-          <Icon width={30} height={30} icon="smile" />
+          <Icon icon="smile" />
         </div>
       </div>
       <div className="flex flex-col items-center">
