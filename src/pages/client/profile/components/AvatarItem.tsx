@@ -15,9 +15,6 @@ function AvatarItem() {
       )}
       <div className="relative">
         <img
-          onClick={() => {
-            setOpenModal(true);
-          }}
           src="/assets/images/bg-01.jpg"
           alt=""
           className="
@@ -32,9 +29,14 @@ function AvatarItem() {
             object-cover
             border-borderColor"
         />
-        <div className="absolute right-0 bottom-4 lg:bottom-1 2xl:bottom-4">
-          <Icon icon="smile" />
-        </div>
+        <button
+          onClick={() => {
+            setOpenModal(true);
+          }}
+          className="absolute right-0 bottom-4 lg:bottom-1 2xl:bottom-4"
+        >
+          <Icon width={30} height={30} icon="smile" />
+        </button>
       </div>
       <div className="flex flex-col items-center">
         <div className="text-[15px] text-white font-bold leading-6">

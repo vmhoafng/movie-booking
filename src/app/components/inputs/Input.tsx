@@ -121,7 +121,7 @@ const Input = ({
         />
         {endIcon && (
           <button className="select-none absolute flex items-center h-full right-[15px] top-0">
-            <Icon width={20} height={20} icon={endIcon} />
+            <Icon width={20} height={20} icon={endIcon}/>
           </button>
         )}
       </div>

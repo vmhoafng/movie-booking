@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 const Icons = {
   accountCircle: "/assets/icons/account-circle.svg",
   arrowDownRight: "/assets/icons/arrow-down-right.svg",
@@ -66,7 +68,11 @@ function Icon({ icon, width = 20, height = 20, className }: IconProps) {
     <img
       src={Icons[icon]}
       alt=""
-      className={`w-[${width}px] h-[${height}px] drop-shadow-[0.5px_0.5px_1px_rgba(0,0,0,0.50)] ${className}`}
+      className={clsx(
+        `drop-shadow-[0.5px_0.5px_1px_rgba(0,0,0,0.50)]`,
+        `${className || ""}`
+      )}
+      style={{ width: width, height: height }}
     />
   );
 }
