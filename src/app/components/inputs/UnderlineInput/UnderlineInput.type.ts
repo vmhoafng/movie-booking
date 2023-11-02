@@ -1,9 +1,12 @@
-import { FieldError } from 'react-hook-form';
+import { FieldErrors } from 'react-hook-form';
 
 export type UnderlineInputProps = {
 	id: string;
-	disabled: boolean;
+	disabled?: boolean;
 	name: string;
 	register?: any;
-	errors?: FieldError;
+	errors?: FieldErrors;
+	containerClassName?: string;
+	label?: string;
+	variant?: 'primary' | 'secondary' | 'default';
 };

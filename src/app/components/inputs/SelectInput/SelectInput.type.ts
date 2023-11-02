@@ -14,8 +14,9 @@ export type SelectInputProps = {
 	placeholder?: string;
 	inputClassName?: string;
 	optionClassName?: string;
+	control?: any;
 	options: SelectOption[];
-	onChange: (e: SelectOption) => void;
+	onChange?: (e: SelectOption) => void;
 	onClick?: (e?: SelectOption) => void;
 };
 
