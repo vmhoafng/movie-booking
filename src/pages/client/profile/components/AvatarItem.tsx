@@ -33,9 +33,9 @@ function AvatarItem() {
           onClick={() => {
             setOpenModal(true);
           }}
-          className="absolute right-0 bottom-4 lg:bottom-1 2xl:bottom-4"
+          className="absolute right-0 bottom-4 lg:bottom-2 2xl:bottom-4"
         >
-          <Icon icon="smile" />
+          <Icon icon="smile" className="h-[30px] lg:h-[26px] xl:h-[30px]" />
         </button>
       </div>
       <div className="flex flex-col items-center">
