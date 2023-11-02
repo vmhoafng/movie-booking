@@ -3,6 +3,7 @@ import React from "react";
 function AvatarItem() {
   return (
     <div className="flex flex-col gap-[10px] items-center">
+      <div className="absolute bg-bgPrimary/20 w-screen h-screen"></div>
       <img
         src="/assets/images/bg-01.jpg"
         alt=""

@@ -5,32 +5,28 @@ import Button from "@/app/components/button/Button";
 import useWindowDimensions from "@/app/hooks/useWindowDimensions";
 import SelectInput from "@/app/components/inputs/SelectInput";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+
 import clsx from "clsx";
 function AccountItem() {
   const { width } = useWindowDimensions();
   const [isLoading, setIsLoading] = useState(false);
-  const validationSchema = yup.object().shape({
-    isUsingPoint: yup.boolean(),
-  });
   const {
-    handleSubmit,
     register,
-    control,
+    handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({
-    resolver: yupResolver<FieldValues>(validationSchema),
-    defaultValues: { isUsingPoint: false },
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      gender: "Nữ",
+    },
   });
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    setIsLoading(true);
   };
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="w-full lg:w-[344px] xl:w-[470px] 2xl:w-[550px] flex flex-col gap-[25px] py-10 lg:py-5"
-    >
+    <div className="w-full lg:w-[344px] xl:w-[470px] 2xl:w-[550px] flex flex-col gap-[25px] py-10 lg:py-5">
       <div className="flex flex-col gap-[10px]">
         <Input
           id="name"
@@ -117,7 +113,7 @@ function AccountItem() {
       <Button large secondary fullWidth={width > 900}>
         Cập nhật
       </Button>
-    </form>
+    </div>
   );
 }
 
