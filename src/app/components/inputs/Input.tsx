@@ -13,6 +13,7 @@ interface InputProps {
   borderWhite?: boolean;
   col?: boolean;
   endIcon?: string;
+  value?: string;
 }
 const Input = ({
   label,
@@ -26,6 +27,7 @@ const Input = ({
   borderWhite,
   col,
   endIcon,
+  value,
 }: InputProps) => {
   const handlePattern = (type: string) => {
     let pattern = "";
@@ -86,6 +88,7 @@ const Input = ({
           disabled={disabled}
           placeholder={placeholder}
           autoComplete="off"
+          value={value}
           {...(register && register(id, { required }))}
           className={clsx(
             `

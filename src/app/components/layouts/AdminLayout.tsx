@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 
 function AdminLayout() {
 	return (
-		<div className="w-full  text-white bg-bgPrimary h-full flex">
+		<div className="w-full text-white bg-bgPrimary flex">
 			<Sidebar />
 
 			<div className="w-full">
