@@ -63,7 +63,7 @@ interface IconProps {
   height?: number;
   className?: string;
 }
-function Icon({ icon, width = 20, height = 20, className }: IconProps) {
+function Icon({ icon, width, height, className }: IconProps) {
   return (
     <img
       src={Icons[icon]}
