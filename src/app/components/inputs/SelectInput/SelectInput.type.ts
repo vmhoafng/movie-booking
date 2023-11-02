@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-
+type HeroIconType = React.FC<React.SVGProps<SVGSVGElement>>;
 export type SelectInputProps = {
 	id: string;
 	label?: string;
@@ -10,11 +10,12 @@ export type SelectInputProps = {
 	name: string;
 	register?: any;
 	errors?: FieldErrors;
-	endIcon?: React.ReactNode | JSX.Element;
+	endIcon?: HeroIconType;
 	placeholder?: string;
 	inputClassName?: string;
 	optionClassName?: string;
 	control?: any;
+	buttonClassName?: string;
 	options: SelectOption[];
 	onChange?: (e: SelectOption) => void;
 	onClick?: (e?: SelectOption) => void;

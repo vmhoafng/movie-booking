@@ -25,7 +25,7 @@ function PasswordItem() {
       <div className="flex flex-col gap-[10px]">
         <Input
           type="password"
-          id="password"
+          id="currentPassword"
           label="Mật khẩu hiện tại"
           col
           register={register}
@@ -33,15 +33,15 @@ function PasswordItem() {
         />
         <Input
           type="password"
-          id="password"
+          id="newPassword"
           label="Mật khẩu mới"
           col
           register={register}
           errors={errors}
         />
         <Input
-          type="pas"
-          id="password"
+          type="password"
+          id="confirmNewPassword"
           label="Xác nhận mật khẩu mới"
           col
           register={register}

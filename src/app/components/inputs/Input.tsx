@@ -13,6 +13,7 @@ interface InputProps {
   borderWhite?: boolean;
   col?: boolean;
   endIcon?: string;
+  value?: string;
 }
 const Input = ({
   label,
@@ -26,6 +27,7 @@ const Input = ({
   borderWhite,
   col,
   endIcon,
+  value,
 }: InputProps) => {
   const handlePattern = (type: string) => {
     let pattern = "";
@@ -58,15 +60,26 @@ const Input = ({
           !col && "min-w-[200px]"
         )}
       >
-        <span
-          className="
-                  [text-shadow:0.5px_0.5px_1px_var(--tw-shadow-color)]
-                  shadow-black/50
-          "
-        >
-          {label}
-          {!col && ":"}
-        </span>
+        {label}
+        {required && (
+          <span className="text-red-500 text-sm lowercase">
+            *
+            {(() => {
+              switch (type) {
+                case "email":
+                  const regex = "";
+                  return `Không đúng định dạng.`;
+                case "min":
+                  return `Tối thiểu  kí tự.`;
+                case "max":
+                  return `Tối đa kí tự.`;
+                default:
+                  return "";
+              }
+            })()}
+          </span>
+        )}
+        {!col && ":"}
       </label>
       <div className="w-full relative">
         <input
@@ -75,7 +88,7 @@ const Input = ({
           disabled={disabled}
           placeholder={placeholder}
           autoComplete="off"
-          //@ts-ignore
+          value={value}
           {...(register && register(id, { required }))}
           className={clsx(
             `
