@@ -19,7 +19,6 @@ function AccountItem() {
       name: "",
       email: "",
       password: "",
-      gender: "Nữ",
     },
   });
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
