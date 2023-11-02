@@ -124,7 +124,7 @@ function Sidebar() {
 	];
 
 	return (
-		<div className="bg-bgPrimaryBar">
+		<div className="bg-bgPrimaryBar w-[250px] h-full fixed top-0 left-0 bottom-0">
 			<div className="w-full">
 				<img
 					src="/assets/images/Logo.png"
