@@ -38,7 +38,7 @@ const LoginForm = () => {
 		<>
 			{userLoggedIn && (
 				<Navigate
-					to={{ pathname: location.state.from || PATHS.HOME.IDENTITY }}
+					to={{ pathname: location.state?.from || `/${PATHS.HOME.IDENTITY}` }}
 					replace
 				/>
 			)}
