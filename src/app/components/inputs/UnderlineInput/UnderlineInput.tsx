@@ -29,7 +29,7 @@ function UnderlineInput({
 				id={id}
 				name={name}
 				{...(register && register(id))}
-				className={`border-b border-white/10 bg-transparent outline-none focus:border-highlight  ${
+				className={`border-b border-white/10 bg-transparent outline-none focus:border-highlight transition-all duration-150  ${
 					label && 'flex-1'
 				}`}
 				type="text"
