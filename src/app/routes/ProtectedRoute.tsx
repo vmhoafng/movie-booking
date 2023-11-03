@@ -2,7 +2,6 @@ import React from 'react';
 import { useRedux } from '../hooks';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import path from 'path';
 import { PATHS } from '../constants/path';
 import authUtils from '../utils/auth';
 import { getCurrentUser } from '../redux/auth';

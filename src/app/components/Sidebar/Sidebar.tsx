@@ -94,6 +94,11 @@ function Sidebar() {
 
 	const navItems: NavItem[] = [
 		{
+			text: 'Thống kê',
+			icon: ChartBarIcon,
+			to: PATHS.ADMIN.DASHBOARD.IDENTITY,
+		},
+		{
 			text: 'Phim',
 			icon: FilmIcon,
 			to: PATHS.ADMIN.MOVIES.IDENTITY,
@@ -115,11 +120,16 @@ function Sidebar() {
 		{
 			text: 'Người dùng',
 			icon: UsersIcon,
-			to: PATHS.ADMIN.USERS.IDENTITY,
-		},
-		{
-			text: 'Thống kê',
-			icon: ChartBarIcon,
+			children: [
+				{
+					text: 'Thông tin',
+					to: PATHS.ADMIN.USERS.IDENTITY,
+				},
+				{
+					text: 'Bình luận',
+					to: PATHS.ADMIN.COMMENTS.IDENTITY,
+				},
+			],
 		},
 	];
 
