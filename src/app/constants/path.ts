@@ -1,9 +1,9 @@
 export const ROUTE_PARAMS = {
-	MOVIE_ID: ':movieId',
-	CINEMA_ID: ':cinemaId',
-	USER_ID: ':userId',
-	SHOWTIME_ID: ':showTimeId',
-   MOVIE_SLUG: ':movieSlug',
+   MOVIE_ID: ":movieId",
+   CINEMA_ID: ":cinemaId",
+   USER_ID: ":userId",
+   SHOWTIME_ID: ":showTimeId",
+   MOVIE_SLUG: ":movieSlug",
 };
 
 export const PATHS = {
@@ -24,7 +24,7 @@ export const PATHS = {
    MOVIES: {
       IDENTITY: "movies",
       LIST: "",
-      DETAIL: `${ROUTE_PARAMS.MOVIE_ID}`,
+      DETAIL: `${ROUTE_PARAMS.MOVIE_SLUG}`,
    },
    CINEMA: {
       IDENTITY: "cinema",

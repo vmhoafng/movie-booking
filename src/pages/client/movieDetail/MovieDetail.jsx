@@ -22,41 +22,43 @@ import {
    getShowtimeByMovie,
 } from "../../../app/redux/slices/showtimeSlice";
 import Poster from "@/app/components/poster/Poster";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 // import Swiper from "swiper";
 
 function MovieDetail() {
    const { width } = useWindowDimensions();
    const [trailer, setTrailer] = useState(true);
-   const movieDetail = useSelector((state) => state.detail);
-   const movieData = useSelector((state) => state.movie);
+   const movieDetail = useSelector((state) => state.movie.detail);
+   const movieShowingNow = useSelector((state) => state.movies.movies);
+   const isLoading = useSelector((state) => state.movie.isLoading);
+   const isError = useSelector((state) => state.movie.isError);
    const showtimeData = useSelector((state) => state.showtime);
-   const [searchParams, setSearchParams] = useSearchParams();
+   const { movieSlug } = useParams();
    const dispatch = useDispatch();
 
    useEffect(() => {
+      dispatch(getMovieDetail({ slug: movieSlug }));
       dispatch(getMovieList({ movieStatus: "showing-now", page: 1, size: 4 }));
-      dispatch(getMovieDetail({ slug: searchParams.get("q") }));
-   }, [dispatch, searchParams]);
+   }, [dispatch, movieSlug]);
 
-   useEffect(() => {
-      dispatch(getShowtimeByMovie({ id: movieDetail?.id, date: "2023-11-1" }));
-   }, [movieDetail]);
+   // useEffect(() => {
+   //    dispatch(getShowtimeByMovie({ id: movieDetail?.id, date: "2023-11-1" }));
+   // }, [movieDetail]);
+   // console.log(movieSlug);
 
-   console.log(showtimeData);
+   console.log(movieDetail);
+   console.log(movieShowingNow);
+
    return (
       <>
-         {movieData.isLoading && <LoadingAnimation />}
-         {!movieData.isError ? (
+         {isLoading && <LoadingAnimation />}
+         {!isError ? (
             <div className="w-full px-[15px] md:px-0 md:mx-auto bg-bgPrimary">
                <div className="w-full xl:flex xl:gap-14 2xl:gap-24">
-                  <div
-                     className="xl:w-[calc(100%-300px-80px)] lg:text-sm lg:py-2"
-                     ref={movieDetail}
-                  >
+                  <div className="xl:w-[calc(100%-300px-80px)] lg:text-sm lg:py-2">
                      <div className="flex flex-col md:flex-row gap-5 justify-center items-center py-6 lg:py-8 border-b border-dashed border-borderColor">
                         <img
-                           src="/assets/images/HorizontalPoster.png"
+                           src={movieDetail?.poster}
                            alt=""
                            className="w-[350px] object-cover drop-shadow-textShadow md:hidden"
                         />
@@ -69,16 +71,16 @@ function MovieDetail() {
                            <div className="flex flex-col w-full gap-[6px] lg:gap-2">
                               <div className="w-full uppercase text-left">
                                  <h1 className="text-white/90 text-2xl font-bold mb-1 md:m-0 line-clamp-1">
-                                    a haunting in venice
+                                    {movieDetail?.name}
                                  </h1>
                                  <h3 className="text-lg text-white/60 font-medium line-clamp-1">
-                                    án mạng ở venice
+                                    {movieDetail?.sub_name}
                                  </h3>
                               </div>
                               <div className="flex flex-col gap-1 md:gap-0">
                                  <div className="flex justify-start items-center gap-2 text-white/60 md:text-sm ">
                                     <h4 className="">Đánh giá:</h4>
-                                    <span>9.5/10</span>
+                                    <span>{movieDetail?.rating}</span>
                                     <img
                                        src="/assets/icons/star.svg"
                                        alt=""
@@ -92,7 +94,8 @@ function MovieDetail() {
                                        className="object-contain pb-[1px] lg:pb-1"
                                     />
                                     <span className="text-lightPrimary text-base md:text-sm ">
-                                       120 phút
+                                       {movieDetail?.running_time}
+                                       phút
                                     </span>
                                  </div>
                               </div>
@@ -103,7 +106,7 @@ function MovieDetail() {
                                     Quốc gia:
                                  </span>
                                  <span className="text-white/90 line-clamp-1 ">
-                                    Mỹ
+                                    {movieDetail?.name}
                                  </span>
                               </div>
                               <div className="flex w-full gap-4">
@@ -119,8 +122,7 @@ function MovieDetail() {
                                     Diễn viên:
                                  </span>
                                  <span className="text-white/90 line-clamp-1  flex-1">
-                                    Kenneth Branagh, Kelly Reilly, Dương Tử
-                                    Quỳnh
+                                    {movieDetail?.cast}
                                  </span>
                               </div>
                               <div className="flex w-full gap-4">
@@ -128,7 +130,7 @@ function MovieDetail() {
                                     Đạo diễn:
                                  </span>
                                  <span className="text-white/90 line-clamp-1">
-                                    Kenneth Branagh
+                                    {movieDetail?.director}
                                  </span>
                               </div>
                               <div className="flex w-full gap-4">
@@ -136,7 +138,7 @@ function MovieDetail() {
                                     Ngày khởi chiếu:
                                  </span>
                                  <span className="text-white/90 line-clamp-1">
-                                    15/9/2023
+                                    {movieDetail?.release_date}
                                  </span>
                               </div>
                            </div>
@@ -145,14 +147,7 @@ function MovieDetail() {
                      <div className="flex flex-col gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
                         <Title active>Nội dung</Title>
                         <p className="text-white/60 md:text-sm">
-                           Án Mạng Ở Venice lấy bối cảnh hậu Thế Chiến II tại
-                           thành phố Venice vào đêm Halloween. Thám tử lừng danh
-                           Hercule Poirot bất đắc dĩ phải tham dự một buổi cầu
-                           hồn với sự xuất hiện của bà đồng “Dương Tử Quỳnh” tại
-                           một dinh thự hoang tàn và u ám. Khi một trong những
-                           vị khách bị giết chết, vị thám tử này bị ép buộc rơi
-                           vào một thế giới đầy bóng tối và ngập tràn những bí
-                           mật.
+                           {movieDetail?.description}
                         </p>
                      </div>
                      <div className="w-full overflow-hidden flex flex-col gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
@@ -178,7 +173,7 @@ function MovieDetail() {
                               <iframe
                                  title="trailer"
                                  className="w-full h-full"
-                                 src="https://www.youtube.com/embed/yEddsSwweyE"
+                                 src={movieDetail?.trailer}
                               ></iframe>
                            ) : (
                               <Swiper
@@ -281,7 +276,7 @@ function MovieDetail() {
                               },
                            }}
                         >
-                           {movieData?.movies.map((movie) => {
+                           {movieShowingNow?.map((movie) => {
                               return (
                                  <SwiperSlide style={{ maxWidth: "190px" }}>
                                     <Poster
@@ -300,7 +295,7 @@ function MovieDetail() {
                   <div className="w-fit hidden xl:flex xl:flex-col gap-5 justify-start items-start py-6 xl:py-8">
                      <Title active>Phim đang chiếu</Title>
                      <div className="flex flex-col w-fit gap-4">
-                        {movieData?.movies.map((movie) => {
+                        {movieShowingNow?.map((movie) => {
                            return (
                               <Poster
                                  horizontal
@@ -319,7 +314,7 @@ function MovieDetail() {
                </div>
             </div>
          ) : (
-            <p>{movieData.errorMessage}</p>
+            <p>{movieShowingNow.errorMessage}</p>
          )}
       </>
    );
