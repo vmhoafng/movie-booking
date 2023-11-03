@@ -101,9 +101,7 @@ function MovieDetail() {
 	});
 
 	console.log(errors);
-	const onSubmit: SubmitHandler<FieldValues> = (data) => {
-		console.log(data);
-	};
+	const onSubmit: SubmitHandler<FieldValues> = (data) => {};
 
 	return (
 		<form className="relative" onSubmit={handleSubmit(onSubmit)}>
@@ -134,7 +132,6 @@ function MovieDetail() {
 							name="name"
 							register={register}
 						/>
-
 						<UnderlineInput
 							variant="secondary"
 							id="sub_name"
@@ -197,7 +194,6 @@ function MovieDetail() {
 							register={register}
 						/>
 						{/* @ts-ignore */}
-
 						<label htmlFor="relase_date" className="flex relative text-[15px] ">
 							<p className="flex-[0_0_160px] text-white/70">Ngày khởi chiếu</p>
 							<input
@@ -207,12 +203,10 @@ function MovieDetail() {
 								placeholder="YYYY-MM-DD"
 								{...register('relase_date')}
 							/>
-
 							<span className="absolute top-[1px] right-[15px]">
 								<CalendarIcon className="h-5 w-5" />
 							</span>
 						</label>
-
 						<label htmlFor="relase_date" className="flex relative text-[15px] ">
 							<p className="flex-[0_0_160px] text-white/70">Ngày khởi chiếu</p>
 							<input
@@ -226,7 +220,6 @@ function MovieDetail() {
 								<CalendarIcon className="h-5 w-5" />
 							</span>
 						</label>
-
 						<label className="flex">
 							<p className="flex-[0_0_160px] text-white/70">Trạng thái</p>
 							<SelectInput
@@ -244,7 +237,6 @@ function MovieDetail() {
 			</div>
 			<div className="py-[25px]  border-dashed border-b-[1px] border-borderColor">
 				<Title active={true}>Nội dung phim</Title>
-
 				<label htmlFor="description" className="block mt-4">
 					<textarea
 						id="description"
