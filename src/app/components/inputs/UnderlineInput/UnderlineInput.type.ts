@@ -8,5 +8,5 @@ export type UnderlineInputProps = {
 	errors?: FieldErrors;
 	containerClassName?: string;
 	label?: string;
-	variant?: 'primary' | 'secondary' | 'default';
+	variant?: 'primary' | 'secondary' | 'default' | 'time';
 };

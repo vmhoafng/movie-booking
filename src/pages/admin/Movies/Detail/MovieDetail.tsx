@@ -8,10 +8,39 @@ import {
 	StarIcon,
 } from '@heroicons/react/24/solid';
 import { yupResolver } from '@hookform/resolvers/yup';
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { ChangeEventHandler, FC } from 'react';
+import {
+	FieldValues,
+	SubmitHandler,
+	useForm,
+	Controller,
+} from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import * as yup from 'yup';
+import CRUDButton from '../../components/buttons/CRUDButton';
+import Dropzone, { useDropzone } from 'react-dropzone';
+import { TFile } from '@/app/components/FileUploader';
+import Icon from '@/app/components/icon/Icon';
+
+// const Dropzone: React.FC<{
+// 	multiple?: boolean;
+// 	onChange?: ChangeEventHandler<HTMLInputElement>;
+// }> = ({ multiple, onChange }) => {
+// 	const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
+// 		multiple,
+// 	});
+// 	console.log(acceptedFiles);
+
+// 	return (
+// 		<div className="bg-black w-[120px] h-[450px]" {...getRootProps()}>
+// 			<input
+// 				{...getInputProps({
+// 					onChange: onChange,
+// 				})}
+// 			/>
+// 		</div>
+// 	);
+// };
 
 function MovieDetail() {
 	const { movieId } = useParams();
@@ -32,12 +61,14 @@ function MovieDetail() {
 		sub_name: yup.string().required(),
 		description: yup.string().required(),
 		country: yup.string().required(),
+		language: yup.string().required(),
 		producer: yup.string().required(),
 		cast: yup.string().required(),
 		director: yup.string().required(),
 		rated: yup.string().required(),
 		trailer: yup.string().required(),
-		start_date: yup.string().required(),
+		relase_date: yup.string().required(),
+		running_time: yup.string().required(),
 		end_date: yup.string().required(),
 		status: yup.string().required(),
 	});
@@ -46,7 +77,7 @@ function MovieDetail() {
 		register,
 		handleSubmit,
 		control,
-		formState: { isDirty },
+		formState: { isDirty, errors },
 	} = useForm({
 		resolver: yupResolver(validateMovieDetail),
 		mode: 'onChange',
@@ -61,13 +92,31 @@ function MovieDetail() {
 			director: 'Kenneth Branagh',
 			rated: '13+',
 			status: options[0].label,
-			start_date: '2023-10-23',
+			relase_date: '2023-10-23',
 			end_date: '2023-10-23',
+			trailer: 'test',
+			running_time: '180',
+			language: 'Anh',
 		},
 	});
 
+	console.log(errors);
+	const onSubmit: SubmitHandler<FieldValues> = (data) => {
+		console.log(data);
+	};
+
 	return (
-		<div>
+		<form className="relative" onSubmit={handleSubmit(onSubmit)}>
+			<div className="absolute top-0 right-0 flex gap-8 items-center">
+				<div className="">
+					<CRUDButton variant="Cancel">Hủy bỏ</CRUDButton>
+				</div>
+				<div className="">
+					<CRUDButton variant="Save" disabled={!isDirty} type="submit">
+						Cập nhật
+					</CRUDButton>
+				</div>
+			</div>
 			<div className="flex gap-[30px] py-[25px] border-b-[1px] border-dashed border-borderColor ">
 				<div className="">
 					<div className="">
@@ -85,6 +134,7 @@ function MovieDetail() {
 							name="name"
 							register={register}
 						/>
+
 						<UnderlineInput
 							variant="secondary"
 							id="sub_name"
@@ -98,12 +148,27 @@ function MovieDetail() {
 							<StarIcon className=" ml-1 h-5 w-5 inline-block pb-1 text-yellow-400" />
 							<span className="text-white/70">(21)</span>
 						</p>
+						<div className="">
+							<Icon icon="clock" />
+							<UnderlineInput
+								id="running_time"
+								name="running_time"
+								variant="time"
+								register={register}
+							/>
+						</div>
 					</div>
 					<div className="mt-5 flex flex-col gap-4 ">
 						<UnderlineInput
 							label="Quốc gia"
 							id="country"
 							name="country"
+							register={register}
+						/>
+						<UnderlineInput
+							label="Ngôn ngữ"
+							id="language"
+							name="language"
 							register={register}
 						/>
 						<UnderlineInput
@@ -132,14 +197,14 @@ function MovieDetail() {
 						/>
 						{/* @ts-ignore */}
 
-						<label htmlFor="start_date" className="flex relative text-[15px] ">
+						<label htmlFor="relase_date" className="flex relative text-[15px] ">
 							<p className="flex-[0_0_160px] text-white/70">Ngày khởi chiếu</p>
 							<input
-								id="start_date"
+								id="relase_date"
 								type="date"
 								className=" pl-[15px] text-[14px] w-[300px] rounded border  bg-[#EFEFEF]/20 outline-none"
 								placeholder="YYYY-MM-DD"
-								{...register('start_date')}
+								{...register('relase_date')}
 							/>
 
 							<span className="absolute top-[1px] right-[15px]">
@@ -147,7 +212,7 @@ function MovieDetail() {
 							</span>
 						</label>
 
-						<label htmlFor="start_date" className="flex relative text-[15px] ">
+						<label htmlFor="relase_date" className="flex relative text-[15px] ">
 							<p className="flex-[0_0_160px] text-white/70">Ngày khởi chiếu</p>
 							<input
 								id="end_date"
@@ -203,7 +268,7 @@ function MovieDetail() {
 				</label>
 			</div>
 			<div className=""></div>
-		</div>
+		</form>
 	);
 }
 
