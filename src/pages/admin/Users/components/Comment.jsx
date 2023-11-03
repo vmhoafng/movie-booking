@@ -1,8 +1,8 @@
 import React from "react";
 
-const Rating = () => {
+const Comment = () => {
    return (
-      <div className="w-full flex justify-center items-center py-2 border border-borderColor rounded">
+      <div className="w-full flex justify-center items-center py-2 border border-borderColor bg-bgPrimaryBar rounded">
          <div className="mx-4">
             <img
                src="./assets/images/poster.png"
@@ -40,4 +40,4 @@ const Rating = () => {
    );
 };
 
-export default Rating;
+export default Comment;
