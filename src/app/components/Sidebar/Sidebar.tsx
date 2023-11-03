@@ -94,6 +94,11 @@ function Sidebar() {
 
 	const navItems: NavItem[] = [
 		{
+			text: 'Thống kê',
+			icon: ChartBarIcon,
+			to: PATHS.ADMIN.DASHBOARD.IDENTITY,
+		},
+		{
 			text: 'Phim',
 			icon: FilmIcon,
 			to: PATHS.ADMIN.MOVIES.IDENTITY,
@@ -115,16 +120,21 @@ function Sidebar() {
 		{
 			text: 'Người dùng',
 			icon: UsersIcon,
-			to: PATHS.ADMIN.USERS.IDENTITY,
-		},
-		{
-			text: 'Thống kê',
-			icon: ChartBarIcon,
+			children: [
+				{
+					text: 'Thông tin',
+					to: PATHS.ADMIN.USERS.IDENTITY,
+				},
+				{
+					text: 'Bình luận',
+					to: PATHS.ADMIN.COMMENTS.IDENTITY,
+				},
+			],
 		},
 	];
 
 	return (
-		<div className="bg-bgPrimaryBar w-[250px] h-full fixed top-0 left-0 bottom-0">
+		<div className="bg-[#05113f] w-[250px] h-full fixed top-0 left-0 bottom-0">
 			<div className="w-full">
 				<img
 					src="/assets/images/Logo.png"

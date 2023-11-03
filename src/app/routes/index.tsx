@@ -34,6 +34,8 @@ const tickets = React.lazy(
 );
 //Admin -
 
+const dashboard = React.lazy(() => import('@/pages/admin/Dashboard'));
+
 //Movie
 const movieListAdmin = React.lazy(
 	() => import('../../pages/admin/Movies/List/MovieList')
@@ -56,6 +58,9 @@ const userDetailAdmin = React.lazy(
 const movieDetailAdmin = React.lazy(
 	() => import('@/pages/admin/Movies/Detail')
 );
+
+//comments
+const comments = React.lazy(() => import('@/pages/admin/Comments'));
 
 //Loading
 const loading = () => <LoadingAnimation />;
@@ -143,6 +148,12 @@ const ticketRoute = {
 };
 
 //Admin
+
+const dashboardRoute = {
+	path: PATHS.ADMIN.DASHBOARD.IDENTITY,
+	element: <LoadComponent component={dashboard} />,
+};
+
 const movieManageRoutes = {
 	path: PATHS.ADMIN.MOVIES.IDENTITY,
 	children: [
@@ -185,6 +196,11 @@ const userAdminRoute = {
 	],
 };
 
+const commentRoute = {
+	path: PATHS.ADMIN.COMMENTS.IDENTITY,
+	element: <LoadComponent component={comments} />,
+};
+
 function AllRoutes() {
 	return useRoutes([
 		authRoute,
@@ -223,7 +239,13 @@ function AllRoutes() {
 		{
 			path: PATHS.ADMIN.IDENTITY,
 			element: <ProtectedRoute role="ADMIN" component={AdminLayout} />,
-			children: [movieManageRoutes, cinemaManageRoutes, userAdminRoute],
+			children: [
+				movieManageRoutes,
+				cinemaManageRoutes,
+				userAdminRoute,
+				commentRoute,
+				dashboardRoute,
+			],
 		},
 	]);
 }

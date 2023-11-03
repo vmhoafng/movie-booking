@@ -41,60 +41,83 @@ instance.interceptors.response.use(
 export const Axios = {
 	axiosGet: (
 		endpoint: string,
-		params?: AxiosRequestConfig
+		config?: AxiosRequestConfig
 	): Promise<AxiosResponse> => {
-		return instance.get(endpoint, params);
+		return instance.get(endpoint, config);
 	},
 
 	axiosGetWithToken: (
 		endpoint: string,
-		params?: AxiosRequestConfig
+		config?: AxiosRequestConfig
 	): Promise<AxiosResponse> => {
 		return instance.get(endpoint, {
 			headers: {
 				Authorization: 'Bearer ' + authUtils.getSessionToken(),
 			},
 
-			...params,
+			...config,
 		});
 	},
 
 	axiosPost: (
 		endpoint: string,
 		body: any,
-		params?: AxiosRequestConfig
+		config?: AxiosRequestConfig
 	): Promise<AxiosResponse> => {
-		return instance.post(endpoint, body, params);
+		return instance.post(endpoint, body, config);
 	},
 
 	axiosPostWithToken: (
 		endpoint: string,
 		body: any,
-		params?: AxiosRequestConfig
+		config?: AxiosRequestConfig
 	): Promise<AxiosResponse> => {
 		return instance.post(endpoint, body, {
-			...params,
+			...config,
 			headers: {
 				Authorization: 'Bearer ' + authUtils.getSessionToken(),
 			},
 		});
 	},
 
+	axiosPostWithFile: (
+		endpoint: string,
+		body: any,
+		config?: AxiosRequestConfig
+	): Promise<AxiosResponse> => {
+		const config_payload: any = {
+			headers: {
+				...axios.defaults.headers,
+				Authorization: 'Bearer ' + authUtils.getSessionToken(),
+				'content-type': 'multipart/form-data',
+			},
+
+			...config,
+		};
+
+		const formData = new FormData();
+		for (const key in body) {
+			formData.append(key, body[key]);
+		}
+
+		return instance.post(endpoint, formData, config_payload);
+	},
+
 	axiosPut: (
 		endpoint: string,
 		body: any,
-		params?: AxiosRequestConfig
+		config?: AxiosRequestConfig
 	): Promise<AxiosResponse> => {
-		return instance.put(endpoint, body, params);
+		return instance.put(endpoint, body, config);
 	},
 
 	axiosPutWithToken: (
 		endpoint: string,
 		body: any,
-		params?: AxiosRequestConfig
+		config?: AxiosRequestConfig
 	): Promise<AxiosResponse> => {
 		return instance.put(endpoint, body, {
-			...params,
+			...config,
 			headers: {
 				Authorization: 'Bearer ' + authUtils.getSessionToken(),
 			},
@@ -103,10 +126,10 @@ export const Axios = {
 
 	axiosDelete: (
 		endpoint: string,
-		params?: AxiosRequestConfig
+		config?: AxiosRequestConfig
 	): Promise<AxiosResponse> => {
 		return instance.delete(endpoint, {
-			...params,
+			...config,
 			headers: {
 				Authorization: 'Bearer ' + authUtils.getSessionToken(),
 			},
