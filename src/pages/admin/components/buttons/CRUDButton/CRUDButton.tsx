@@ -2,22 +2,6 @@ import React from 'react';
 import { CRUDButtonProps } from './CRUDButton.type';
 
 const common = 'text-[12px]  ';
-const box = (variant: 'add' | 'edit' | 'save') =>
-	`py-2
-	 px-3 
-	 block 
-	 rounded 
-	 w-[120px] 
-	 bg-admin-button-${variant}/20 
-	 text-admin-button-${variant} 
-	 border border-admin-button-${variant} 
-	 hover:bg-admin-button-${variant} 
-	 hover:text-white 
-	 hover:border-white 
-	 transform 
-	 transition 
-	 duration-300 `;
-
 const variants = {
 	Add: `py-2
 	px-3 
