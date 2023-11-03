@@ -1,5 +1,10 @@
 import api from "@/app/services/api";
-import { IMovie, IMovieSlug, IgetByStatus } from "@/app/types/movie";
+import {
+  IMovie,
+  IMovieSlug,
+  IgetByStatus,
+  IgetShowtimeByMovie,
+} from "@/app/types/movie";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface IMoviesState {
@@ -31,6 +36,15 @@ export const getMovieDetail = createAsyncThunk(
     return data;
   }
 );
+
+export const getShowtimeByMovie = createAsyncThunk(
+  "@@movies/getShowtimeByMovie",
+  async (payload: IgetShowtimeByMovie) => {
+    let { data } = await api.showtime.getShowtimeByMovie(payload);
+    return data;
+  }
+);
+
 const moviesSlice = createSlice({
   name: "movies",
   initialState,
@@ -51,6 +65,9 @@ const moviesSlice = createSlice({
       .addCase(getMovieDetail.pending, (state) => {
         state.isLoading = true;
       });
+    builder.addCase(getShowtimeByMovie.fulfilled, (state, action) => {
+      state.detail.showtimes = action.payload;
+    });
   },
 });
 

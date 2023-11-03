@@ -68,10 +68,7 @@ function Icon({ icon, width, height, className }: IconProps) {
     <img
       src={Icons[icon]}
       alt=""
-      className={clsx(
-        `drop-shadow-[0.5px_0.5px_1px_rgba(0,0,0,0.50)]`,
-        `${className || ""}`
-      )}
+      className={`drop-shadow-[0.5px_0.5px_1px_rgba(0,0,0,0.50)] ${className}`}
       style={{ width: width, height: height }}
     />
   );

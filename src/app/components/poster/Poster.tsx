@@ -26,7 +26,6 @@ function Poster({
   return (
     <div
       className="
-        w-fit
         flex
         flex-col
         border-transparent
@@ -38,7 +37,7 @@ function Poster({
           `relative`,
           horizontal
             ? "w-[220px] h-[145px] xl:w-[250px] xl:h-[165px]"
-            : "w-[190px] h-[300px] xl:w-[290px] xl:h-[430px]"
+            : "w-full min-w-[180px] min-h-[300px] md:w-[190px] xl:w-[290px] xl:h-[430px]"
         )}
       >
         <Image
@@ -83,7 +82,9 @@ function Poster({
           flex-col
           gap-[10px]
           py-5`,
-          horizontal ? "w-[220px] xl:w-[250px]" : "w-[190px] xl:w-[290px]"
+          horizontal
+            ? "w-[220px] xl:w-[250px]"
+            : "w-full min-w-[180px] md:w-[190px] xl:w-[290px]"
         )}
       >
         <div
