@@ -5,12 +5,10 @@ import MobileNavbar from './app/components/Navbar/MobileNavbar';
 import DesktopFooter from './app/components/Footer/DesktopFooter';
 import MobileFooter from './app/components/Footer/MobileFooter';
 import Landing from './pages/client/landing/Landing';
-import AuthForm from './app/components/inputs/Form';
-
 // import './App.css';
 
 function App() {
-	return <Landing/>;
+	return <Landing />;
 }
 
 export default App;

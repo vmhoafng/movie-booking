@@ -1,49 +1,163 @@
 import React from 'react'
-import Poster from '../../../app/components/Poster'
-import Button from '../../../app/components/button/Button'
-import AuthSocialButton from '../../../app/components/button/SocialButton'
+import Button from '../../../app/components/button/Button.tsx'
+
 
 function Landing() {
   return (
-    <div className='bg-bgPrimary md:w-full md:h-[2852px] flex flex-col items-center self-stretch'>
+    <div className='bg-bgPrimary md:w-full md:h-[2852px] flex flex-col items-center self-stretch '>
 
-      <div>
-        <img className="md:w-full md:h-[620px] "
-          src={"/images/Poster.png"} />
+      <div className='bg-bgPrimaryLayer'>
+        <img className="md:w-full md md:h-[620px] "
+          src="/assets/images/bg.png" />
+
       </div>
 
-      <div className='bg-bgPrimary md:w-full md:h-[1384px] flex items-center flex-col self-stretch '>
+      <div className='bg-bgPrimary md:w-full md:h-[1384px] flex items-center flex-col self-stretch sm:px-[15px] '>
         <div className=' flex md:w-[1200px] md:h-[692px] flex-col items-center md:gap-[40px] py-[50px] border-b-2 border-[#314C81]'>
           <div className=' flex md:w-[1200px] md:h-[33px] justify-between items-end self-stretch '>
             <p className='text-white text-[22px] underline md:underline-offset-8 decoration-highlight '>PHIM ĐANG CHIẾU </p>
             <a href="/" className='text-highlight'> Xem tất cả</a>
           </div>
-          <div className=' md:w-[1200px] md:h-[519px] flex items-center md:gap-[30px] self-stretch justify-start overflow-hidden relative pl-0'>
+          <div className='sm:pt-[30px] lg:p-0 sm:px-5 md:w-[1200px] md:h-[519px] grid sm:grid-cols-2 lg:flex items-center gap-x-6 gap-y-10 self-stretch justify-start overflow-hidden relative pl-0'>
 
-            
-              <div className='absolute inset-0 opacity-75 hidden group:hover:flex flex-col justify-center cursor-pointer items-start'>
-                <Poster />
+
+            <div className=' group relative flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+
+              <div className="flex flex-col">
+                <img src={"/assets/images/VerticalPoster05.png"} alt="" />
               </div>
-            
+              <div className="mt-4 flex justify-between">
+                <div >
+                  <h3 className='text-base text-white'>
+                    <a href="/">
+                      THE NUN
+                    </a>
+                  </h3>
+                  <p className='pt-2.5 text-sm font-medium text-white'>
+                    ÁC QUỶ MA SƠ
+                  </p>
+                </div>
 
-            <div className='relative group block flex-shrink-0 cursor-pointer'>
-              <Poster />
+              </div>
+
+
+
             </div>
 
-            <div className='relative group block flex-shrink-0 cursor-pointer'>
-              <Poster />
+
+            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+
+              <div className="flex flex-col">
+                <img src={"/assets/images/VerticalPoster02.png"} alt="" />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div >
+                  <h3 className='text-base text-white'>
+                    <a href="/">
+                      EXPEND4ABLES
+                    </a>
+                  </h3>
+                  <p className='pt-2.5 text-sm font-medium text-white'>
+                    BIỆT ĐỘI ĐÁNH THUÊ
+                  </p>
+                </div>
+
+              </div>
+
+
+
             </div>
 
-            <div className='relative group block flex-shrink-0 cursor-pointer'>
-              <Poster />
+            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+
+              <div className="flex flex-col ">
+                <img src={"/assets/images/VerticalPoster03.png"} alt="" />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div >
+                  <h3 className='text-base text-white'>
+                    <a href="/">
+                      LIVE
+                    </a>
+                  </h3>
+                  <p className='pt-2.5 text-sm font-medium text-white'>
+                    #PHÁT TRỰC TIẾP
+                  </p>
+                </div>
+
+              </div>
+
+
+
             </div>
 
-            <div className='relative group block flex-shrink-0 cursor-pointer'>
-              <Poster />
+            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+
+              <div className="flex flex-col ">
+                <img src={"/assets/images/VerticalPoster01.png"} alt="" />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div >
+                  <h3 className='text-base text-white'>
+                    <a href="/">
+                      A HAUNTING IN VENICE
+                    </a>
+                  </h3>
+                  <p className='pt-2.5 text-sm font-medium text-white'>
+                    ÁN MẠNG Ở VENICE
+                  </p>
+                </div>
+
+              </div>
+
+
+
             </div>
 
-            <div className='relative group block flex-shrink-0 cursor-pointer'>
-              <Poster />
+            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+
+              <div className="flex flex-col">
+                <img src={"/assets/images/VerticalPoster06.png"} alt="" />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div >
+                  <h3 className='text-base text-white'>
+                    <a href="/">
+                      PAW PATROL: THE MIGHTY MOVIE
+                    </a>
+                  </h3>
+                  <p className='pt-2.5 text-sm font-medium text-white'>
+                    PAW PATROL: PHIM SIÊU ĐẲNG
+                  </p>
+                </div>
+
+              </div>
+
+
+
+            </div>
+
+            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+
+              <div className="flex flex-col">
+                <img src={"/assets/images/VerticalPoster04.png"} alt="" />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div >
+                  <h3 className='text-base text-white'>
+                    <a href="/">
+                      RETRIBUTION
+                    </a>
+                  </h3>
+                  <p className='pt-2.5 text-sm font-medium text-white'>
+                    KẺ TRỪNG PHẠT
+                  </p>
+                </div>
+
+              </div>
+
+
+
             </div>
           </div>
         </div>
@@ -53,50 +167,165 @@ function Landing() {
             <p className='text-white text-[22px] underline md:underline-offset-8 decoration-highlight '>PHIM SẮP CHIẾU </p>
             <a href="/" className='text-highlight'> Xem tất cả</a>
           </div>
-          <div className=' md:w-[1200px] md:h-[519px] flex items-center md:gap-[30px] self-stretch justify-start overflow-x-hidden overflow-hidden relative pl-0'>
+          <div className='sm:pt-[30px] lg:p-0 sm:px-5 md:w-[1200px] md:h-[519px] grid sm:grid-cols-2 lg:flex items-center gap-x-6 gap-y-10 self-stretch justify-start overflow-hidden relative pl-0'>
 
-            
-              <div className='w-[250px] h-[519px] absolute inset-0 opacity-75 hidden hover:bg-lightPrimary group:hover:flex flex-col justify-center cursor-pointer items-start'>
-                <Poster />
+
+            <div className=' group relative flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+
+              <div className="flex flex-col">
+                <img src={"/assets/images/VerticalPoster05.png"} alt="" />
               </div>
-            
+              <div className="mt-4 flex justify-between">
+                <div >
+                  <h3 className='text-base text-white'>
+                    <a href="/">
+                      THE NUN
+                    </a>
+                  </h3>
+                  <p className='pt-2.5 text-sm font-medium text-white'>
+                    ÁC QUỶ MA SƠ
+                  </p>
+                </div>
 
-            <div className='relative group block flex-shrink-0 cursor-pointer'>
-              <Poster />
+              </div>
+
+
+
             </div>
 
-            <div className='relative group block flex-shrink-0 cursor-pointer'>
-              <Poster />
+
+            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+
+              <div className="flex flex-col">
+                <img src={"/assets/images/VerticalPoster02.png"} alt="" />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div >
+                  <h3 className='text-base text-white'>
+                    <a href="/">
+                      EXPEND4ABLES
+                    </a>
+                  </h3>
+                  <p className='pt-2.5 text-sm font-medium text-white'>
+                    BIỆT ĐỘI ĐÁNH THUÊ
+                  </p>
+                </div>
+
+              </div>
+
+
+
             </div>
 
-            <div className='relative group block flex-shrink-0 cursor-pointer'>
-              <Poster />
+            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+
+              <div className="flex flex-col ">
+                <img src={"/assets/images/VerticalPoster03.png"} alt="" />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div >
+                  <h3 className='text-base text-white'>
+                    <a href="/">
+                      LIVE
+                    </a>
+                  </h3>
+                  <p className='pt-2.5 text-sm font-medium text-white'>
+                    #PHÁT TRỰC TIẾP
+                  </p>
+                </div>
+
+              </div>
+
+
+
             </div>
 
-            <div className='relative group block flex-shrink-0 cursor-pointer'>
-              <Poster />
+            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+
+              <div className="flex flex-col ">
+                <img src={"/assets/images/VerticalPoster01.png"} alt="" />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div >
+                  <h3 className='text-base text-white'>
+                    <a href="/">
+                      A HAUNTING IN VENICE
+                    </a>
+                  </h3>
+                  <p className='pt-2.5 text-sm font-medium text-white'>
+                    ÁN MẠNG Ở VENICE
+                  </p>
+                </div>
+
+              </div>
+
+
+
             </div>
 
-            <div className='relative group block flex-shrink-0 cursor-pointer'>
-              <Poster />
+            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+
+              <div className="flex flex-col">
+                <img src={"/assets/images/VerticalPoster06.png"} alt="" />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div >
+                  <h3 className='text-base text-white'>
+                    <a href="/">
+                      PAW PATROL: THE MIGHTY MOVIE
+                    </a>
+                  </h3>
+                  <p className='pt-2.5 text-sm font-medium text-white'>
+                    PAW PATROL: PHIM SIÊU ĐẲNG
+                  </p>
+                </div>
+
+              </div>
+
+
+
+            </div>
+
+            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+
+              <div className="flex flex-col">
+                <img src={"/assets/images/VerticalPoster04.png"} alt="" />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div >
+                  <h3 className='text-base text-white'>
+                    <a href="/">
+                      RETRIBUTION
+                    </a>
+                  </h3>
+                  <p className='pt-2.5 text-sm font-medium text-white'>
+                    KẺ TRỪNG PHẠT
+                  </p>
+                </div>
+
+              </div>
+
+
+
             </div>
           </div>
 
         </div>
       </div>
 
-      <div className='flex flex-col items-center self-stretch py-[50px] md:w-full md:h-[1548px]'>
-        <div className=' flex md:w-[1200px] flex-col items-center'>
-          <div className=' flex md:w-[1200px] md:h-[33px] justify-between items-end self-stretch '>
+      <div className='flex flex-col lg:items-center self-stretch py-[50px] md:w-full md:h-[1548px] sm:items-start sm:pl-[15px] '>
+        <div className=' flex md:w-[1200px] flex-col lg:items-center '>
+          <div className=' flex md:w-[1200px] md:h-[33px] justify-between items-end self-stretch  '>
             <p className='text-white text-[22px] underline md:underline-offset-8 decoration-highlight '>LIÊN HỆ</p>
           </div>
         </div>
 
       </div>
-      <div className='flex flex-col items-center self-stretch  md:w-full md:h-[1548px]'>
-        <div className=' flex md:w-[1200px] flex-col items-center'>
-          <div className=' md:w-[1200px] md:h-[715px] flex items-start md:gap-[50px]'>
-            <div className=' md:w-[650px] md:h-[615px] flex-col justify-center items-center md:gap-[15px] shrink-0'>
+      <div className='flex flex-col items-center self-stretch  md:w-full md:h-[1548px] '>
+        <div className=' flex md:w-[1200px] flex-col items-center sm:w-full'>
+
+          <div className=' md:w-[1200px] md:h-[715px]  items-start md:gap-[50px] grid sm:grid-cols-1 lg:flex '>
+            <div className=' md:w-[650px] md:h-[615px] flex-col justify-center flex items-center md:gap-[15px] shrink-0 sm:w-full '>
 
               <div className=''>
                 <p className='text-white text-lg pb-[10px]'>Họ và tên</p>
@@ -128,14 +357,14 @@ function Landing() {
                   <input type="text" className='word-break line-clamp-3 block h-full min-w-[200px] w-full rounded border px-4 shadow-sm bg-white/10 outline-0 text-white border-lightPrimary placeholder:text-white/40' />
                 </div>
               </div>
-              <div className='md:h-[50px]'>
-                <Button />
+              <div className='md:h-[50px] w-[200px] sm:w-[160px] sm:h-[40px]'>
+                <Button fullWidth medium >Gửi</Button>
               </div>
 
             </div>
             <div className=' md:w-[500px] md:h-[214px] flex flex-col items-start md:gap-[50px]'>
-              <div className='md:w-[178px] md:h-[81px] flex flex-col justify-center items-end md:gap-[20px]'>
-                <p className='md:text-lg text-[#31AFD7]'> Theo dõi chúng tôi</p>
+              <div className='md:w-[178px] md:h-[81px] lg:flex flex-col justify-center items-end md:gap-[20px] sm:hidden'>
+                <p className=' md:text-lg text-[#31AFD7]'> Theo dõi chúng tôi</p>
 
                 <div className='md:w-[178px] md:h-[41px] items-center md:gap-[15px] self-stretch flex  '>
                   <div className="border rounded-full border-[#314C81]">
@@ -160,44 +389,49 @@ function Landing() {
               </div>
 
               <div className='md:w-[504px] md:h-[83px] flex flex-col items-start md:gap-[20px]'>
-                <p className='md:text-lg text-[#31AFD7]'>Thông tin liên hệ</p>
-                <div className='md:w-[504px] md:h-[43px] flex items-start md:gap-[50px]'>
-                  <div className='md:w-[218.5px] md:h-[40px] flex items-center md:gap-[30px]'>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="41" height="36" viewBox="0 0 41 36" fill="none">
-                      <g clip-path="url(#clip0_281_2583)">
-                        <g filter="url(#filter0_d_281_2583)">
-                          <path d="M25.5835 8.06182C27.2114 8.33238 28.7075 9.01058 29.8803 10.0096C31.0531 11.0087 31.8493 12.2831 32.1669 13.6698M25.5835 2.38281C28.9657 2.70288 32.1195 3.99306 34.5273 6.04152C36.935 8.08999 38.4536 10.775 38.8335 13.6556M37.1669 24.9853V29.2445C37.1688 29.6399 37.0737 30.0313 36.8877 30.3936C36.7018 30.7559 36.429 31.0811 36.087 31.3484C35.745 31.6157 35.3412 31.8192 34.9015 31.9459C34.4618 32.0726 33.9958 32.1196 33.5335 32.084C28.4049 31.6093 23.4785 30.1165 19.1502 27.7254C15.1233 25.5456 11.7091 22.6372 9.15021 19.2069C6.33351 15.503 4.58062 11.2861 4.03355 6.89762C3.9919 6.50502 4.04667 6.10932 4.19438 5.73573C4.34209 5.36215 4.5795 5.01885 4.89149 4.72771C5.20348 4.43656 5.58322 4.20394 6.00653 4.04466C6.42984 3.88539 6.88745 3.80294 7.35021 3.80256H12.3502C13.1591 3.79578 13.9432 4.03977 14.5565 4.48906C15.1698 4.93835 15.5703 5.56227 15.6835 6.24454C15.8946 7.6076 16.286 8.94594 16.8502 10.234C17.0745 10.7422 17.123 11.2945 16.9901 11.8254C16.8571 12.3564 16.5483 12.8437 16.1002 13.2297L13.9835 15.0328C16.3561 18.5872 19.811 21.5302 23.9835 23.5513L26.1002 21.7482C26.5534 21.3665 27.1255 21.1035 27.7487 20.9902C28.372 20.877 29.0203 20.9183 29.6169 21.1093C31.129 21.59 32.7001 21.9234 34.3002 22.1032C35.1098 22.2005 35.8492 22.5478 36.3778 23.0792C36.9063 23.6106 37.1872 24.289 37.1669 24.9853Z" stroke="url(#paint0_linear_281_2583)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" shape-rendering="crispEdges" />
+                <p className='md:text-lg text-[#31AFD7] lg:flex sm:hidden'>Thông tin liên hệ</p>
+                <div className='sm:py-[40px] lg:py-0 md:w-[504px] md:h-[43px] lg:flex lg:items-start md:gap-[50px] sm:px-[20px] sm:justify-between sm:min-w-[395px] sm:grid sm:grid-cols-2'>
+
+                  <div className='lg:w-[218.5px] lg:h-[40px] flex sm:items-center lg:gap-[30px] lg:flex-row sm:flex-col sm:gap-[10px] sm:w-[178px] lg:border-none sm:border-r-2 sm:border-[#314C81]'>
+
+                    <div className='shrink-0 md:w-[40px] md:h-[40px] items-center '>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="41" height="36" viewBox="0 0 41 36" fill="none">
+                        <g clip-path="url(#clip0_281_2583)">
+                          <g filter="url(#filter0_d_281_2583)">
+                            <path d="M25.5835 8.06182C27.2114 8.33238 28.7075 9.01058 29.8803 10.0096C31.0531 11.0087 31.8493 12.2831 32.1669 13.6698M25.5835 2.38281C28.9657 2.70288 32.1195 3.99306 34.5273 6.04152C36.935 8.08999 38.4536 10.775 38.8335 13.6556M37.1669 24.9853V29.2445C37.1688 29.6399 37.0737 30.0313 36.8877 30.3936C36.7018 30.7559 36.429 31.0811 36.087 31.3484C35.745 31.6157 35.3412 31.8192 34.9015 31.9459C34.4618 32.0726 33.9958 32.1196 33.5335 32.084C28.4049 31.6093 23.4785 30.1165 19.1502 27.7254C15.1233 25.5456 11.7091 22.6372 9.15021 19.2069C6.33351 15.503 4.58062 11.2861 4.03355 6.89762C3.9919 6.50502 4.04667 6.10932 4.19438 5.73573C4.34209 5.36215 4.5795 5.01885 4.89149 4.72771C5.20348 4.43656 5.58322 4.20394 6.00653 4.04466C6.42984 3.88539 6.88745 3.80294 7.35021 3.80256H12.3502C13.1591 3.79578 13.9432 4.03977 14.5565 4.48906C15.1698 4.93835 15.5703 5.56227 15.6835 6.24454C15.8946 7.6076 16.286 8.94594 16.8502 10.234C17.0745 10.7422 17.123 11.2945 16.9901 11.8254C16.8571 12.3564 16.5483 12.8437 16.1002 13.2297L13.9835 15.0328C16.3561 18.5872 19.811 21.5302 23.9835 23.5513L26.1002 21.7482C26.5534 21.3665 27.1255 21.1035 27.7487 20.9902C28.372 20.877 29.0203 20.9183 29.6169 21.1093C31.129 21.59 32.7001 21.9234 34.3002 22.1032C35.1098 22.2005 35.8492 22.5478 36.3778 23.0792C36.9063 23.6106 37.1872 24.289 37.1669 24.9853Z" stroke="url(#paint0_linear_281_2583)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" shape-rendering="crispEdges" />
+                          </g>
                         </g>
-                      </g>
-                      <defs>
-                        <filter id="filter0_d_281_2583" x="2.52002" y="0.88269" width="38.8135" height="33.7129" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                          <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                          <feOffset dx="0.5" dy="0.5" />
-                          <feGaussianBlur stdDeviation="0.5" />
-                          <feComposite in2="hardAlpha" operator="out" />
-                          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
-                          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_281_2583" />
-                          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_281_2583" result="shape" />
-                        </filter>
-                        <linearGradient id="paint0_linear_281_2583" x1="4.20376" y1="2.44457" x2="39.7593" y2="32.8149" gradientUnits="userSpaceOnUse">
-                          <stop stop-color="#FF4343" />
-                          <stop offset="0.492708" stop-color="#AA52A1" />
-                          <stop offset="1" stop-color="#002DBB" />
-                        </linearGradient>
-                        <clipPath id="clip0_281_2583">
-                          <rect width="40" height="34.0741" fill="white" transform="translate(0.5 0.963013)" />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                    <div className='flex flex-col justify-center items-start  md:w-[112px] md:h-[40px]'>
-                      <p className='text-textinf md:text-base'> Số điện thoại</p>
+                        <defs>
+                          <filter id="filter0_d_281_2583" x="2.52002" y="0.88269" width="38.8135" height="33.7129" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                            <feOffset dx="0.5" dy="0.5" />
+                            <feGaussianBlur stdDeviation="0.5" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_281_2583" />
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_281_2583" result="shape" />
+                          </filter>
+                          <linearGradient id="paint0_linear_281_2583" x1="4.20376" y1="2.44457" x2="39.7593" y2="32.8149" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FF4343" />
+                            <stop offset="0.492708" stop-color="#AA52A1" />
+                            <stop offset="1" stop-color="#002DBB" />
+                          </linearGradient>
+                          <clipPath id="clip0_281_2583">
+                            <rect width="40" height="34.0741" fill="white" transform="translate(0.5 0.963013)" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+                    <div className='flex flex-col lg:justify-center lg:items-start  md:w-[112px] md:h-[40px] sm:items-center sm:gap-[5px] '>
+                      <p className='text-white md:text-base'> Số điện thoại</p>
                       <a href="/" className='text-[#31D7A9] md:text-base'> 19002171</a>
                     </div>
 
                   </div>
 
-                  <div className='flex items-center md:gap-[30px] md:w-[235px] md:h-[43px] '>
+                  <div className='lg:w-[218.5px] lg:h-[40px] flex sm:items-center lg:gap-[30px] lg:flex-row sm:flex-col sm:gap-[10px] sm:w-[178px]'>
+                  
                     <div className='shrink-0 md:w-[40px] md:h-[40px]'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="40" height="41" viewBox="0 0 40 41" fill="none">
                         <g filter="url(#filter0_d_281_2589)">
@@ -240,8 +474,8 @@ function Landing() {
                         </defs>
                       </svg>
                     </div>
-                    <div className='md:w-[205px] md:h-[43px] flex flex-col items-start shrink-0'>
-                      <p className='text-textinf md:textbase'>Email</p>
+                    <div className='md:w-[205px] md:h-[43px] flex flex-col items-start shrink-0 sm:items-center sm:gap-[5px] lg:items-start'>
+                      <p className='text-white md:textbase'>Email</p>
                       <a href="/" className='text-base text-[#31D7A9]'>cinema@gmail.com</a>
                     </div>
                   </div>
@@ -256,8 +490,6 @@ function Landing() {
         </div>
 
       </div>
-
-
 
     </div>
   )
