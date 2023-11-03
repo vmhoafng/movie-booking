@@ -5,7 +5,7 @@ const variants = {
 	primary: 'text-2xl font-bold',
 	secondary: 'text-base text-white/60',
 	default: 'text-[15px]',
-	time: 'text-sm w-[30px] block',
+	time: 'text-sm w-[30px] block text-lightPrimary',
 };
 
 function UnderlineInput({

@@ -148,14 +148,15 @@ function MovieDetail() {
 							<StarIcon className=" ml-1 h-5 w-5 inline-block pb-1 text-yellow-400" />
 							<span className="text-white/70">(21)</span>
 						</p>
-						<div className="">
-							<Icon icon="clock" />
+						<div className=" mt-1 flex gap-1 items-center ">
+							<Icon icon="clock" className="pb-1" />
 							<UnderlineInput
 								id="running_time"
 								name="running_time"
 								variant="time"
 								register={register}
 							/>
+							<p className="text-sm text-lightPrimary">phút</p>
 						</div>
 					</div>
 					<div className="mt-5 flex flex-col gap-4 ">
