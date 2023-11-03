@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import Icon, { IconType } from "../icon/Icon";
 
 interface InputProps {
   label: string;
@@ -12,7 +13,7 @@ interface InputProps {
   placeholder?: string;
   borderWhite?: boolean;
   col?: boolean;
-  endIcon?: string;
+  endIcon?: IconType;
   value?: string;
 }
 const Input = ({
@@ -120,11 +121,7 @@ const Input = ({
         />
         {endIcon && (
           <button className="select-none absolute flex items-center h-full right-[15px] top-0">
-            <img
-              src={endIcon}
-              alt=""
-              className="w-5 h-5 drop-shadow-[0.5px_0.5px_1px_rgba(0,0,0,0.50)]"
-            />
+            <Icon width={20} height={20} icon={endIcon}/>
           </button>
         )}
       </div>

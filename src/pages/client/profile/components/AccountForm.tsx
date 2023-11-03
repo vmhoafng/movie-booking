@@ -43,7 +43,7 @@ function AccountItem() {
             col
             register={register}
             errors={errors}
-            endIcon="/assets/icons/calendar.svg"
+            endIcon="calendar"
           />
           <div className="flex w-full py-[3px] flex-col items-start gap-1">
             <label
