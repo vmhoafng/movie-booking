@@ -1,5 +1,5 @@
 import React from "react";
-import DasboardItem from "./DasboardItem";
+import DasboardItem from "./DashboardItem";
 import Title from "@/app/components/Title";
 
 function RoomForm() {
