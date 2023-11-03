@@ -26,7 +26,6 @@ function Poster({
   return (
     <div
       className="
-        w-fit
         flex
         flex-col
         border-transparent
