@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
 function DesktopFooter() {
 	return (
-		<div className="bg-bgPrimary h-[146px] py-[30px] items-center flex flex-col md:w-full md:gap-[20px]">
-			<div className=" flex md:w-[1200px] justify-between h-[50px] border-b-2 border-[#314C81]">
+		<div className="bg-bgPrimary 2xl:h-[146px] xl:w-[1366px] lg:h-[163px] md:h-[180px] sm:h-[145px] items-center flex flex-col 2xl:w-full md:gap-[20px] sm:gap-[12px]">
+			<div className=" flex 2xl:w-[1200px] xl:w-[960px] md:w-[640px] sm:w-[395px] justify-between h-[50px] border-b-2 border-[#314C81] sm:gap-[12px]">
 				<div className="flex md:w-[123px] min-w-[80px] max-w-[150px]  py-[10px] justify-center items-center shrink-0 rounded-3xl ">
-					<img className=" " src={'./assets/images/Logo.png'} />
+					<img className=" " src={"./assets/images/Logo.png"} />
 				</div>
-				<div className="bg-primary flex md:w-[575.5px] justify-end items-center gap-[15px] shrink-0">
+				<div className="bg-primary flex justify-end items-center gap-[15px] shrink-0">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="42"
@@ -37,31 +37,58 @@ function DesktopFooter() {
 						/>
 					</svg>
 
-        <div className="border rounded-full border-[#314C81] p-[9px]">
-          <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
-            <path d="M14.6665 2.16675H6.33317C4.03198 2.16675 2.1665 4.03223 2.1665 6.33341V14.6667C2.1665 16.9679 4.03198 18.8334 6.33317 18.8334H14.6665C16.9677 18.8334 18.8332 16.9679 18.8332 14.6667V6.33341C18.8332 4.03223 16.9677 2.16675 14.6665 2.16675Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M13.8333 9.97501C13.9361 10.6685 13.8176 11.3769 13.4947 11.9992C13.1718 12.6215 12.6609 13.1262 12.0346 13.4414C11.4083 13.7566 10.6986 13.8663 10.0064 13.755C9.31419 13.6436 8.67472 13.3167 8.17895 12.821C7.68318 12.3252 7.35636 11.6857 7.24497 10.9935C7.13359 10.3013 7.24331 9.59159 7.55852 8.96532C7.87374 8.33905 8.37841 7.82812 9.00074 7.50521C9.62307 7.18229 10.3314 7.06383 11.0249 7.16667C11.7324 7.27158 12.3873 7.60123 12.893 8.10693C13.3987 8.61263 13.7283 9.26757 13.8333 9.97501Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M15.0835 5.91675H15.0935" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </div>
+					<div className="border rounded-full border-[#314C81] p-[9px]">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="21"
+							height="21"
+							viewBox="0 0 21 21"
+							fill="none"
+						>
+							<path
+								d="M14.6665 2.16675H6.33317C4.03198 2.16675 2.1665 4.03223 2.1665 6.33341V14.6667C2.1665 16.9679 4.03198 18.8334 6.33317 18.8334H14.6665C16.9677 18.8334 18.8332 16.9679 18.8332 14.6667V6.33341C18.8332 4.03223 16.9677 2.16675 14.6665 2.16675Z"
+								stroke="white"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+							<path
+								d="M13.8333 9.97501C13.9361 10.6685 13.8176 11.3769 13.4947 11.9992C13.1718 12.6215 12.6609 13.1262 12.0346 13.4414C11.4083 13.7566 10.6986 13.8663 10.0064 13.755C9.31419 13.6436 8.67472 13.3167 8.17895 12.821C7.68318 12.3252 7.35636 11.6857 7.24497 10.9935C7.13359 10.3013 7.24331 9.59159 7.55852 8.96532C7.87374 8.33905 8.37841 7.82812 9.00074 7.50521C9.62307 7.18229 10.3314 7.06383 11.0249 7.16667C11.7324 7.27158 12.3873 7.60123 12.893 8.10693C13.3987 8.61263 13.7283 9.26757 13.8333 9.97501Z"
+								stroke="white"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+							<path
+								d="M15.0835 5.91675H15.0935"
+								stroke="white"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+					</div>
+				</div>
+			</div>
 
-
-      </div>
-
-    </div>
-
-			<div className="text-white flex md:w-[1190px] h-[24px] justify-between items-center ">
-				<div className="md:text-base  ">
-					<p className="text-white">
-						Copyright © 2023.All Rights Reserved By{' '}
+			<div className="text-white xl:flex 2xl:w-[1190px] xl:w-[960px] lg:w-[640px] lg:grid lg:grid-cols-1 xl:text-[15px] h-[24px] sm:h-[52px] justify-between items-center lg:justify-center sm:justify-center lg:gap-[30px] md:gap-[30px] sm:gap-[24px] sm:pt-[8px]">
+				<div className="xl:text-base lg:hidden sm:hidden md:hidden 2xl:flex xl:flex lg:text-sm 2xl:text-base ">
+					<p className="text-white  ">
+						Copyright © 2023.All Rights Reserved By{" "}
 						<span className="text-highlight">CNPM-Team</span>
 					</p>
-				</div>
-				<div className="text-textinf md:w-[727.75px] flex items-center shrink-0 justify-end gap-[40px] ">
+				</div> 
+				<div className="2xl:text-base xl:text-base sm:text-xs 2xl:w-[727.75px] xl:w-[500px] 2xl:justify-end lg:w-[640px] flex items-center shrink-0 justify-end lg:justify-center sm:justify-center xl:justify-end 2xl:gap-[40px] xl:gap-[40px] lg:gap-[80px] md:text-sm md:gap-[80px] sm:gap-[45px]">
 					<a href="/">About</a>
-					<a href="/">Terms of us</a>
+					<a href="/">Terms Of Us</a>
 					<a href="/">Contact</a>
 					<a href="/">Feedback</a>
+				</div>
+				<div className="text-base lg:justify-center md:justify-center sm:justify-center sm:items-center lg:flex md:flex sm:flex 2xl:hidden xl:hidden lg:text-xs md:text-xs sm:text-xs lg:pt-0 md:pt-[20px] sm:pt-[24px] mx-0 sm:mx-auto">
+					<p className="text-white ">
+						Copyright © 2023.All Rights Reserved By{" "}
+						<span className="text-highlight">CNPM-Team</span>
+					</p>
 				</div>
 			</div>
 		</div>

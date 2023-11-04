@@ -26,7 +26,7 @@ function DesktopNavbar() {
 	}, [location]);
 
 	return (
-		<div className="bg-bgPrimary h-[146px] items-center justify-between w-full">
+		<div className="bg-bgPrimaryBar h-[146px] items-center justify-between w-full">
 			<div className="h-[96px] md:w-[1200px] items-center flex justify-between mx-auto">
 				<div className="box-border flex w-[127px] min-w-[80px] max-w-[200px] px-[10px] items-center shrink-0 border-spacing-[50px] justify-center align-center">
 					<img className="" src={'./assets/images/Logo.png'} />
