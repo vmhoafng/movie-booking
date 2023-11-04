@@ -4,7 +4,8 @@ import { UnderlineInputProps } from './UnderlineInput.type';
 const variants = {
 	primary: 'text-2xl font-bold',
 	secondary: 'text-base text-white/60',
-	default: 'text-[15px] ',
+	default: 'text-[15px]',
+	time: 'text-sm w-[30px] block text-lightPrimary',
 };
 
 function UnderlineInput({
@@ -29,9 +30,8 @@ function UnderlineInput({
 				id={id}
 				name={name}
 				{...(register && register(id))}
-				className={`border-b border-white/10 bg-transparent outline-none focus:border-highlight  ${
-					label && 'flex-1'
-				}`}
+				className={`border-b border-white/10 bg-transparent outline-none  focus:border-highlight transform 
+				transition duration-150  ${label && 'flex-1'}  w-full`}
 				type="text"
 			/>
 		</label>

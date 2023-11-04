@@ -24,7 +24,7 @@ export const PATHS = {
    MOVIES: {
       IDENTITY: "movies",
       LIST: "",
-      DETAIL: `${ROUTE_PARAMS.MOVIE_SLUG}`,
+      DETAIL: `${ROUTE_PARAMS.MOVIE_ID}`,
    },
    CINEMA: {
       IDENTITY: "cinema",
@@ -60,8 +60,12 @@ export const PATHS = {
          IDENTITY: "showtimes",
          LIST: "",
       },
-      STATISTICS: {
-         IDENTITY: "statistics",
+      DASHBOARD: {
+         IDENTITY: "dashboard",
+      },
+
+      COMMENTS: {
+         IDENTITY: "comments",
       },
 
       USERS: {

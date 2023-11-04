@@ -72,13 +72,13 @@ function Movies() {
                   </Title>
                </div>
 
-               <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
-                  {renderMovies()}
-               </div>
-            </div>
-         </div>
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
+            {renderMovies()}
+          </div>
+        </div>
       </div>
-   );
+    </div>
+  );
 }
 
 export default Movies;

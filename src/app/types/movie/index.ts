@@ -1,4 +1,5 @@
-import { ICinema } from "../cinema";
+import { TFile } from "@/app/components/FileUploader";
+import { ICinema, ICinemaShowtimeList } from "../cinema";
 import { IShowtime } from "../showtime";
 
 export type IMovieFormat = {
@@ -26,6 +27,7 @@ export type IMovie = {
   number_of_ratings: number;
   horizontal_poster: string;
   showtimes?: IShowtime[];
+  cinema?: ICinemaShowtimeList[];
 };
 
 export type IMovieStatus = {
@@ -63,4 +65,24 @@ export type IgetByStatus = {
 };
 export type IMovieSlug = {
   slug: string;
+};
+
+export type IPutMovieDetails = {
+  name: string;
+  sub_name: string;
+  cast: string;
+  language: string;
+  description: string;
+  country: string;
+  status: string;
+  release_date: string;
+  end_date: string;
+  running_time: string;
+  poster?: TFile;
+  horizontal_poster?: TFile;
+  images?: TFile[];
+};
+export type IgetShowtimeByMovie = {
+  id: string;
+  date: string;
 };
