@@ -2,7 +2,7 @@ import React from "react";
 
 function DesktopFooter() {
 	return (
-		<div className="bg-bgPrimary 2xl:h-[146px] xl:w-[1366px] lg:h-[163px] md:h-[180px] sm:h-[145px] items-center flex flex-col 2xl:w-full md:gap-[20px] sm:gap-[12px]">
+		<div className="bg-bgPrimary 2xl:h-[146px] lg:h-[163px] md:h-[180px] sm:h-[145px] items-center flex flex-col 2xl:w-full md:gap-[20px] sm:gap-[12px]">
 			<div className=" flex 2xl:w-[1200px] xl:w-[960px] md:w-[640px] sm:w-[395px] justify-between h-[50px] border-b-2 border-[#314C81] sm:gap-[12px]">
 				<div className="flex md:w-[123px] min-w-[80px] max-w-[150px]  py-[10px] justify-center items-center shrink-0 rounded-3xl ">
 					<img className=" " src={"./assets/images/Logo.png"} />
