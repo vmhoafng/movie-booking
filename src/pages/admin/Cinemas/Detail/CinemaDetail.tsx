@@ -100,8 +100,7 @@ function CinemaDetail() {
       <Pagination
         pageCount={pageCount}
         onPageChange={handlePageChange}
-        first={currentPage === 1}
-        last={currentPage === itemsPerPage}
+        currentPage={currentPage}
       />
     </div>
   );

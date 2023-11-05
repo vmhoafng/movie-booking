@@ -6,8 +6,7 @@ import ReactPaginate from "react-paginate";
 interface PaginationProps {
   pageCount: number;
   onPageChange: (selectedPage: number) => void;
-  first?: boolean;
-  last?: boolean;
+  currentPage: number;
 }
 // Index.tsx
 // const [currentPage, setCurrentPage] = useState(1);
@@ -16,6 +15,7 @@ interface PaginationProps {
 // const handlePageChange = (selectedPage: number) => {
 //   setCurrentPage(selectedPage + 1);
 // };
+// E.g Case study
 // return (
 //     <Table
 //       data={data}
@@ -23,17 +23,18 @@ interface PaginationProps {
 //       currentPage={currentPage}
 //       itemsPerPage={itemsPerPage}
 //     />
-//     <Pagination pageCount={pageCount} onPageChange={handlePageChange} />
+//     <Pagination pageCount={pageCount} onPageChange={handlePageChange} currentPage={currentPage}/>
 // );
 const Pagination = ({
   pageCount,
   onPageChange,
-  first,
-  last,
+  currentPage,
 }: PaginationProps) => {
   const handlePageClick = (data: { selected: number }) => {
     onPageChange(data.selected);
   };
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === pageCount;
   return (
     <ReactPaginate
       pageCount={pageCount}
@@ -87,7 +88,7 @@ const Pagination = ({
             font-semibold
             font-inter
             text-center 
-            ${first && "opacity-20"}`}
+            ${isFirstPage && "opacity-20"}`}
         />
       }
       nextLabel={
@@ -106,7 +107,7 @@ const Pagination = ({
             font-semibold
             font-inter
             text-center
-            ${last && "opacity-20"}`}
+            ${isLastPage && "opacity-20"}`}
         />
       }
     />
