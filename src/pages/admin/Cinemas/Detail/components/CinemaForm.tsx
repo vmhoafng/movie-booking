@@ -1,8 +1,5 @@
 import Input from "@/app/components/inputs/Input";
-import SelectInput from "@/app/components/inputs/SelectInput";
 import Title from "@/app/components/Title";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import React from "react";
 
 function CinemaForm() {
   return (
