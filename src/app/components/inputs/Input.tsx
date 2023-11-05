@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
-import Icon, { IconType } from "../Icon/Icon";
+import Icon, { IconType } from "../icon/Icon";
 import { useState } from "react";
 
 interface InputProps {

@@ -20,7 +20,7 @@ import * as yup from "yup";
 import CRUDButton from "../../components/buttons/CRUDButton";
 import Dropzone, { useDropzone } from "react-dropzone";
 import { TFile } from "@/app/components/FileUploader";
-import Icon from "@/app/components/Icon/Icon";
+import Icon from "@/app/components/icon/Icon";
 
 // const Dropzone: React.FC<{
 // 	multiple?: boolean;

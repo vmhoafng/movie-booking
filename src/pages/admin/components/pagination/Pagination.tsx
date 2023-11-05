@@ -1,5 +1,5 @@
 // src/components/Pagination.tsx
-import Icon from "@/app/components/Icon/Icon";
+import Icon from "@/app/components/icon/Icon";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 
