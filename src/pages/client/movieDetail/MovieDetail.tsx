@@ -23,6 +23,12 @@ import {
 } from "@/app/redux/movies/movies.slice";
 import { ICinema } from "@/app/types/cinema";
 // import Swiper from "swiper";
+
+function formatDate(inputDate: string): string {
+   const [year, month, day] = inputDate.split("-");
+   return `${day}-${month}-${year}`;
+}
+
 function MovieDetail() {
    const { width } = useWindowDimensions();
    const [trailer, setTrailer] = useState(true);
@@ -31,6 +37,7 @@ function MovieDetail() {
       (state) => state.movies
    );
    const { movieId } = useParams();
+   console.log(detail);
 
    useEffect(() => {
       dispatch(getByStatus({ status: "showing-now" }));
@@ -38,10 +45,8 @@ function MovieDetail() {
    }, [dispatch, movieId]);
 
    useEffect(() => {
-      dispatch(getShowtimeByMovie({ id: detail.id, date: "2023-11-1" }));
+      dispatch(getShowtimeByMovie({ id: "mv-0001", date: "2023-11-" }));
    }, [dispatch, detail]);
-
-   console.log("tsx");
 
    return (
       <>
@@ -57,7 +62,7 @@ function MovieDetail() {
                            className="w-[350px] object-cover drop-shadow-textShadow md:hidden"
                         />
                         <img
-                           src="/assets/images/poster.png"
+                           src={detail.poster}
                            alt=""
                            className="w-[200px] object-cover hidden drop-shadow-textShadow md:block xl:h-full"
                         />
@@ -65,16 +70,16 @@ function MovieDetail() {
                            <div className="flex flex-col w-full gap-[6px] lg:gap-2">
                               <div className="w-full uppercase text-left">
                                  <h1 className="text-white/90 text-2xl font-bold mb-1 md:m-0 line-clamp-1">
-                                    a haunting in venice
+                                    {detail.name}
                                  </h1>
                                  <h3 className="text-lg text-white/60 font-medium line-clamp-1">
-                                    án mạng ở venice
+                                    {detail.sub_name}
                                  </h3>
                               </div>
                               <div className="flex flex-col gap-1 md:gap-0">
                                  <div className="flex justify-start items-center gap-2 text-white/60 md:text-sm ">
                                     <h4 className="">Đánh giá:</h4>
-                                    <span>9.5/10</span>
+                                    <span>{detail.rating?.toFixed(1)}/10</span>
                                     <img
                                        src="/assets/icons/star.svg"
                                        alt=""
@@ -88,7 +93,8 @@ function MovieDetail() {
                                        className="object-contain pb-[1px] lg:pb-1"
                                     />
                                     <span className="text-lightPrimary text-base md:text-sm ">
-                                       120 phút
+                                       {detail.running_time}
+                                       &nbsp;phút
                                     </span>
                                  </div>
                               </div>
@@ -107,7 +113,7 @@ function MovieDetail() {
                                     Nhà sản xuất:
                                  </span>
                                  <span className="text-white/90 line-clamp-1">
-                                    20th Century Studios
+                                    {detail.producer}
                                  </span>
                               </div>
                               <div className="flex w-full gap-4">
@@ -115,8 +121,7 @@ function MovieDetail() {
                                     Diễn viên:
                                  </span>
                                  <span className="text-white/90 line-clamp-1  flex-1">
-                                    Kenneth Branagh, Kelly Reilly, Dương Tử
-                                    Quỳnh
+                                    {detail.cast}
                                  </span>
                               </div>
                               <div className="flex w-full gap-4">
@@ -124,7 +129,7 @@ function MovieDetail() {
                                     Đạo diễn:
                                  </span>
                                  <span className="text-white/90 line-clamp-1">
-                                    Kenneth Branagh
+                                    {detail.director}
                                  </span>
                               </div>
                               <div className="flex w-full gap-4">
@@ -132,7 +137,9 @@ function MovieDetail() {
                                     Ngày khởi chiếu:
                                  </span>
                                  <span className="text-white/90 line-clamp-1">
-                                    15/9/2023
+                                    {formatDate(
+                                       detail.release_date || ""
+                                    )?.replace(/-/g, "/")}
                                  </span>
                               </div>
                            </div>
@@ -141,14 +148,7 @@ function MovieDetail() {
                      <div className="flex flex-col gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
                         <Title active>Nội dung</Title>
                         <p className="text-white/60 md:text-sm">
-                           Án Mạng Ở Venice lấy bối cảnh hậu Thế Chiến II tại
-                           thành phố Venice vào đêm Halloween. Thám tử lừng danh
-                           Hercule Poirot bất đắc dĩ phải tham dự một buổi cầu
-                           hồn với sự xuất hiện của bà đồng “Dương Tử Quỳnh” tại
-                           một dinh thự hoang tàn và u ám. Khi một trong những
-                           vị khách bị giết chết, vị thám tử này bị ép buộc rơi
-                           vào một thế giới đầy bóng tối và ngập tràn những bí
-                           mật.
+                           {detail.description}
                         </p>
                      </div>
                      <div className="w-full overflow-hidden flex flex-col gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
@@ -173,7 +173,7 @@ function MovieDetail() {
                               <iframe
                                  title="trailer"
                                  className="w-full h-full"
-                                 src="https://www.youtube.com/embed/yEddsSwweyE"
+                                 src={detail.trailer}
                               ></iframe>
                            ) : (
                               <Swiper

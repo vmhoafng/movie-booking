@@ -20,6 +20,21 @@ function classNames(...classes) {
 function DesktopNavbar() {
    const [active, setActive] = useState();
    const location = useLocation();
+   // var scrollBefore = 0;
+
+   // window.addEventListener("scroll", () => {
+   //    const scrolled = window.scrollY;
+
+   //    if (scrollBefore > scrolled) {
+   //       console.log("ScrollUP");
+   //       scrollBefore = scrolled;
+   //       //Desired action
+   //    } else if(scrollBefore ){
+   //       scrollBefore = scrolled;
+   //       console.log("ScrollDOWN");
+   //       //Desired action
+   //    }
+   // });
 
    useEffect(() => {
       setActive(location.pathname);
