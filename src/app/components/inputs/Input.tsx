@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import Icon, { IconType } from "../icon/Icon";
 
 interface InputProps {
   label: string;
@@ -12,7 +13,8 @@ interface InputProps {
   placeholder?: string;
   borderWhite?: boolean;
   col?: boolean;
-  endIcon?: string;
+  endIcon?: IconType;
+  value?: string;
 }
 const Input = ({
   label,
@@ -26,6 +28,7 @@ const Input = ({
   borderWhite,
   col,
   endIcon,
+  value,
 }: InputProps) => {
   const handlePattern = (type: string) => {
     let pattern = "";
@@ -58,15 +61,26 @@ const Input = ({
           !col && "min-w-[200px]"
         )}
       >
-        <span
-          className="
-                  [text-shadow:0.5px_0.5px_1px_var(--tw-shadow-color)]
-                  shadow-black/50
-          "
-        >
-          {label}
-          {!col && ":"}
-        </span>
+        {label}
+        {required && (
+          <span className="text-red-500 text-sm lowercase">
+            *
+            {(() => {
+              switch (type) {
+                case "email":
+                  const regex = "";
+                  return `Không đúng định dạng.`;
+                case "min":
+                  return `Tối thiểu  kí tự.`;
+                case "max":
+                  return `Tối đa kí tự.`;
+                default:
+                  return "";
+              }
+            })()}
+          </span>
+        )}
+        {!col && ":"}
       </label>
       <div className="w-full relative">
         <input
@@ -75,7 +89,7 @@ const Input = ({
           disabled={disabled}
           placeholder={placeholder}
           autoComplete="off"
-          //@ts-ignore
+          value={value}
           {...(register && register(id, { required }))}
           className={clsx(
             `
@@ -107,11 +121,7 @@ const Input = ({
         />
         {endIcon && (
           <button className="select-none absolute flex items-center h-full right-[15px] top-0">
-            <img
-              src={endIcon}
-              alt=""
-              className="w-5 h-5 drop-shadow-[0.5px_0.5px_1px_rgba(0,0,0,0.50)]"
-            />
+            <Icon width={20} height={20} icon={endIcon}/>
           </button>
         )}
       </div>

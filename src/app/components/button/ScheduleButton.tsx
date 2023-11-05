@@ -15,7 +15,7 @@ function ScheduleButton({ time, to, small }: ScheduleButtonProps) {
     <Link to={to!}>
       <button
         className={clsx(
-          `border rounded text-white/90 outline-0 hover:bg-borderColor`,
+          `border rounded text-white/90 outline-0 lg:hover:bg-borderColor`,
           small ? mb : df
         )}
       >

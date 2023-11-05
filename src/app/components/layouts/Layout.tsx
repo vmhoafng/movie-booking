@@ -14,7 +14,7 @@ type LayoutProps = {
 
 function Layout({ backgroundImage }: LayoutProps) {
 	return (
-		<div className="h-full w-full ">
+		<div className="h-full w-full">
 			<DesktopNavbar />
 			{/* <MobileNavbar /> */}
 			<div

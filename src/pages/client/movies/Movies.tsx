@@ -51,7 +51,7 @@ function Movies() {
   }, [isLoading]);
   return (
     <div className="bg-bgPrimary w-full">
-      <div className="mt-24 mx-auto">
+      <div className="mx-auto">
         <div className="flex flex-col gap-10 items-start justify-center py-14 bg-bgPrimary">
           <div className="flex gap-10">
             <Title
@@ -72,7 +72,7 @@ function Movies() {
             </Title>
           </div>
 
-          <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
             {renderMovies()}
           </div>
         </div>

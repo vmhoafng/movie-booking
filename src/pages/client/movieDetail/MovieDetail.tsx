@@ -11,98 +11,43 @@ import "swiper/css/scrollbar";
 
 import useWindowDimensions from "../../../app/hooks/useWindowDimensions";
 import Button from "../../../app/components/button/Button";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getMovieDetail,
-  getMovieList,
-} from "../../../app/redux/slices/movieSlice";
+
 import LoadingAnimation from "../../../app/components/loading/LoadingAnimation";
-import {
-  getShowtimeByCinema,
-  getShowtimeByMovie,
-} from "../../../app/redux/slices/showtimeSlice";
 import Poster from "@/app/components/poster/Poster";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useRedux } from "@/app/hooks";
+import {
+  getByStatus,
+  getMovieDetail,
+  getShowtimeByMovie,
+} from "@/app/redux/movies/movies.slice";
+import { ICinema } from "@/app/types/cinema";
 // import Swiper from "swiper";
-
-const showtime = [
-  {
-    key: 1,
-    cinema: "Cinema An Duong Vuong",
-    times: [
-      "20:11",
-      "21:00",
-      "20:11",
-      "21:00",
-      "20:11",
-      "21:00",
-      "20:11",
-      "21:00",
-      "20:11",
-      "21:00",
-    ],
-  },
-  {
-    key: 2,
-    cinema: "Cinema Go Vap",
-    times: [
-      "20:11",
-      "21:00",
-      "20:11",
-      "21:00",
-      "20:11",
-      "21:00",
-      "20:11",
-      "21:00",
-      "20:11",
-      "21:00",
-    ],
-  },
-  {
-    key: 3,
-    cinema: "Cinema Quan 12",
-    times: [
-      "20:11",
-      "21:00",
-      "20:11",
-      "21:00",
-      "20:11",
-      "21:00",
-      "20:11",
-      "21:00",
-      "20:11",
-      "21:00",
-    ],
-  },
-];
-
-function MovieDetail({ movie }) {
+function MovieDetail() {
   const { width } = useWindowDimensions();
   const [trailer, setTrailer] = useState(true);
-  const movieDetail = useSelector((state) => state.detail);
-  const movieData = useSelector((state) => state.movie);
-  const showtimeData = useSelector((state) => state.showtime);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { appSelector, dispatch } = useRedux();
+  const { movies, isLoading, isError, errorMessage, detail } = appSelector(
+    (state) => state.movies
+  );
+  const { movieId } = useParams();
 
-  const dispatch = useDispatch();
-  useEffect(() => {});
   useEffect(() => {
-    dispatch(getMovieList({ movieStatus: "showing-now", page: 1, size: 4 }));
-    dispatch(getMovieDetail({ slug: searchParams.get("q") }));
-  }, [dispatch]);
+    dispatch(getByStatus({ status: "showing-now" }));
+    dispatch(getMovieDetail({ slug: movieId! }));
+  }, [dispatch, movieId]);
 
-  console.log(movieDetail);
-  console.log(searchParams.get("q"));
+  useEffect(() => {
+    dispatch(getShowtimeByMovie({ id: detail.id, date: "2023-11-1" }));
+  }, [dispatch, detail]);
+
   return (
     <>
-      {movieData.isLoading && <LoadingAnimation />}
-      {!movieData.isError ? (
+      {isLoading && <LoadingAnimation />}
+      {!isError ? (
         <div className="w-full px-[15px] md:px-0 md:mx-auto bg-bgPrimary">
           <div className="w-full xl:flex xl:gap-14 2xl:gap-24">
-            <div
-              className="xl:w-[calc(100%-300px-80px)] lg:text-sm lg:py-2"
-              ref={movieDetail}
-            >
+            <div className="xl:w-[calc(100%-300px-80px)] lg:text-sm lg:py-2">
               <div className="flex flex-col md:flex-row gap-5 justify-center items-center py-6 lg:py-8 border-b border-dashed border-borderColor">
                 <img
                   src="/assets/images/HorizontalPoster.png"
@@ -203,7 +148,6 @@ function MovieDetail({ movie }) {
                     active={!trailer}
                     onClick={() => {
                       setTrailer(false);
-                      console.log(movieDetail.current.offsetWidth);
                     }}
                   >
                     Hình ảnh
@@ -221,7 +165,6 @@ function MovieDetail({ movie }) {
                       modules={[Navigation, Pagination, Scrollbar, A11y]}
                       // onSwiper={(swiper: SwiperType) => console.log(swiper)}
                       // onSlideChange={() => console.log("slide change")}
-                      maxWidth={movieDetail.current.offsetWidth}
                       breakpoints={{
                         390: {
                           slidesPerView: 1,
@@ -270,7 +213,7 @@ function MovieDetail({ movie }) {
               </div>
               <div className="flex flex-col gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
                 <Title active>Lịch chiếu</Title>
-                {showtimeData.cinemas?.map((cinema) => {
+                {detail.cinema?.map((cinema) => {
                   return (
                     <ShowTimeBoard
                       showtimes={cinema.showtime}
@@ -312,7 +255,7 @@ function MovieDetail({ movie }) {
                     },
                   }}
                 >
-                  {movieData?.movies.map((movie) => {
+                  {movies.map((movie) => {
                     return (
                       <SwiperSlide style={{ maxWidth: "190px" }}>
                         <Poster
@@ -331,7 +274,7 @@ function MovieDetail({ movie }) {
             <div className="w-fit hidden xl:flex xl:flex-col gap-5 justify-start items-start py-6 xl:py-8">
               <Title active>Phim đang chiếu</Title>
               <div className="flex flex-col w-fit gap-4">
-                {movieData?.movies.map((movie) => {
+                {movies.map((movie) => {
                   return (
                     <Poster
                       horizontal
@@ -350,7 +293,7 @@ function MovieDetail({ movie }) {
           </div>
         </div>
       ) : (
-        <p>{movieData.errorMessage}</p>
+        <p>{errorMessage}</p>
       )}
     </>
   );
