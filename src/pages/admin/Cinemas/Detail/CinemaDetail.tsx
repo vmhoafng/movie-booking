@@ -3,7 +3,7 @@ import useSearchTopbar from "../../../../app/components/inputs/SearchTopbar/useS
 import CinemaForm from "./components/CinemaForm";
 import RoomForm from "./components/RoomForm";
 import Table from "../../components/table/Table";
-import Pagination from "../../components/table/Pagination";
+import Pagination from "../../components/pagination/Pagination";
 const data = [
   {
     ID: "01",
