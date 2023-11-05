@@ -45,11 +45,11 @@ import useFileUploader from '@/app/components/upload/FileUploader/useFileUploade
 const statusOptions: SelectOption[] = [
 	{
 		label: 'Đang chiếu',
-		value: 1,
+		value: 2,
 	},
 	{
 		label: 'Sắp chiếu',
-		value: 2,
+		value: 1,
 	},
 ];
 
@@ -301,7 +301,7 @@ function MovieDetail() {
 							</span>
 						</label>
 						<label htmlFor="relase_date" className="flex relative text-[15px] ">
-							<p className="flex-[0_0_160px] text-white/70">Ngày khởi chiếu</p>
+							<p className="flex-[0_0_160px] text-white/70">Ngày ngừng chiếu</p>
 							<input
 								id="end_date"
 								type="date"
