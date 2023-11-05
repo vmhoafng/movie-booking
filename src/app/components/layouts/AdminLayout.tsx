@@ -14,7 +14,7 @@ function AdminLayout() {
          <Sidebar />
          <div className="flex-1 relative bg-bgPrimary h-screen overflow-y-scroll">
             <Topbar />
-            <div className="w-[1200px] pb-20 mt-20 bg-bgPrimary flex-1 mx-auto">
+            <div className="w-[1200px] pb-20 bg-bgPrimary flex-1 mx-auto">
                <Outlet />
             </div>
          </div>

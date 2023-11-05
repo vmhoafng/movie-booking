@@ -2,15 +2,15 @@ import React from "react";
 
 const Rating = () => {
    return (
-      <div className="w-full flex justify-start items-center py-2 border border-borderColor bg-bgPrimaryBar rounded">
+      <div className="w-full flex justify-center items-start py-3 border border-borderColor bg-bgPrimaryBar rounded">
          <div className="mx-4 rounded-full overflow-hidden">
             <img
                src="./assets/images/poster.png"
                alt=""
-               className="w-[60px] h-[60px]"
+               className="w-[52px] h-[52px]"
             />
          </div>
-         <div className="h-full flex-1 flex flex-col items-start text-sm">
+         <div className="min-h-[52px] flex-1 flex flex-col items-start gap-3 pr-4 text-sm">
             <div className="w-full flex items-center">
                <div className="flex justify-start items-center mr-3">
                   <h3 className="text-white/90">Nguyễn Thành Đạt</h3>
@@ -25,19 +25,16 @@ const Rating = () => {
                   The Nun II
                </h3>
             </div>
-            <div className="w-full flex justify-center items-center">
-               <p className="w-full text-white/60 text-left">
-                  Phim hay ngoài sức tưởng tượng. Tuyệt vời. Recommend mọi người
-                  nên xem!
-               </p>
-            </div>
+            <p className="w-full text-white/60 text-left">
+               Phim hay ngoài sức tưởng tượng.
+            </p>
          </div>
-         <div className="flex flex-col justify-center items-center px-4 border-l border-borderColor text-sm">
-            <div className="hover:border-b hover:border-highlight transition-all duration-150">
+         <div className="h-[52px] flex flex-col justify-around items-center px-4 border-l border-borderColor text-sm">
+            <div className="hover:opacity-100 opacity-95 transition-all duration-100 cursor-pointer">
                <span className="text-highlight">Duyệt</span>
             </div>
-            <div className="hover:border-b hover:border-rose-800 transition-all duration-150">
-               <span className="text-rose-800">Xóa</span>
+            <div className="hover:opacity-100 opacity-90 transition-all duration-100 cursor-pointer">
+               <span className="text-red-600">Xóa</span>
             </div>
          </div>
       </div>
