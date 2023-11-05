@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "../Image";
 import clsx from "clsx";
-import Button from "../button/Button";
+import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 
 interface PosterProps {

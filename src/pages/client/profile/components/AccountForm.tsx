@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import Input from "@/app/components/inputs/Input";
-import Button from "@/app/components/button/Button";
+import Button from "@/app/components/Button/Button";
 import useWindowDimensions from "@/app/hooks/useWindowDimensions";
 import SelectInput from "@/app/components/inputs/SelectInput";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -55,11 +55,11 @@ function AccountItem() {
             <SelectInput
               id="gender"
               options={[
-                { label: "", value: "" },
                 { label: "Nam", value: "Nam" },
                 { label: "Nữ", value: "Nữ" },
                 { label: "Khác", value: "Khác" },
               ]}
+              placeholder="Chọn giới tính"
               name="gender"
               onChange={() => {}}
               inputClassName="w-full"

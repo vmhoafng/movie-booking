@@ -1,11 +1,12 @@
 import clsx from "clsx";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
-import Icon, { IconType } from "../icon/Icon";
+import Icon, { IconType } from "../Icon/Icon";
+import { useState } from "react";
 
 interface InputProps {
   label: string;
   id: string;
-  type?: string;
+  type?: "text" | "textarea" | "password" | "tel" | "email" | "date" | any;
   required?: boolean;
   register?: UseFormRegister<FieldValues>;
   errors?: FieldErrors;
@@ -30,21 +31,21 @@ const Input = ({
   endIcon,
   value,
 }: InputProps) => {
+  const [inputValue, setInputValue] = useState(value);
   const handlePattern = (type: string) => {
-    let pattern = "";
     switch (type) {
       case "tel":
-        pattern = "^(03|07|08|09|01[2-9])+([0-9]{8})$";
+        const pattern = "/^(0[2-9][0-9]{8})$/";
         break;
       case "date":
-        pattern = "";
         break;
       default:
-        pattern = "";
         break;
     }
-    return pattern;
+    return;
   };
+  console.log(value);
+
   return (
     <div
       className={clsx(
@@ -121,7 +122,7 @@ const Input = ({
         />
         {endIcon && (
           <button className="select-none absolute flex items-center h-full right-[15px] top-0">
-            <Icon width={20} height={20} icon={endIcon}/>
+            <Icon width={20} height={20} icon={endIcon} />
           </button>
         )}
       </div>

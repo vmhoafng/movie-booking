@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AvatarModal from "./AvatarModal";
-import Icon from "@/app/components/icon/Icon";
+import Icon from "@/app/components/Icon/Icon";
 
 function AvatarItem() {
   const [openModal, setOpenModal] = useState(false);

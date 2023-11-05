@@ -1,4 +1,4 @@
-import Button from "@/app/components/button/Button";
+import Button from "@/app/components/Button/Button";
 import React from "react";
 
 interface AvatarModalProps {
@@ -67,7 +67,9 @@ function AvatarModal({ onClick }: AvatarModalProps) {
               <span>File type: doc,pdf,types of images</span>
             </p>
             <div>
-              <Button large highlight type="submit">Upload</Button>
+              <Button large highlight type="submit">
+                Upload
+              </Button>
             </div>
           </form>
         </div>
