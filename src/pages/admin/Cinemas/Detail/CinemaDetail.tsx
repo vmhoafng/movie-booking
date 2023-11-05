@@ -97,7 +97,12 @@ function CinemaDetail() {
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
       />
-      <Pagination pageCount={pageCount} onPageChange={handlePageChange} />
+      <Pagination
+        pageCount={pageCount}
+        onPageChange={handlePageChange}
+        first={currentPage === 1}
+        last={currentPage === itemsPerPage}
+      />
     </div>
   );
 }

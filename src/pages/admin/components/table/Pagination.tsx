@@ -6,8 +6,8 @@ import ReactPaginate from "react-paginate";
 interface PaginationProps {
   pageCount: number;
   onPageChange: (selectedPage: number) => void;
-  first?: number;
-  last?: number;
+  first?: boolean;
+  last?: boolean;
 }
 // Index.tsx
 // const [currentPage, setCurrentPage] = useState(1);
@@ -35,13 +35,12 @@ const Pagination = ({
     onPageChange(data.selected);
   };
   return (
-    <div className="w-auto">
-      <ReactPaginate
-        pageCount={pageCount}
-        onPageChange={handlePageClick}
-        containerClassName="flex items-center justify-end mr-1 my-3"
-        pageLinkClassName="p-2 px-3"
-        pageClassName="flex
+    <ReactPaginate
+      pageCount={pageCount}
+      onPageChange={handlePageClick}
+      containerClassName="flex items-center justify-end mr-1 my-3"
+      pageLinkClassName="p-2 w-[32px]"
+      pageClassName="flex
         items-center
         justify-center
         bg-[#0E1946]
@@ -54,7 +53,7 @@ const Pagination = ({
         text-xs
         font-inter
         text-center"
-        activeClassName="
+      activeClassName="
         flex
         items-center
         justify-center
@@ -66,13 +65,17 @@ const Pagination = ({
         font-semibold
         text-xs
         font-inter
-        text-center"
-        previousLabel={
-          <Icon
-            height={33}
-            width={33}
-            icon="arrowRight"
-            className={`rotate-180
+        text-center
+        transition-all
+        duration-200
+        ease-linear
+        "
+      previousLabel={
+        <Icon
+          height={33}
+          width={33}
+          icon="arrowRight"
+          className={`rotate-180
             bg-[#0E1946]
             mx-1
             text-white
@@ -84,15 +87,15 @@ const Pagination = ({
             font-semibold
             font-inter
             text-center 
-            ${last && "opacity-20"}`}
-          />
-        }
-        nextLabel={
-          <Icon
-            height={33}
-            width={33}
-            icon="arrowRight"
-            className={`bg-[#0E1946]
+            ${first && "opacity-20"}`}
+        />
+      }
+      nextLabel={
+        <Icon
+          height={33}
+          width={33}
+          icon="arrowRight"
+          className={`bg-[#0E1946]
             mx-1
             text-white
             p-2
@@ -104,10 +107,9 @@ const Pagination = ({
             font-inter
             text-center
             ${last && "opacity-20"}`}
-          />
-        }
-      />
-    </div>
+        />
+      }
+    />
   );
 };
 
