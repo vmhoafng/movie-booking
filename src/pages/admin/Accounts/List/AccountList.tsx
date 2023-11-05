@@ -40,7 +40,7 @@ const UserRow = ({ row }: UserRowProps) => {
 		<>
 			<div className="py-3">
 				<img
-					src={`${row.img || './assets/icons/account-circle.svg'}`}
+					src={`${row.avatar || './assets/icons/account-circle.svg'}`}
 					alt=""
 					className="w-full"
 				/>

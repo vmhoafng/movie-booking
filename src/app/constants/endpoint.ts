@@ -14,6 +14,7 @@ export const ENDPOINTS = {
 	PROFILE: {
 		DATA: 'profile',
 		CHECKPASSWORD: 'checkPassword',
+		UPDATE_AVATAR: 'user/avatar',
 	},
 
 	AUTH: {

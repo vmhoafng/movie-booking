@@ -1,69 +1,86 @@
-import React, { useState } from "react";
-import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
-import Input from "@/app/components/inputs/Input";
-import Button from "@/app/components/button/Button";
-import useWindowDimensions from "@/app/hooks/useWindowDimensions";
-import SelectInput from "@/app/components/inputs/SelectInput";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import React, { useEffect, useMemo, useState } from 'react';
+import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
+import Input from '@/app/components/inputs/Input';
+import Button from '@/app/components/button/Button';
+import useWindowDimensions from '@/app/hooks/useWindowDimensions';
+import SelectInput, { SelectOption } from '@/app/components/inputs/SelectInput';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
-import clsx from "clsx";
+import clsx from 'clsx';
+import { useRedux } from '@/app/hooks';
+
+const genderOptions: SelectOption[] = [
+	{ label: '', value: '' },
+	{ label: 'Nam', value: 'Nam' },
+	{ label: 'Nữ', value: 'Nữ' },
+	{ label: 'Khác', value: 'Khác' },
+];
+
 function AccountItem() {
-  const { width } = useWindowDimensions();
-  const [isLoading, setIsLoading] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldValues>({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
-  });
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
-  };
-  return (
-    <div className="w-full lg:w-[344px] xl:w-[470px] 2xl:w-[550px] flex flex-col gap-[25px] py-10 lg:py-5">
-      <div className="flex flex-col gap-[10px]">
-        <Input
-          id="name"
-          label="Họ và Tên"
-          col
-          register={register}
-          errors={errors}
-          required
-        />
-        <div className="w-full flex gap-[10px] lg:flex-col xl:flex-row xl:gap-[30px] 2xl:gap-5">
-          <Input
-            id="date"
-            label="Ngày sinh"
-            type="date"
-            col
-            register={register}
-            errors={errors}
-            endIcon="calendar"
-          />
-          <div className="flex w-full py-[3px] flex-col items-start gap-1">
-            <label
-              className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
-              htmlFor="gender"
-            >
-              Giới tính
-            </label>
-            <SelectInput
-              id="gender"
-              options={[
-                { label: "", value: "" },
-                { label: "Nam", value: "Nam" },
-                { label: "Nữ", value: "Nữ" },
-                { label: "Khác", value: "Khác" },
-              ]}
-              name="gender"
-              onChange={() => {}}
-              inputClassName="w-full"
-              optionClassName="
+	const { width } = useWindowDimensions();
+	const [isLoading, setIsLoading] = useState(false);
+	const { appSelector, dispatch } = useRedux();
+
+	const { user, isLoading: getProfile } = appSelector((state) => state.auth);
+
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm<FieldValues>({});
+	const onSubmit: SubmitHandler<FieldValues> = (data) => {
+		setIsLoading(true);
+	};
+
+	useEffect(() => {
+		reset({
+			name: user.full_name,
+			email: user.email,
+			password: '',
+			date: user.date_of_birth,
+			phoneNumber: user.phone_number,
+			gender: user.gender,
+		});
+	}, [user, reset]);
+	return (
+		<div className="w-full lg:w-[344px] xl:w-[470px] 2xl:w-[550px] flex flex-col gap-[25px] py-10 lg:py-5">
+			<div className="flex flex-col gap-[10px]">
+				<Input
+					id="name"
+					label="Họ và Tên"
+					col
+					register={register}
+					errors={errors}
+					required
+				/>
+				<div className="w-full flex gap-[10px] lg:flex-col xl:flex-row xl:gap-[30px] 2xl:gap-5">
+					<Input
+						id="date"
+						label="Ngày sinh"
+						type="date"
+						col
+						register={register}
+						errors={errors}
+						endIcon="calendar"
+					/>
+					<div className="flex w-full py-[3px] flex-col items-start gap-1">
+						<label
+							className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
+							htmlFor="gender"
+						>
+							Giới tính
+						</label>
+						<SelectInput
+							id="gender"
+							options={genderOptions}
+							name="gender"
+							onChange={() => {}}
+							inputClassName="w-full"
+							value={genderOptions.find(
+								(gender) => gender.value === user.gender
+							)}
+							optionClassName="
                 z-30
                 text-white/90
                 hover:bg-white/10
@@ -71,7 +88,7 @@ function AccountItem() {
                 py-2
                 transition-all
                 duration-150"
-              buttonClassName="
+							buttonClassName="
                 text-start
                 block
                 w-full
@@ -86,34 +103,34 @@ function AccountItem() {
                 focus:border-borderColor
                 relative
                 h-10"
-              //@ts-ignore
-              endIcon={ChevronDownIcon}
-            />
-          </div>
-        </div>
-        <Input
-          id="email"
-          type="email"
-          label="Email"
-          col
-          register={register}
-          errors={errors}
-        />
-        <Input
-          id="phoneNumber"
-          type="tel"
-          label="Số điện thoại"
-          col
-          register={register}
-          errors={errors}
-        />
-      </div>
-      <div className="hidden xl:block w-full border-t border-dashed border-borderColor" />
-      <Button large secondary fullWidth={width > 900}>
-        Cập nhật
-      </Button>
-    </div>
-  );
+							//@ts-ignore
+							endIcon={ChevronDownIcon}
+						/>
+					</div>
+				</div>
+				<Input
+					id="email"
+					type="email"
+					label="Email"
+					col
+					register={register}
+					errors={errors}
+				/>
+				<Input
+					id="phoneNumber"
+					type="tel"
+					label="Số điện thoại"
+					col
+					register={register}
+					errors={errors}
+				/>
+			</div>
+			<div className="hidden xl:block w-full border-t border-dashed border-borderColor" />
+			<Button large secondary fullWidth={width > 900}>
+				Cập nhật
+			</Button>
+		</div>
+	);
 }
 
 export default AccountItem;

@@ -2,8 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Axios } from '../../utils/api';
 import authUtils from '../../utils/auth';
 import { SignalIcon } from '@heroicons/react/20/solid';
-import { IPostLoginPayload } from '@/app/types/auth';
+import { IPostLoginPayload, IPutAvatarPayload } from '@/app/types/auth';
 import { ENDPOINTS } from '@/app/constants/endpoint';
+import { IUser } from '@/app/types/account';
 // import { access } from 'fs';
 
 // initial state
@@ -18,6 +19,7 @@ const initialState: IUserInitialState = {
 	userLoggedIn: false,
 	isLoading: false,
 	user: {
+		avatar: '',
 		date_of_birth: '',
 		email: '',
 		full_name: '',
@@ -31,9 +33,10 @@ const initialState: IUserInitialState = {
 };
 
 type UserData = {
+	avatar: string;
 	token: string;
 	email: string;
-	gender: true | undefined;
+	gender: string | undefined;
 	point: number;
 	verify: boolean | undefined;
 	role: string;
@@ -59,6 +62,17 @@ export const getCurrentUser = createAsyncThunk(
 			signal: thunkApi.signal,
 		});
 
+		return data;
+	}
+);
+
+export const updateImage = createAsyncThunk<IUser, IPutAvatarPayload>(
+	'@@auth/updateImage',
+	async (payload, thunkApi) => {
+		const { data } = await Axios.axiosPutWithFile(
+			ENDPOINTS.PROFILE.UPDATE_AVATAR,
+			payload
+		);
 		return data;
 	}
 );
@@ -94,6 +108,11 @@ export const userSlice = createSlice({
 			.addCase(getCurrentUser.pending, (state) => {
 				state.isLoading = true;
 			});
+
+		builder.addCase(updateImage.fulfilled, (state, action) => {
+			//@ts-ignore
+			state.user = { ...state.user, ...action.payload };
+		});
 	},
 });
 
