@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { ShowtimePaperProps } from "./ShowtimePaper.type";
-import ScheduleButton from "@/app/components/Button/ScheduleButton";
+import ScheduleButton from "@/app/components/button/ScheduleButton";
 import { useRedux } from "@/app/hooks";
 
 function ShowtimePaper({ movie }: ShowtimePaperProps) {

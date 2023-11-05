@@ -1,6 +1,6 @@
 import Dropdown from "@/app/components/Dropdown";
 import { MenuItem } from "@/app/components/Dropdown/Dropdown.type";
-import SwitchButton from "@/app/components/Button/SwitchButton";
+import SwitchButton from "@/app/components/button/SwitchButton";
 import Table from "@/app/components/table";
 import { IUser } from "@/app/types/account";
 import {

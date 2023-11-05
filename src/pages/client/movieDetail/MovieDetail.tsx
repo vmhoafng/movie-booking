@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 import useWindowDimensions from "../../../app/hooks/useWindowDimensions";
-import Button from "../../../app/components/Button/Button";
+import Button from "../../../app/components/button/Button";
 
 import LoadingAnimation from "../../../app/components/loading/LoadingAnimation";
 import Poster from "@/app/components/poster/Poster";

@@ -1,4 +1,4 @@
-import Button from "@/app/components/Button/Button";
+import Button from "@/app/components/button/Button";
 import React from "react";
 
 const Error404 = () => {

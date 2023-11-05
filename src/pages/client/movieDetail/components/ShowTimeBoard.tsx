@@ -1,5 +1,5 @@
 import React from "react";
-import ScheduleButton from "../../../../app/components/Button/ScheduleButton";
+import ScheduleButton from "../../../../app/components/button/ScheduleButton";
 import { IShowtime } from "@/app/types/showtime";
 
 interface ShowTimeBoardProps {

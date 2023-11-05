@@ -5,7 +5,7 @@ import Title from "../../../app/components/Title";
 import BookingTitle from "../payment/components/BookingTitle";
 import BookingSubtitle from "../payment/components/BookingSubtitle";
 import SeatRow from "./components/SeatRow";
-import Button from "../../../app/components/Button/Button";
+import Button from "../../../app/components/button/Button";
 import Ticket from "./components/Ticket";
 
 function SeatPlan() {

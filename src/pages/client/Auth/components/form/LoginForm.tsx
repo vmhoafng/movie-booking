@@ -3,7 +3,7 @@ import Input from "../inputs/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Button from "../../../../../app/components/Button/Button";
+import Button from "../../../../../app/components/button/Button";
 import { useRedux } from "@/app/hooks";
 import { login } from "@/app/redux/auth";
 import { IPostLoginPayload } from "@/app/types/auth";

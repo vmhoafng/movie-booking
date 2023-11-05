@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import Input from "../../../../app/components/inputs/Input";
-import Button from "../../../../app/components/Button/Button";
+import Button from "../../../../app/components/button/Button";
 import useWindowDimensions from "../../../../app/hooks/useWindowDimensions";
 function PasswordItem() {
   const { width } = useWindowDimensions();

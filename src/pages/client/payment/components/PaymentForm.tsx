@@ -7,7 +7,7 @@ import {
   SubmitHandler,
   Controller,
 } from "react-hook-form";
-import Button from "@/app/components/Button/Button";
+import Button from "@/app/components/button/Button";
 import SwitchButton from "@/app/components/button/SwitchButton";
 import useWindowDimensions from "@/app/hooks/useWindowDimensions";
 import { yupResolver } from "@hookform/resolvers/yup";

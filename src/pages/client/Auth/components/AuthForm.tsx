@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import LoadingAnimation from "../../../../app/components/loading/LoadingAnimation";
-import AuthSocialButton from "../../../../app/components/Button/AuthSocialButton";
+import AuthSocialButton from "../../../../app/components/button/AuthSocialButton";
 import LoginForm from "./form/LoginForm";
 import RegisterForm from "./form/RegisterForm";
 
