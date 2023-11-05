@@ -21,6 +21,8 @@ export type IMovie = {
 	poster: string;
 	slug: string;
 	rated: number;
+	formats: IMovieFormat[];
+	genre: IMovieGenre;
 	director: string;
 	status: IMovieStatus;
 	sub_name: string;
@@ -71,18 +73,9 @@ export type IMovieSlug = {
 };
 
 export type IPutMovieDetails = {
-	name: string;
-	sub_name: string;
-	cast: string;
-	language: string;
-	description: string;
-	country: string;
-	status: string;
-	release_date: string;
-	end_date: string;
-	running_time: string;
+	movie: string;
 	poster?: TFile;
-	horizontal_poster?: TFile;
+	horPoster?: TFile;
 	images?: TFile[];
 };
 export type IgetShowtimeByMovie = {
