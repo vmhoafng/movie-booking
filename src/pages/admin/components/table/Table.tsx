@@ -5,53 +5,68 @@ interface TableProps {
   columns: Array<string>;
   renderHeader?: (column: string) => ReactNode;
   renderCell?: (row: Record<string, any>, column: string) => ReactNode;
+  currentPage: number;
+  itemsPerPage: number;
 }
+//E.g Data
+// const data = [
+//     {
+//     ID: "01",
+//     Tên: "Cinema An Dương Vương",
+//     "Địa chỉ": "47 An Dương Vương, phường 12",
+//     "Quận/huyện": "Quận 5",
+//     "Tỉnh/Thành phố": "Hồ Chí Minh",
+//     "Điện thoại": "096203060",
+//     "Tác vụ": "John",
+//   },
+//   {
+//     ID: "01",
+//     Tên: "Cinema An Dương Vương",
+//     "Địa chỉ": "47 An Dương Vương, phường 12",
+//     "Quận/huyện": "Quận 5",
+//     "Tỉnh/Thành phố": "Hồ Chí Minh",
+//     "Điện thoại": "096203060",
+//     "Tác vụ": "John",
+//   },
+//   {
+//     ID: "01",
+//     Tên: "Cinema An Dương Vương",
+//     "Địa chỉ": "47 An Dương Vương, phường 12",
+//     "Quận/huyện": "Quận 5",
+//     "Tỉnh/Thành phố": "Hồ Chí Minh",
+//     "Điện thoại": "096203060",
+//     "Tác vụ": "John",
+//   },
+//   ];
 
-function Table({ data, columns, renderHeader, renderCell }: TableProps) {
-  //E.g Data
-  // const data = [
-  //     {
-  //     ID: "01",
-  //     Tên: "Cinema An Dương Vương",
-  //     "Địa chỉ": "47 An Dương Vương, phường 12",
-  //     "Quận/huyện": "Quận 5",
-  //     "Tỉnh/Thành phố": "Hồ Chí Minh",
-  //     "Điện thoại": "096203060",
-  //     "Tác vụ": "John",
-  //   },
-  //   {
-  //     ID: "01",
-  //     Tên: "Cinema An Dương Vương",
-  //     "Địa chỉ": "47 An Dương Vương, phường 12",
-  //     "Quận/huyện": "Quận 5",
-  //     "Tỉnh/Thành phố": "Hồ Chí Minh",
-  //     "Điện thoại": "096203060",
-  //     "Tác vụ": "John",
-  //   },
-  //   {
-  //     ID: "01",
-  //     Tên: "Cinema An Dương Vương",
-  //     "Địa chỉ": "47 An Dương Vương, phường 12",
-  //     "Quận/huyện": "Quận 5",
-  //     "Tỉnh/Thành phố": "Hồ Chí Minh",
-  //     "Điện thoại": "096203060",
-  //     "Tác vụ": "John",
-  //   },
-  //   ];
+//   const columns = [  "ID", "Tên", "Địa chỉ", "Quận/huyện", "Tỉnh/Thành phố", "Điện thoại", "Tác vụ",];
 
-  //   const columns = [  "ID", "Tên", "Địa chỉ", "Quận/huyện", "Tỉnh/Thành phố", "Điện thoại", "Tác vụ",];
+//E.g Case Study
+//   <Table
+//   data={data}
+//   columns={columns}
+//   renderHeader={(column) => (
+//     <span className="header-cell">{column}</span>
+//   )}
+//   renderCell={(row, column) => (
+//     <span className="data-cell">{row[column]}</span>
+//   )}
+//   currentPage={currentPage}
+//   itemsPerPage={itemsPerPage}
+//   />
+//   <Pagination pageCount={pageCount} onPageChange={handlePageChange} />
 
-  //E.g Case Study
-  //   <Table
-  //   data={data}
-  //   columns={columns}
-  //   renderHeader={(column) => (
-  //     <span className="header-cell">{column}</span>
-  //   )}
-  //   renderCell={(row, column) => (
-  //     <span className="data-cell">{row[column]}</span>
-  //   )}
-  // />
+function Table({
+  data,
+  columns,
+  renderHeader,
+  renderCell,
+  currentPage,
+  itemsPerPage,
+}: TableProps) {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedData = data.slice(startIndex, endIndex);
   return (
     <div className="min-w-full rounded border border-borderColor overflow-hidden">
       <table className="min-w-full ">
@@ -68,7 +83,7 @@ function Table({ data, columns, renderHeader, renderCell }: TableProps) {
           </tr>
         </thead>
         <tbody>
-          {data.map((row, rowIndex) => (
+          {displayedData.map((row, rowIndex) => (
             <tr
               key={rowIndex}
               className={rowIndex % 2 === 0 ? "bg-[#0E1946]" : "bg-[#021339]"}
