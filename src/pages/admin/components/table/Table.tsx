@@ -8,13 +8,50 @@ interface TableProps {
 }
 
 function Table({ data, columns, renderHeader, renderCell }: TableProps) {
+  //E.g Data
   // const data = [
-  //     { id: 1, name: "John", age: 30 },
-  //     { id: 2, name: "Jane", age: 25 },
-  //     { id: 3, name: "Bob", age: 40 },
+  //     {
+  //     ID: "01",
+  //     Tên: "Cinema An Dương Vương",
+  //     "Địa chỉ": "47 An Dương Vương, phường 12",
+  //     "Quận/huyện": "Quận 5",
+  //     "Tỉnh/Thành phố": "Hồ Chí Minh",
+  //     "Điện thoại": "096203060",
+  //     "Tác vụ": "John",
+  //   },
+  //   {
+  //     ID: "01",
+  //     Tên: "Cinema An Dương Vương",
+  //     "Địa chỉ": "47 An Dương Vương, phường 12",
+  //     "Quận/huyện": "Quận 5",
+  //     "Tỉnh/Thành phố": "Hồ Chí Minh",
+  //     "Điện thoại": "096203060",
+  //     "Tác vụ": "John",
+  //   },
+  //   {
+  //     ID: "01",
+  //     Tên: "Cinema An Dương Vương",
+  //     "Địa chỉ": "47 An Dương Vương, phường 12",
+  //     "Quận/huyện": "Quận 5",
+  //     "Tỉnh/Thành phố": "Hồ Chí Minh",
+  //     "Điện thoại": "096203060",
+  //     "Tác vụ": "John",
+  //   },
   //   ];
 
-  //   const columns = ["id", "name", "age"];
+  //   const columns = [  "ID", "Tên", "Địa chỉ", "Quận/huyện", "Tỉnh/Thành phố", "Điện thoại", "Tác vụ",];
+
+  //E.g Case Study
+  //   <Table
+  //   data={data}
+  //   columns={columns}
+  //   renderHeader={(column) => (
+  //     <span className="header-cell">{column}</span>
+  //   )}
+  //   renderCell={(row, column) => (
+  //     <span className="data-cell">{row[column]}</span>
+  //   )}
+  // />
   return (
     <div className="min-w-full rounded border border-borderColor overflow-hidden">
       <table className="min-w-full ">
