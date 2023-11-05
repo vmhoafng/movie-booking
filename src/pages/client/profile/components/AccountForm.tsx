@@ -5,8 +5,6 @@ import Button from "@/app/components/Button/Button";
 import useWindowDimensions from "@/app/hooks/useWindowDimensions";
 import SelectInput from "@/app/components/inputs/SelectInput";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-
-import clsx from "clsx";
 function AccountItem() {
   const { width } = useWindowDimensions();
   const [isLoading, setIsLoading] = useState(false);

@@ -28,7 +28,7 @@ function AvatarModal({ onClick }: AvatarModalProps) {
               </label>
               <div className="flex items-center justify-center w-full">
                 <label className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
-                  <div className="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
+                  <div className="h-full w-full text-center flex flex-col justify-center items-center  ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-10 h-10 text-blue-400 group-hover:text-blue-600"
