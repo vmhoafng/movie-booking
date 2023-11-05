@@ -75,7 +75,7 @@ function MovieDetail() {
 		releaseDate: yup.string().required(),
 		endDate: yup.string().required(),
 		runningTime: yup.number().required(),
-		status: yup.number().required(),
+		statusId: yup.number().required(),
 	});
 
 	const {
@@ -95,7 +95,7 @@ function MovieDetail() {
 			cast: movie?.cast || '',
 			director: movie?.director || '',
 			rated: movie?.rated || 0,
-			status: movie?.status.id || 1,
+			statusId: movie?.status.id || 1,
 			releaseDate: movie?.release_date || new Date(Date.now()).toISOString(),
 			endDate: movie?.end_date || new Date(Date.now()).toISOString(),
 			trailer: movie?.trailer || '',
@@ -114,7 +114,7 @@ function MovieDetail() {
 				cast: data.payload.cast || '',
 				director: data.payload.director || '',
 				rated: data.payload.rated || 0,
-				status: data.payload.status.id || 1,
+				statusId: data.payload.status.id || 1,
 				releaseDate:
 					data.payload.release_date || new Date(Date.now()).toISOString(),
 				endDate: data.payload.end_date || new Date(Date.now()).toISOString(),
@@ -127,12 +127,17 @@ function MovieDetail() {
 	}, [dispatch, movieId, reset]);
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
+		console.log(data);
+
 		const payload: IPutMovieDetails = {
-			//@ts-ignore
-			movie: JSON.stringify(data),
-			poster,
-			horPoster,
-			images,
+			movie: JSON.stringify({
+				...data,
+				formats: [1],
+				genre: movie?.genre.id || '',
+			}),
+			...(poster && { poster }),
+			...(horPoster && { horPoster }),
+			...(images && { images }),
 		};
 		dispatch(putMovie({ id: movieId!, payload }));
 	};
@@ -312,8 +317,8 @@ function MovieDetail() {
 							<p className="flex-[0_0_160px] text-white/70">Trạng thái</p>
 							<SelectInput
 								inputClassName="w-[300px]"
-								id="status"
-								name="status"
+								id="statusId"
+								name="statusId"
 								options={statusOptions}
 								control={control}
 								value={statusOptions.find(
