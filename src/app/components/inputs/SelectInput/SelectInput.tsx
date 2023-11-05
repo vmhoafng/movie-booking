@@ -32,6 +32,8 @@ function SelectInput({
 		}
 	}, [value, options, placeholder]);
 
+	console.log(selected.value);
+
 	if (control) {
 		return (
 			<Controller
@@ -39,7 +41,13 @@ function SelectInput({
 				control={control}
 				render={({ field }) => (
 					<div className={inputClassName}>
-						<Listbox value={field.value} onChange={field.onChange}>
+						<Listbox
+							value={selected}
+							onChange={(e) => {
+								setSelected(e);
+								field.onChange(e.value);
+							}}
+						>
 							<div className="relative">
 								<Listbox.Button
 									className={
@@ -50,10 +58,10 @@ function SelectInput({
 								>
 									<span
 										className={`block truncate text-[15px] ${
-											!field.value && 'text-slate-300'
+											!selected.value && 'text-slate-300'
 										}`}
 									>
-										{field.value}
+										{selected.label}
 									</span>
 									{Icon && (
 										<span className="absolute inset-y-0 right-0 pr-[15px] flex items-center">
