@@ -16,8 +16,9 @@ const variants = {
 	hover:border-white 
 	transform 
 	transition 
-	duration-300 `,
-	Edit: `py-2
+	duration-300
+	font-bold `,
+	Edit: `py-2 font-bold
 	px-3 
 	block 
 	rounded 
@@ -32,7 +33,7 @@ const variants = {
 	transition 
 	duration-300`,
 	Cancel: `text-white/50 hover:underline hover:text-white`,
-	Save: `py-2
+	Save: `py-2 font-bold
 	px-3 
 	block 
 	rounded 
