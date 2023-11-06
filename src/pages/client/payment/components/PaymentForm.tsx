@@ -35,7 +35,6 @@ function PaymentForm() {
 		resolver: yupResolver<FieldValues>(validationSchema),
 		defaultValues: { isUsingPoint: false },
 	});
-	console.log(errors);
 
 	const onSubmit: SubmitHandler<FieldValues> = () => {
 		dispatch(createBill()).then(

@@ -25,7 +25,13 @@ export const ENDPOINTS = {
     RESET_PATH: "auth/resetPass",
   },
 
-  ADMIN: {},
+  ADMIN: {
+    MOVIE: {
+      DETAIL: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
+      LIST: `admin/movie`,
+      PUT: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
+    },
+  },
 };
 
 export const getEndPoint = (endpoint: string, arg: Object) => {
