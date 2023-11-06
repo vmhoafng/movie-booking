@@ -79,6 +79,7 @@ export const Axios = {
 			headers: {
 				Authorization: 'Bearer ' + authUtils.getSessionToken(),
 			},
+			...params,
 		});
 	},
 
@@ -123,6 +124,7 @@ export const Axios = {
 			headers: {
 				Authorization: 'Bearer ' + authUtils.getSessionToken(),
 			},
+			...params,
 		});
 	},
 
