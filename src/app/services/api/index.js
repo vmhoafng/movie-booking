@@ -11,6 +11,6 @@ export default {
    showtime,
    cinemaService,
    moviesService,
-	paymetService,,
+	paymetService,
    commentService,
 };

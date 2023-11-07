@@ -22,12 +22,16 @@ const initialState: ICommentsState = {
 export const getCommentByStatus = createAsyncThunk(
    "@@movies/getCommentByStatus",
    async (payload: ICommentStatus) => {
+      // console.log(payload);
+
       const { data } = await api.commentService.getCommentByStatus(payload);
       return data;
    }
 );
 export const getAll = createAsyncThunk("@@movies/getAll", async () => {
    const { data } = await api.commentService.getAll();
+   console.log(data);
+
    return data;
 });
 const commentsSlice = createSlice({

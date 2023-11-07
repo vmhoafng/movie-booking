@@ -3,10 +3,14 @@ import { ICommentStatus } from "@/app/types/comment";
 import { Axios } from "@/app/utils/api";
 const commentService = {
    getAll: async () => {
-      return await Axios.axiosGet(ENDPOINTS.ADMIN.ALL_COMMENT);
+      return await Axios.axiosGet(ENDPOINTS.ADMIN.COMMENT.ALL);
    },
-   getCommentByStatus: (payload: ICommentStatus) => {
-      return Axios.axiosGet(`${ENDPOINTS.MOVIE_SLUG}/${payload.status}`);
+   getCommentByStatus: async (payload: ICommentStatus) => {
+      console.log(payload);
+
+      return await Axios.axiosGet(
+         `${ENDPOINTS.ADMIN.COMMENT.BY_STATUS}/${payload}`
+      );
    },
 };
 
