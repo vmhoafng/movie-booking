@@ -9,7 +9,7 @@ interface DasboardItemProps {
 
 function DasboardItem({ onClick }: DasboardItemProps) {
   return (
-    <div className="w-[260px] h-[150px] flex flex-col justify-between border rounded border-borderColor">
+    <div className="w-full h-[150px] flex flex-col justify-between border rounded border-borderColor">
       <div className="flex justify-between px-4 py-2 border-b border-b-borderColor">
         <div className="uppercase text-sm font-bold text-white/70">Rạp 1</div>
         <button onClick={onClick}>

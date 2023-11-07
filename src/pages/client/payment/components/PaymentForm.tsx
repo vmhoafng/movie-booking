@@ -1,38 +1,54 @@
-import React, { useState } from "react";
-import Title from "./Title";
-import Input from "@/app/components/inputs/Input";
+import React, { useState } from 'react';
+import Title from './Title';
+import Input from '@/app/components/inputs/Input';
 import {
-  useForm,
-  FieldValues,
-  SubmitHandler,
-  Controller,
-} from "react-hook-form";
-import Button from "@/app/components/button/Button";
-import SwitchButton from "@/app/components/button/SwitchButton";
-import useWindowDimensions from "@/app/hooks/useWindowDimensions";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import PaymentItem from "./PaymentItem";
+	useForm,
+	FieldValues,
+	SubmitHandler,
+	Controller,
+} from 'react-hook-form';
+import Button from '@/app/components/button/Button';
+import SwitchButton from '@/app/components/button/SwitchButton';
+import useWindowDimensions from '@/app/hooks/useWindowDimensions';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import PaymentItem from './PaymentItem';
+import { useRedux } from '@/app/hooks';
+import { createBill } from '@/app/redux/payment';
+import { useNavigate } from 'react-router-dom';
 
 function PaymentForm() {
-  const [isLoading, setIsLoading] = useState(false);
-  const validationSchema = yup.object().shape({
-    isUsingPoint: yup.boolean(),
-  });
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<FieldValues>({
-    resolver: yupResolver<FieldValues>(validationSchema),
-    defaultValues: { isUsingPoint: false },
-  });
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-  };
-  return (
-    <form
-      className="
+	const [isLoading, setIsLoading] = useState(false);
+	const { dispatch, appSelector } = useRedux();
+
+	const validationSchema = yup.object().shape({
+		isUsingPoint: yup.boolean(),
+	});
+
+	const navigate = useNavigate();
+
+	const {
+		handleSubmit,
+		control,
+		formState: { errors },
+	} = useForm<FieldValues>({
+		resolver: yupResolver<FieldValues>(validationSchema),
+		defaultValues: { isUsingPoint: false },
+	});
+
+	const onSubmit: SubmitHandler<FieldValues> = () => {
+		dispatch(createBill()).then(
+			(data) => {
+				if (data.payload) window.location.replace(data.payload);
+			},
+			(err) => {
+				console.log(err);
+			}
+		);
+	};
+	return (
+		<form
+			className="
          bg-[#0A1E5ECC]
          flex
          flex-col
@@ -56,9 +72,9 @@ function PaymentForm() {
       <Title>Payment</Title>
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex flex-col gap-[10px] py-4">
-        <PaymentItem label="Họ và tên" value="Võ Minh Hoàng"/>
-        <PaymentItem label="Email" value="mhoang.developer@gmail.com"/>
-        <PaymentItem label="Số điện thoại" value="0929829783"/>
+        <PaymentItem label="Họ và tên" value="Võ Minh Hoàng" />
+        <PaymentItem label="Email" value="mhoang.developer@gmail.com" />
+        <PaymentItem label="Số điện thoại" value="0929829783" />
       </div>
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex flex-col items-center gap-2 font-inter">
@@ -67,26 +83,26 @@ function PaymentForm() {
             Sử dụng điểm thành viên (50.000)
           </div>
 
-          <Controller
-            control={control}
-            name="isUsingPoint"
-            render={({ field: { ref, ...field } }) => (
-              <SwitchButton {...field} disabled={isLoading} />
-            )}
-          />
-        </div>
-        <div className="w-full text-white/50 font-semibold text-[13px] leading-6">
-          *Vui lòng kiểm tra thông tin trước khi thanh toán.
-        </div>
-        <Button highlight fullWidth type="submit">
-          Thanh toán
-        </Button>
-        <div className="text-lightPrimary font-semibold leading-6 cursor-pointer">
-          Quay lại
-        </div>
-      </div>
-    </form>
-  );
+					<Controller
+						control={control}
+						name="isUsingPoint"
+						render={({ field: { ref, ...field } }) => (
+							<SwitchButton {...field} disabled={isLoading} />
+						)}
+					/>
+				</div>
+				<div className="w-full text-white/50 font-semibold text-[13px] leading-6">
+					*Vui lòng kiểm tra thông tin trước khi thanh toán.
+				</div>
+				<Button highlight fullWidth type="submit">
+					Thanh toán
+				</Button>
+				<div className="text-lightPrimary font-semibold leading-6 cursor-pointer">
+					Quay lại
+				</div>
+			</div>
+		</form>
+	);
 }
 
 export default PaymentForm;

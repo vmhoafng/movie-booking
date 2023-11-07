@@ -48,6 +48,16 @@ export default function useFileUploader(
 		},
 		[selectedFiles, showPreview]
 	);
+
+	const addFile = useCallback(
+		(file: TFile, index: number) => {
+			const newFiles = [...selectedFiles];
+			newFiles.splice(newFiles.indexOf(file), 1);
+			setSelectedFiles(newFiles);
+		},
+		[selectedFiles]
+	);
+
 	return {
 		removeFile,
 		selectedFiles,

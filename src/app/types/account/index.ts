@@ -1,5 +1,5 @@
 export type IUser = {
-	img: string;
+	avatar: string;
 	point: number;
 	email: string;
 	verify: boolean;
