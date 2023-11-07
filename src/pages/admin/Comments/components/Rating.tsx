@@ -29,12 +29,12 @@ const Rating = () => {
                Phim hay ngoài sức tưởng tượng.
             </p>
          </div>
-         <div className="h-[52px] flex flex-col justify-around items-center px-4 border-l border-borderColor text-sm">
+         <div className="h-[52px] flex flex-col justify-between items-center px-4 border-l border-borderColor text-sm">
             <div className="hover:opacity-100 opacity-95 transition-all duration-100 cursor-pointer">
-               <span className="text-highlight">Duyệt</span>
+               <span className="text-highlight hover:underline">Duyệt</span>
             </div>
             <div className="hover:opacity-100 opacity-90 transition-all duration-100 cursor-pointer">
-               <span className="text-red-600">Xóa</span>
+               <span className="text-red-600 hover:underline">Xóa</span>
             </div>
          </div>
       </div>

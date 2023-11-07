@@ -3,6 +3,7 @@ import Rating from "./components/Rating";
 import SelectInput from "@/app/components/inputs/SelectInput";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import ControlBar from "../components/controlBar/ControlBar";
+import { useRedux } from "@/app/hooks";
 
 const options = [
    { label: "Tất cả", value: "all" },
@@ -10,9 +11,15 @@ const options = [
    { label: "Chưa duyệt", value: "Chưa duyệt" },
 ];
 function Comments() {
-   function handleOnChange(e) {
+   const { appSelector, dispatch } = useRedux();
+   const { comment, isLoading, isError, errorMessage } = appSelector(
+      (state) => state.comment
+   );
+
+   function handleOnChange(e: { value: any }) {
       console.log(e.value);
    }
+
    return (
       <>
          <ControlBar title={"Quản lý người dùng"} subTitle={"Bình luận"}>
