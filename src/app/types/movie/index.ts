@@ -1,5 +1,5 @@
-import { TFile } from '@/app/components/FileUploader';
-import { ICinema } from '../cinema';
+import { TFile } from '@/app/components/upload/FileUploader';
+import { ICinema, ICinemaShowtimeList } from '../cinema';
 import { IShowtime } from '../showtime';
 
 export type IMovieFormat = {
@@ -14,11 +14,16 @@ export type IMovie = {
 	cast: string;
 	rating: number;
 	language: string;
+	producer: string;
 	description: string;
+	country: string;
 	trailer: string;
 	poster: string;
 	slug: string;
-	rated: string;
+	rated: number;
+	formats: IMovieFormat[];
+	genre: IMovieGenre;
+	director: string;
 	status: IMovieStatus;
 	sub_name: string;
 	release_date: string;
@@ -27,10 +32,11 @@ export type IMovie = {
 	number_of_ratings: number;
 	horizontal_poster: string;
 	showtimes?: IShowtime[];
+	cinema?: ICinemaShowtimeList[];
 };
 
 export type IMovieStatus = {
-	id: string;
+	id: number;
 	description: string;
 	slug: string;
 };
@@ -67,17 +73,12 @@ export type IMovieSlug = {
 };
 
 export type IPutMovieDetails = {
-	name: string;
-	sub_name: string;
-	cast: string;
-	language: string;
-	description: string;
-	country: string;
-	status: string;
-	release_date: string;
-	end_date: string;
-	running_time: string;
+	movie: string;
 	poster?: TFile;
-	horizontal_poster?: TFile;
+	horPoster?: TFile;
 	images?: TFile[];
+};
+export type IgetShowtimeByMovie = {
+	id: string;
+	date: string;
 };

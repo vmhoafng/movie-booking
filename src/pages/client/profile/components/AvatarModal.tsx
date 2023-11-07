@@ -1,3 +1,4 @@
+import Button from "@/app/components/button/Button";
 import React from "react";
 
 interface AvatarModalProps {
@@ -11,7 +12,7 @@ function AvatarModal({ onClick }: AvatarModalProps) {
           className="bg-bgPrimaryLayer absolute w-full h-full"
           onClick={onClick}
         />
-        <div className="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10 m-auto">
+        <div className="sm:max-w-lg w-full p-10 bg-bgPrimaryBar rounded-xl z-10 m-auto">
           <div className="text-center">
             <h2 className="mt-5 text-3xl font-bold text-gray-900">
               File Upload!
@@ -66,13 +67,7 @@ function AvatarModal({ onClick }: AvatarModalProps) {
               <span>File type: doc,pdf,types of images</span>
             </p>
             <div>
-              <button
-                type="submit"
-                className="my-5 w-full flex justify-center bg-blue-500 text-gray-100 p-4  rounded-full tracking-wide
-                              font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-600 shadow-lg cursor-pointer transition ease-in duration-300"
-              >
-                Upload
-              </button>
+              <Button large highlight type="submit">Upload</Button>
             </div>
           </form>
         </div>

@@ -56,9 +56,9 @@ function PaymentForm() {
       <Title>Payment</Title>
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex flex-col gap-[10px] py-4">
-        <PaymentItem label="Họ và tên" value="Võ Minh Hoàng"/>
-        <PaymentItem label="Email" value="mhoang.developer@gmail.com"/>
-        <PaymentItem label="Số điện thoại" value="0929829783"/>
+        <PaymentItem label="Họ và tên" value="Võ Minh Hoàng" />
+        <PaymentItem label="Email" value="mhoang.developer@gmail.com" />
+        <PaymentItem label="Số điện thoại" value="0929829783" />
       </div>
       <div className="w-full border-t border-dashed border-borderColor" />
       <div className="w-full flex flex-col items-center gap-2 font-inter">
