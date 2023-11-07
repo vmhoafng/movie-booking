@@ -101,7 +101,7 @@ const Pagination = ({
             font-semibold
             font-inter
             text-center 
-            ${isFirstPage && "opacity-20"}`}
+            ${isFirstPage && "opacity-20 cursor-default"}`}
           />
         }
         nextLabel={
@@ -120,7 +120,7 @@ const Pagination = ({
             font-semibold
             font-inter
             text-center
-            ${isLastPage && "opacity-20"}`}
+            ${isLastPage && "opacity-20 cursor-default"}`}
           />
         }
       />
