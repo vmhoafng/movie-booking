@@ -68,6 +68,15 @@ const data = [
     "Điện thoại": "096203060",
     "Tác vụ": "John",
   },
+  {
+    ID: "01",
+    Tên: "Cinema An Dương Vương",
+    "Địa chỉ": "47 An Dương Vương, phường 12",
+    "Quận/huyện": "Quận 5",
+    "Tỉnh/Thành phố": "Hồ Chí Minh",
+    "Điện thoại": "096203060",
+    "Tác vụ": "John",
+  },
 ];
 
 const columns = [
@@ -98,7 +107,9 @@ function CinemaDetail() {
         itemsPerPage={itemsPerPage}
       />
       <Pagination
+        itemPerPage={itemsPerPage}
         pageCount={pageCount}
+        dataLength={data.length}
         onPageChange={handlePageChange}
         currentPage={currentPage}
       />

@@ -6,6 +6,8 @@ interface PaginationProps {
   pageCount: number;
   onPageChange: (selectedPage: number) => void;
   currentPage: number;
+  itemPerPage: number;
+  dataLength: number;
 }
 // Index.tsx
 // const [currentPage, setCurrentPage] = useState(1);
@@ -14,6 +16,7 @@ interface PaginationProps {
 // const handlePageChange = (selectedPage: number) => {
 //   setCurrentPage(selectedPage + 1);
 // };
+
 // E.g Case study
 // return (
 //     <Table
@@ -28,19 +31,30 @@ const Pagination = ({
   pageCount,
   onPageChange,
   currentPage,
+  itemPerPage,
+  dataLength,
 }: PaginationProps) => {
   const handlePageClick = (data: { selected: number }) => {
     onPageChange(data.selected);
   };
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === pageCount;
+
   return (
-    <ReactPaginate
-      pageCount={pageCount}
-      onPageChange={handlePageClick}
-      containerClassName="flex items-center justify-end mr-1 my-3"
-      pageLinkClassName="p-2 w-[32px]"
-      pageClassName="flex
+    <div className="flex justify-between items-center px-3">
+      <div className="text-[13px] font-medium">
+        Showing {(currentPage - 1) * itemPerPage + 1} to{" "}
+        {isLastPage
+          ? dataLength
+          : (currentPage - 1) * itemPerPage + itemPerPage}{" "}
+        of {dataLength} rating
+      </div>
+      <ReactPaginate
+        pageCount={pageCount}
+        onPageChange={handlePageClick}
+        containerClassName="flex items-center justify-end my-3"
+        pageLinkClassName="p-2 w-[32px]"
+        pageClassName="flex
         items-center
         justify-center
         bg-[#0E1946]
@@ -53,7 +67,7 @@ const Pagination = ({
         text-xs
         font-inter
         text-center"
-      activeClassName="
+        activeClassName="
         flex
         items-center
         justify-center
@@ -70,12 +84,12 @@ const Pagination = ({
         duration-200
         ease-linear
         "
-      previousLabel={
-        <Icon
-          height={33}
-          width={33}
-          icon="arrowRight"
-          className={`rotate-180
+        previousLabel={
+          <Icon
+            height={33}
+            width={33}
+            icon="arrowRight"
+            className={`rotate-180
             bg-[#0E1946]
             mx-1
             text-white
@@ -88,14 +102,14 @@ const Pagination = ({
             font-inter
             text-center 
             ${isFirstPage && "opacity-20"}`}
-        />
-      }
-      nextLabel={
-        <Icon
-          height={33}
-          width={33}
-          icon="arrowRight"
-          className={`bg-[#0E1946]
+          />
+        }
+        nextLabel={
+          <Icon
+            height={33}
+            width={33}
+            icon="arrowRight"
+            className={`bg-[#0E1946]
             mx-1
             text-white
             p-2
@@ -107,9 +121,10 @@ const Pagination = ({
             font-inter
             text-center
             ${isLastPage && "opacity-20"}`}
-        />
-      }
-    />
+          />
+        }
+      />
+    </div>
   );
 };
 
