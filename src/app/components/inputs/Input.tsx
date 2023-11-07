@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import Icon, { IconType } from "../icon/Icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface InputProps {
   label: string;
@@ -32,6 +32,9 @@ const Input = ({
   value,
 }: InputProps) => {
   const [inputValue, setInputValue] = useState(value);
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
   const handlePattern = (type: string) => {
     switch (type) {
       case "tel":
@@ -44,7 +47,6 @@ const Input = ({
     }
     return;
   };
-  console.log(value);
 
   return (
     <div
@@ -90,11 +92,12 @@ const Input = ({
           disabled={disabled}
           placeholder={placeholder}
           autoComplete="off"
-          value={value}
+          defaultValue={inputValue}
           {...(register && register(id, { required }))}
           className={clsx(
             `
             form-input
+            h-[35px]
             block
             w-full
             rounded
@@ -116,8 +119,7 @@ const Input = ({
           `,
             errors?.[id] && "focus:ring-rose-500",
             borderWhite && "border-white/50 focus:border-white/50",
-            disabled && "opacity-50 cursor-default",
-            col ? "h-10" : "h-[35px]"
+            disabled && "opacity-50 cursor-default"
           )}
         />
         {endIcon && (

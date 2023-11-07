@@ -1,86 +1,124 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
-import Input from '@/app/components/inputs/Input';
-import Button from '@/app/components/button/Button';
-import useWindowDimensions from '@/app/hooks/useWindowDimensions';
-import SelectInput, { SelectOption } from '@/app/components/inputs/SelectInput';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import React, { useEffect, useMemo, useState } from "react";
+import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
+import Input from "@/app/components/inputs/Input";
+import Button from "@/app/components/button/Button";
+import useWindowDimensions from "@/app/hooks/useWindowDimensions";
+import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-import clsx from 'clsx';
-import { useRedux } from '@/app/hooks';
+import clsx from "clsx";
+import { useRedux } from "@/app/hooks";
+import { updateProfile } from "@/app/redux/auth";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { IPutProfilePayload } from "@/app/types/auth";
 
 const genderOptions: SelectOption[] = [
-	{ label: '', value: '' },
-	{ label: 'Nam', value: 'Nam' },
-	{ label: 'Nữ', value: 'Nữ' },
-	{ label: 'Khác', value: 'Khác' },
+  { label: "", value: "" },
+  { label: "Nam", value: "Nam" },
+  { label: "Nữ", value: "Nữ" },
+  { label: "Khác", value: "Khác" },
 ];
 
 function AccountItem() {
-	const { width } = useWindowDimensions();
-	const [isLoading, setIsLoading] = useState(false);
-	const { appSelector, dispatch } = useRedux();
+  const { width } = useWindowDimensions();
+  const { appSelector, dispatch } = useRedux();
 
-	const { user, isLoading: getProfile } = appSelector((state) => state.auth);
+  const { user, isLoading } = appSelector((state) => state.auth);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+  const validationSchema = yup.object({
+    fullName: yup.string(),
+    dateOfBirth: yup.string(),
+    gender: yup.string(),
+    phoneNumber: yup.string(),
+    email: yup.string().email(),
+  });
 
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm<FieldValues>({});
-	const onSubmit: SubmitHandler<FieldValues> = (data) => {
-		setIsLoading(true);
-	};
+  console.log({
+    fullName: user.full_name,
+    dateOfBirth: user.date_of_birth,
+    gender: user.gender,
+    phoneNumber: user.phone_number,
+    email: user.email,
+  });
 
-	useEffect(() => {
-		reset({
-			name: user.full_name,
-			email: user.email,
-			password: '',
-			date: user.date_of_birth,
-			phoneNumber: user.phone_number,
-			gender: user.gender,
-		});
-	}, [user, reset]);
-	return (
-		<div className="w-full lg:w-[344px] xl:w-[470px] 2xl:w-[550px] flex flex-col gap-[25px] py-10 lg:py-5">
-			<div className="flex flex-col gap-[10px]">
-				<Input
-					id="name"
-					label="Họ và Tên"
-					col
-					register={register}
-					errors={errors}
-					required
-				/>
-				<div className="w-full flex gap-[10px] lg:flex-col xl:flex-row xl:gap-[30px] 2xl:gap-5">
-					<Input
-						id="date"
-						label="Ngày sinh"
-						type="date"
-						col
-						register={register}
-						errors={errors}
-						endIcon="calendar"
-					/>
-					<div className="flex w-full py-[3px] flex-col items-start gap-1">
-						<label
-							className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
-							htmlFor="gender"
-						>
-							Giới tính
-						</label>
-						<SelectInput
-							id="gender"
-							options={genderOptions}
-							name="gender"
-							onChange={() => {}}
-							inputClassName="w-full"
-							value={genderOptions.find(
-								(gender) => gender.value === user.gender
-							)}
-							optionClassName="
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    resolver: yupResolver<FieldValues>(validationSchema),
+    defaultValues: {
+      fullName: user.full_name,
+      dateOfBirth: user.date_of_birth,
+      gender: user.gender,
+      phoneNumber: user.phone_number,
+      email: user.email,
+    },
+  });
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
+
+    dispatch(updateProfile(data as IPutProfilePayload));
+  };
+
+  // useEffect(() => {
+  // 	reset({
+  // 		name: user.full_name,
+  // 		email: user.email,
+  // 		password: '',
+  // 		date: user.date_of_birth,
+  // 		phoneNumber: user.phone_number,
+  // 		gender: user.gender,
+  // 	});
+  // }, [user, reset]);
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full lg:w-[344px] xl:w-[470px] 2xl:w-[550px] flex flex-col gap-[25px] py-10 lg:py-5"
+    >
+      <div className="flex flex-col gap-[10px]">
+        <Input
+          id="fullName"
+          label="Họ và Tên"
+          col
+          register={register}
+          errors={errors}
+          required
+          value={user.full_name}
+        />
+        <div className="w-full flex gap-[10px] lg:flex-col xl:flex-row xl:gap-[30px] 2xl:gap-5">
+          <Input
+            id="dateOfBirth"
+            label="Ngày sinh"
+            type="date"
+            col
+            register={register}
+            errors={errors}
+            endIcon="calendar"
+            value={user.date_of_birth}
+          />
+          <div className="flex w-full py-[3px] flex-col items-start gap-1">
+            <label
+              className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
+              htmlFor="gender"
+            >
+              Giới tính
+            </label>
+            <SelectInput
+              id="gender"
+              options={genderOptions}
+              name="gender"
+              onChange={() => {}}
+              register={register}
+              inputClassName="w-full"
+              value={genderOptions.find(
+                (gender) => gender.value === user.gender
+              )}
+              optionClassName="
                 z-30
                 text-white/90
                 hover:bg-white/10
@@ -88,7 +126,7 @@ function AccountItem() {
                 py-2
                 transition-all
                 duration-150"
-							buttonClassName="
+              buttonClassName="
                 text-start
                 block
                 w-full
@@ -103,34 +141,36 @@ function AccountItem() {
                 focus:border-borderColor
                 relative
                 h-10"
-							//@ts-ignore
-							endIcon={ChevronDownIcon}
-						/>
-					</div>
-				</div>
-				<Input
-					id="email"
-					type="email"
-					label="Email"
-					col
-					register={register}
-					errors={errors}
-				/>
-				<Input
-					id="phoneNumber"
-					type="tel"
-					label="Số điện thoại"
-					col
-					register={register}
-					errors={errors}
-				/>
-			</div>
-			<div className="hidden xl:block w-full border-t border-dashed border-borderColor" />
-			<Button large secondary fullWidth={width > 900}>
-				Cập nhật
-			</Button>
-		</div>
-	);
+              //@ts-ignore
+              endIcon={ChevronDownIcon}
+            />
+          </div>
+        </div>
+        <Input
+          id="email"
+          type="email"
+          label="Email"
+          col
+          register={register}
+          errors={errors}
+          value={user.email}
+        />
+        <Input
+          id="phoneNumber"
+          type="tel"
+          label="Số điện thoại"
+          col
+          register={register}
+          errors={errors}
+          value={user.phone_number}
+        />
+      </div>
+      <div className="hidden xl:block w-full border-t border-dashed border-borderColor" />
+      <Button type="submit" large secondary fullWidth={width > 900}>
+        Cập nhật
+      </Button>
+    </form>
+  );
 }
 
 export default AccountItem;

@@ -2,7 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Axios } from "../../utils/api";
 import authUtils from "../../utils/auth";
 import { SignalIcon } from "@heroicons/react/20/solid";
-import { IPostLoginPayload, IPutAvatarPayload } from "@/app/types/auth";
+import {
+  IPostLoginPayload,
+  IPutAvatarPayload,
+  IPutProfilePayload,
+} from "@/app/types/auth";
 import { ENDPOINTS } from "@/app/constants/endpoint";
 import { IPostBill } from "@/app/types/payment";
 import api from "@/app/services/api";
@@ -77,7 +81,13 @@ export const updateImage = createAsyncThunk<IUser, IPutAvatarPayload>(
     return data;
   }
 );
-
+export const updateProfile = createAsyncThunk(
+  "@@auth/updateProfile",
+  async (payload: IPutProfilePayload, thunkApi) => {
+    const { data } = await api.profileService.putProfile(payload);
+    return data;
+  }
+);
 //create user slice
 export const userSlice = createSlice({
   name: "auth",
@@ -116,6 +126,14 @@ export const userSlice = createSlice({
       //@ts-ignore
       state.user = { ...state.user, ...action.payload };
     });
+    builder
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.user = { ...state.user, ...action.payload };
+        state.isLoading = false;
+      })
+      .addCase(updateProfile.pending, (state) => {
+        state.isLoading = true;
+      });
   },
 });
 
