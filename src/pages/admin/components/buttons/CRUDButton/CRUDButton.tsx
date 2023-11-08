@@ -1,7 +1,7 @@
 import React from 'react';
 import { CRUDButtonProps } from './CRUDButton.type';
 
-const common = 'text-[12px]  ';
+const common = 'text-[12px] hover:cursor-pointer ';
 const variants = {
 	Add: `py-2
 	px-3 
@@ -34,6 +34,8 @@ const variants = {
 	duration-300`,
 	Cancel: `text-white/50 hover:underline hover:text-white`,
 	Save: `py-2 font-bold
+	disabled:text-slate-50 disabled:bg-gray-600 border-slate-50 
+	ease-in
 	px-3 
 	block 
 	rounded 
