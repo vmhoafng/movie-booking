@@ -9,11 +9,12 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 const dragActiveClassName = 'bg-black/50 ';
 
 function FileUploader({
-	showPreview,
-	maxFiles,
+	showPreview = true,
+	maxFiles = 8,
 	containerClassName,
 	onFileUpload,
 	onRemovePreviewFile,
+	initialState,
 }: TFileUploaderProps) {
 	const { selectedFiles, removeFile, handleAcceptedFiles } = useFileUploader(
 		showPreview,
@@ -26,21 +27,27 @@ function FileUploader({
 				<div className="grid grid-cols-4 gap-y-5 gap-x-7">
 					{(
 						[
+							...(initialState || []),
 							...selectedFiles,
-							...Array(maxFiles - selectedFiles.length).fill(0),
+							...((initialState || []).length <= maxFiles
+								? Array(
+										maxFiles -
+											((initialState?.length || 0) + selectedFiles.length)
+								  ).fill(0)
+								: []),
 						] || []
 					).map((file, index) => {
 						return (
 							<div
 								className={`${
-									file.preview ? 'z-10' : ''
+									file.preview || initialState?.[index] ? 'z-10' : ''
 								} group/overlay h-40 relative`}
 								key={`file-${index}`}
 							>
-								{file.preview ? (
+								{file.preview || initialState?.[index] ? (
 									<>
 										<img
-											src={file.preview}
+											src={file.preview || initialState?.[index].path}
 											alt={file.name}
 											className=" object-cover border  h-full w-full"
 										/>
@@ -48,9 +55,11 @@ function FileUploader({
 											<div
 												className="group/cross overflow-hidden cursor-pointer "
 												onClick={() => {
-													removeFile(file);
+													console.log(!initialState?.[index]?.path);
+
+													!initialState?.[index]?.path && removeFile(file);
 													onRemovePreviewFile &&
-														onRemovePreviewFile(selectedFiles);
+														onRemovePreviewFile(file, index);
 												}}
 											>
 												<p className=" group-hover/cross:w-[100px] whitespace-nowrap rounded-sm pr-2 w-[24px]  hover:bg-gradientStart/80 transition-all ease-in-out duration-300 ">
@@ -69,7 +78,14 @@ function FileUploader({
 				</div>
 			);
 		}
-	}, [selectedFiles, showPreview, maxFiles, onRemovePreviewFile, removeFile]);
+	}, [
+		selectedFiles,
+		showPreview,
+		maxFiles,
+		onRemovePreviewFile,
+		removeFile,
+		initialState,
+	]);
 
 	return (
 		<div className="relative">
