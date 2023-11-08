@@ -3,7 +3,7 @@ import { ICinema, ICinemaShowtimeList } from '../cinema';
 import { IShowtime } from '../showtime';
 
 export type IMovieFormat = {
-	id: string;
+	id: number;
 	caption: string;
 	version: string;
 };
@@ -31,6 +31,7 @@ export type IMovie = {
 	running_time: number;
 	number_of_ratings: number;
 	horizontal_poster: string;
+	images?: IMovieImage[];
 	showtimes?: IShowtime[];
 	cinema?: ICinemaShowtimeList[];
 };
@@ -70,6 +71,12 @@ export type IgetByStatus = {
 };
 export type IMovieSlug = {
 	slug: string;
+};
+
+export type IMovieImage = {
+	path: string;
+	extention?: string;
+	id: number;
 };
 
 export type IPutMovieDetails = {

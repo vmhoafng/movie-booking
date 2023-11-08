@@ -15,8 +15,11 @@ export default function useFileUploader(
 	const removeFile = useCallback(
 		(file: TFile) => {
 			const newFiles = [...selectedFiles];
+
 			newFiles.splice(newFiles.indexOf(file), 1);
-			setSelectedFiles(newFiles);
+			console.log(newFiles);
+
+			setSelectedFiles([...newFiles]);
 		},
 		[selectedFiles]
 	);

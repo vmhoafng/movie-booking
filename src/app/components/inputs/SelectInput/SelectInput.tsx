@@ -32,8 +32,6 @@ function SelectInput({
 		}
 	}, [value, options, placeholder]);
 
-	console.log(selected.value);
-
 	if (control) {
 		return (
 			<Controller

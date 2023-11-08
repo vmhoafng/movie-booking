@@ -67,14 +67,15 @@ const loading = () => <LoadingAnimation />;
 
 type LoadComponentProps = {
 	component: React.LazyExoticComponent<() => JSX.Element>;
+	mode: string;
 };
 
-const LoadComponent = ({ component: Component }: LoadComponentProps) => {
+const LoadComponent = ({ component: Component, mode }: LoadComponentProps) => {
 	return (
 		//@ts-ignore
 		<Suspense fallback={loading()}>
 			{/* @ts-ignore */}
-			<Component />
+			<Component mode={mode} />
 		</Suspense>
 	);
 };
