@@ -33,7 +33,8 @@ export const ENDPOINTS = {
       },
       COMMENT: {
          ALL: "admin/comments",
-         BY_STATUS: `admin/comments`,
+         BY_STATUS: `admin/comments/${ROUTE_PARAMS.COMMENT_STATUS}`,
+         MODIFY_STATUS: `admin/moderationComment/${ROUTE_PARAMS.COMMENT_ID}?status=${ROUTE_PARAMS.COMMENT_STATUS}`,
       },
    },
 };

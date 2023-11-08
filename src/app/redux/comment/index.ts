@@ -7,7 +7,7 @@ interface ICommentsState {
    comment: ICommentList;
    isLoading: boolean;
    isError: boolean;
-   errorMessage: string;
+   errorMessage: string | undefined;
 }
 
 const initialState: ICommentsState = {
@@ -28,12 +28,25 @@ export const getCommentByStatus = createAsyncThunk(
       return data;
    }
 );
+
 export const getAll = createAsyncThunk("@@movies/getAll", async () => {
    const { data } = await api.commentService.getAll();
    console.log(data);
 
    return data;
 });
+
+export const putCommentStatus = createAsyncThunk(
+   "@@movies/putCommentStatus",
+   async (
+      { id, payload }: { id: string; payload: ICommentStatus },
+      thunkApi
+   ) => {
+      const { data } = await api.commentService.putStatus(id, payload);
+      return data;
+   }
+);
+
 const commentsSlice = createSlice({
    name: "movies",
    initialState,
@@ -41,24 +54,38 @@ const commentsSlice = createSlice({
    extraReducers(builder) {
       builder
          .addCase(getAll.fulfilled, (state, action) => {
-            state.comment.data = [...(action.payload.data || [])];
-            state.comment.total = 0;
+            state.comment.data = [...action.payload.data];
+            state.comment.total = action.payload.total;
             state.isLoading = false;
+            state.isError = false;
          })
          .addCase(getAll.pending, (state) => {
             state.isLoading = true;
+         })
+         .addCase(getAll.rejected, (state, action) => {
+            state.comment.data = [];
+            state.comment.total = 0;
+            state.isLoading = false;
+            state.isError = true;
+            state.errorMessage = action.error.message;
+         })
+         .addCase(getCommentByStatus.pending, (state) => {
+            state.isLoading = true;
+         })
+         .addCase(getCommentByStatus.fulfilled, (state, action) => {
+            state.comment.data = [...(action.payload.data || [])];
+            state.comment.total = action.payload.total;
+
+            state.isLoading = false;
+            state.isError = false;
+         })
+         .addCase(getCommentByStatus.rejected, (state, action) => {
+            state.comment.data = [];
+            state.comment.total = 0;
+            state.isLoading = false;
+            state.isError = true;
+            state.errorMessage = action.error.message;
          });
-      // .addCase(getAll.fulfilled, (state, action) => {
-      //    state.detail = { ...action.payload };
-      //    state.isLoading = false;
-      // })
-      // .addCase(getCommentByStatus.pending, (state) => {
-      //    state.isLoading = true;
-      // })
-      // .addCase(getCommentByStatus.fulfilled, (state, action) => {
-      //    state.movies = [...(action.payload.data[0].movies || [])];
-      //    state.isLoading = false;
-      // });
    },
 });
 

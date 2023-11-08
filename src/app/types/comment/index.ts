@@ -13,6 +13,4 @@ export type ICommentList = {
    data: IComment[];
 };
 
-export type ICommentStatus = {
-   status: "pending" | "approved" | "deleted";
-};
+export type ICommentStatus = "PENDING" | "APPROVED" | "DELETED";

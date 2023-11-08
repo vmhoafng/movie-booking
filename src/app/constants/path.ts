@@ -4,7 +4,8 @@ export const ROUTE_PARAMS = {
    USER_ID: ":userId",
    SHOWTIME_ID: ":showTimeId",
    MOVIE_SLUG: ":movieSlug",
-   COMMENT_STATUS: ":commentStatus",
+   COMMENT_STATUS: ":status",
+   COMMENT_ID: ":commentId",
 };
 
 export const PATHS = {
