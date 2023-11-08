@@ -6,15 +6,13 @@ import React, { useCallback } from "react";
 const Rating = ({ data }: { data: IComment }) => {
    const { appSelector, dispatch } = useRedux();
 
-   const handleDelete = useCallback((id: string, payload: ICommentStatus) => {
-      console.log(id, payload);
-      dispatch(putCommentStatus({ id, payload }));
-   }, []);
-
-   const handleApprove = useCallback((id: string, payload: ICommentStatus) => {
-      console.log(id, payload);
-   }, []);
-
+   const handleModifyStatus = useCallback(
+      (id: string, payload: ICommentStatus) => {
+         console.log(id, payload);
+         dispatch(putCommentStatus({ id, payload }));
+      },
+      []
+   );
    return (
       <div className="w-full flex justify-center items-start py-3 border border-borderColor bg-bgPrimaryBar rounded">
          <div className="mx-4 rounded-full overflow-hidden">
@@ -45,7 +43,7 @@ const Rating = ({ data }: { data: IComment }) => {
             {data.status === "APPROVED" && (
                <div
                   className="hover:opacity-100 opacity-90 transition-all duration-100 cursor-pointer"
-                  onClick={() => handleDelete(data.id, "DELETED")}
+                  onClick={() => handleModifyStatus(data.id, "DELETED")}
                >
                   <span className="text-red-600 hover:underline">Xóa</span>
                </div>
@@ -54,7 +52,7 @@ const Rating = ({ data }: { data: IComment }) => {
                <>
                   <div
                      className="hover:opacity-100 opacity-95 transition-all duration-100 cursor-pointer"
-                     onClick={() => handleApprove(data.id, "APPROVED")}
+                     onClick={() => handleModifyStatus(data.id, "APPROVED")}
                   >
                      <span className="text-highlight hover:underline">
                         Duyệt
@@ -62,7 +60,7 @@ const Rating = ({ data }: { data: IComment }) => {
                   </div>
                   <div
                      className="hover:opacity-100 opacity-90 transition-all duration-100 cursor-pointer"
-                     onClick={() => handleDelete(data.id, "DELETED")}
+                     onClick={() => handleModifyStatus(data.id, "DELETED")}
                   >
                      <span className="text-red-600 hover:underline">Xóa</span>
                   </div>
@@ -71,7 +69,7 @@ const Rating = ({ data }: { data: IComment }) => {
             {data.status === "DELETED" && (
                <div
                   className="hover:opacity-100 opacity-90 transition-all duration-100 cursor-pointer"
-                  onClick={() => handleApprove(data.id, "APPROVED")}
+                  onClick={() => handleModifyStatus(data.id, "APPROVED")}
                >
                   <span className="text-red-600 hover:underline">Hoàn tác</span>
                </div>

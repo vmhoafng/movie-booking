@@ -12,17 +12,17 @@ import Pagination from "../components/pagination/Pagination";
 import LoadingAnimation from "@/app/components/loading/LoadingAnimation";
 
 const options = [
-   { label: "Tất cả", value: "all" },
-   { label: "Đã duyệt", value: "approved" },
-   { label: "Chưa duyệt", value: "pending" },
-   { label: "Đã xóa", value: "deleted" },
+   { label: "Tất cả", value: "ALL" },
+   { label: "Đã duyệt", value: "APPROVED" },
+   { label: "Chưa duyệt", value: "PENDING" },
+   { label: "Đã xóa", value: "DELETED" },
 ];
 function Comments() {
    const { appSelector, dispatch } = useRedux();
    const { comment, isLoading, isError, errorMessage } = appSelector(
       (state) => state.comment
    );
-   const [status, setStatus] = useState<ICommentStatus | "all">("all");
+   const [status, setStatus] = useState<ICommentStatus | "ALL">("ALL");
    const [currentPage, setCurrentPage] = useState(1);
    const itemsPerPage = 1;
    const pageCount = Math.ceil(comment.data.length / itemsPerPage);
@@ -35,7 +35,7 @@ function Comments() {
    }
 
    useEffect(() => {
-      if (status === "all") {
+      if (status === "ALL") {
          dispatch(getAll());
       } else {
          dispatch(getCommentByStatus(status));
