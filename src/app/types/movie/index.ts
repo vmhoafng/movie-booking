@@ -22,7 +22,7 @@ export type IMovie = {
 	slug: string;
 	rated: number;
 	formats: IMovieFormat[];
-	genre: IMovieGenre;
+	genre: IMovieGenre[];
 	director: string;
 	status: IMovieStatus;
 	sub_name: string;

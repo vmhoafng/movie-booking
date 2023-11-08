@@ -10,7 +10,6 @@ export type MultipleSelectProps = {
 	control: Control;
 	errors?: any;
 	options: SelectOption[];
-	register?: any;
 	value?: any;
 	label: string;
 };

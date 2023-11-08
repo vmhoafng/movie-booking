@@ -7,6 +7,7 @@ import { getMovieDetailById, putMovie } from '@/app/redux/movies/movies.slice';
 import {
 	IMovie,
 	IMovieFormat,
+	IMovieGenre,
 	IMovieImage,
 	IPutMovieDetails,
 } from '@/app/types/movie';
@@ -120,6 +121,12 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 										value: f.id,
 									};
 								}),
+								genre: (data.payload.genre || []).map((f: IMovieGenre) => {
+									return {
+										label: `${f.name}`,
+										value: f.id,
+									};
+								}),
 							};
 						})
 				: {
@@ -145,7 +152,6 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 		const payload: IPutMovieDetails = {
 			movie: JSON.stringify({
 				...data,
-				genre: movie?.genre.id || '',
 			}),
 			...(poster && { poster }),
 			...(horPoster && { horPoster }),

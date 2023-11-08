@@ -23,7 +23,6 @@ function MultipleSelect({
 	control,
 	options,
 	label,
-	register,
 	value,
 }: MultipleSelectProps) {
 	const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>(
@@ -63,7 +62,12 @@ function MultipleSelect({
 									}
 								>
 									{(selectedOptions || []).map((o) => {
-										return <ChipOption key={o.value}>{o.label}</ChipOption>;
+										if (!o) return null;
+										return (
+											<ChipOption key={o?.value || ''}>
+												{o?.label || ''}
+											</ChipOption>
+										);
 									})}
 
 									<ChipOption className="border-dashed border-2 flex items-center justify-center">

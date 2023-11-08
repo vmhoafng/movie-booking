@@ -15,9 +15,10 @@ import Icon from '@/app/components/icon/Icon';
 import ImageHolder from '@/app/components/upload/ImageHolder/ImageHolder';
 import useMovieDetail from './useMovieDetail';
 import { MovieDetailProps } from './MovieDetail.type';
-import { IMovieFormat } from '@/app/types/movie';
+import { IMovieFormat, IMovieGenre } from '@/app/types/movie';
 import MultipleSelect from '@/app/components/inputs/MultipleSelect';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { Axios } from '@/app/utils/api';
 
 const statusOptions: SelectOption[] = [
 	{
@@ -68,6 +69,27 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 		setImages,
 		submitEdit,
 	} = useMovieDetail(mode);
+
+	const [formats, setFormats] = useState<SelectOption[]>([]);
+	const [genres, setGenres] = useState<SelectOption[]>([]);
+
+	useEffect(() => {
+		Axios.axiosGetWithToken('admin/movieGenres').then(({ data }) => {
+			const gettedGenres = data.data.map((genre: IMovieGenre) => ({
+				label: genre.name,
+				value: genre.id,
+			}));
+			setGenres([...gettedGenres]);
+		});
+		Axios.axiosGetWithToken('admin/formats').then(({ data }) => {
+			const gettedFormats = data.data.map((format: IMovieFormat) => ({
+				label: `${format.caption}-${format.version}`,
+				value: format.id,
+			}));
+
+			setFormats([...gettedFormats]);
+		});
+	}, []);
 
 	return (
 		<form className="relative" onSubmit={submitEdit}>
@@ -209,8 +231,14 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 							label="Thể loại"
 							errors={errors}
 							control={control}
-							options={genreOptions}
-							register={register}
+							options={genres}
+							value={useMemo(() => {
+								return (
+									(movie?.genre || []).map((f: IMovieGenre) => {
+										return genres.find((o: SelectOption) => o.value === f.id);
+									}) || []
+								);
+							}, [movie, genres])}
 						/>
 
 						<MultipleSelect
@@ -218,17 +246,14 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 							label="Định dạng"
 							errors={errors}
 							control={control}
-							options={movieFormat}
-							register={register}
+							options={formats}
 							value={useMemo(() => {
 								return (
 									(movie?.formats || []).map((f: IMovieFormat) => {
-										return movieFormat.find(
-											(o: SelectOption) => o.value === f.id
-										);
+										return formats.find((o: SelectOption) => o.value === f.id);
 									}) || []
 								);
-							}, [movie])}
+							}, [movie, formats])}
 						/>
 
 						<UnderlineInput
