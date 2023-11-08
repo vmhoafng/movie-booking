@@ -11,6 +11,7 @@ const PaymentResult = ({ status }: { status: status }) => {
 
    return (
       <>
+         {/* Background for this screen is bg-01.jpg */}
          {/* Payment result component */}
          <div className="w-full h-screen flex flex-col gap-5 pt-24 justify-start items-center">
             <img src={`./assets/icons/${status}.svg`} alt="" />
