@@ -97,7 +97,6 @@ function AccountItem() {
             </label>
             <SelectInput
               id="gender"
-              control={control}
               options={[
                 { label: "Nam", value: "Nam" },
                 { label: "Nữ", value: "Nữ" },
