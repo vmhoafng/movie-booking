@@ -1,5 +1,4 @@
 import Title from '@/app/components/Title';
-import Input from '@/app/components/inputs/Input';
 import SelectInput, { SelectOption } from '@/app/components/inputs/SelectInput';
 import UnderlineInput from '@/app/components/inputs/UnderlineInput';
 import {
@@ -7,40 +6,19 @@ import {
 	ChevronDownIcon,
 	StarIcon,
 } from '@heroicons/react/24/solid';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
-import * as yup from 'yup';
+
 import CRUDButton from '../../components/buttons/CRUDButton';
-import Dropzone, { useDropzone } from 'react-dropzone';
+import Dropzone from 'react-dropzone';
 import FileUploader, { TFile } from '@/app/components/upload/FileUploader';
 import Icon from '@/app/components/icon/Icon';
-import { useRedux } from '@/app/hooks';
-import { getMovieDetailById, putMovie } from '@/app/redux/movies/movies.slice';
-import { IMovie, IPutMovieDetails } from '@/app/types/movie';
-import { useEffect, useState } from 'react';
+
 import ImageHolder from '@/app/components/upload/ImageHolder/ImageHolder';
-import useFileUploader from '@/app/components/upload/FileUploader/useFileUploader';
-
-// const Dropzone: React.FC<{
-// 	multiple?: boolean;
-// 	onChange?: ChangeEventHandler<HTMLInputElement>;
-// }> = ({ multiple, onChange }) => {
-// 	const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
-// 		multiple,
-// 	});
-// 	console.log(acceptedFiles);
-
-// 	return (
-// 		<div className="bg-black w-[120px] h-[450px]" {...getRootProps()}>
-// 			<input
-// 				{...getInputProps({
-// 					onChange: onChange,
-// 				})}
-// 			/>
-// 		</div>
-// 	);
-// };
+import useMovieDetail from './useMovieDetail';
+import { MovieDetailProps } from './MovieDetail.type';
+import { IMovieFormat, IMovieGenre } from '@/app/types/movie';
+import MultipleSelect from '@/app/components/inputs/MultipleSelect';
+import { useEffect, useMemo, useState } from 'react';
+import { Axios } from '@/app/utils/api';
 
 const statusOptions: SelectOption[] = [
 	{
@@ -53,103 +31,80 @@ const statusOptions: SelectOption[] = [
 	},
 ];
 
-function MovieDetail() {
-	const { movieId } = useParams();
-	const [poster, setPoster] = useState<TFile>();
-	const { dispatch } = useRedux();
-	const [movie, setMovie] = useState<IMovie>();
-	const [horPoster, setHorPoster] = useState<TFile>();
-	const [images, setImages] = useState<TFile[]>([]);
+const movieFormat: SelectOption[] = [
+	{ label: 'Vietsub-2D', value: 1 },
+	{ label: 'Lồng tiếng-2D', value: 2 },
+];
 
-	const validateMovieDetail = yup.object({
-		name: yup.string().required('Tên phim không được để trống'),
-		subName: yup.string().required(),
-		description: yup.string().required(),
-		// country: yup.string().required(),
-		language: yup.string().required(),
-		producer: yup.string().required(),
-		cast: yup.string().required(),
-		director: yup.string().required(),
-		rated: yup.number().required(),
-		trailer: yup.string().required(),
-		releaseDate: yup.string().required(),
-		endDate: yup.string().required(),
-		runningTime: yup.number().required(),
-		statusId: yup.number().required(),
-	});
+const genreOptions: SelectOption[] = [
+	{
+		value: 1,
+		label: 'Kinh dị',
+	},
+	{
+		value: 2,
+		label: 'Hành động',
+	},
+	{
+		value: 3,
+		label: 'Viễn tưởng',
+	},
+];
 
+function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 	const {
-		register,
-		reset,
-		handleSubmit,
 		control,
-		formState: { isDirty, errors },
-	} = useForm({
-		resolver: yupResolver(validateMovieDetail),
-		mode: 'onChange',
-		defaultValues: {
-			name: movie?.name || '',
-			subName: movie?.sub_name || '',
-			description: movie?.description || '',
-			producer: movie?.producer || '',
-			cast: movie?.cast || '',
-			director: movie?.director || '',
-			rated: movie?.rated || 0,
-			statusId: movie?.status.id || 1,
-			releaseDate: movie?.release_date || new Date(Date.now()).toISOString(),
-			endDate: movie?.end_date || new Date(Date.now()).toISOString(),
-			trailer: movie?.trailer || '',
-			runningTime: movie?.running_time || 0,
-			language: movie?.language || '',
-		},
-	});
+		errors,
+		poster,
+		horPoster,
+		movie,
+		images,
+		files,
+		isDirty,
+		register,
+		handleCancel,
+		setFiles,
+		setHorPoster,
+		setPoster,
+		setImages,
+		submitEdit,
+	} = useMovieDetail(mode);
+
+	const [formats, setFormats] = useState<SelectOption[]>([]);
+	const [genres, setGenres] = useState<SelectOption[]>([]);
 
 	useEffect(() => {
-		dispatch(getMovieDetailById(movieId!)).then((data: any) => {
-			reset({
-				name: data.payload.name || '',
-				subName: data.payload.sub_name || '',
-				description: data.payload.description || '',
-				producer: data.payload.producer || '',
-				cast: data.payload.cast || '',
-				director: data.payload.director || '',
-				rated: data.payload.rated || 0,
-				statusId: data.payload.status.id || 1,
-				releaseDate:
-					data.payload.release_date || new Date(Date.now()).toISOString(),
-				endDate: data.payload.end_date || new Date(Date.now()).toISOString(),
-				trailer: data.payload.trailer || '',
-				runningTime: data.payload.running_time || 0,
-				language: data.payload.language || '',
-			});
-			setMovie(data.payload);
+		Axios.axiosGetWithToken('admin/movieGenres').then(({ data }) => {
+			const gettedGenres = data.data.map((genre: IMovieGenre) => ({
+				label: genre.name,
+				value: genre.id,
+			}));
+			setGenres([...gettedGenres]);
 		});
-	}, [dispatch, movieId, reset]);
+		Axios.axiosGetWithToken('admin/formats').then(({ data }) => {
+			const gettedFormats = data.data.map((format: IMovieFormat) => ({
+				label: `${format.caption}-${format.version}`,
+				value: format.id,
+			}));
 
-	const onSubmit: SubmitHandler<FieldValues> = (data) => {
-		console.log(data);
-
-		const payload: IPutMovieDetails = {
-			movie: JSON.stringify({
-				...data,
-				formats: [1],
-				genre: movie?.genre.id || '',
-			}),
-			...(poster && { poster }),
-			...(horPoster && { horPoster }),
-			...(images && { images }),
-		};
-		dispatch(putMovie({ id: movieId!, payload }));
-	};
+			setFormats([...gettedFormats]);
+		});
+	}, []);
 
 	return (
-		<form className="relative" onSubmit={handleSubmit(onSubmit)}>
+		<form className="relative" onSubmit={submitEdit}>
 			<div className="absolute top-0 right-0 flex gap-8 items-center">
 				<div className="">
-					<CRUDButton variant="Cancel">Hủy bỏ</CRUDButton>
+					<CRUDButton
+						onClick={handleCancel}
+						disabled={!isDirty}
+						variant="Cancel"
+					>
+						Hủy bỏ
+					</CRUDButton>
 				</div>
 				<div className="">
-					<CRUDButton variant="Save" type="submit">
+					<CRUDButton disabled={!isDirty} variant="Save" type="submit">
 						Cập nhật
 					</CRUDButton>
 				</div>
@@ -223,26 +178,32 @@ function MovieDetail() {
 						</Dropzone>
 					</div>
 				</div>
-				<div className="">
-					<div className="flex flex-col gap-2 ">
+				<div className="flex-1">
+					<div className="flex flex-col  gap-2 ">
 						<UnderlineInput
 							variant="primary"
 							id="name"
 							name="name"
 							register={register}
+							errors={errors}
 						/>
 						<UnderlineInput
 							variant="secondary"
 							id="subName"
 							name="subName"
 							register={register}
+							errors={errors}
 						/>
 					</div>
 					<div className="mt-2">
 						<p>
-							<span className="text-white/70">Đánh giá:</span> 9.5/10
+							<span className="text-white/70">Đánh giá:</span>{' '}
+							{movie?.rating.toFixed(1) || 0}
+							/10.0
 							<StarIcon className=" ml-1 h-5 w-5 inline-block pb-1 text-yellow-400" />
-							<span className="text-white/70">(21)</span>
+							<span className="text-white/70">
+								({movie?.number_of_ratings || 0})
+							</span>
 						</p>
 						<div className=" mt-1 flex gap-1 items-center ">
 							<Icon icon="clock" className="pb-1" />
@@ -251,43 +212,83 @@ function MovieDetail() {
 								name="runningTime"
 								variant="time"
 								register={register}
+								errors={errors}
 							/>
 							<p className="text-sm text-lightPrimary">phút</p>
 						</div>
 					</div>
-					<div className="mt-5 flex flex-col gap-4 ">
+					<div className="mt-5 flex flex-col gap-5 ">
 						<UnderlineInput
 							label="Ngôn ngữ"
 							id="language"
 							name="language"
 							register={register}
+							errors={errors}
 						/>
+
+						<MultipleSelect
+							id="genre"
+							label="Thể loại"
+							errors={errors}
+							control={control}
+							options={genres}
+							value={useMemo(() => {
+								return (
+									(movie?.genre || []).map((f: IMovieGenre) => {
+										return genres.find((o: SelectOption) => o.value === f.id);
+									}) || []
+								);
+							}, [movie, genres])}
+						/>
+
+						<MultipleSelect
+							id="formats"
+							label="Định dạng"
+							errors={errors}
+							control={control}
+							options={formats}
+							value={useMemo(() => {
+								return (
+									(movie?.formats || []).map((f: IMovieFormat) => {
+										return formats.find((o: SelectOption) => o.value === f.id);
+									}) || []
+								);
+							}, [movie, formats])}
+						/>
+
 						<UnderlineInput
 							label="Nhà sản xuất"
 							id="producer"
 							name="producer"
 							register={register}
+							errors={errors}
 						/>
 						<UnderlineInput
 							label="Diễn viên"
 							id="cast"
 							name="cast"
 							register={register}
+							errors={errors}
 						/>
 						<UnderlineInput
 							label="Đạo diễn"
 							id="director"
 							name="director"
 							register={register}
+							errors={errors}
 						/>
 						<UnderlineInput
 							label="Độ tuổi"
 							id="rated"
 							name="rated"
 							register={register}
+							errors={errors}
 						/>
 						{/* @ts-ignore */}
-						<label htmlFor="relase_date" className="flex relative text-[15px] ">
+						<label
+							htmlFor="relase_date"
+							className="flex relative text-[15px] w-[450px] "
+						>
 							<p className="flex-[0_0_160px] text-white/70">Ngày khởi chiếu</p>
 							<input
 								id="relase_date"
@@ -300,20 +301,23 @@ function MovieDetail() {
 								<CalendarIcon className="h-5 w-5" />
 							</span>
 						</label>
-						<label htmlFor="relase_date" className="flex relative text-[15px] ">
-							<p className="flex-[0_0_160px] text-white/70">Ngày ngừng chiếu</p>
+						<label
+							htmlFor="relase_date"
+							className="flex relative text-[15px]  w-[450px]  "
+						>
+							<p className="flex-[0_0_160px] text-white/70">Ngày khởi chiếu</p>
 							<input
 								id="end_date"
 								type="date"
 								className=" pl-[15px] text-[14px] w-[300px] rounded border  bg-[#EFEFEF]/20 outline-none"
 								placeholder="YYYY-MM-DD"
-								{...register('endDate')}
+								{...register('endDate', {})}
 							/>
 							<span className="absolute top-[1px] right-[15px]">
 								<CalendarIcon className="h-5 w-5" />
 							</span>
 						</label>
-						<label className="flex">
+						<label className="flex  w-[450px] ">
 							<p className="flex-[0_0_160px] text-white/70">Trạng thái</p>
 							<SelectInput
 								inputClassName="w-[300px]"
@@ -321,9 +325,11 @@ function MovieDetail() {
 								name="statusId"
 								options={statusOptions}
 								control={control}
-								value={statusOptions.find(
-									(o) => o.value === (movie?.status.id || 1)
-								)}
+								value={useMemo(() => {
+									return statusOptions.find(
+										(o) => o.value === (movie?.status.id || 1)
+									);
+								}, [movie])}
 								//@ts-ignore
 								endIcon={ChevronDownIcon}
 							/>
@@ -363,8 +369,17 @@ function MovieDetail() {
 						maxFiles={8}
 						showPreview
 						onFileUpload={(acceptedFiles) => {
-							setImages(acceptedFiles);
+							setFiles([...acceptedFiles]);
 						}}
+						onRemovePreviewFile={(file, index) => {
+							const newFiles = [...files];
+							newFiles.splice(newFiles.indexOf(file), 1);
+							setFiles(newFiles);
+							const newImages = [...images!];
+							newImages.splice(index!, 1);
+							setImages([...newImages]);
+						}}
+						initialState={images}
 					/>
 				</div>
 			</div>
