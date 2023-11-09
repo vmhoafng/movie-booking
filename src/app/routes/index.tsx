@@ -62,6 +62,9 @@ const movieDetailAdmin = React.lazy(
 //comments
 const comments = React.lazy(() => import('@/pages/admin/Comments'));
 
+//Showtimes
+const showtimes = React.lazy(() => import('@/pages/admin/Schedules'));
+
 //Loading
 const loading = () => <LoadingAnimation />;
 
@@ -202,6 +205,16 @@ const commentRoute = {
 	element: <LoadComponent component={comments} />,
 };
 
+const scheduleRoute = {
+	path: PATHS.ADMIN.SHOWTIMES.IDENTITY,
+	children: [
+		{
+			path: PATHS.ADMIN.SHOWTIMES.LIST,
+			elemen: <LoadComponent component={showtimes} />,
+		},
+	],
+};
+
 function AllRoutes() {
 	return useRoutes([
 		authRoute,
@@ -246,6 +259,7 @@ function AllRoutes() {
 				userAdminRoute,
 				commentRoute,
 				dashboardRoute,
+				scheduleRoute,
 			],
 		},
 	]);
