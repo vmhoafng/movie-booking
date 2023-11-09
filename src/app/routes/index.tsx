@@ -210,7 +210,7 @@ const scheduleRoute = {
 	children: [
 		{
 			path: PATHS.ADMIN.SHOWTIMES.LIST,
-			elemen: <LoadComponent component={showtimes} />,
+			element: <LoadComponent component={showtimes} />,
 		},
 	],
 };
