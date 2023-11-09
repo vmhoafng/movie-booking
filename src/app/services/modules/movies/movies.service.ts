@@ -1,4 +1,4 @@
-import { ENDPOINTS } from '@/app/constants/endpoint';
+import { ENDPOINTS, getEndPoint } from '@/app/constants/endpoint';
 import { IMovieSlug, IPutMovieDetails, IgetByStatus } from '@/app/types/movie';
 import { Axios } from '@/app/utils/api';
 const moviesService = {
@@ -19,7 +19,22 @@ const moviesService = {
 		});
 	},
 
-	putMovie: (id: string, payload: IPutMovieDetails) => {},
+	getMovieById: (id: string) => {
+		return Axios.axiosGetWithToken(
+			getEndPoint(ENDPOINTS.ADMIN.MOVIE.DETAIL, {
+				movieId: id,
+			})
+		);
+	},
+
+	putMovie: (id: string, payload: IPutMovieDetails) => {
+		return Axios.axiosPutWithFile(
+			getEndPoint(ENDPOINTS.ADMIN.MOVIE.PUT, {
+				movieId: id,
+			}),
+			payload
+		);
+	},
 };
 
 export default moviesService;

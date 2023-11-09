@@ -1,5 +1,3 @@
-import clsx from "clsx";
-
 const Icons = {
    accountCircle: "/assets/icons/account-circle.svg",
    arrowDownRight: "/assets/icons/arrow-down-right.svg",

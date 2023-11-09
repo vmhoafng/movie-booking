@@ -12,7 +12,7 @@ function AdminLayout() {
       <div className="w-full h-full flex text-white bg-bgPrimar">
          {/* <div className="">{isOpen && <Sidebar />}</div> */}
          <Sidebar />
-         <div className="flex-1 relative bg-bgPrimary h-screen overflow-y-scroll">
+         <div className="flex-1 bg-bgPrimary h-screen overflow-y-scroll relative">
             <Topbar />
             <div className="w-[1200px] pb-20 bg-bgPrimary flex-1 mx-auto">
                <Outlet />

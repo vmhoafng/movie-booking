@@ -23,5 +23,5 @@ export type SelectInputProps = {
 
 export type SelectOption = {
 	label: string;
-	value: string;
+	value: string | number;
 };

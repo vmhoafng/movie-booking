@@ -1,5 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 import authUtils from '../auth';
+import { type } from 'os';
+import { TFile } from '@/app/components/upload/FileUploader';
 
 const instance: AxiosInstance = axios.create({
 	baseURL:
@@ -122,6 +124,34 @@ export const Axios = {
 				Authorization: 'Bearer ' + authUtils.getSessionToken(),
 			},
 		});
+	},
+
+	axiosPutWithFile: (
+		endpoint: string,
+		body: any,
+		config?: AxiosRequestConfig
+	): Promise<AxiosResponse> => {
+		const config_payload: any = {
+			headers: {
+				...axios.defaults.headers,
+				Authorization: 'Bearer ' + authUtils.getSessionToken(),
+				'content-type': 'multipart/form-data',
+			},
+			...config,
+		};
+
+		const formData = new FormData();
+		for (const key in body) {
+			if (Array.isArray(body[key])) {
+				body[key].forEach((image: TFile) => {
+					formData.append(`${key}`, image);
+				});
+			} else {
+				formData.append(key, body[key]);
+			}
+		}
+
+		return instance.put(endpoint, formData, config_payload);
 	},
 
 	axiosDelete: (

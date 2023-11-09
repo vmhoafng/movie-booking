@@ -1,46 +1,46 @@
-import Dropdown from '@/app/components/Dropdown';
-import { MenuItem } from '@/app/components/Dropdown/Dropdown.type';
-import SwitchButton from '@/app/components/button/SwitchButton';
-import Table from '@/app/components/table';
-import { IUser } from '@/app/types/account';
+import Dropdown from "@/app/components/Dropdown";
+import { MenuItem } from "@/app/components/Dropdown/Dropdown.type";
+import SwitchButton from "@/app/components/button/SwitchButton";
+import Table from "@/app/components/table";
+import { IUser } from "@/app/types/account";
 import {
-	EllipsisHorizontalIcon,
-	EyeIcon,
-	PencilIcon,
-	TrashIcon,
-} from '@heroicons/react/24/outline';
-import { useState } from 'react';
+  EllipsisHorizontalIcon,
+  EyeIcon,
+  PencilIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
+import { useState } from "react";
 
 type UserRowProps = {
-	row: IUser;
+  row: IUser;
 };
 
 const UserRow = ({ row }: UserRowProps) => {
-	const [isVerify, setIsVerify] = useState<boolean>(row.verify);
+  const [isVerify, setIsVerify] = useState<boolean>(row.verify);
 
-	const items: MenuItem<IUser>[] = [
-		{
-			label: 'Xem',
-			to: `${row.email}`,
-			icon: EyeIcon,
-		},
-		{
-			label: 'Sửa',
-			to: `${row.email}/edit`,
-			icon: PencilIcon,
-		},
-		{
-			label: 'Xóa',
-			to: `${row.email}/delete`,
-			icon: TrashIcon,
-		},
-	];
+  const items: MenuItem<IUser>[] = [
+    {
+      label: "Xem",
+      to: `${row.email}`,
+      icon: EyeIcon,
+    },
+    {
+      label: "Sửa",
+      to: `${row.email}/edit`,
+      icon: PencilIcon,
+    },
+    {
+      label: "Xóa",
+      to: `${row.email}/delete`,
+      icon: TrashIcon,
+    },
+  ];
 
 	return (
 		<>
 			<div className="py-3">
 				<img
-					src={`${row.img || './assets/icons/account-circle.svg'}`}
+					src={`${row.avatar || './assets/icons/account-circle.svg'}`}
 					alt=""
 					className="w-full"
 				/>
@@ -79,28 +79,28 @@ const UserRow = ({ row }: UserRowProps) => {
 };
 
 function AccountList() {
-	// const { data, setData } = useTable();
+  // const { data, setData } = useTable();
 
-	return (
-		<>
-			<Table
-				header={[
-					'Ảnh',
-					'Họ tên',
-					'Email',
-					'Giới tính',
-					'Điện thoại',
-					'Ngày sinh',
-					'Điểm',
-					'Kích hoạt',
-					'Tác vụ',
-				]}
-				row={(row, index) => {
-					return <UserRow row={row} key={`test-${index}`} />;
-				}}
-			/>
-		</>
-	);
+  return (
+    <>
+      <Table
+        header={[
+          "Ảnh",
+          "Họ tên",
+          "Email",
+          "Giới tính",
+          "Điện thoại",
+          "Ngày sinh",
+          "Điểm",
+          "Kích hoạt",
+          "Tác vụ",
+        ]}
+        row={(row, index) => {
+          return <UserRow row={row} key={`test-${index}`} />;
+        }}
+      />
+    </>
+  );
 }
 
 export default AccountList;
