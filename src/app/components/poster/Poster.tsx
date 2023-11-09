@@ -37,7 +37,7 @@ function Poster({
           `relative`,
           horizontal
             ? "w-[220px] h-[145px] xl:w-[250px] xl:h-[165px]"
-            : "w-full min-w-[180px] min-h-[300px] md:w-[190px] xl:w-[290px] xl:h-[430px]"
+            : "w-full h-full min-w-[180px] min-h-[300px] md:h-[300px] md:w-[190px] xl:w-[290px] xl:h-[430px]"
         )}
       >
         <Image
@@ -111,7 +111,7 @@ function Poster({
         </div>
         <div
           className={clsx(
-            "uppercase text-white/60 font-bold transition-all duration-100 ease-linear lg:group-hover:px-[10px]",
+            "uppercase text-white/60 font-bold transition-all duration-100 ease-linear lg:group-hover:px-[10px] truncate",
             horizontal ? "text-xs xl:text-[13px]" : "text-sm "
           )}
         >

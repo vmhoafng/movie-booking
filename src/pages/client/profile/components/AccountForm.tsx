@@ -97,6 +97,7 @@ function AccountItem() {
             </label>
             <SelectInput
               id="gender"
+              control={control}
               options={[
                 { label: "Nam", value: "Nam" },
                 { label: "Nữ", value: "Nữ" },
@@ -132,7 +133,7 @@ function AccountItem() {
                 border-borderColor
                 focus:border-borderColor
                 relative
-                h-10"
+                h-[35px]"
               //@ts-ignore
               endIcon={ChevronDownIcon}
             />
