@@ -4,24 +4,24 @@ import Button from '../../../app/components/button/Button.tsx'
 
 function Landing() {
   return (
-    <div className='bg-bgPrimary md:w-full md:h-[2852px] flex flex-col items-center self-stretch '>
+    <div className='bg-bgPrimary md:w-full md:h-full flex flex-col md:flex-col items-center self-stretch overflow-hidden'>
 
-      <div className='bg-bgPrimaryLayer'>
+      <div className='bg-bgPrimaryLayer overflow-hidden'>
         <img className="md:w-full md md:h-[620px] "
           src="/assets/images/bg.png" />
 
       </div>
 
       <div className='bg-bgPrimary md:w-full md:h-[1384px] flex items-center flex-col self-stretch sm:px-[15px] '>
-        <div className=' flex md:w-[1200px] md:h-[692px] flex-col items-center md:gap-[40px] py-[50px] border-b-2 border-[#314C81]'>
-          <div className=' flex md:w-[1200px] md:h-[33px] justify-between items-end self-stretch '>
+        <div className=' flex 2xl:w-[1200px] xl:w-[960px] lg:w-[790px] md:w-[640px] lg:h-[700px] xl:h-[700px] 2xl:h-[700px] flex-col items-center md:gap-[40px] py-[50px] border-b-2 border-[#314C81]'>
+          <div className=' flex w-full md:h-[33px] justify-between items-end self-stretch '>
             <p className='text-white text-[22px] underline md:underline-offset-8 decoration-highlight '>PHIM ĐANG CHIẾU </p>
             <a href="/" className='text-highlight'> Xem tất cả</a>
           </div>
-          <div className='sm:pt-[30px] lg:p-0 sm:px-5 md:w-[1200px] md:h-[519px] grid sm:grid-cols-2 lg:flex items-center gap-x-6 gap-y-10 self-stretch justify-start overflow-hidden relative pl-0'>
+          <div className='sm:pt-[30px] lg:p-0 md:pt-0 lg:pt-0 xl:pt-0 2xl:pt-0 sm:px-5 2xl:w-[1200px] xl:w-[960px] lg:w-[790px] md:w-[640px] md:h-[788px] grid sm:grid-cols-2 md:grid-cols-3 lg:flex xl:flex 2xl:flex items-center gap-x-6 gap-y-10 self-stretch justify-start overflow-hidden relative pl-0'>
 
 
-            <div className=' group relative flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+            <div className=' group relative flex-shrink-0 cursor-pointer rounded '>
 
               <div className="flex flex-col">
                 <img src={"/assets/images/VerticalPoster05.png"} alt="" />
@@ -162,15 +162,15 @@ function Landing() {
           </div>
         </div>
 
-        <div className=' flex md:w-[1200px] md:h-[692px] flex-col items-center md:gap-[40px] py-[50px] border-b-2 border-[#314C81]'>
-          <div className=' flex md:w-[1200px] md:h-[33px] justify-between items-end self-stretch '>
-            <p className='text-white text-[22px] underline md:underline-offset-8 decoration-highlight '>PHIM SẮP CHIẾU </p>
+        <div className=' flex 2xl:w-[1200px] xl:w-[960px] lg:w-[790px] md:w-[640px] lg:h-[700px] xl:h-[700px] 2xl:h-[700px] flex-col items-center md:gap-[40px] py-[50px] border-b-2 border-[#314C81]'>
+          <div className=' flex w-full md:h-[33px] justify-between items-end self-stretch '>
+            <p className='text-white text-[22px] underline md:underline-offset-8 decoration-highlight '>PHIM SẮP CHIẾU</p>
             <a href="/" className='text-highlight'> Xem tất cả</a>
           </div>
-          <div className='sm:pt-[30px] lg:p-0 sm:px-5 md:w-[1200px] md:h-[519px] grid sm:grid-cols-2 lg:flex items-center gap-x-6 gap-y-10 self-stretch justify-start overflow-hidden relative pl-0'>
+          <div className='sm:pt-[30px] lg:p-0 md:pt-0 lg:pt-0 xl:pt-0 2xl:pt-0 sm:px-5 2xl:w-[1200px] xl:w-[960px] lg:w-[790px] md:w-[640px] md:h-[788px] grid sm:grid-cols-2 md:grid-cols-3 lg:flex xl:flex 2xl:flex items-center gap-x-6 gap-y-10 self-stretch justify-start overflow-hidden relative pl-0'>
 
 
-            <div className=' group relative flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
+            <div className=' group relative flex-shrink-0 cursor-pointer rounded '>
 
               <div className="flex flex-col">
                 <img src={"/assets/images/VerticalPoster05.png"} alt="" />
@@ -309,61 +309,60 @@ function Landing() {
 
             </div>
           </div>
-
         </div>
       </div>
 
-      <div className='flex flex-col lg:items-center self-stretch py-[50px] md:w-full md:h-[1548px] sm:items-start sm:pl-[15px] '>
-        <div className=' flex md:w-[1200px] flex-col lg:items-center '>
-          <div className=' flex md:w-[1200px] md:h-[33px] justify-between items-end self-stretch  '>
+      <div className='flex flex-col lg:items-center self-stretch 2xl:py-[50px] xl:py-[50px] lg:py-[50px] md:py-[40px] sm:py-[30px] md:w-full  sm:items-start 2xl:pl-0 xl:pl-0 lg:pl-0 sm:pl-[15px] '>
+        <div className=' flex 2xl:w-full xl:w-[960px] lg:w-[790px] md:w-[640px] sm:w-[395px] flex-col lg:items-center '>
+          <div className=' flex w-full md:h-[33px] justify-between items-end self-stretch  '>
             <p className='text-white text-[22px] underline md:underline-offset-8 decoration-highlight '>LIÊN HỆ</p>
           </div>
         </div>
 
       </div>
-      <div className='flex flex-col items-center self-stretch  md:w-full md:h-[1548px] '>
-        <div className=' flex md:w-[1200px] flex-col items-center sm:w-full'>
+      <div className='flex flex-col items-center self-stretch  2xl:pb-0 xl:pb-0 lg:pb-[20px] '>
+        <div className=' flex flex-col items-center sm:w-full'>
 
-          <div className=' md:w-[1200px] md:h-[715px]  items-start md:gap-[50px] grid sm:grid-cols-1 lg:flex '>
-            <div className=' md:w-[650px] md:h-[615px] flex-col justify-center flex items-center md:gap-[15px] shrink-0 sm:w-full '>
+          <div className=' 2xl:w-full xl:w-[960px] lg:w-[790px] md:w-[640px] sm:w-[395px]  md:h-[785px] sm:h-[733px] 2xl:items-start xl:items-start lg:items-center lg:justify-center 2xl:justify-normal md:gap-[50px] lg:gap-[40px] lg:grid sm:grid-cols-1 lg:grid-cols-1 2xl:flex xl:flex'>
+            <div className=' 2xl:w-[650px] xl:w-[600px] md:h-[615px] sm:h-[525px] flex-col flex items-center gap-[15px] shrink-0 sm:w-full '>
 
               <div className=''>
                 <p className='text-white text-lg pb-[10px]'>Họ và tên</p>
-                <div className='justify-start md:w-[650px] md:h-[45px]'>
+                <div className='justify-start 2xl:w-[650px] xl:w-[600px] lg:w-[680px] md:w-[640px] sm:w-[395px] h-[45px] md:h-[40px] sm:h-[35px]'>
                   <input type="text" placeholder='Nhập họ và tên' className='block h-full min-w-[200px] w-full rounded border px-4 shadow-sm bg-white/10 outline-0 text-white border-lightPrimary placeholder:text-white/40' />
 
                 </div>
               </div>
 
-              <div className='pt-[15px]'>
+              <div className=''>
                 <p className='text-white text-lg pb-[10px]'>Email</p>
-                <div className='justify-start md:w-[650px] md:h-[45px]'>
+                <div className='justify-start 2xl:w-[650px] xl:w-[600px] lg:w-[680px] md:w-[640px] sm:w-[395px] h-[45px] md:h-[40px] sm:h-[35px]'>
                   <input type="text" placeholder='Nhập email' className='md:h-[45px] block h-full min-w-[200px] w-full rounded border px-4 shadow-sm bg-white/10 outline-0 text-white border-lightPrimary placeholder:text-white/40' />
 
                 </div>
               </div>
 
-              <div className='pt-[15px]'>
+              <div className=''>
                 <p className='text-white text-lg pb-[10px]'>Số điện thoại</p>
-                <div className='justify-start md:w-[650px] md:h-[45px]'>
+                <div className='justify-start 2xl:w-[650px] xl:w-[600px] lg:w-[680px] md:w-[640px] sm:w-[395px] h-[45px] md:h-[40px] sm:h-[35px]'>
                   <input type="text" placeholder='Nhập số điện thoại' className=' block h-full min-w-[200px] w-full rounded border px-4 shadow-sm bg-white/10 outline-0 text-white border-lightPrimary placeholder:text-white/40' />
 
                 </div>
               </div>
 
-              <div className='pt-[15px] md:w-[650px] md:h-[255px]'>
+              <div className=' 2xl:w-[650px] xl:w-[600px] lg:w-[680px] md:w-[640px] sm:w-[395px] md:h-[255px] sm:h-[190px]'>
                 <p className='text-white text-lg pb-[10px]'>Nội dung</p>
-                <div className='justify-start md:w-[650px] md:h-[200px]'>
+                <div className='justify-start 2xl:w-[650px] xl:w-[600px] lg:w-[680px] md:w-[640px] sm:w-[395px] md:h-[200px] sm:h-[150px]'>
                   <input type="text" className='word-break line-clamp-3 block h-full min-w-[200px] w-full rounded border px-4 shadow-sm bg-white/10 outline-0 text-white border-lightPrimary placeholder:text-white/40' />
                 </div>
               </div>
-              <div className='md:h-[50px] w-[200px] sm:w-[160px] sm:h-[40px]'>
+              <div className='md:h-[50px] w-[200px] sm:w-[160px] sm:h-[40px] '>
                 <Button fullWidth medium >Gửi</Button>
               </div>
 
             </div>
-            <div className=' md:w-[500px] md:h-[214px] flex flex-col items-start md:gap-[50px]'>
-              <div className='md:w-[178px] md:h-[81px] lg:flex flex-col justify-center items-end md:gap-[20px] sm:hidden'>
+            <div className=' w-full xl:w-[280px] flex flex-col items-start md:gap-[50px]'>
+              <div className='md:w-[178px] md:h-[81px] flex-col items-end md:gap-[20px] sm:hidden 2xl:flex xl:flex lg:hidden'>
                 <p className=' md:text-lg text-[#31AFD7]'> Theo dõi chúng tôi</p>
 
                 <div className='md:w-[178px] md:h-[41px] items-center md:gap-[15px] self-stretch flex  '>
@@ -388,11 +387,11 @@ function Landing() {
                 </div>
               </div>
 
-              <div className='md:w-[504px] md:h-[83px] flex flex-col items-start md:gap-[20px]'>
-                <p className='md:text-lg text-[#31AFD7] lg:flex sm:hidden'>Thông tin liên hệ</p>
-                <div className='sm:py-[40px] lg:py-0 md:w-[504px] md:h-[43px] lg:flex lg:items-start md:gap-[50px] sm:px-[20px] sm:justify-between sm:min-w-[395px] sm:grid sm:grid-cols-2'>
+              <div className='w-full md:h-[83px] flex flex-col 2xl:items-start 2xl:w-[504px] xl:items-start lg:items-center md:gap-[20px]'>
+                <p className='md:text-lg text-[#31AFD7] 2xl:flex xl:flex lg:hidden sm:hidden'>Thông tin liên hệ</p>
+                <div className='sm:py-[40px] lg:py-0 2xl:w-[504px] md:w-[640px] h-[43px] 2xl:flex xl:grid xl:grid-cols-1 2xl:items-start xl:items-start md:gap-[50px] sm:px-[20px] md:px-0 sm:justify-between lg:justify-between sm:min-w-[395px] sm:grid sm:grid-cols-2'>
 
-                  <div className='lg:w-[218.5px] lg:h-[40px] flex sm:items-center lg:gap-[30px] lg:flex-row sm:flex-col sm:gap-[10px] sm:w-[178px] lg:border-none sm:border-r-2 sm:border-[#314C81]'>
+                  <div className='lg:w-[218.5px] md:w-[320px] lg:h-[40px] flex sm:items-center md:items-center lg:gap-[30px] lg:flex-row md:flex-row sm:flex-col sm:gap-[10px] md:gap-[30px] sm:w-[178px] lg:border-none sm:border-r-2 sm:border-[#314C81]'>
 
                     <div className='shrink-0 md:w-[40px] md:h-[40px] items-center '>
                       <svg xmlns="http://www.w3.org/2000/svg" width="41" height="36" viewBox="0 0 41 36" fill="none">
@@ -423,14 +422,14 @@ function Landing() {
                         </defs>
                       </svg>
                     </div>
-                    <div className='flex flex-col lg:justify-center lg:items-start  md:w-[112px] md:h-[40px] sm:items-center sm:gap-[5px] '>
+                    <div className='flex flex-col lg:justify-center lg:items-start lg-pt-0 sm:pt-[5px] md:w-[112px] md:h-[40px] sm:items-center md:items-start md:justify-center sm:gap-[5px] '>
                       <p className='text-white md:text-base'> Số điện thoại</p>
                       <a href="/" className='text-[#31D7A9] md:text-base'> 19002171</a>
                     </div>
 
                   </div>
 
-                  <div className='lg:w-[218.5px] lg:h-[40px] flex sm:items-center lg:gap-[30px] lg:flex-row sm:flex-col sm:gap-[10px] sm:w-[178px]'>
+                  <div className='lg:w-[218.5px] md:w-[320] lg:h-[40px] flex sm:items-center lg:gap-[30px] lg:flex-row md:flex-row sm:flex-col sm:gap-[10px] md:gap-[30px] sm:w-[178px] '>
                   
                     <div className='shrink-0 md:w-[40px] md:h-[40px]'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="40" height="41" viewBox="0 0 40 41" fill="none">
@@ -474,7 +473,7 @@ function Landing() {
                         </defs>
                       </svg>
                     </div>
-                    <div className='md:w-[205px] md:h-[43px] flex flex-col items-start shrink-0 sm:items-center sm:gap-[5px] lg:items-start'>
+                    <div className='md:w-[205px] md:h-[43px] flex flex-col items-start shrink-0 sm:items-center md:items-start sm:gap-[5px] lg:items-start'>
                       <p className='text-white md:textbase'>Email</p>
                       <a href="/" className='text-base text-[#31D7A9]'>cinema@gmail.com</a>
                     </div>
