@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import AvatarModal from "./AvatarModal";
 import Icon from "@/app/components/icon/Icon";
+import { useRedux } from "@/app/hooks";
 
 function AvatarItem() {
   const [openModal, setOpenModal] = useState(false);
+  const { appSelector } = useRedux();
+  const { avatar } = appSelector((state) => state.auth.user);
+  const { user, isLoading } = appSelector((state) => state.auth);
+
   return (
     <div className="flex flex-col gap-[10px] items-center">
       {openModal && (
@@ -15,7 +20,7 @@ function AvatarItem() {
       )}
       <div className="relative">
         <img
-          src="/assets/images/bg-01.jpg"
+          src={avatar}
           alt=""
           className="
             h-[150px]
@@ -43,7 +48,7 @@ function AvatarItem() {
           Điểm thành viên
         </div>
         <div className="text-sm text-highlight font-bold leading-6">
-          10200 điểm
+          {user.point} điểm
         </div>
       </div>
     </div>
