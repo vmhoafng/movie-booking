@@ -37,46 +37,46 @@ const UserRow = ({ row }: UserRowProps) => {
     },
   ];
 
-  return (
-    <>
-      <div className="py-3">
-        <img
-          src={`${row.img || "./assets/icons/account-circle.svg"}`}
-          alt=""
-          className="w-full"
-        />
-      </div>
-      <div className=" truncate py-3">
-        <span className="truncate">{row.full_name}</span>
-      </div>
-      <div className="py-3 truncate">
-        <span className="truncate">{row.email}</span>
-      </div>
-      <div className="py-3">
-        <span>{row.gender ? "Nam" : "Nữ"}</span>
-      </div>
-      <div className="py-3">
-        <span className="truncate">{row.phone_number}</span>
-      </div>
-      <div className="py-3">
-        <span>{row.date_of_birth}</span>
-      </div>
-      <div className="py-3">
-        <span>{row.point}</span>
-      </div>
-      <div className="py-3">
-        <SwitchButton
-          value={isVerify}
-          onChange={() => setIsVerify(!isVerify)}
-        />
-      </div>
-      <div className="py-3 flex items-center justify-center">
-        <Dropdown items={items}>
-          <EllipsisHorizontalIcon className="h-6 w-6 text-highlight " />
-        </Dropdown>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<div className="py-3">
+				<img
+					src={`${row.avatar || './assets/icons/account-circle.svg'}`}
+					alt=""
+					className="w-full"
+				/>
+			</div>
+			<div className=" truncate py-3">
+				<span className="truncate">{row.full_name}</span>
+			</div>
+			<div className="py-3 truncate">
+				<span className="truncate">{row.email}</span>
+			</div>
+			<div className="py-3">
+				<span>{row.gender ? 'Nam' : 'Nữ'}</span>
+			</div>
+			<div className="py-3">
+				<span className="truncate">{row.phone_number}</span>
+			</div>
+			<div className="py-3">
+				<span>{row.date_of_birth}</span>
+			</div>
+			<div className="py-3">
+				<span>{row.point}</span>
+			</div>
+			<div className="py-3">
+				<SwitchButton
+					value={isVerify}
+					onChange={() => setIsVerify(!isVerify)}
+				/>
+			</div>
+			<div className="py-3 flex items-center justify-center">
+				<Dropdown items={items}>
+					<EllipsisHorizontalIcon className="h-6 w-6 text-highlight " />
+				</Dropdown>
+			</div>
+		</>
+	);
 };
 
 function AccountList() {

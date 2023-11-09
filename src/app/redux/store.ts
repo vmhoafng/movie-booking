@@ -6,6 +6,7 @@ import showtimeSlice from './slices/showtimeSlice';
 import cinemaReducer from './cinema';
 import moviesSlice from './movies/movies.slice';
 import layoutReducer from './layout';
+import paymentReducer from './payment';
 export const store = configureStore({
 	reducer: {
 		counter: counterReducer,
@@ -14,6 +15,7 @@ export const store = configureStore({
 		showtime: showtimeSlice.reducer,
 		cinema: cinemaReducer,
 		movies: moviesSlice.reducer,
+		payment: paymentReducer,
 		layout: layoutReducer,
 	},
 });
