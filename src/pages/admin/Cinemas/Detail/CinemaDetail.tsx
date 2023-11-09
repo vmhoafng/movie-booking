@@ -44,15 +44,18 @@ function CinemaDetail() {
       {/* <CinemaForm />
       <RoomForm /> */}
       <Table
-        data={data}
+        data={cinemas}
         columns={columns}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
+        dataKeys={dataKeys}
       />
       <Pagination
         pageCount={pageCount}
         onPageChange={handlePageChange}
         currentPage={currentPage}
+        itemPerPage={itemsPerPage}
+        dataLength={cinemas.length}
       />
     </div>
   );
