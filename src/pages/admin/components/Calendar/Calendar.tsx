@@ -8,28 +8,13 @@ import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 function Calendar() {
 	return (
 		<div className="">
-			{/* <FullCalendar
-				plugins={[timeGridPlugin]}
-				locale={'vi'}
-				titleFormat={{
-					weekday: 'long',
-					day: '2-digit',
-				}}
-				dayHeaderFormat={{
-					weekday: 'long',
-				}}
-				height={700}
-				editable
-				droppable
-				selectable
-			/> */}
 			<FullCalendar
 				plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
 				slotDuration={'00:05'}
 				// dayCellClassNames={'border-none'}
 				locale={'vi'}
 				viewClassNames={''}
-				dayHeaderClassNames={' border-b rounded bg-lightPrimary'}
+				dayHeaderClassNames={' border rounded bg-lightPrimary'}
 				firstDay={1}
 				titleFormat={{
 					weekday: 'long',
@@ -48,14 +33,14 @@ function Calendar() {
 				droppable
 				displayEventEnd
 				eventDurationEditable={false}
-				validRange={(nowDate) => {
-					const endday = new Date(nowDate);
-					endday.setDate(nowDate.getDate() + 2 * 7);
-					return {
-						start: nowDate,
-						end: endday,
-					};
-				}}
+				// validRange={(nowDate) => {
+				// 	const endday = new Date(nowDate);
+				// 	endday.setDate(nowDate.getDate() + 2 * 7);
+				// 	return {
+				// 		start: nowDate,
+				// 		end: endday,
+				// 	};
+				// }}
 			/>
 		</div>
 	);
