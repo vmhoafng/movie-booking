@@ -36,6 +36,9 @@ export const ENDPOINTS = {
          BY_STATUS: `admin/comments/status`,
          MODIFY_STATUS: `admin/moderationComment/${ROUTE_PARAMS.COMMENT_ID}`,
       },
+      DASHBOARD: {
+         ALL: `admin/moderationComment/${ROUTE_PARAMS.DASHBOARD_DATE}`,
+      },
    },
 };
 

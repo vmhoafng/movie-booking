@@ -6,6 +6,7 @@ export const ROUTE_PARAMS = {
    MOVIE_SLUG: ":movieSlug",
    COMMENT_STATUS: ":status",
    COMMENT_ID: ":commentId",
+   DASHBOARD_DATE: ":date",
 };
 
 export const PATHS = {
