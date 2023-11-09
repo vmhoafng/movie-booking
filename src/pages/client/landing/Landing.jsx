@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '../../../app/components/button/Button.tsx'
+import { Swiper } from 'swiper/react'
 
 
 function Landing() {
@@ -7,7 +8,7 @@ function Landing() {
     <div className='bg-bgPrimary md:w-full md:h-full flex flex-col md:flex-col items-center self-stretch overflow-hidden'>
 
       <div className='bg-bgPrimaryLayer overflow-hidden'>
-        <img className="md:w-full md md:h-[620px] "
+        <img className="md:w-full md md:h-[620px] object-cover"
           src="/assets/images/bg.png" />
 
       </div>
@@ -19,146 +20,8 @@ function Landing() {
             <a href="/" className='text-highlight'> Xem tất cả</a>
           </div>
           <div className='sm:pt-[30px] lg:p-0 md:pt-0 lg:pt-0 xl:pt-0 2xl:pt-0 sm:px-5 2xl:w-[1200px] xl:w-[960px] lg:w-[790px] md:w-[640px] md:h-[788px] grid sm:grid-cols-2 md:grid-cols-3 lg:flex xl:flex 2xl:flex items-center gap-x-6 gap-y-10 self-stretch justify-start overflow-hidden relative pl-0'>
+            <Swiper></Swiper>
 
-
-            <div className=' group relative flex-shrink-0 cursor-pointer rounded '>
-
-              <div className="flex flex-col">
-                <img src={"/assets/images/VerticalPoster05.png"} alt="" />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div >
-                  <h3 className='text-base text-white'>
-                    <a href="/">
-                      THE NUN
-                    </a>
-                  </h3>
-                  <p className='pt-2.5 text-sm font-medium text-white'>
-                    ÁC QUỶ MA SƠ
-                  </p>
-                </div>
-
-              </div>
-
-
-
-            </div>
-
-
-            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
-
-              <div className="flex flex-col">
-                <img src={"/assets/images/VerticalPoster02.png"} alt="" />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div >
-                  <h3 className='text-base text-white'>
-                    <a href="/">
-                      EXPEND4ABLES
-                    </a>
-                  </h3>
-                  <p className='pt-2.5 text-sm font-medium text-white'>
-                    BIỆT ĐỘI ĐÁNH THUÊ
-                  </p>
-                </div>
-
-              </div>
-
-
-
-            </div>
-
-            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
-
-              <div className="flex flex-col ">
-                <img src={"/assets/images/VerticalPoster03.png"} alt="" />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div >
-                  <h3 className='text-base text-white'>
-                    <a href="/">
-                      LIVE
-                    </a>
-                  </h3>
-                  <p className='pt-2.5 text-sm font-medium text-white'>
-                    #PHÁT TRỰC TIẾP
-                  </p>
-                </div>
-
-              </div>
-
-
-
-            </div>
-
-            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
-
-              <div className="flex flex-col ">
-                <img src={"/assets/images/VerticalPoster01.png"} alt="" />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div >
-                  <h3 className='text-base text-white'>
-                    <a href="/">
-                      A HAUNTING IN VENICE
-                    </a>
-                  </h3>
-                  <p className='pt-2.5 text-sm font-medium text-white'>
-                    ÁN MẠNG Ở VENICE
-                  </p>
-                </div>
-
-              </div>
-
-
-
-            </div>
-
-            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
-
-              <div className="flex flex-col">
-                <img src={"/assets/images/VerticalPoster06.png"} alt="" />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div >
-                  <h3 className='text-base text-white'>
-                    <a href="/">
-                      PAW PATROL: THE MIGHTY MOVIE
-                    </a>
-                  </h3>
-                  <p className='pt-2.5 text-sm font-medium text-white'>
-                    PAW PATROL: PHIM SIÊU ĐẲNG
-                  </p>
-                </div>
-
-              </div>
-
-
-
-            </div>
-
-            <div className=' group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 '>
-
-              <div className="flex flex-col">
-                <img src={"/assets/images/VerticalPoster04.png"} alt="" />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div >
-                  <h3 className='text-base text-white'>
-                    <a href="/">
-                      RETRIBUTION
-                    </a>
-                  </h3>
-                  <p className='pt-2.5 text-sm font-medium text-white'>
-                    KẺ TRỪNG PHẠT
-                  </p>
-                </div>
-
-              </div>
-
-
-
-            </div>
           </div>
         </div>
 
