@@ -313,9 +313,13 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 								placeholder="YYYY-MM-DD"
 								{...register('endDate', {})}
 							/>
+
 							<span className="absolute top-[1px] right-[15px]">
 								<CalendarIcon className="h-5 w-5" />
 							</span>
+							{errors['endDate'] && (
+								<div>{errors['endDate'].message?.toString()}</div>
+							)}
 						</label>
 						<label className="flex  w-[450px] ">
 							<p className="flex-[0_0_160px] text-white/70">Trạng thái</p>

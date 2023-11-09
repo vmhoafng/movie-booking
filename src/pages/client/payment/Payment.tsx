@@ -1,6 +1,6 @@
 import BookingMobileItem from "./components/BookingMobileItem";
 import BookingDesktopItem from "./components/BookingDesktopItem";
-import PaymentItem from "./components/PaymentForm";
+import PaymentForm from "./components/PaymentForm";
 export default function Payment() {
   return (
     <div
@@ -19,7 +19,7 @@ export default function Payment() {
      "
     >
       <BookingMobileItem />
-      <PaymentItem />
+      <PaymentForm />
       <BookingDesktopItem />
     </div>
   );

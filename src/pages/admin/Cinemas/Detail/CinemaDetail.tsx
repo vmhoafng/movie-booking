@@ -1,14 +1,12 @@
-import React from "react";
-import useSearchTopbar from "../../../../app/components/inputs/SearchTopbar/useSearchTopbar";
-import CinemaForm from "./components/CinemaForm";
-import RoomForm from "./components/RoomForm";
+
+import AddItem from "./components/add/AddItem";
+
 
 function CinemaDetail() {
-  const { searchParams } = useSearchTopbar();
   return (
     <div>
-      <CinemaForm />
-      <RoomForm />
+      <AddItem />
+      {/* */}
     </div>
   );
 }
