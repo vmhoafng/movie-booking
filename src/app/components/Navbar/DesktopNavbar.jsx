@@ -5,6 +5,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { PATHS } from '@/app/constants/path';
+import { Bars3Icon } from '@heroicons/react/24/solid';
 
 const navigation = [
 	{ name: 'TRANG CHỦ', to: PATHS.HOME.IDENTITY },
@@ -20,24 +21,41 @@ function classNames(...classes) {
 function DesktopNavbar() {
 	const [active, setActive] = useState();
 	const location = useLocation();
+	// var scrollBefore = 0;
+
+	// window.addEventListener("scroll", () => {
+	//    const scrolled = window.scrollY;
+
+	//    if (scrollBefore > scrolled) {
+	//       console.log("ScrollUP");
+	//       scrollBefore = scrolled;
+	//       //Desired action
+	//    } else if(scrollBefore ){
+	//       scrollBefore = scrolled;
+	//       console.log("ScrollDOWN");
+	//       //Desired action
+	//    }
+	// });
 
 	useEffect(() => {
 		setActive(location.pathname);
 	}, [location]);
 
 	return (
-		<div className="bg-bgPrimary h-[146px] items-center justify-between w-full">
-			<div className="h-[96px] md:w-[1200px] items-center flex justify-between mx-auto">
-				<div className="box-border flex w-[127px] min-w-[80px] max-w-[200px] px-[10px] items-center shrink-0 border-spacing-[50px] justify-center align-center">
-					<img className="" src={'./assets/images/Logo.png'} />
+		<div className="fixed top-0 left-0 right-0 bg-bgPrimaryBar items-center justify-between w-full z-50 shadow-[0px_30px_120px_0px_rgba(0,0,0,0.3)]">
+			<div className="h-[96px] w-full container gap-[27.5px]  md:gap-[75px] items-center flex justify-between mx-auto px-[15px] md:px-0">
+				<div className="box-border lg:flex-1 max-w-[96px] md:max-w-[127px] items-center justify-center ">
+					<img className="w-full" src={'./assets/images/Logo.png'} alt="" />
 				</div>
-				<div className=" box-border md:w-[600px] py-[0px] px-[16px] h-[40px] min-w-[300px] flex items-center border-spacing-[32px] ">
+				<div className=" max-w-[600px] lg:flex-1   ">
 					<Search />
 				</div>
 
-				<div className="flex items-center">
-					<div className="text-[white]/60">Nguyễn Thành Đạt</div>
-					<Menu as="div" className="relative ml-3">
+				<div className="hidden md:flex lg:flex-1 max-w-[187px] gap-[10px] items-center">
+					<div className="text-[white]/60 hidden lg:block">
+						Nguyễn Trương Khánh Hoàng
+					</div>
+					<Menu as="div" className="relative ">
 						<div>
 							<Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
 								<svg
@@ -54,7 +72,7 @@ function DesktopNavbar() {
 								</svg>
 							</Menu.Button>
 						</div>
-						<Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+						<Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 ring-black ring-opacity-5 focus:outline-none">
 							<Menu.Item>
 								{({ active }) => (
 									<Link
@@ -97,9 +115,12 @@ function DesktopNavbar() {
 						</Menu.Items>
 					</Menu>
 				</div>
+				<div className="md:hidden ">
+					<Bars3Icon className="h-6 w-6 text-white" />
+				</div>
 			</div>
-			<div>
-				<div className="h-[50] md:w-[960] flex justify-center align-center gap-[60px]">
+			<div className="hidden md:block">
+				<div className=" h-[50] md:w-[960] flex justify-center align-center gap-[60px] border-t-2 border-bgPrimary">
 					{navigation.map((item) => {
 						const regex = new RegExp(`^/${item.to}$`);
 						return (
@@ -110,7 +131,7 @@ function DesktopNavbar() {
 									regex.test(active)
 										? ' text-highlight'
 										: 'text-gray-300  hover:text-white',
-									'rounded-md px-3 py-[15px] text-sm font-medium'
+									'rounded-md px-3 py-[15px] text-sm md:text-[15px] lg:text-[16px] font-bold'
 								)}
 								aria-current={regex.test(active) ? 'page' : undefined}
 							>
