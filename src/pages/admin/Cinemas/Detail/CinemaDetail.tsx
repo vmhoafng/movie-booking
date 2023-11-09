@@ -6,15 +6,7 @@ import Table from "../../components/table/Table";
 import Pagination from "../../components/pagination/Pagination";
 import { useRedux } from "@/app/hooks";
 import { getCinemas } from "@/app/redux/cinema";
-const dataKeys = [
-  "id",
-  "name",
-  "address",
-  "district",
-  "city",
-  "phone_number",
-  "Tác vụ",
-];
+const dataKeys = ["id", "name", "address", "district", "city", "phone_number"];
 const columns = [
   "ID",
   "Tên",
@@ -22,7 +14,6 @@ const columns = [
   "Quận/huyện",
   "Tỉnh/Thành phố",
   "Điện thoại",
-  "Tác vụ",
 ];
 
 function CinemaDetail() {

@@ -1,3 +1,8 @@
+import Dropdown from "@/app/components/Dropdown";
+import { MenuItem } from "@/app/components/Dropdown/Dropdown.type";
+import { IUser } from "@/app/types/account";
+import { EyeIcon, PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 import React, { ReactNode } from "react";
 
 interface TableProps {
@@ -9,6 +14,7 @@ interface TableProps {
   currentPage: number;
   itemsPerPage: number;
 }
+
 //E.g Data
 // const data = [
 //     {
@@ -57,7 +63,7 @@ interface TableProps {
 //   />
 //   <Pagination pageCount={pageCount} onPageChange={handlePageChange} />
 
-function Table({
+function Table<T>({
   data,
   columns,
   renderHeader,
@@ -88,27 +94,46 @@ function Table({
           </tr>
         </thead>
         <tbody>
-          {displayedData.map((row, rowIndex) => (
-            <tr
-              key={rowIndex}
-              className={rowIndex % 2 === 0 ? "bg-[#0E1946]" : "bg-[#021339]"}
-            >
-              {dataKeys.map((dataKey) => (
-                <td
-                  key={dataKey}
-                  className=" max-w-[200px] overflow-x-scroll container-snap px-3 first:pl-6 last:pr-6 h-[46px] font-medium text-sm text-white/70 border-t border-borderColor whitespace-nowrap"
-                >
-                  {renderCell ? renderCell(row, dataKey) : row[dataKey]}
-                </td>
-              ))}
-              <td
+          {displayedData.map((row, rowIndex) => {
+            const items: MenuItem<T>[] = [
+              {
+                label: "Xem",
+                to: `${row.id}`,
+                icon: EyeIcon,
+              },
+              {
+                label: "Xóa",
+                onClick: () => {},
+                icon: TrashIcon,
+              },
+            ];
+            return (
+              <tr
                 key={rowIndex}
-                className=" max-w-[200px] overflow-x-scroll container-snap px-3 first:pl-6 last:pr-6 h-[46px] font-medium text-sm text-white/70 border-t border-borderColor whitespace-nowrap"
+                className={rowIndex % 2 === 0 ? "bg-[#0E1946]" : "bg-[#021339]"}
               >
-                ...
-              </td>
-            </tr>
-          ))}
+                {dataKeys.map((dataKey) => (
+                  <td
+                    title={row[dataKey]}
+                    key={dataKey}
+                    className="max-w-[300px] truncate px-3 first:pl-6 last:pr-6 h-[46px] font-medium text-sm text-white/70 border-t border-borderColor whitespace-nowrap"
+                  >
+                    {renderCell
+                      ? renderCell(row, dataKey)
+                      : row[dataKey] || "Không có"}
+                  </td>
+                ))}
+                <td
+                  key={rowIndex}
+                  className=" max-w-[200px] truncate px-3 first:pl-6 last:pr-6 h-[46px] font-medium text-sm text-white/70 border-t border-borderColor whitespace-nowrap"
+                >
+                  <Dropdown items={items}>
+                    <EllipsisHorizontalIcon className="h-6 w-6 text-highlight " />
+                  </Dropdown>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
