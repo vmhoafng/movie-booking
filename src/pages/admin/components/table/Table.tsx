@@ -125,7 +125,7 @@ function Table<T>({
                 ))}
                 <td
                   key={rowIndex}
-                  className=" max-w-[200px] truncate px-3 first:pl-6 last:pr-6 h-[46px] font-medium text-sm text-white/70 border-t border-borderColor whitespace-nowrap"
+                  className=" max-w-[200px] px-3 first:pl-6 last:pr-6 h-[46px] font-medium text-sm text-white/70 border-t border-borderColor whitespace-nowrap"
                 >
                   <Dropdown items={items}>
                     <EllipsisHorizontalIcon className="h-6 w-6 text-highlight " />
