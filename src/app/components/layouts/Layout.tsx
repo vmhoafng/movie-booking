@@ -11,9 +11,10 @@ const loading = () => <LoadingAnimation />;
 
 type LayoutProps = {
 	backgroundImage?: string;
+	landing?: boolean;
 };
 
-function Layout({ backgroundImage }: LayoutProps) {
+function Layout({ backgroundImage, landing = false }: LayoutProps) {
 	return (
 		<div className="h-full w-full relative">
 			<DesktopNavbar />
@@ -24,7 +25,7 @@ function Layout({ backgroundImage }: LayoutProps) {
 					backgroundImage: `url('/assets/images/${backgroundImage}')`,
 				}}
 			>
-				<HeroSection />
+				{landing && <HeroSection />}
 
 				<div className={backgroundImage ? 'bg-bgPrimary/80' : 'bg-bgPrimary'}>
 					<main className="h-full">

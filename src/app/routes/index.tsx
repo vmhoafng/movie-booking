@@ -220,8 +220,13 @@ function AllRoutes() {
 		authRoute,
 		{
 			path: '/',
+			element: <Layout landing />,
+			children: [homeRoute],
+		},
+		{
+			path: '/',
 			element: <Layout />,
-			children: [homeRoute, movieRoutes],
+			children: [movieRoutes],
 		},
 		{
 			path: '/',
