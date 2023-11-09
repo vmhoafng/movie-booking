@@ -1,43 +1,6 @@
 import React from "react";
 
 function DesktopFooter() {
-<<<<<<< HEAD
-	return (
-		<div className="bg-bgPrimary 2xl:h-[146px] lg:h-[163px] md:h-[180px] sm:h-[145px] items-center flex flex-col 2xl:w-full md:gap-[20px] sm:gap-[12px]">
-			<div className="overflow-hidden flex 2xl:w-[1200px] xl:w-[960px] md:w-[640px] sm:w-[395px] justify-between h-[50px] border-b-2 border-[#314C81] sm:gap-[12px]">
-				<div className="flex md:w-[123px] min-w-[80px] max-w-[150px]  py-[10px] justify-center items-center shrink-0 rounded-3xl ">
-					<img className=" " src={"./assets/images/Logo.png"} />
-				</div>
-				<div className="bg-primary flex justify-end items-center gap-[15px] shrink-0">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="42"
-						height="41"
-						viewBox="0 0 42 41"
-						fill="none"
-						className="hover:bg-highlight rounded-full"
-					>
-						<circle cx="21" cy="20.5" r="20" stroke="#314C81" />
-						<path
-							d="M25.73 13H23.4855C22.4933 13 21.5418 13.3941 20.8402 14.0957C20.1387 14.7972 19.7445 15.7488 19.7445 16.7409V18.9855H17.5V21.9782H19.7445V27.9636H22.7373V21.9782H24.9818L25.73 18.9855H22.7373V16.7409C22.7373 16.5425 22.8161 16.3522 22.9564 16.2119C23.0967 16.0716 23.287 15.9927 23.4855 15.9927H25.73V13Z"
-							fill="white"
-						/>
-					</svg>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="41"
-						height="41"
-						viewBox="0 0 41 41"
-						fill="none"
-						className="hover:bg-highlight rounded-full"
-					>
-						<circle cx="20.5" cy="20.5" r="19.5" stroke="#314C81" />
-						<path
-							d="M28.5 13.5073C27.8036 13.9986 27.0324 14.3743 26.2164 14.62C25.7784 14.1164 25.1962 13.7595 24.5488 13.5974C23.9013 13.4354 23.2196 13.4762 22.5961 13.7142C21.9725 13.9522 21.437 14.376 21.0622 14.9282C20.6873 15.4804 20.4911 16.1345 20.5 16.8019V17.5291C19.2219 17.5623 17.9555 17.2788 16.8135 16.704C15.6714 16.1292 14.6893 15.2809 13.9545 14.2346C13.9545 14.2346 11.0455 20.78 17.5909 23.6891C16.0931 24.7058 14.3088 25.2156 12.5 25.1437C19.0455 28.78 27.0455 25.1437 27.0455 16.78C27.0448 16.5775 27.0253 16.3754 26.9873 16.1764C27.7295 15.4444 28.2533 14.5202 28.5 13.5073Z"
-							fill="white"
-						/>
-					</svg>
-=======
    return (
       <div className="bg-bgPrimaryBar h-[146px] py-[30px] items-center flex flex-col md:w-full md:gap-[20px] shadow-[0px_-30px_120px_0px_rgba(0,0,0,0.3)]">
          <div className=" flex md:w-[1200px] justify-between h-[50px] border-b-2 border-[#314C81]">
@@ -73,7 +36,6 @@ function DesktopFooter() {
                      fill="white"
                   />
                </svg>
->>>>>>> f949a8862136972abff7489bdb98f20c5d6b5e4e
 
                <div className="border rounded-full border-[#314C81] p-[9px]">
                   <svg

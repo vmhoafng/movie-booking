@@ -1,9 +1,18 @@
 import React from 'react'
 import Button from '../../../app/components/button/Button.tsx'
-import { Swiper } from 'swiper/react'
+import Title from "../../../app/components/Title";
+import Poster from "../../../app/components/poster/Poster";
 
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import useWindowDimensions from "../../../app/hooks/useWindowDimensions";
 
 function Landing() {
+  const {width} =useWindowDimensions()
   return (
     <div className='bg-bgPrimary md:w-full md:h-full flex flex-col md:flex-col items-center self-stretch overflow-hidden'>
 
@@ -20,7 +29,81 @@ function Landing() {
             <a href="/" className='text-highlight'> Xem tất cả</a>
           </div>
           <div className='sm:pt-[30px] lg:p-0 md:pt-0 lg:pt-0 xl:pt-0 2xl:pt-0 sm:px-5 2xl:w-[1200px] xl:w-[960px] lg:w-[790px] md:w-[640px] md:h-[788px] grid sm:grid-cols-2 md:grid-cols-3 lg:flex xl:flex 2xl:flex items-center gap-x-6 gap-y-10 self-stretch justify-start overflow-hidden relative pl-0'>
-            <Swiper></Swiper>
+         
+            {width > 900 ? (
+            <Swiper
+              modules={[Navigation, Pagination, Scrollbar, A11y]}
+              onSwiper={(swiper) => console.log(swiper)}
+              onSlideChange={() => console.log("slide change")}
+              breakpoints={{
+        
+                900: {
+                  width: 790,
+                  slidesPerView: 3.8,
+                  spaceBetween: 20,
+                },
+                1024: {
+                  width: 960,
+                  slidesPerView: 3,
+                  spaceBetween: 30,
+                },
+                1366: {
+                  width: 1200,
+                  slidesPerView: 3.8,
+                  spaceBetween: 30,
+                },
+              }}
+            >
+              <SwiperSlide>
+                <Poster
+                  name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
+                  subname="gay"
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <Poster
+                  name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
+                  subname="gay"
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <Poster
+                  name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
+                  subname="gay"
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <Poster
+                  name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
+                  subname="gay"
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <Poster
+                  name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
+                  subname="gay"
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <Poster
+                  name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
+                  subname="gay"
+                />
+              </SwiperSlide>
+            </Swiper>
+          ) : (
+            <div className="w-fit grid grid-cols-2 md:grid-cols-3 gap-5">
+              <Poster
+                name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
+                subname="gay"
+              />
+              <Poster name={"gay"} subname="gay" />
+              <Poster name={"gay"} subname="gay" />
+              <Poster name={"gay"} subname="gay" />
+              <Poster name={"gay"} subname="gay" />
+              <Poster name={"gay"} subname="gay" />
+            </div>
+          )} 
 
           </div>
         </div>
