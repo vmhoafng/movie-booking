@@ -1,5 +1,6 @@
 import Title from "@/app/components/Title";
 import Icon from "@/app/components/icon/Icon";
+import clsx from "clsx";
 import React from "react";
 
 const ControlBar: React.FC<{
@@ -22,7 +23,12 @@ const ControlBar: React.FC<{
          </div>
 
          {children && (
-            <div className="flex justify-between items-center gap-3">
+            <div
+               className={clsx(
+                  "flex justify-between items-center",
+                  React.Children.count(children) > 1 && "gap-3"
+               )}
+            >
                {children}
             </div>
          )}

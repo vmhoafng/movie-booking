@@ -1,21 +1,23 @@
 import Icon from "@/app/components/icon/Icon";
 import React, { forwardRef, useState } from "react";
+import "../style/datePicker.css";
 
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-function formatToMonthYear(inputDate) {
+export function formatToMonthYear(inputDate) {
    const dateObject = new Date(inputDate);
-   const formattedDate = dateObject.toLocaleDateString("en-US", {
+   const formattedDate = dateObject.toLocaleDateString("vi-VN", {
       month: "2-digit",
+      day: "2-digit",
       year: "numeric",
    });
 
    return formattedDate;
 }
 
-const MonthSelection = () => {
+const MonthSelection = ({ onChange }) => {
    const [startDate, setStartDate] = useState(new Date());
    const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
       <button
@@ -23,7 +25,7 @@ const MonthSelection = () => {
          onClick={(event) => {
             onClick(event.target.value);
          }}
-         className="flex justify-between items-center px-2 bg-white/10 border border-white/10 rounded w-[200px] h-8"
+         className=" w-[180px] h-8 flex justify-between items-center px-3 bg-white/20 border border-white/50 rounded overflow-hidden"
       >
          {value}
          <Icon icon="calendar"></Icon>
@@ -34,7 +36,7 @@ const MonthSelection = () => {
       <DatePicker
          selected={startDate}
          onChange={(date) => {
-            console.log(formatToMonthYear(date));
+            onChange(formatToMonthYear(date));
             setStartDate(date);
          }}
          dateFormat="MM/yyyy"

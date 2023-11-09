@@ -9,7 +9,9 @@ const AxisX = () => {
    return (
       <div className="w-full h-full flex flex-row justify-between items-center text-right gap-y-5 text-white/70 text-sm">
          {months.map((month) => (
-            <h3 className="w-3 text-center">{month}</h3>
+            <h3 className="w-3 text-center" key={month}>
+               {month}
+            </h3>
          ))}
       </div>
    );
