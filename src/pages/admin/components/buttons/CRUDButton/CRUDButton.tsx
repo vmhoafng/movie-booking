@@ -1,9 +1,10 @@
-import React from 'react';
-import { CRUDButtonProps } from './CRUDButton.type';
+import React from "react";
+import { CRUDButtonProps } from "./CRUDButton.type";
+import { Link } from "react-router-dom";
 
-const common = 'text-[12px] hover:cursor-pointer ';
+const common = "text-[12px] hover:cursor-pointer ";
 const variants = {
-	Add: `py-2
+  Add: `py-2
 	px-3 
 	block 
 	rounded 
@@ -18,7 +19,7 @@ const variants = {
 	transition 
 	duration-300
 	font-bold `,
-	Edit: `py-2 font-bold
+  Edit: `py-2 font-bold
 	px-3 
 	block 
 	rounded 
@@ -32,8 +33,8 @@ const variants = {
 	transform 
 	transition 
 	duration-300`,
-	Cancel: `text-white/50 hover:underline hover:text-white`,
-	Save: `py-2 font-bold
+  Cancel: `text-white/50 hover:underline hover:text-white`,
+  Save: `py-2 font-bold
 	disabled:text-slate-50 disabled:bg-gray-600 border-slate-50 
 	ease-in
 	px-3 
@@ -52,22 +53,29 @@ const variants = {
 };
 
 function CRUDButton({
-	variant,
-	children,
-	onClick,
-	type = 'button',
-	disabled = false,
+  variant,
+  children,
+  onClick,
+  type = "button",
+  to,
+  disabled = false,
 }: CRUDButtonProps) {
-	return (
-		<button
-			type={type}
-			onClick={onClick}
-			disabled={disabled}
-			className={` ${common} ${variants[variant]}`}
-		>
-			{children}
-		</button>
-	);
+  if (to)
+    return (
+      <Link to={to} className={` ${common} ${variants[variant]}`}>
+        {children}
+      </Link>
+    );
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={` ${common} ${variants[variant]}`}
+    >
+      {children}
+    </button>
+  );
 }
 
 export default CRUDButton;
