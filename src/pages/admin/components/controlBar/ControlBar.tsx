@@ -2,7 +2,11 @@ import Title from "@/app/components/Title";
 import Icon from "@/app/components/icon/Icon";
 import React from "react";
 
-const ControlBar = ({ title, subTitle, children }) => {
+const ControlBar: React.FC<{
+   title: string;
+   subTitle?: string;
+   children?: any;
+}> = ({ title, subTitle, children }) => {
    return (
       <div className="flex justify-between items-center my-6">
          <div className="flex justify-between items-center gap-3">
