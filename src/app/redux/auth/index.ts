@@ -2,18 +2,15 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Axios } from "../../utils/api";
 import authUtils from "../../utils/auth";
 import { SignalIcon } from "@heroicons/react/20/solid";
-import {
-  IPostLoginPayload,
-  IPutAvatarPayload,
-  IPutProfilePayload,
-} from "@/app/types/auth";
+import { IPostLoginPayload, IPutAvatarPayload } from "@/app/types/auth";
 import { ENDPOINTS } from "@/app/constants/endpoint";
 import { IPostBill } from "@/app/types/payment";
 import api from "@/app/services/api";
 import { IUser } from "@/app/types/account";
+import { IPutProfilePayload } from "@/app/types/profile";
 // import { access } from 'fs';
 
-type UserData = {
+export type UserData = {
   avatar: string;
   token: string;
   email: string;
@@ -81,13 +78,13 @@ export const updateImage = createAsyncThunk<IUser, IPutAvatarPayload>(
     return data;
   }
 );
-export const updateProfile = createAsyncThunk(
-  "@@auth/updateProfile",
-  async (payload: IPutProfilePayload, thunkApi) => {
-    const { data } = await api.profileService.putProfile(payload);
-    return data;
-  }
-);
+export const updateProfile = createAsyncThunk<
+  void,
+  { payload: IPutProfilePayload }
+>("@@auth/updateProfile", async (payload, thunkApi) => {
+  const { data } = await api.profileService.putProfile(payload);
+  return data;
+});
 //create user slice
 export const userSlice = createSlice({
   name: "auth",
@@ -128,7 +125,8 @@ export const userSlice = createSlice({
     });
     builder
       .addCase(updateProfile.fulfilled, (state, action) => {
-        state.user = { ...state.user, ...action.payload };
+        //@ts-ignore
+        state.user = { ...action.payload.user, token: action.payload.token };
         state.isLoading = false;
       })
       .addCase(updateProfile.pending, (state) => {

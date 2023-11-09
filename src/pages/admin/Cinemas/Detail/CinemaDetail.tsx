@@ -1,84 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSearchTopbar from "../../../../app/components/inputs/SearchTopbar/useSearchTopbar";
 import CinemaForm from "./components/CinemaForm";
 import RoomForm from "./components/RoomForm";
 import Table from "../../components/table/Table";
 import Pagination from "../../components/pagination/Pagination";
-const data = [
-  {
-    ID: "01",
-    Tên: "Cinema An Dương Vương",
-    "Địa chỉ": "47 An Dương Vương, phường 12",
-    "Quận/huyện": "Quận 5",
-    "Tỉnh/Thành phố": "Hồ Chí Minh",
-    "Điện thoại": "096203060",
-    "Tác vụ": "John",
-  },
-  {
-    ID: "01",
-    Tên: "Cinema An Dương Vương",
-    "Địa chỉ": "47 An Dương Vương, phường 12",
-    "Quận/huyện": "Quận 5",
-    "Tỉnh/Thành phố": "Hồ Chí Minh",
-    "Điện thoại": "096203060",
-    "Tác vụ": "John",
-  },
-  {
-    ID: "01",
-    Tên: "Cinema An Dương Vương",
-    "Địa chỉ": "47 An Dương Vương, phường 12",
-    "Quận/huyện": "Quận 5",
-    "Tỉnh/Thành phố": "Hồ Chí Minh",
-    "Điện thoại": "096203060",
-    "Tác vụ": "John",
-  },
-  {
-    ID: "01",
-    Tên: "Cinema An Dương Vương",
-    "Địa chỉ": "47 An Dương Vương, phường 12",
-    "Quận/huyện": "Quận 5",
-    "Tỉnh/Thành phố": "Hồ Chí Minh",
-    "Điện thoại": "096203060",
-    "Tác vụ": "John",
-  },
-  {
-    ID: "01",
-    Tên: "Cinema An Dương Vương",
-    "Địa chỉ": "47 An Dương Vương, phường 12",
-    "Quận/huyện": "Quận 5",
-    "Tỉnh/Thành phố": "Hồ Chí Minh",
-    "Điện thoại": "096203060",
-    "Tác vụ": "John",
-  },
-  {
-    ID: "01",
-    Tên: "Cinema An Dương Vương",
-    "Địa chỉ": "47 An Dương Vương, phường 12",
-    "Quận/huyện": "Quận 5",
-    "Tỉnh/Thành phố": "Hồ Chí Minh",
-    "Điện thoại": "096203060",
-    "Tác vụ": "John",
-  },
-  {
-    ID: "01",
-    Tên: "Cinema An Dương Vương",
-    "Địa chỉ": "47 An Dương Vương, phường 12",
-    "Quận/huyện": "Quận 5",
-    "Tỉnh/Thành phố": "Hồ Chí Minh",
-    "Điện thoại": "096203060",
-    "Tác vụ": "John",
-  },
-  {
-    ID: "01",
-    Tên: "Cinema An Dương Vương",
-    "Địa chỉ": "47 An Dương Vương, phường 12",
-    "Quận/huyện": "Quận 5",
-    "Tỉnh/Thành phố": "Hồ Chí Minh",
-    "Điện thoại": "096203060",
-    "Tác vụ": "John",
-  },
+import { useRedux } from "@/app/hooks";
+import { getCinemas } from "@/app/redux/cinema";
+const dataKeys = [
+  "id",
+  "name",
+  "address",
+  "district",
+  "city",
+  "phone_number",
+  "Tác vụ",
 ];
-
 const columns = [
   "ID",
   "Tên",
@@ -90,9 +26,16 @@ const columns = [
 ];
 
 function CinemaDetail() {
+  const { appSelector, dispatch } = useRedux();
+  useEffect(() => {
+    dispatch(getCinemas());
+  }, [dispatch]);
+  const { cinemas } = appSelector((state) => state.cinema);
+  console.log(cinemas);
+
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3; // Number of items to display per page
-  const pageCount = Math.ceil(data.length / itemsPerPage);
+  const itemsPerPage = 5; // Number of items to display per page
+  const pageCount = Math.ceil(cinemas.length / itemsPerPage);
   const handlePageChange = (selectedPage: number) => {
     setCurrentPage(selectedPage + 1);
   };
@@ -101,15 +44,16 @@ function CinemaDetail() {
       {/* <CinemaForm />
       <RoomForm /> */}
       <Table
-        data={data}
+        data={cinemas}
         columns={columns}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
+        dataKeys={dataKeys}
       />
       <Pagination
         itemPerPage={itemsPerPage}
         pageCount={pageCount}
-        dataLength={data.length}
+        dataLength={cinemas.length}
         onPageChange={handlePageChange}
         currentPage={currentPage}
       />

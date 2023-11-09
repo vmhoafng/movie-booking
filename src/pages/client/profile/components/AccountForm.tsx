@@ -8,10 +8,10 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import clsx from "clsx";
 import { useRedux } from "@/app/hooks";
-import { updateProfile } from "@/app/redux/auth";
+import { UserData, updateProfile } from "@/app/redux/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { IPutProfilePayload } from "@/app/types/auth";
+import { IPutProfilePayload } from "@/app/types/profile";
 
 const genderOptions: SelectOption[] = [
   { label: "", value: "" },
@@ -23,11 +23,14 @@ const genderOptions: SelectOption[] = [
 function AccountItem() {
   const { width } = useWindowDimensions();
   const { appSelector, dispatch } = useRedux();
-
   const { user, isLoading } = appSelector((state) => state.auth);
+  const [currentUser, setCurrentUser] = useState<UserData>();
   useEffect(() => {
-    console.log(user);
-  }, [user]);
+    if (!isLoading) {
+      setCurrentUser(user);
+      console.log("User object has changed:", user);
+    }
+  }, [user, currentUser, isLoading]);
   const validationSchema = yup.object({
     fullName: yup.string(),
     dateOfBirth: yup.string(),
@@ -36,45 +39,31 @@ function AccountItem() {
     email: yup.string().email(),
   });
 
-  console.log({
-    fullName: user.full_name,
-    dateOfBirth: user.date_of_birth,
-    gender: user.gender,
-    phoneNumber: user.phone_number,
-    email: user.email,
-  });
-
   const {
     handleSubmit,
     register,
+    control,
+    reset,
     formState: { errors },
   } = useForm<FieldValues>({
     resolver: yupResolver<FieldValues>(validationSchema),
-    defaultValues: {
-      fullName: user.full_name,
-      dateOfBirth: user.date_of_birth,
-      gender: user.gender,
-      phoneNumber: user.phone_number,
-      email: user.email,
-    },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
 
-    dispatch(updateProfile(data as IPutProfilePayload));
+    dispatch(updateProfile(data as { payload: IPutProfilePayload }));
   };
 
-  // useEffect(() => {
-  // 	reset({
-  // 		name: user.full_name,
-  // 		email: user.email,
-  // 		password: '',
-  // 		date: user.date_of_birth,
-  // 		phoneNumber: user.phone_number,
-  // 		gender: user.gender,
-  // 	});
-  // }, [user, reset]);
+  useEffect(() => {
+    reset({
+      fullName: currentUser?.full_name,
+      email: currentUser?.email,
+      dateOfBirth: currentUser?.date_of_birth,
+      phoneNumber: currentUser?.phone_number,
+      gender: currentUser?.gender,
+    });
+  }, [currentUser, reset]);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -88,7 +77,6 @@ function AccountItem() {
           register={register}
           errors={errors}
           required
-          value={user.full_name}
         />
         <div className="w-full flex gap-[10px] lg:flex-col xl:flex-row xl:gap-[30px] 2xl:gap-5">
           <Input
@@ -99,7 +87,6 @@ function AccountItem() {
             register={register}
             errors={errors}
             endIcon="calendar"
-            value={user.date_of_birth}
           />
           <div className="flex w-full py-[3px] flex-col items-start gap-1">
             <label
@@ -110,13 +97,14 @@ function AccountItem() {
             </label>
             <SelectInput
               id="gender"
+              control={control}
               options={genderOptions}
               name="gender"
               onChange={() => {}}
               register={register}
               inputClassName="w-full"
               value={genderOptions.find(
-                (gender) => gender.value === user.gender
+                (gender) => gender.value === currentUser?.gender
               )}
               optionClassName="
                 z-30
@@ -153,7 +141,6 @@ function AccountItem() {
           col
           register={register}
           errors={errors}
-          value={user.email}
         />
         <Input
           id="phoneNumber"
@@ -162,7 +149,6 @@ function AccountItem() {
           col
           register={register}
           errors={errors}
-          value={user.phone_number}
         />
       </div>
       <div className="hidden xl:block w-full border-t border-dashed border-borderColor" />
