@@ -7,7 +7,7 @@ import { getByStatus } from '@/app/redux/movies/movies.slice';
 
 function Schedules() {
 	const [movies, setMovies] = useState<IMovie[]>([]);
-	const { appSelector, dispatch } = useRedux();
+	const { dispatch } = useRedux();
 
 	const DraggleMovie = memo(({ movie }: { movie: IMovie }) => {
 		let elRef: any = useRef(null);
@@ -35,7 +35,7 @@ function Schedules() {
 		return (
 			<div
 				ref={elRef}
-				id={`${movie.id}`}
+				id={movie.id}
 				className="fc-event relative h-[290px] flex-[0_0_190px]  fc-h-event mb-1 fc-daygrid-event fc-daygrid-block-event bg-black"
 			>
 				<img
@@ -55,7 +55,7 @@ function Schedules() {
 		dispatch(getByStatus({ status: 'showing-now' })).then((data) => {
 			setMovies(data.payload.data[0].movies);
 		});
-	}, []);
+	}, [dispatch]);
 
 	const renderMovieDraggable = useCallback(() => {
 		return (
