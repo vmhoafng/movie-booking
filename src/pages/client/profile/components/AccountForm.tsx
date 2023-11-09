@@ -5,13 +5,13 @@ import Button from "@/app/components/button/Button";
 import useWindowDimensions from "@/app/hooks/useWindowDimensions";
 import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-
-import clsx from "clsx";
+import { Toaster, toast } from "sonner";
 import { useRedux } from "@/app/hooks";
 import { UserData, updateProfile } from "@/app/redux/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { IPutProfilePayload } from "@/app/types/profile";
+import Icon from "@/app/components/icon/Icon";
 
 const genderOptions: SelectOption[] = [
   { label: "", value: "" },
@@ -28,7 +28,6 @@ function AccountItem() {
   useEffect(() => {
     if (!isLoading) {
       setCurrentUser(user);
-      console.log("User object has changed:", user);
     }
   }, [user, currentUser, isLoading]);
   const validationSchema = yup.object({
@@ -50,9 +49,14 @@ function AccountItem() {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-
-    dispatch(updateProfile(data as { payload: IPutProfilePayload }));
+    toast(
+      <div className="bg-bgPrimary w-full">
+        <div>Đang tải...</div>
+        <Icon icon="close" />
+      </div>,
+      { className: "success" }
+    );
+    // dispatch(updateProfile(data as { payload: IPutProfilePayload }));
   };
 
   useEffect(() => {
@@ -69,6 +73,13 @@ function AccountItem() {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full lg:w-[344px] xl:w-[470px] 2xl:w-[550px] flex flex-col gap-[25px] py-10 lg:py-5"
     >
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          className: "success",
+          style: { background: "green" },
+        }}
+      />
       <div className="flex flex-col gap-[10px]">
         <Input
           id="fullName"
@@ -97,6 +108,7 @@ function AccountItem() {
             </label>
             <SelectInput
               id="gender"
+              control={control}
               options={[
                 { label: "Nam", value: "Nam" },
                 { label: "Nữ", value: "Nữ" },

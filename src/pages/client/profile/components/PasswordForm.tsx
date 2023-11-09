@@ -21,7 +21,7 @@ function PasswordItem() {
     setIsLoading(true);
   };
   return (
-    <div className="lg:w-[250px] xl:w-[280px] 2xl:w-[400px] flex flex-col py-[25px] gap-[25px] lg:py-5">
+    <form className="lg:w-[250px] xl:w-[280px] 2xl:w-[400px] flex flex-col py-[25px] gap-[25px] lg:py-5">
       <div className="flex flex-col gap-[10px]">
         <Input
           type="password"
@@ -52,7 +52,7 @@ function PasswordItem() {
       <Button large secondary fullWidth={width > 900}>
         Thay đổi
       </Button>
-    </div>
+    </form>
   );
 }
 
