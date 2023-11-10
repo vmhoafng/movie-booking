@@ -11,6 +11,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 interface IMoviesState {
 	movies: IMovie[];
+	showingNow: IMovie[];
+	comingSoon: IMovie[];
 	isLoading: boolean;
 	isError: boolean;
 	errorMessage: string;
@@ -19,6 +21,8 @@ interface IMoviesState {
 
 const initialState: IMoviesState = {
 	movies: [],
+	showingNow: [],
+	comingSoon: [],
 	detail: {} as IMovie,
 	isLoading: false,
 	isError: false,
@@ -96,6 +100,8 @@ const moviesSlice = createSlice({
 		});
 		builder.addCase(getMovies.fulfilled, (state, action) => {
 			state.movies = [...action.payload.data];
+			state.showingNow = action.payload.data.filter((m) => m.status.id === 2);
+			state.comingSoon = action.payload.data.filter((m) => m.status.id === 1);
 		});
 	},
 });

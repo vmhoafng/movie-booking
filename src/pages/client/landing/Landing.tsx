@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react';
 import Button from '../../../app/components/button/Button';
-import Title from '../../../app/components/Title.js';
-import Poster from '../../../app/components/poster/Poster.js';
+// import Title from '../../../app/components/	';
+import Poster from '../../../app/components/poster/Poster';
 
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import {
+	Navigation,
+	Autoplay,
+	Pagination,
+	Scrollbar,
+	A11y,
+} from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -15,7 +21,9 @@ import { getMovies } from '@/app/redux/movies/movies.slice';
 
 function Landing() {
 	const { appSelector, dispatch } = useRedux();
-	const { movies } = appSelector((state) => state.movies);
+	const { movies, showingNow, comingSoon } = appSelector(
+		(state) => state.movies
+	);
 
 	useEffect(() => {
 		if (!movies.length) dispatch(getMovies());
@@ -37,81 +45,56 @@ function Landing() {
 							Xem tất cả
 						</a>
 					</div>
-					<div className="sm:pt-[30px] lg:p-0 md:pt-0 lg:pt-0 xl:pt-0 2xl:pt-0 sm:px-5  md:h-[788px] grid sm:grid-cols-2 md:grid-cols-3 lg:flex xl:flex 2xl:flex items-center gap-x-6 gap-y-10 self-stretch justify-start overflow-hidden relative pl-0">
-						{/* {width > 900 ? (
-            <Swiper
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              onSwiper={(swiper) => console.log(swiper)}
-              onSlideChange={() => console.log("slide change")}
-              breakpoints={{
-        
-                900: {
-                  width: 790,
-                  slidesPerView: 3.8,
-                  spaceBetween: 20,
-                },
-                1024: {
-                  width: 960,
-                  slidesPerView: 3,
-                  spaceBetween: 30,
-                },
-                1366: {
-                  width: 1200,
-                  slidesPerView: 3.8,
-                  spaceBetween: 30,
-                },
-              }}
-            >
-              <SwiperSlide>
-                <Poster
-                  name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                  subname="gay"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Poster
-                  name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                  subname="gay"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Poster
-                  name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                  subname="gay"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Poster
-                  name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                  subname="gay"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Poster
-                  name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                  subname="gay"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Poster
-                  name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                  subname="gay"
-                />
-              </SwiperSlide>
-            </Swiper>
-          ) : (
-            <div className="w-fit grid grid-cols-2 md:grid-cols-3 gap-5">
-              <Poster
-                name={"gaygaygaygaygaygaygaygaygaygaygaygay"}
-                subname="gay"
-              />
-              <Poster name={"gay"} subname="gay" />
-              <Poster name={"gay"} subname="gay" />
-              <Poster name={"gay"} subname="gay" />
-              <Poster name={"gay"} subname="gay" />
-              <Poster name={"gay"} subname="gay" />
-            </div>
-          )}  */}
+					<div className="w-full hidden lg:block">
+						<Swiper
+							modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+							autoplay={{
+								delay: 3300,
+								disableOnInteraction: false,
+							}}
+							breakpoints={{
+								900: {
+									width: 790,
+									slidesPerView: 3,
+									spaceBetween: 20,
+								},
+								1024: {
+									width: 960,
+									slidesPerView: 3,
+									spaceBetween: 30,
+								},
+								1366: {
+									width: 1200,
+									slidesPerView: 3.8,
+									spaceBetween: 30,
+								},
+							}}
+						>
+							{showingNow.map((movie) => {
+								return (
+									<SwiperSlide>
+										<Poster
+											name={movie.name}
+											subname={movie.sub_name}
+											src={movie.poster}
+											alt={movie.name}
+											to={movie.id}
+										/>
+									</SwiperSlide>
+								);
+							})}
+						</Swiper>
+					</div>
+					<div className="lg:hidden grid grid-cols-2 md:grid-cols-3 gap-5">
+						{showingNow.map((movie) => (
+							<Poster
+								name={movie.name}
+								subname={movie.sub_name}
+								src={movie.poster}
+								alt={movie.name}
+								to={movie.id}
+							/>
+						))}
 					</div>
 				</div>
 
@@ -128,102 +111,56 @@ function Landing() {
 							Xem tất cả
 						</a>
 					</div>
-					<div className="lg:max-h-[750px] xl:max-h-none mt-[30px]  grid sm:grid-cols-2 md:grid-cols-3 lg:flex xl:flex 2xl:flex items-center gap-x-6 gap-y-10 self-stretch justify-start overflow-hidden  pl-0">
-						<div className=" group relative flex-shrink-0 cursor-pointer rounded">
-							<div className="flex flex-col ">
-								<img src={'/assets/images/VerticalPoster05.png'} alt="" />
-							</div>
-							<div className="mt-4 flex justify-between">
-								<div>
-									<h3 className="text-base text-white">
-										<a href="/">THE NUN</a>
-									</h3>
-									<p className="pt-2.5 text-sm font-medium text-white">
-										ÁC QUỶ MA SƠ
-									</p>
-								</div>
-							</div>
-						</div>
-
-						<div className=" group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 ">
-							<div className="flex flex-col">
-								<img src={'/assets/images/VerticalPoster02.png'} alt="" />
-							</div>
-							<div className="mt-4 flex justify-between">
-								<div>
-									<h3 className="text-base text-white">
-										<a href="/">EXPEND4ABLES</a>
-									</h3>
-									<p className="pt-2.5 text-sm font-medium text-white">
-										BIỆT ĐỘI ĐÁNH THUÊ
-									</p>
-								</div>
-							</div>
-						</div>
-
-						<div className=" group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 ">
-							<div className="flex flex-col ">
-								<img src={'/assets/images/VerticalPoster03.png'} alt="" />
-							</div>
-							<div className="mt-4 flex justify-between">
-								<div>
-									<h3 className="text-base text-white">
-										<a href="/">LIVE</a>
-									</h3>
-									<p className="pt-2.5 text-sm font-medium text-white">
-										#PHÁT TRỰC TIẾP
-									</p>
-								</div>
-							</div>
-						</div>
-
-						<div className=" group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 ">
-							<div className="flex flex-col ">
-								<img src={'/assets/images/VerticalPoster01.png'} alt="" />
-							</div>
-							<div className="mt-4 flex justify-between">
-								<div>
-									<h3 className="text-base text-white">
-										<a href="/">A HAUNTING IN VENICE</a>
-									</h3>
-									<p className="pt-2.5 text-sm font-medium text-white">
-										ÁN MẠNG Ở VENICE
-									</p>
-								</div>
-							</div>
-						</div>
-
-						<div className=" group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 ">
-							<div className="flex flex-col">
-								<img src={'/assets/images/VerticalPoster06.png'} alt="" />
-							</div>
-							<div className="mt-4 flex justify-between">
-								<div>
-									<h3 className="text-base text-white">
-										<a href="/">PAW PATROL: THE MIGHTY MOVIE</a>
-									</h3>
-									<p className="pt-2.5 text-sm font-medium text-white">
-										PAW PATROL: PHIM SIÊU ĐẲNG
-									</p>
-								</div>
-							</div>
-						</div>
-
-						<div className=" group relative block flex-shrink-0 cursor-pointer rounded group-hover:opacity-100 ">
-							<div className="flex flex-col">
-								<img src={'/assets/images/VerticalPoster04.png'} alt="" />
-							</div>
-							<div className="mt-4 flex justify-between">
-								<div>
-									<h3 className="text-base text-white">
-										<a href="/">RETRIBUTION</a>
-									</h3>
-									<p className="pt-2.5 text-sm font-medium text-white">
-										KẺ TRỪNG PHẠT
-									</p>
-								</div>
-							</div>
-						</div>
+					<div className="w-full hidden lg:block">
+						<Swiper
+							modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+							autoplay={{
+								delay: 3300,
+								disableOnInteraction: false,
+							}}
+							breakpoints={{
+								900: {
+									width: 790,
+									slidesPerView: 3,
+									spaceBetween: 20,
+								},
+								1024: {
+									width: 960,
+									slidesPerView: 3,
+									spaceBetween: 30,
+								},
+								1366: {
+									width: 1200,
+									slidesPerView: 3.8,
+									spaceBetween: 30,
+								},
+							}}
+						>
+							{comingSoon.map((movie) => {
+								return (
+									<SwiperSlide>
+										<Poster
+											name={movie.name}
+											subname={movie.sub_name}
+											src={movie.poster}
+											alt={movie.name}
+											to={movie.id}
+										/>
+									</SwiperSlide>
+								);
+							})}
+						</Swiper>
+					</div>
+					<div className="lg:hidden grid grid-cols-2 md:grid-cols-3 gap-5">
+						{comingSoon.map((movie) => (
+							<Poster
+								name={movie.name}
+								subname={movie.sub_name}
+								src={movie.poster}
+								alt={movie.name}
+								to={movie.id}
+							/>
+						))}
 					</div>
 					<div className="text-center lg:hidden mt-[30px] ">
 						<p className="text-highlight text-[15px] font-bold">Xem tất cả</p>
