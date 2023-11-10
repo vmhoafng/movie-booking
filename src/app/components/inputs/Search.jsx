@@ -30,7 +30,7 @@ export default function Example() {
 		<div className="w-full">
 			<Combobox value={selected} onChange={setSelected}>
 				<div className="relative">
-					<div className="flex px-4 items-center justify-between py-[6.5px] md:py-[8.5px] lg:py-[10.5px]  relative rounded-full bg-white/10 w-full h-full ">
+					<div className=" px-4 items-center justify-between py-[6.5px] md:py-[8.5px] lg:py-[10.5px]  relative rounded-full bg-white/10 w-full ">
 						<div className=" flex gap-[10px] md:gap-[20px] lg:gap-[30px]   items-center  ">
 							<button className="h-full bg-transparent border-none">
 								<MagnifyingGlassIcon className="h-4 w-4 md:h-5 md:w-5 text-white font-bold" />

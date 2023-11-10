@@ -2,6 +2,7 @@ import api from '@/app/services/api';
 import {
 	IMovie,
 	IMovieSlug,
+	IMoviesGetAll,
 	IPutMovieDetails,
 	IgetByStatus,
 	IgetShowtimeByMovie,
@@ -10,6 +11,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 interface IMoviesState {
 	movies: IMovie[];
+
 	isLoading: boolean;
 	isError: boolean;
 	errorMessage: string;
@@ -62,6 +64,14 @@ export const getMovieDetailById = createAsyncThunk<IMovie, string>(
 	}
 );
 
+export const getMovies = createAsyncThunk<IMoviesGetAll, undefined>(
+	'@@movies/getMovies',
+	async () => {
+		const { data } = await api.moviesService.getAllMovies();
+		return data;
+	}
+);
+
 const moviesSlice = createSlice({
 	name: 'movies',
 	initialState,
@@ -84,6 +94,9 @@ const moviesSlice = createSlice({
 			});
 		builder.addCase(getShowtimeByMovie.fulfilled, (state, action) => {
 			state.detail.showtimes = action.payload;
+		});
+		builder.addCase(getMovies.fulfilled, (state, action) => {
+			state.movies = [...action.payload.data];
 		});
 	},
 });

@@ -35,6 +35,10 @@ const moviesService = {
 			payload
 		);
 	},
+
+	getAllMovies: async () => {
+		return Axios.axiosGet(ENDPOINTS.MOVIES);
+	},
 };
 
 export default moviesService;

@@ -9,10 +9,8 @@ import LoadingAnimation from '../components/loading/LoadingAnimation';
 import AdminLayout from '../components/layouts/AdminLayout';
 
 //Lazy loading pages
-
 //landing
 const Landing = React.lazy(() => import('../../pages/client/landing/Landing'));
-
 //auth
 const Auth = React.lazy(() => import('../../pages/client/Auth/Authentication'));
 
