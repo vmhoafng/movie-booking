@@ -6,6 +6,8 @@ import cinemaService from "../modules/cinema";
 import profileService from "../modules/profile/profile.service";
 import moviesService from "../modules/movies/movies.service";
 import { paymetService } from "../modules/payment";
+import dashboardService from "../modules/dashboard/dashboard.service";
+import commentService from "../modules/comment/comments.service";
 export default {
    movie,
    showtime,
@@ -13,4 +15,6 @@ export default {
    moviesService,
    paymetService,
    profileService,
+   commentService,
+   dashboardService,
 };
