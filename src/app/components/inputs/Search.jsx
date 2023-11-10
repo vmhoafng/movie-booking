@@ -36,7 +36,7 @@ export default function Example() {
 								<MagnifyingGlassIcon className="h-4 w-4 md:h-5 md:w-5 text-white font-bold" />
 							</button>
 							<Combobox.Input
-								className="w-full text-sm md:text-[15px] lg:text-[16px]  text-white placeholder:text-white/50  bg-transparent border-none outline-none"
+								className="w-full text-sm md:text-[15px] lg:text-[16px] flex-1  text-white placeholder:text-white/50  bg-transparent border-none outline-none"
 								displayValue={(person) => person.name}
 								placeholder="Search films..."
 								onChange={(event) => setQuery(event.target.value)}
