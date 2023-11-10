@@ -3,6 +3,7 @@ import Image from "../Image";
 import clsx from "clsx";
 import Button from "../button/Button";
 import { Link } from "react-router-dom";
+import useWindowDimensions from "@/app/hooks/useWindowDimensions";
 
 interface PosterProps {
   src?: string;
@@ -23,6 +24,7 @@ function Poster({
   to,
   onClick,
 }: PosterProps) {
+  const { width } = useWindowDimensions();
   return (
     <div
       className="
@@ -37,7 +39,7 @@ function Poster({
           `relative`,
           horizontal
             ? "w-[220px] h-[145px] xl:w-[250px] xl:h-[165px]"
-            : "w-full h-full min-w-[180px] min-h-[300px] md:h-[300px] md:w-[190px] xl:w-[290px] xl:h-[430px]"
+            : "w-full h-full min-w-[175px] md:h-[300px] md:w-[190px] xl:w-[290px] xl:h-[430px]"
         )}
       >
         <Image
@@ -67,7 +69,7 @@ function Poster({
             rounded
             uppercase
             borderWhite
-            small={horizontal}
+            small={horizontal || (width > 960 && width < 1200)}
             medium={!horizontal}
             onClick={onClick}
           >
@@ -84,7 +86,7 @@ function Poster({
           py-5`,
           horizontal
             ? "w-[220px] xl:w-[250px]"
-            : "w-full min-w-[180px] md:w-[190px] xl:w-[290px]"
+            : "w-full min-w-[175px] md:w-[190px] xl:w-[290px]"
         )}
       >
         <div

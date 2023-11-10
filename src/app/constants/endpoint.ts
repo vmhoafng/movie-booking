@@ -17,6 +17,7 @@ export const ENDPOINTS = {
 		CHECKPASSWORD: 'checkPassword',
 		UPDATE_AVATAR: 'user/avatar',
 		UPDATE_PROFILE: 'user',
+		CHANGEPASSWORD: 'changePassword',
 	},
 	PAYMENT: {
 		POST_BILL: 'customer/bill',
@@ -32,6 +33,14 @@ export const ENDPOINTS = {
 			DETAIL: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
 			LIST: `admin/movie`,
 			PUT: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
+		},
+		COMMENT: {
+			ALL: 'admin/comments',
+			BY_STATUS: `admin/comments/status`,
+			MODIFY_STATUS: `admin/moderationComment/${ROUTE_PARAMS.COMMENT_ID}`,
+		},
+		DASHBOARD: {
+			ALL: `admin/statistical`,
 		},
 	},
 };

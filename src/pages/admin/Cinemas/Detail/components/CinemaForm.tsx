@@ -5,7 +5,7 @@ import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { IPutProfilePayload } from "@/app/types/profile";
+import { IPutProfile } from "@/app/types/profile";
 function CinemaForm() {
   const genderOptions: SelectOption[] = [
     { label: "", value: "" },

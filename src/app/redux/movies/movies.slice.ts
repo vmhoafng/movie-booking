@@ -11,7 +11,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 interface IMoviesState {
 	movies: IMovie[];
-
 	isLoading: boolean;
 	isError: boolean;
 	errorMessage: string;
