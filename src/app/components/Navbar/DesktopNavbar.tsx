@@ -8,7 +8,7 @@ import { PATHS } from '@/app/constants/path';
 import { Bars3Icon } from '@heroicons/react/24/solid';
 import { useRedux } from '@/app/hooks';
 import authUtils from '@/app/utils/auth';
-import { getCurrentUser } from '@/app/redux/auth';
+import { getCurrentUser, resetAuth } from '@/app/redux/auth';
 import Button from '../button/Button';
 
 const navigation = [
@@ -31,14 +31,18 @@ const Profile = () => {
 			const promise = dispatch(getCurrentUser());
 			return () => promise.abort();
 		}
-	}, [dispatch, user.role]);
+	}, [dispatch, userLoggedIn, user]);
+
+	const handleLogout = () => {
+		dispatch(resetAuth());
+	};
 
 	return (
 		<>
 			{userLoggedIn ? (
 				<div className="hidden md:flex lg:flex-1 max-w-[187px] gap-[10px] items-center">
 					<div className="text-[white]/60 hidden lg:block">
-						Nguyễn Trương Khánh Hoàng
+						{user.full_name}
 					</div>
 					<Menu as="div" className="relative ">
 						<div>
@@ -71,7 +75,7 @@ const Profile = () => {
 									</Link>
 								)}
 							</Menu.Item>
-							<Menu.Item>
+							{/* <Menu.Item>
 								{({ active }) => (
 									<a
 										href="#"
@@ -83,18 +87,18 @@ const Profile = () => {
 										Cài đặt
 									</a>
 								)}
-							</Menu.Item>
+							</Menu.Item> */}
 							<Menu.Item>
 								{({ active }) => (
-									<a
-										href="#"
+									<div
+										onClick={handleLogout}
 										className={classNames(
 											active ? 'bg-gray-100' : '',
-											'block px-4 py-2 text-sm text-gray-700'
+											'block px-4 py-2 text-sm text-gray-700 cursor-pointer'
 										)}
 									>
 										Đăng xuất
-									</a>
+									</div>
 								)}
 							</Menu.Item>
 						</Menu.Items>
