@@ -2,30 +2,35 @@ import React, { useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import Input from "../../../../app/components/inputs/Input";
 import Button from "../../../../app/components/button/Button";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import useWindowDimensions from "../../../../app/hooks/useWindowDimensions";
 function PasswordItem() {
   const { width } = useWindowDimensions();
-  const [isLoading, setIsLoading] = useState(false);
+  const validationSchema = yup.object({
+    oldPassword: yup.string(),
+    newPassword: yup.string(),
+    confirmNewPassword: yup.string(),
+  });
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isLoading },
   } = useForm<FieldValues>({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
+    resolver: yupResolver(validationSchema),
   });
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
+    console.log(data);
   };
   return (
-    <form className="lg:w-[250px] xl:w-[280px] 2xl:w-[400px] flex flex-col py-[25px] gap-[25px] lg:py-5">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="lg:w-[250px] xl:w-[280px] 2xl:w-[400px] flex flex-col py-[25px] gap-[25px] lg:py-5"
+    >
       <div className="flex flex-col gap-[10px]">
         <Input
           type="password"
-          id="currentPassword"
+          id="oldPassword"
           label="Mật khẩu hiện tại"
           col
           register={register}

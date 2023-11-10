@@ -7,7 +7,7 @@ import { ENDPOINTS } from "@/app/constants/endpoint";
 import { IPostBill } from "@/app/types/payment";
 import api from "@/app/services/api";
 import { IUser } from "@/app/types/account";
-import { IPutProfilePayload } from "@/app/types/profile";
+import { ICheckPassword, IPutPassword, IPutProfile } from "@/app/types/profile";
 // import { access } from 'fs';
 
 export type UserData = {
@@ -78,13 +78,27 @@ export const updateImage = createAsyncThunk<IUser, IPutAvatarPayload>(
     return data;
   }
 );
-export const updateProfile = createAsyncThunk<
-  void,
-  { payload: IPutProfilePayload }
->("@@auth/updateProfile", async (payload, thunkApi) => {
-  const { data } = await api.profileService.putProfile(payload);
-  return data;
-});
+export const updateProfile = createAsyncThunk<void, IPutProfile>(
+  "@@auth/updateProfile",
+  async (payload, thunkApi) => {
+    const { data } = await api.profileService.putProfile(payload);
+    return data;
+  }
+);
+export const checkPassword = createAsyncThunk<void, ICheckPassword>(
+  "@@auth/updateProfile",
+  async (payload, thunkApi) => {
+    const { data } = await api.profileService.checkPassword(payload);
+    return data;
+  }
+);
+export const updatePassword = createAsyncThunk<void, IPutPassword>(
+  "@@auth/updateProfile",
+  async (payload, thunkApi) => {
+    const { data } = await api.profileService.putPassword(payload);
+    return data;
+  }
+);
 //create user slice
 export const userSlice = createSlice({
   name: "auth",
