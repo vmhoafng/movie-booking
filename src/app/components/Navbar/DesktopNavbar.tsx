@@ -6,6 +6,10 @@ import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { PATHS } from '@/app/constants/path';
 import { Bars3Icon } from '@heroicons/react/24/solid';
+import { useRedux } from '@/app/hooks';
+import authUtils from '@/app/utils/auth';
+import { getCurrentUser } from '@/app/redux/auth';
+import Button from '../button/Button';
 
 const navigation = [
 	{ name: 'TRANG CHỦ', to: PATHS.HOME.IDENTITY },
@@ -14,43 +18,24 @@ const navigation = [
 	{ name: 'RẠP/VÉ', to: PATHS.CINEMA.IDENTITY },
 	// { name: 'THÀNH VIÊN', to: '' },
 ];
-function classNames(...classes) {
+function classNames(...classes: any[]) {
 	return classes.filter(Boolean).join(' ');
 }
 
-function DesktopNavbar() {
-	const [active, setActive] = useState();
-	const location = useLocation();
-	// var scrollBefore = 0;
-
-	// window.addEventListener("scroll", () => {
-	//    const scrolled = window.scrollY;
-
-	//    if (scrollBefore > scrolled) {
-	//       console.log("ScrollUP");
-	//       scrollBefore = scrolled;
-	//       //Desired action
-	//    } else if(scrollBefore ){
-	//       scrollBefore = scrolled;
-	//       console.log("ScrollDOWN");
-	//       //Desired action
-	//    }
-	// });
+const Profile = () => {
+	const { dispatch, appSelector } = useRedux();
+	const { user, userLoggedIn } = appSelector((state) => state.auth);
 
 	useEffect(() => {
-		setActive(location.pathname);
-	}, [location]);
+		if (!user.role && authUtils.isAuthenticated()) {
+			const promise = dispatch(getCurrentUser());
+			return () => promise.abort();
+		}
+	}, [dispatch, user.role]);
 
 	return (
-		<div className="fixed top-0 left-0 right-0 bg-bgPrimaryBar items-center justify-between w-full z-50 shadow-[0px_30px_120px_0px_rgba(0,0,0,0.3)]">
-			<div className="h-[96px] w-full container gap-[27.5px]  md:gap-[75px] items-center flex justify-between mx-auto px-[15px] md:px-0">
-				<div className="box-border lg:flex-1 max-w-[96px] md:max-w-[127px] items-center justify-center ">
-					<img className="w-full" src={'./assets/images/Logo.png'} alt="" />
-				</div>
-				<div className=" max-w-[600px] lg:flex-1   ">
-					<Search />
-				</div>
-
+		<>
+			{userLoggedIn ? (
 				<div className="hidden md:flex lg:flex-1 max-w-[187px] gap-[10px] items-center">
 					<div className="text-[white]/60 hidden lg:block">
 						Nguyễn Trương Khánh Hoàng
@@ -115,6 +100,41 @@ function DesktopNavbar() {
 						</Menu.Items>
 					</Menu>
 				</div>
+			) : (
+				<div className="hidden md:flex items-center gap-5 text-xs md:text-sm lg:text-[15px]  whitespace-nowrap">
+					<Link to="/auth" className="">
+						<div className="text-white/80 font-inter hover:underline underline-offset-2 hover:text-highlight">
+							Đăng ký
+						</div>
+					</Link>
+					<Link to="/auth" className="">
+						<Button small>Đăng nhập </Button>
+					</Link>
+				</div>
+			)}
+		</>
+	);
+};
+
+function DesktopNavbar() {
+	const [active, setActive] = useState<string>();
+	const location = useLocation();
+
+	useEffect(() => {
+		setActive(location.pathname);
+	}, [location]);
+
+	return (
+		<div className="fixed top-0 left-0 right-0 bg-bgPrimaryBar items-center justify-between w-full z-50 shadow-[0px_30px_120px_0px_rgba(0,0,0,0.3)]">
+			<div className="h-[96px] w-full container gap-[27.5px]  md:gap-[75px] items-center flex justify-between mx-auto px-[15px] md:px-0">
+				<div className="box-border lg:flex-1 max-w-[96px] md:max-w-[127px] items-center justify-center ">
+					<img className="w-full" src={'./assets/images/Logo.png'} alt="" />
+				</div>
+				<div className=" max-w-[600px] lg:flex-1   ">
+					<Search />
+				</div>
+
+				<Profile />
 				<div className="md:hidden ">
 					<Bars3Icon className="h-6 w-6 text-white" />
 				</div>
@@ -128,12 +148,12 @@ function DesktopNavbar() {
 								key={item.name}
 								to={item.to}
 								className={classNames(
-									regex.test(active)
+									regex.test(active!)
 										? ' text-highlight'
 										: 'text-gray-300  hover:text-white',
 									'rounded-md px-3 py-[15px] text-sm md:text-[15px] lg:text-[16px] font-bold'
 								)}
-								aria-current={regex.test(active) ? 'page' : undefined}
+								aria-current={regex.test(active!) ? 'page' : undefined}
 							>
 								{item.name}
 							</Link>

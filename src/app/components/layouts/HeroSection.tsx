@@ -12,7 +12,7 @@ export default function HeroSection() {
 			></div>
 			<div className="absolute top-1/2 text-center text-white left-1/2 translate-x-[-50%] translate-y-[-50%]">
 				<p className="md:hidden text-highlight font-bold ">Welcome to Cinema</p>
-				<div className="text-[32px] mt-[20px] md:text-[36px] lg:text-[64px]  font-extrabold ">
+				<div className="text-[28px] mt-[20px] md:text-[36px] lg:text-[64px]  font-extrabold ">
 					<p className="drop-shadow-[2px_2px_4px_0_#000] whitespace-nowrap ">
 						BOOK YOUR TICKET
 					</p>

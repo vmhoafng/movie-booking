@@ -57,6 +57,11 @@ export type IMovieByStatusList = {
 	data: [IMovieStatus & { movies: IMovie[] }];
 };
 
+export type IMoviesGetAll = {
+	total: number;
+	data: IMovie[];
+};
+
 export type IMovieShowTimeListByDate = IMovie & {
 	genre: IMovieGenre;
 	status: IMovieStatus;
