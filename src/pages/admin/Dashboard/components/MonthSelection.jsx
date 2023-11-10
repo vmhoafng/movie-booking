@@ -6,15 +6,15 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-export function formatToMonthYear(inputDate) {
+export function formatDate(inputDate) {
    const dateObject = new Date(inputDate);
-   const formattedDate = dateObject.toLocaleDateString("vi-VN", {
+   const formattedDate = dateObject.toLocaleDateString("zh-Hans-CN", {
       month: "2-digit",
       day: "2-digit",
       year: "numeric",
    });
 
-   return formattedDate;
+   return formattedDate.replace(/\//g, "-");
 }
 
 const MonthSelection = ({ onChange }) => {
@@ -36,7 +36,7 @@ const MonthSelection = ({ onChange }) => {
       <DatePicker
          selected={startDate}
          onChange={(date) => {
-            onChange(formatToMonthYear(date));
+            onChange(formatDate(date));
             setStartDate(date);
          }}
          dateFormat="MM/yyyy"

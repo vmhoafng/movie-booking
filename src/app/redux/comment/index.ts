@@ -54,7 +54,9 @@ const commentsSlice = createSlice({
    extraReducers(builder) {
       builder
          .addCase(getAll.fulfilled, (state, action) => {
-            state.comment.data = [...action.payload.data];
+            console.log(action.payload.data);
+
+            state.comment.data = [action.payload.data];
             state.comment.total = action.payload.total;
             state.isLoading = false;
             state.isError = false;

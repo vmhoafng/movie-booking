@@ -14,12 +14,7 @@ const RatingList = ({ data, currentPage, itemsPerPage }: RatingListProps) => {
    return (
       <>
          {displayedData.map((comment) => {
-            return (
-               <Rating
-                  data={comment}
-                  key={comment.id}
-               ></Rating>
-            );
+            return <Rating data={comment} key={comment.id}></Rating>;
          })}
       </>
    );

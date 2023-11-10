@@ -1,24 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ControlBar from "../components/controlBar/ControlBar";
 import Card from "./components/Card";
 import Chart from "./components/Chart";
-import MonthSelection, { formatToMonthYear } from "./components/MonthSelection";
+import MonthSelection, { formatDate } from "./components/MonthSelection";
+import { useRedux } from "@/app/hooks";
+import { getAll } from "@/app/redux/dashboard/dashboard.slice";
 
 export type chartType = "revenue" | "ticket" | "cinema" | "movie";
 
+const initialDate = new Date();
+
 function Dashboard() {
+   const { appSelector, dispatch } = useRedux();
+   const dashboardData = appSelector((state) => state.dashboard);
    const [chartType, setChartType] = useState("revenue");
-   const [date, setDate] = useState(formatToMonthYear(new Date()));
+   const [date, setDate] = useState(formatDate(initialDate));
 
    function handleOnClickCard(type: chartType) {
       setChartType(type);
    }
 
+   console.log(dashboardData);
    console.log(date);
 
    function handleOnChangeDate(date: string) {
       setDate(date);
    }
+
+   useEffect(() => {
+      dispatch(getAll(date));
+   }, [date, dispatch]);
 
    return (
       <>

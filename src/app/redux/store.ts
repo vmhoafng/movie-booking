@@ -7,7 +7,8 @@ import cinemaReducer from "./cinema";
 import moviesSlice from "./movies/movies.slice";
 import layoutReducer from "./layout";
 import commentsSlice from "./comment";
-import paymentReducer from './payment';
+import paymentReducer from "./payment";
+import dashboardSlice from "./dashboard/dashboard.slice";
 export const store = configureStore({
    reducer: {
       counter: counterReducer,
@@ -16,9 +17,10 @@ export const store = configureStore({
       showtime: showtimeSlice.reducer,
       cinema: cinemaReducer,
       movies: moviesSlice.reducer,
-		payment: paymentReducer,
+      payment: paymentReducer,
       layout: layoutReducer,
       comment: commentsSlice.reducer,
+      dashboard: dashboardSlice.reducer,
    },
 });
 
