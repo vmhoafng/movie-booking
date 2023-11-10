@@ -15,7 +15,6 @@ export const ENDPOINTS = {
     DATA: "profile",
     CHECKPASSWORD: "checkPassword",
     UPDATE_AVATAR: "user/avatar",
-    UPDATE_PROFILE: "user",
   },
   PAYMENT: {
     POST_BILL: "customer/bill",

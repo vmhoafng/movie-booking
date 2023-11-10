@@ -7,10 +7,9 @@ import profileService from "../modules/profile/profile.service";
 import moviesService from "../modules/movies/movies.service";
 import { paymetService } from "../modules/payment";
 export default {
-  movie,
-  showtime,
-  cinemaService,
-  moviesService,
-  paymetService,
-  profileService,
+	movie,
+	showtime,
+	cinemaService,
+	moviesService,
+	paymetService,
 };
