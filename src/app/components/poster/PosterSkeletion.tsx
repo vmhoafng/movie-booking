@@ -5,10 +5,10 @@ type MovieSkeletionProps = {
 };
 function MovieSkeletion({ horizontal }: MovieSkeletionProps) {
   return (
-    <div role="status" className="w-fit shadow animate-pulse">
+    <div role="status" className="w-full shadow animate-pulse">
       <div
         className="
-        w-fit
+        w-full
         flex
         flex-col
         border-transparent
@@ -20,7 +20,7 @@ function MovieSkeletion({ horizontal }: MovieSkeletionProps) {
             `relative flex items-center justify-center mb-4 bg-gray-300 rounded dark:bg-gray-700`,
             horizontal
               ? "w-[220px] h-[145px] xl:w-[250px] xl:h-[165px]"
-              : "w-[190px] h-[300px] xl:w-[290px] xl:h-[430px]"
+              : "w-full min-h-[300px] min-w-[175px] md:h-[300px] md:w-[190px] xl:w-[290px] xl:h-[430px]"
           )}
         >
           <svg
@@ -42,7 +42,9 @@ function MovieSkeletion({ horizontal }: MovieSkeletionProps) {
           gap-[10px]
           py-5
           px-3`,
-            horizontal ? "w-[220px] xl:w-[250px]" : "w-[190px] xl:w-[290px]"
+            horizontal
+              ? "w-[220px] xl:w-[250px]"
+              : "w-full min-w-[175px] md:w-[190px] xl:w-[290px]"
           )}
         >
           <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 mb-4"></div>

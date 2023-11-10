@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AccountItem from "./components/AccountForm";
+import AccountForm from "./components/AccountForm";
 import PasswordItem from "./components/PasswordForm";
 import CurrencyHistoryItem from "./components/CurrencyHistoryItem";
 import AvatarItem from "./components/AvatarItem";
@@ -61,7 +61,7 @@ export default function Profile() {
           <AvatarItem />
         </div>
         <div className="w-full lg:flex lg:gap-10">
-          <AccountItem />
+          <AccountForm />
           <div className="lg:hidden w-full border-t border-dashed border-borderColor" />
           <PasswordItem />
         </div>
