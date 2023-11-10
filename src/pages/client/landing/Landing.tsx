@@ -31,7 +31,7 @@ function Landing() {
 
 	return (
 		<div className="bg-bgPrimary md:w-full md:h-full flex flex-col md:flex-col items-center self-stretch overflow-hidden">
-			<div className="bg-bgPrimary md:w-full   flex items-center flex-col self-stretch sm:px-[15px] ">
+			<div className="bg-bgPrimary md:w-full   flex items-center flex-col self-stretch ">
 				<div className=" flex w-full flex-col items-center md:gap-[40px] py-[50px] border-b-2 border-[#314C81]">
 					<div className=" flex w-full md:h-[33px] justify-between font-bold items-end self-stretch ">
 						<p className="text-white lg:text-xl xl:text-[22px]  underline md:underline-offset-8 decoration-highlight ">
@@ -78,21 +78,21 @@ function Landing() {
 											subname={movie.sub_name}
 											src={movie.poster}
 											alt={movie.name}
-											to={movie.id}
+											to={`/movies/${movie.slug}`}
 										/>
 									</SwiperSlide>
 								);
 							})}
 						</Swiper>
 					</div>
-					<div className="lg:hidden grid grid-cols-2 md:grid-cols-3 gap-5">
+					<div className="lg:hidden grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-5">
 						{showingNow.map((movie) => (
 							<Poster
 								name={movie.name}
 								subname={movie.sub_name}
 								src={movie.poster}
 								alt={movie.name}
-								to={movie.id}
+								to={`/movies/${movie.slug}`}
 							/>
 						))}
 					</div>
@@ -144,21 +144,21 @@ function Landing() {
 											subname={movie.sub_name}
 											src={movie.poster}
 											alt={movie.name}
-											to={movie.id}
+											to={`/movies/${movie.slug}`}
 										/>
 									</SwiperSlide>
 								);
 							})}
 						</Swiper>
 					</div>
-					<div className="lg:hidden grid grid-cols-2 md:grid-cols-3 gap-5">
+					<div className="lg:hidden grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-5">
 						{comingSoon.map((movie) => (
 							<Poster
 								name={movie.name}
 								subname={movie.sub_name}
 								src={movie.poster}
 								alt={movie.name}
-								to={movie.id}
+								to={`/movies/${movie.slug}`}
 							/>
 						))}
 					</div>

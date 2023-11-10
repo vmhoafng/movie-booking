@@ -1,5 +1,10 @@
 import { ENDPOINTS, getEndPoint } from '@/app/constants/endpoint';
-import { IMovieSlug, IPutMovieDetails, IgetByStatus } from '@/app/types/movie';
+import {
+	IMovieSlug,
+	IPutMovieDetails,
+	IgetByStatus,
+	IgetShowtimeByMovie,
+} from '@/app/types/movie';
 import { Axios } from '@/app/utils/api';
 const moviesService = {
 	getAll: async (payload: IgetByStatus) => {
@@ -12,11 +17,11 @@ const moviesService = {
 		});
 	},
 	getMovieSlug: (payload: IMovieSlug) => {
-		return Axios.axiosGet(ENDPOINTS.MOVIE_SLUG, {
-			params: {
-				slug: payload.slug || '',
-			},
-		});
+		return Axios.axiosGet(
+			getEndPoint(ENDPOINTS.MOVIE_SLUG, {
+				movieSlug: payload.slug,
+			})
+		);
 	},
 
 	getMovieById: (id: string) => {
@@ -24,6 +29,20 @@ const moviesService = {
 			getEndPoint(ENDPOINTS.ADMIN.MOVIE.DETAIL, {
 				movieId: id,
 			})
+		);
+	},
+
+	getMovieShowtimes: (payload: IgetShowtimeByMovie) => {
+		const { id, date } = payload;
+		return Axios.axiosGet(
+			getEndPoint(ENDPOINTS.SHOWTIME_BY_MOVIE, {
+				movieId: id,
+			}),
+			{
+				params: {
+					date,
+				},
+			}
 		);
 	},
 
