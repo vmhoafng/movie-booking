@@ -61,7 +61,6 @@ const Input: React.FC<InputProps> = ({
             type={type}
             disabled={disabled}
             placeholder={placeholder}
-            // value={value}
             autoComplete="off"
             {...register(id)}
             // onChange={(e) => setValue(e.target.value)}
