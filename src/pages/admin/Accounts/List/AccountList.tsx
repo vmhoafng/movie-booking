@@ -1,104 +1,102 @@
 import Dropdown from "@/app/components/Dropdown";
 import { MenuItem } from "@/app/components/Dropdown/Dropdown.type";
 import SwitchButton from "@/app/components/button/SwitchButton";
-import Table from "@/app/components/table";
+import Table from "../../components/table/Table";
 import { IUser } from "@/app/types/account";
-
-import {
-  EllipsisHorizontalIcon,
-  EyeIcon,
-  PencilIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
-import { useState } from "react";
-
-type UserRowProps = {
-  row: IUser;
+import { useCallback, useState } from "react";
+import Pagination from "../../components/pagination/Pagination";
+const data = {
+  total: 2,
+  data: [
+    {
+      id: "cd6d016d-9381-3cfb-a5fb-1f833b3ef160",
+      email: "vmhoafng@gmail.com",
+      point: 0,
+      avatar:
+        "https://cdn.discordapp.com/attachments/1168144426141499412/1169264779769155594/c6e56503cfdd87da299f72dc416023d4.jpg?ex=6554c5af&is=654250af&hm=440ebc745e441103a1824a80edb22f2d1c371743e8d7a4d413dbbc62eae31554&",
+      gender: "Nam",
+      verify: true,
+      role: "CUSTOMER",
+      full_name: "vmhoafng",
+      date_of_birth: "2023-11-09",
+      phone_number: "0929829783",
+    },
+    {
+      id: "49c64e33-d273-38ef-a68c-23e1aa16e499",
+      email: "nngocsang38@gmail.com",
+      point: 80,
+      avatar:
+        "https://cdn.discordapp.com/attachments/1159668660340789259/1172708705003905065/dev.jpg?ex=65614d17&is=654ed817&hm=f6fa7c63b23cbef9e9fe22b0d531f2f5d8bc0cf37d400f36a3f097595aec654f&",
+      gender: "Nam",
+      verify: true,
+      role: "ADMIN",
+      full_name: "Nguyễn Ngọc Sang",
+      date_of_birth: "2023-11-10",
+      phone_number: "0916921133",
+    },
+  ],
 };
-
-const UserRow = ({ row }: UserRowProps) => {
-  const [isVerify, setIsVerify] = useState<boolean>(row.verify);
-
-  const items: MenuItem<IUser>[] = [
-    {
-      label: "Xem",
-      to: `${row.email}`,
-      icon: EyeIcon,
-    },
-    {
-      label: "Sửa",
-      to: `${row.email}/edit`,
-      icon: PencilIcon,
-    },
-    {
-      label: "Xóa",
-      to: `${row.email}/delete`,
-      icon: TrashIcon,
-    },
-  ];
-
-  return (
-    <>
-      <div className="py-3">
-        <img
-          src={`${row.avatar || "./assets/icons/account-circle.svg"}`}
-          alt=""
-          className="w-full"
-        />
-      </div>
-      <div className=" truncate py-3">
-        <span className="truncate">{row.full_name}</span>
-      </div>
-      <div className="py-3 truncate">
-        <span className="truncate">{row.email}</span>
-      </div>
-      <div className="py-3">
-        <span>{row.gender ? "Nam" : "Nữ"}</span>
-      </div>
-      <div className="py-3">
-        <span className="truncate">{row.phone_number}</span>
-      </div>
-      <div className="py-3">
-        <span>{row.date_of_birth}</span>
-      </div>
-      <div className="py-3">
-        <span>{row.point}</span>
-      </div>
-      <div className="py-3">
-        <SwitchButton
-          value={isVerify}
-          onChange={() => setIsVerify(!isVerify)}
-        />
-      </div>
-      <div className="py-3 flex items-center justify-center">
-        <Dropdown items={items}>
-          <EllipsisHorizontalIcon className="h-6 w-6 text-highlight " />
-        </Dropdown>
-      </div>
-    </>
-  );
-};
-
 function AccountList() {
-  // const { data, setData } = useTable();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 1; // Number of items to display per page
+  const pageCount = Math.ceil(data.data.length / itemsPerPage);
+  const handlePageChange = (selectedPage: number) => {
+    setCurrentPage(selectedPage + 1);
+  };
 
+  const dataKeys = [
+    "avatar",
+    "full_name",
+    "email",
+    "gender",
+    "phone_number",
+    "date_of_birth",
+    "point",
+    "verify",
+  ];
+  const columns = [
+    "Ảnh",
+    "Họ tên",
+    "Email",
+    "Giới tính",
+    "Điện thoại",
+    "Ngày sinh",
+    "Điểm",
+    "Kích hoạt",
+  ];
+  const renderCell = useCallback((row: any, dataKeys: any) => {
+    if (dataKeys === "avatar")
+      return (
+        <img
+          src={row["avatar"]}
+          alt={row["avatar"]}
+          className="h-7 w-7 rounded-full"
+        />
+      );
+    if (dataKeys === "verify")
+      return (
+        <SwitchButton value={row["verify"]} onChange={() => {}}></SwitchButton>
+      );
+    if (dataKeys === "point")
+      return <span className="text-highlight">{row["point"]}</span>;
+    return <span className="">{row[dataKeys]}</span>;
+  }, []);
   return (
     <>
       <Table
-        header={[
-          "Ảnh",
-          "Họ tên",
-          "Email",
-          "Giới tính",
-          "Điện thoại",
-          "Ngày sinh",
-          "Điểm",
-          "Kích hoạt",
-          "Tác vụ",
-        ]}
-        row={(row, index) => {
-          return <UserRow row={row} key={`test-${index}`} />;
-        }}
+        data={data.data}
+        columns={columns}
+        renderCell={renderCell}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        dataKeys={dataKeys}
+      />
+      <Pagination
+        pageCount={pageCount}
+        onPageChange={handlePageChange}
+        currentPage={currentPage}
+        itemPerPage={itemsPerPage}
+        dataLength={data.data.length}
       />
     </>
   );

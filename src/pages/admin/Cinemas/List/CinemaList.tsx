@@ -46,7 +46,7 @@ function CinemaList() {
         currentPage={currentPage}
         itemPerPage={itemsPerPage}
         dataLength={cinemas.length}
-      />{" "}
+      />
     </div>
   );
 }
