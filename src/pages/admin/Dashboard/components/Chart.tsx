@@ -25,6 +25,8 @@ function findMaxContent(dataArray: IChartItem[]) {
       }
    }
 
+   console.log(maxContent);
+
    return maxContent;
 }
 
@@ -33,18 +35,33 @@ function formatAxisYValue(num: number) {
       return null;
    }
 
+   console.log(num);
+
    let result = {};
 
-   if (num < 1000000) {
+   if (num < 100) {
+      const roundedValue = Math.ceil(num / 10);
+      result = { max: roundedValue * 10, character: "" };
+   } else if (num < 1000) {
+      const roundedValue = Math.ceil(num / 100);
+      result = { max: roundedValue, character: "" };
+   } else if (num < 1000000) {
       const roundedValue = Math.ceil(num / 1000);
       result = { max: roundedValue, character: "K" };
    } else if (num < 1000000000) {
       const roundedValue = Math.ceil(num / 1000000);
       result = { max: roundedValue, character: "M" };
-   } else {
+   } else if (num > 1000000000) {
       const roundedValue = Math.ceil(num / 1000000000);
       result = { max: roundedValue, character: "B" };
+   } else {
+      const roundedValue = Math.ceil(num / 100);
+      console.log(roundedValue);
+
+      result = { max: roundedValue, character: "" };
    }
+
+   console.log(result);
 
    return result;
 }
@@ -71,10 +88,15 @@ const Chart = ({
    let maxContent = findMaxContent(chart);
    let yValue = formatAxisYValue(maxContent);
    let xValue = formatAxisXValue(chart, type);
+
    function formatChartBarValue(content: string, yValue: axisYValue) {
       let barValue = parseFloat(content);
+      console.log(content, yValue.character);
 
       switch (yValue.character) {
+         case "":
+            barValue = barValue < 100 ? barValue : barValue / 100;
+            break;
          case "K":
             barValue = barValue / 1000;
             break;
@@ -86,12 +108,15 @@ const Chart = ({
          case "B":
             barValue = barValue / 1000000000;
             break;
-
          default:
             break;
       }
 
-      return yValue.max / 100 > 0 ? barValue / 100 : barValue / 10;
+      return yValue.max / 100 > 1
+         ? barValue / 100
+         : yValue.max / 10 > 1
+         ? barValue / 10
+         : barValue;
    }
 
    return (
@@ -103,7 +128,7 @@ const Chart = ({
          <div className=" px-4 pt-8 pb-12 flex items-end">
             <AxisY value={yValue as axisYValue}></AxisY>
             <div className="relative flex flex-1 flex-col items-end pl-4">
-               <div className="w-full  min-h-[120px] flex flex-row items-end justify-between bg-white/5 text-right">
+               <div className="w-full  min-h-[40px] flex flex-row items-end justify-between bg-white/5 text-right">
                   {chart.map((bar, index) => {
                      let barValue = formatChartBarValue(
                         bar.content,

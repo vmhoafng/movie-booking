@@ -3,8 +3,9 @@ import { axisYValue } from "./Chart";
 
 const AxisY = ({ value }: { value: axisYValue }) => {
    let arrValue = [];
+   console.log(value.max);
 
-   let step = value.max / 100 > 0 ? 100 : 10;
+   let step = value.max / 100 > 1 ? 100 : value.max / 10 > 1 ? 10 : 1;
 
    for (let i = 0; i <= value.max; i += step) {
       arrValue.push(i);

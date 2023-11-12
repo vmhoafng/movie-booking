@@ -58,8 +58,6 @@ function Dashboard() {
    }
 
    function getChartByType(type: chartType) {
-      console.log("getChartByType");
-
       let arr = data.filter((card) => {
          return card.title === type;
       });
@@ -69,22 +67,13 @@ function Dashboard() {
 
    useEffect(() => {
       dispatch(getAll(date));
-      console.log("useEffect 1");
    }, [date, dispatch]);
 
    useEffect(() => {
-      console.log("useEffect 2");
-
-      // console.log(chartType);
       let arr = getChartByType(chartType as chartType);
-      // console.log(arr);
-
       setChart(arr);
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [chartType, date, data]);
-
-   // console.log(chart);
-   console.log("outside");
 
    return (
       <>
