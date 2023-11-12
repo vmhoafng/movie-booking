@@ -4,74 +4,118 @@ import Card from "./components/Card";
 import Chart from "./components/Chart";
 import MonthSelection, { formatDate } from "./components/MonthSelection";
 import { useRedux } from "@/app/hooks";
-import { getAll } from "@/app/redux/dashboard/dashboard.slice";
+import { IChartItem, getAll } from "@/app/redux/dashboard/dashboard.slice";
+import LoadingAnimation from "@/app/components/loading/LoadingAnimation";
 
 export type chartType = "revenue" | "ticket" | "cinema" | "movie";
+
+type TitleObj = {
+   [key: string]: string;
+};
+
+export const ChartTitle: TitleObj = {
+   revenue: "Doanh thu",
+   ticket: "Vé đã bán",
+   cinema: "Rạp",
+   movie: "Phim",
+};
+
+function formatToMonthYear(inputDate: string): string {
+   const dateObject = new Date(inputDate);
+   const formattedDate = dateObject.toLocaleDateString("en-US", {
+      month: "2-digit",
+      year: "numeric",
+   });
+
+   return formattedDate;
+}
 
 const initialDate = new Date();
 
 function Dashboard() {
    const { appSelector, dispatch } = useRedux();
-   const dashboardData = appSelector((state) => state.dashboard);
-   const [chartType, setChartType] = useState("revenue");
+   const { data, isLoading } = appSelector((state) => state.dashboard);
+   const [chartType, setChartType] = useState<chartType>("revenue");
+   const [chart, setChart] = useState<IChartItem[]>([]);
    const [date, setDate] = useState(formatDate(initialDate));
 
    function handleOnClickCard(type: chartType) {
       setChartType(type);
    }
 
-   console.log(dashboardData);
-   console.log(date);
-
    function handleOnChangeDate(date: string) {
       setDate(date);
    }
 
+   function checkPercentStatus(type: string, percent: string) {
+      if (type === "revenue" || type === "ticket") {
+         if (percent.includes("-")) {
+            return "down";
+         }
+         return "up";
+      }
+      return "";
+   }
+
+   function getChartByType(type: chartType) {
+      console.log("getChartByType");
+
+      let arr = data.filter((card) => {
+         return card.title === type;
+      });
+
+      return arr.length ? arr[0].chart : [];
+   }
+
    useEffect(() => {
       dispatch(getAll(date));
+      console.log("useEffect 1");
    }, [date, dispatch]);
+
+   useEffect(() => {
+      console.log("useEffect 2");
+
+      // console.log(chartType);
+      let arr = getChartByType(chartType as chartType);
+      // console.log(arr);
+
+      setChart(arr);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [chartType, date, data]);
+
+   // console.log(chart);
+   console.log("outside");
 
    return (
       <>
+         {isLoading && <LoadingAnimation></LoadingAnimation>}
          <ControlBar title={"Thống kê"}>
             <MonthSelection onChange={handleOnChangeDate}></MonthSelection>
          </ControlBar>
          <div className="flex flex-col gap-5 justify-between items-center">
             <div className="w-full flex justify-between items-center">
-               <Card
-                  title={"Doanh thu"}
-                  percent={"50"}
-                  status={"up"}
-                  value={"100.000.000.000"}
-                  type="revenue"
-                  onClick={() => handleOnClickCard("revenue")}
-               ></Card>
-               <Card
-                  title={"Vé đã bán"}
-                  percent={"35"}
-                  status={"down"}
-                  value={"1.000"}
-                  type="ticket"
-                  onClick={() => handleOnClickCard("ticket")}
-               ></Card>
-               <Card
-                  title={"Rạp cao nhất"}
-                  percent={"50"}
-                  status={""}
-                  value={"An Dương Vương"}
-                  type="cinema"
-                  onClick={() => handleOnClickCard("cinema")}
-               ></Card>
-               <Card
-                  title={"Phim cao nhất"}
-                  percent={"50"}
-                  status={""}
-                  value={"The Nun II"}
-                  type="movie"
-                  onClick={() => handleOnClickCard("movie")}
-               ></Card>
+               {data.map((card) => {
+                  return (
+                     <Card
+                        percent={card.percent}
+                        status={checkPercentStatus(
+                           card.title as chartType,
+                           card.percent
+                        )}
+                        value={card.content}
+                        type={card.title}
+                        onClick={() =>
+                           handleOnClickCard(card.title as chartType)
+                        }
+                     ></Card>
+                  );
+               })}
             </div>
-            <Chart type={chartType}></Chart>
+            <Chart
+               type={chartType}
+               date={formatToMonthYear(date)}
+               chart={chart}
+            ></Chart>
          </div>
       </>
    );

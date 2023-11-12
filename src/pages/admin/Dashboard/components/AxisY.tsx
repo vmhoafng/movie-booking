@@ -1,19 +1,26 @@
 import React from "react";
+import { axisYValue } from "./Chart";
 
-const AxisY = () => {
+const AxisY = ({ value }: { value: axisYValue }) => {
+   let arrValue = [];
+
+   let step = value.max / 100 > 0 ? 100 : 10;
+
+   for (let i = 0; i <= value.max; i += step) {
+      arrValue.push(i);
+   }
+
    return (
-      <div className="h-full pr-4 mb-9 flex flex-col-reverse text-right gap-y-5 text-white/70 text-sm border-r border-borderColor">
-         <h3>0M</h3>
-         <h3>1M</h3>
-         <h3>2M</h3>
-         <h3>3M</h3>
-         <h3>4M</h3>
-         <h3>5M</h3>
-         <h3>6M</h3>
-         <h3>7M</h3>
-         <h3>8M</h3>
-         <h3>9M</h3>
-         <h3>10M</h3>
+      <div className="h-full pr-4 flex flex-col-reverse text-right text-white/70 text-sm border-r border-borderColor">
+         {arrValue.map((item) => {
+            return (
+               <div className="h-10 flex items-end justify-end">
+                  <h3 className="leading-[9px] text-[14px]">
+                     {item + value.character}
+                  </h3>
+               </div>
+            );
+         })}
       </div>
    );
 };

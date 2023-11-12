@@ -22,8 +22,6 @@ const initialState: ICommentsState = {
 export const getCommentByStatus = createAsyncThunk(
    "@@movies/getCommentByStatus",
    async (payload: ICommentStatus) => {
-      // console.log(payload);
-
       const { data } = await api.commentService.getCommentByStatus(payload);
       return data;
    }
@@ -31,8 +29,6 @@ export const getCommentByStatus = createAsyncThunk(
 
 export const getAll = createAsyncThunk("@@movies/getAll", async () => {
    const { data } = await api.commentService.getAll();
-   console.log(data);
-
    return data;
 });
 
@@ -54,8 +50,6 @@ const commentsSlice = createSlice({
    extraReducers(builder) {
       builder
          .addCase(getAll.fulfilled, (state, action) => {
-            console.log(action.payload.data);
-
             state.comment.data = [action.payload.data];
             state.comment.total = action.payload.total;
             state.isLoading = false;
