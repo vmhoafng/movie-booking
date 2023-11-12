@@ -13,43 +13,44 @@ export const ENDPOINTS = {
   CINEMA_LIST: `landing/cinemas`,
   PROFILE: {
     DATA: "profile",
-    CHECKPASSWORD: "checkPassword",
+    CHECKPASSWORD: `checkPassword`,
     UPDATE_AVATAR: "user/avatar",
     UPDATE_PROFILE: "user",
     CHANGEPASSWORD: "changePassword",
+    BILLS: "customer/user/bills",
   },
   PAYMENT: {
     POST_BILL: "customer/bill",
   },
 
-   AUTH: {
-      FORGOT_PASSWORD: "auth/sendToResetPass",
-      RESET_PATH: "auth/resetPass",
-   },
+  AUTH: {
+    FORGOT_PASSWORD: "auth/sendToResetPass",
+    RESET_PATH: "auth/resetPass",
+  },
 
-   ADMIN: {
-      MOVIE: {
-         DETAIL: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
-         LIST: `admin/movie`,
-         PUT: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
-      },
-      COMMENT: {
-         ALL: "admin/comments",
-         BY_STATUS: `admin/comments/status`,
-         MODIFY_STATUS: `admin/moderationComment/${ROUTE_PARAMS.COMMENT_ID}`,
-      },
-      DASHBOARD: {
-         ALL: `admin/statistical`,
-      },
-   },
+  ADMIN: {
+    MOVIE: {
+      DETAIL: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
+      LIST: `admin/movie`,
+      PUT: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
+    },
+    COMMENT: {
+      ALL: "admin/comments",
+      BY_STATUS: `admin/comments/status`,
+      MODIFY_STATUS: `admin/moderationComment/${ROUTE_PARAMS.COMMENT_ID}`,
+    },
+    DASHBOARD: {
+      ALL: `admin/statistical`,
+    },
+  },
 };
 
 export const getEndPoint = (endpoint: string, arg: Object) => {
-   let newEndpoint = "";
-   Object.keys(arg).forEach((key) => {
-      const regex = new RegExp("(:" + key + ")", "g");
-      //@ts-ignore
-      newEndpoint = endpoint.replace(regex, arg[key]);
-   });
-   return newEndpoint;
+  let newEndpoint = "";
+  Object.keys(arg).forEach((key) => {
+    const regex = new RegExp("(:" + key + ")", "g");
+    //@ts-ignore
+    newEndpoint = endpoint.replace(regex, arg[key]);
+  });
+  return newEndpoint;
 };

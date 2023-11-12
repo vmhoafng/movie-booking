@@ -5,8 +5,16 @@ import Button from "../../../../app/components/button/Button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import useWindowDimensions from "../../../../app/hooks/useWindowDimensions";
+import { useRedux } from "@/app/hooks";
+import {
+  checkPassword,
+  updatePassword,
+} from "@/app/redux/profile/profile.slice";
+import { ICheckPassword, IPutPassword } from "@/app/types/profile";
 function PasswordItem() {
   const { width } = useWindowDimensions();
+  const { appSelector, dispatch } = useRedux();
+
   const validationSchema = yup.object({
     oldPassword: yup.string(),
     newPassword: yup.string(),
@@ -19,8 +27,25 @@ function PasswordItem() {
   } = useForm<FieldValues>({
     resolver: yupResolver(validationSchema),
   });
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    await dispatch(
+      checkPassword({ password: data?.oldPassword } as ICheckPassword)
+    )
+      .then((data) => data.payload)
+      .then((callback) => {
+        if (
+          callback &&
+          data.newPassword.concat() !== "" &&
+          data.newPassword === data.confirmNewPassword
+        ) {
+          dispatch(
+            updatePassword({
+              oldPassword: data?.oldPassword,
+              newPassword: data?.newPassword,
+            } as IPutPassword)
+          );
+        } else console.log("fail");
+      });
   };
   return (
     <form

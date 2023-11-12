@@ -4,6 +4,7 @@ import Table from "../../components/table/Table";
 import Pagination from "../../components/pagination/Pagination";
 import { useRedux } from "@/app/hooks";
 import { getCinemas } from "@/app/redux/cinema";
+import Title from "@/app/components/Title";
 const dataKeys = ["id", "name", "address", "district", "city", "phone_number"];
 const columns = [
   "ID",
@@ -29,6 +30,9 @@ function CinemaList() {
   };
   return (
     <div className="">
+      <div className="my-6">
+        <Title active>Quản lí rạp</Title>
+      </div>
       <Table
         data={cinemas}
         columns={columns}
