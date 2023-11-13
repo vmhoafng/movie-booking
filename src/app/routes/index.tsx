@@ -1,7 +1,7 @@
 //@ts-nocheck
 
 import React, { Suspense } from 'react';
-import { useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Layout from '../components/layouts/Layout';
 import { PATHS } from '../constants/path';
@@ -9,10 +9,8 @@ import LoadingAnimation from '../components/loading/LoadingAnimation';
 import AdminLayout from '../components/layouts/AdminLayout';
 
 //Lazy loading pages
-
 //landing
 const Landing = React.lazy(() => import('../../pages/client/landing/Landing'));
-
 //auth
 const Auth = React.lazy(() => import('../../pages/client/Auth/Authentication'));
 
@@ -154,6 +152,7 @@ const ticketRoute = {
 //Admin
 
 const dashboardRoute = {
+	index: true,
 	path: PATHS.ADMIN.DASHBOARD.IDENTITY,
 	element: <LoadComponent component={dashboard} />,
 };
@@ -220,8 +219,13 @@ function AllRoutes() {
 		authRoute,
 		{
 			path: '/',
+			element: <Layout landing />,
+			children: [homeRoute],
+		},
+		{
+			path: '/',
 			element: <Layout />,
-			children: [homeRoute, movieRoutes],
+			children: [movieRoutes],
 		},
 		{
 			path: '/',
@@ -254,6 +258,12 @@ function AllRoutes() {
 			path: PATHS.ADMIN.IDENTITY,
 			element: <ProtectedRoute role="ADMIN" component={AdminLayout} />,
 			children: [
+				{
+					path: '',
+					element: (
+						<Navigate to={`${PATHS.ADMIN.DASHBOARD.IDENTITY}`} replace />
+					),
+				},
 				movieManageRoutes,
 				cinemaManageRoutes,
 				userAdminRoute,

@@ -4,6 +4,10 @@ export const ROUTE_PARAMS = {
 	USER_ID: ':userId',
 	SHOWTIME_ID: ':showTimeId',
 	MOVIE_SLUG: ':movieSlug',
+	COMMENT_STATUS: ':status',
+	COMMENT_ID: ':commentId',
+	DASHBOARD_DATE: ':date',
+	VARIANTS: ':variants',
 };
 
 export const PATHS = {
@@ -19,6 +23,7 @@ export const PATHS = {
 
 	AUTH: {
 		IDENTITY: 'auth',
+		VARIANTS: `${ROUTE_PARAMS.VARIANTS}`,
 	},
 
 	MOVIES: {

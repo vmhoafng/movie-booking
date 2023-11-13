@@ -2,6 +2,7 @@ import api from '@/app/services/api';
 import {
 	IMovie,
 	IMovieSlug,
+	IMoviesGetAll,
 	IPutMovieDetails,
 	IgetByStatus,
 	IgetShowtimeByMovie,
@@ -10,6 +11,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 interface IMoviesState {
 	movies: IMovie[];
+	selected: number;
+	showingNow: IMovie[];
+	comingSoon: IMovie[];
 	isLoading: boolean;
 	isError: boolean;
 	errorMessage: string;
@@ -18,6 +22,9 @@ interface IMoviesState {
 
 const initialState: IMoviesState = {
 	movies: [],
+	showingNow: [],
+	selected: -1,
+	comingSoon: [],
 	detail: {} as IMovie,
 	isLoading: false,
 	isError: false,
@@ -41,7 +48,7 @@ export const getMovieDetail = createAsyncThunk(
 export const getShowtimeByMovie = createAsyncThunk(
 	'@@movies/getShowtimeByMovie',
 	async (payload: IgetShowtimeByMovie) => {
-		let { data } = await api.showtime.getShowtimeByMovie(payload);
+		let { data } = await api.moviesService.getMovieShowtimes(payload);
 		return data;
 	}
 );
@@ -62,10 +69,28 @@ export const getMovieDetailById = createAsyncThunk<IMovie, string>(
 	}
 );
 
+export const getMovies = createAsyncThunk<IMoviesGetAll, undefined>(
+	'@@movies/getMovies',
+	async () => {
+		const { data } = await api.moviesService.getAllMovies();
+		return data;
+	}
+);
+
 const moviesSlice = createSlice({
 	name: 'movies',
 	initialState,
-	reducers: {},
+	reducers: {
+		selectMovie: (state, action) => {
+			const { movies } = state;
+			const index = movies.findIndex((c) => c.slug === action.payload);
+			console.log(index);
+
+			if (index !== -1) {
+				state.selected = index;
+			}
+		},
+	},
 	extraReducers(builder) {
 		builder
 			.addCase(getByStatus.fulfilled, (state, action) => {
@@ -83,9 +108,16 @@ const moviesSlice = createSlice({
 				state.isLoading = true;
 			});
 		builder.addCase(getShowtimeByMovie.fulfilled, (state, action) => {
-			state.detail.showtimes = action.payload;
+			state.detail.cinema = action.payload;
+		});
+		builder.addCase(getMovies.fulfilled, (state, action) => {
+			state.movies = [...action.payload.data];
+			state.showingNow = action.payload.data.filter((m) => m.status.id === 2);
+			state.comingSoon = action.payload.data.filter((m) => m.status.id === 1);
 		});
 	},
 });
+
+export const { selectMovie } = moviesSlice.actions;
 
 export default moviesSlice;
