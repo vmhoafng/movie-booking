@@ -11,8 +11,8 @@ import { Navigate, useLocation, useNavigation } from "react-router-dom";
 import { PATHS } from "@/app/constants/path";
 
 const validationSchema = yup.object().shape({
-   email: yup.string().email().required(),
-   password: yup.string().required().min(6),
+   email: yup.string().email("email không đúng định dạng.").required("bắt buộc."),
+   password: yup.string().required("bắt buộc.").min(6, "tối thiểu 6 kí tự."),
 });
 
 const LoginForm = () => {

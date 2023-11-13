@@ -9,7 +9,6 @@ function CinemaDetail() {
   useEffect(() => {
     setSearchParams({ q: searchParams.get("q") || "add" });
   }, [searchParams]);
-  console.log(searchParams.get("q"));
 
   const components = useCallback(() => {
     switch (searchParams.get("q")) {

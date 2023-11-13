@@ -8,6 +8,7 @@ export const ROUTE_PARAMS = {
   COMMENT_ID: ":commentId",
   DASHBOARD_DATE: ":date",
   PASSWORD: ":password",
+  VARIANTS: ":variants",
 };
 
 export const PATHS = {
@@ -23,6 +24,7 @@ export const PATHS = {
 
   AUTH: {
     IDENTITY: "auth",
+    VARIANTS: `${ROUTE_PARAMS.VARIANTS}`,
   },
 
   MOVIES: {

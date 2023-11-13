@@ -3,19 +3,17 @@ import clsx from "clsx";
 import React from "react";
 import DashboardCardIcon from "./DashboardCardIcon";
 import { string } from "yup";
-import { chartType } from "../Dashboard";
+import { ChartTitle, chartType } from "../Dashboard";
 
 export interface DashboardCardProps {
-   title: string;
    percent: string;
    value: string;
    status?: string;
-   type: chartType;
+   type: string;
    onClick?: () => void;
 }
 
 const Card = ({
-   title,
    percent,
    value,
    status,
@@ -29,7 +27,7 @@ const Card = ({
       >
          <div className="flex justify-between items-center mb-7">
             <span className="uppercase text-xs text-white/50 font-normal">
-               {title}
+               {ChartTitle[type]}
             </span>
             {status ? (
                status === "up" ? (

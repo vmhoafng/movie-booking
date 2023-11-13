@@ -1,16 +1,12 @@
 import React from "react";
-const months: number[] = [];
 
-const AxisX = () => {
-   if (months.length <= 0)
-      for (let i = 1; i <= 31; i++) {
-         months.push(i);
-      }
+// eslint-disable-next-line no-empty-pattern
+const AxisX = ({ value }: { value: string[] }) => {
    return (
-      <div className="w-full h-full flex flex-row justify-between items-center text-right gap-y-5 text-white/70 text-sm">
-         {months.map((month) => (
-            <h3 className="w-3 text-center" key={month}>
-               {month}
+      <div className="absolute -bottom-8 left-0 pl-4 w-full flex flex-row justify-between items-start text-center text-white/70 text-sm">
+         {value.map((item, index) => (
+            <h3 className="w-8 text-center truncate" key={index}>
+               {item}
             </h3>
          ))}
       </div>

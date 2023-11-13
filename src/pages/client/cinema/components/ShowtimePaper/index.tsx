@@ -50,7 +50,13 @@ function ShowtimePaper({ movie }: ShowtimePaperProps) {
 				</div>
 				<div className="flex  flex-wrap items-start gap-[10px] ">
 					{showtimeByDate.map((st) => {
-						return <ScheduleButton time={st.start_time} key={st.id} to="" />;
+						return (
+							<ScheduleButton
+								time={st.start_time}
+								key={st.id}
+								to={`/ticket/${st.id}`}
+							/>
+						);
 					})}
 				</div>
 			</div>

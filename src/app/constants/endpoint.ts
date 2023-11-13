@@ -13,7 +13,7 @@ export const ENDPOINTS = {
   CINEMA_LIST: `landing/cinemas`,
   PROFILE: {
     DATA: "profile",
-    CHECKPASSWORD: `checkPassword`,
+    CHECKPASSWORD: "checkPassword",
     UPDATE_AVATAR: "user/avatar",
     UPDATE_PROFILE: "user",
     CHANGEPASSWORD: "changePassword",
