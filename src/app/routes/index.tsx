@@ -7,6 +7,7 @@ import Layout from '../components/layouts/Layout';
 import { PATHS } from '../constants/path';
 import LoadingAnimation from '../components/loading/LoadingAnimation';
 import AdminLayout from '../components/layouts/AdminLayout';
+import VerifyEmail from '../../pages/client/VerifyEmail';
 
 //Lazy loading pages
 //landing
@@ -30,6 +31,7 @@ const payment = React.lazy(() => import('../../pages/client/payment/Payment'));
 const tickets = React.lazy(
 	() => import('../../pages/client/seatPlan/SeatPlan')
 );
+
 //Admin -
 
 const dashboard = React.lazy(() => import('@/pages/admin/Dashboard'));
@@ -217,6 +219,10 @@ const scheduleRoute = {
 function AllRoutes() {
 	return useRoutes([
 		authRoute,
+		{
+			path: PATHS.AUTH.EMAIL,
+			element: <ProtectedRoute component={VerifyEmail} />,
+		},
 		{
 			path: '/',
 			element: <Layout landing />,
