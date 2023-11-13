@@ -76,7 +76,7 @@ function Table<T>({
   const endIndex = startIndex + itemsPerPage;
   const displayedData = data.slice(startIndex, endIndex);
   return (
-    <div className="min-w-full rounded border border-borderColor overflow-hidden">
+    <div className="min-w-full rounded border border-borderColor">
       <table className="min-w-full ">
         <thead className="h-14">
           <tr className="bg-bgPrimary">
@@ -125,10 +125,10 @@ function Table<T>({
                 ))}
                 <td
                   key={rowIndex}
-                  className=" max-w-[200px] px-3 first:pl-6 last:pr-6 h-[46px] font-medium text-sm text-white/70 border-t border-borderColor whitespace-nowrap"
+                  className="max-w-[200px] px-3 first:pl-6 last:pr-6 h-[46px] font-medium text-sm text-white/70 border-t border-borderColor whitespace-nowrap"
                 >
-                  <Dropdown items={items}>
-                    <EllipsisHorizontalIcon className="h-6 w-6 text-highlight " />
+                  <Dropdown items={items} containerClassName="right-0">
+                    <EllipsisHorizontalIcon className="h-6 w-6 text-highlight" />
                   </Dropdown>
                 </td>
               </tr>

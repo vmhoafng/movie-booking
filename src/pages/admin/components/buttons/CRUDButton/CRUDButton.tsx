@@ -14,7 +14,6 @@ const variants = {
 	border border-admin-button-add 
 	hover:bg-admin-button-add 
 	hover:text-white 
-	hover:border-white 
 	transform 
 	transition 
 	duration-300
