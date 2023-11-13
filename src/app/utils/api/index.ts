@@ -28,14 +28,18 @@ instance.interceptors.response.use(
 			case 404:
 				message = `Something bad happened :'(`;
 				break;
+			// case 409:
+			// 	message = `Conflict`;
+			// 	break;
 
 			default: {
 				message =
 					error.response && error.response.data
-						? error.response.data.message
+						? error.response.data.messages[0]
 						: error.message || error;
 			}
 		}
+
 		return Promise.reject(message);
 	}
 );

@@ -1,7 +1,7 @@
 //@ts-nocheck
 
 import React, { Suspense } from 'react';
-import { useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Layout from '../components/layouts/Layout';
 import { PATHS } from '../constants/path';
@@ -152,6 +152,7 @@ const ticketRoute = {
 //Admin
 
 const dashboardRoute = {
+	index: true,
 	path: PATHS.ADMIN.DASHBOARD.IDENTITY,
 	element: <LoadComponent component={dashboard} />,
 };
@@ -257,6 +258,12 @@ function AllRoutes() {
 			path: PATHS.ADMIN.IDENTITY,
 			element: <ProtectedRoute role="ADMIN" component={AdminLayout} />,
 			children: [
+				{
+					path: '',
+					element: (
+						<Navigate to={`${PATHS.ADMIN.DASHBOARD.IDENTITY}`} replace />
+					),
+				},
 				movieManageRoutes,
 				cinemaManageRoutes,
 				userAdminRoute,
