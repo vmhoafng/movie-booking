@@ -26,6 +26,7 @@ export const ENDPOINTS = {
   AUTH: {
     FORGOT_PASSWORD: "auth/sendToResetPass",
     RESET_PATH: "auth/resetPass",
+    REGISTER: "auth/register",
   },
 
   ADMIN: {
