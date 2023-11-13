@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AccountForm from "./components/AccountForm";
 import PasswordItem from "./components/PasswordForm";
-import CurrencyHistoryItem from "./components/CurrencyHistoryItem";
+import CurrencyHistoryItem from "./components/CurrencyHistory";
 import AvatarItem from "./components/AvatarItem";
 export default function Profile() {
   return (
