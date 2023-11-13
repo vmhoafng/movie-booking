@@ -2,6 +2,7 @@ import { ROUTE_PARAMS } from "./path";
 
 export const ENDPOINTS = {
   MOVIE_BY_STATUS: `landing/status/movies`,
+  MOVIES: `landing/movies`,
   MOVIE_SLUG: `landing/movie/${ROUTE_PARAMS.MOVIE_SLUG}`,
   GET_SHOWTIME_BY_CINEMA_DATE: `landing/cinema/${ROUTE_PARAMS.CINEMA_ID}/showtime`,
   CINEMA_MOVIES_SHOWTIME: "landing/cinema/movie/showtime",
