@@ -49,7 +49,7 @@ function SeatPlan() {
             cinema: room.cinema.name,
             format: format.caption,
             movie_name: movie.name,
-            showtime: `${start_date} ${start_time}`,
+            showtime: `${start_time} | ${start_date}`,
             ticket_price: room.seats[0].type.price,
             seat_id: [],
          };

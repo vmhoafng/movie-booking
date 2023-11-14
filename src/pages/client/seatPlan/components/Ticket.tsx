@@ -12,7 +12,7 @@ function Ticket({ ticket }: { ticket: ITicketType }) {
          </h2>
          <div className="w-full border-t border-dashed border-borderColor" />
          <div className="w-full flex sm:py-3 lg:py-4 justify-between">
-            <div className="flex flex-col w-[148px]">
+            <div className="flex flex-col w-[148px] md:w-[280px]">
                <BookingTitle>{ticket?.movie_name}</BookingTitle>
                <BookingSubtitle>{ticket?.format}</BookingSubtitle>
             </div>
