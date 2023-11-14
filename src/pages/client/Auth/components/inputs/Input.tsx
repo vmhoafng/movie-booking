@@ -26,9 +26,6 @@ const Input: React.FC<InputProps> = ({
    min,
    max,
 }) => {
-   console.log(errors[id]);
-
-   // const [value, setValue] = useState("");
    return (
       <div id="auth" className="flex flex-col items-start gap-1">
          <label
@@ -38,21 +35,7 @@ const Input: React.FC<InputProps> = ({
             {label}
             {required && (
                <span className="text-red-500 text-sm lowercase">
-                  *
-                  {(() => {
-                     switch (errors[id]?.type) {
-                        case "required":
-                           return `Bắt buộc.`;
-                        case "email":
-                           return `Không đúng định dạng.`;
-                        case "min":
-                           return `Tối thiểu ${min} kí tự.`;
-                        case "max":
-                           return `Tối đa ${max} kí tự.`;
-                        default:
-                           return "";
-                     }
-                  })()}
+                  *{errors[id]?.message?.toString()}
                </span>
             )}
          </label>

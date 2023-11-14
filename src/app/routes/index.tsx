@@ -1,12 +1,13 @@
 //@ts-nocheck
 
 import React, { Suspense } from 'react';
-import { useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Layout from '../components/layouts/Layout';
 import { PATHS } from '../constants/path';
 import LoadingAnimation from '../components/loading/LoadingAnimation';
 import AdminLayout from '../components/layouts/AdminLayout';
+import VerifyEmail from '../../pages/client/VerifyEmail';
 
 //Lazy loading pages
 //landing
@@ -30,6 +31,7 @@ const payment = React.lazy(() => import('../../pages/client/payment/Payment'));
 const tickets = React.lazy(
 	() => import('../../pages/client/seatPlan/SeatPlan')
 );
+
 //Admin -
 
 const dashboard = React.lazy(() => import('@/pages/admin/Dashboard'));
@@ -152,6 +154,7 @@ const ticketRoute = {
 //Admin
 
 const dashboardRoute = {
+	index: true,
 	path: PATHS.ADMIN.DASHBOARD.IDENTITY,
 	element: <LoadComponent component={dashboard} />,
 };
@@ -217,6 +220,10 @@ function AllRoutes() {
 	return useRoutes([
 		authRoute,
 		{
+			path: PATHS.AUTH.EMAIL,
+			element: <ProtectedRoute component={VerifyEmail} />,
+		},
+		{
 			path: '/',
 			element: <Layout landing />,
 			children: [homeRoute],
@@ -257,6 +264,12 @@ function AllRoutes() {
 			path: PATHS.ADMIN.IDENTITY,
 			element: <ProtectedRoute role="ADMIN" component={AdminLayout} />,
 			children: [
+				{
+					path: '',
+					element: (
+						<Navigate to={`${PATHS.ADMIN.DASHBOARD.IDENTITY}`} replace />
+					),
+				},
 				movieManageRoutes,
 				cinemaManageRoutes,
 				userAdminRoute,

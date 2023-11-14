@@ -10,11 +10,11 @@ function Dropdown({
   containerClassName,
 }: DropdownProps) {
   return (
-    <Menu as="div" className={`relative  ${containerClassName}`}>
+    <Menu as="div" className={`relative ${containerClassName}`}>
       <Menu.Button className={buttonClassName}>{children}</Menu.Button>
       <Menu.Items
         as={"ul"}
-        className={`absolute z-50 left-0 w-[150px] bg-bgPrimary border-borderColor border rounded py-[5px]`}
+        className={`right-0 absolute z-50 w-[150px] bg-bgPrimary border-borderColor border rounded py-[5px]`}
       >
         {items.map((item) => {
           const { icon: Icon } = item;

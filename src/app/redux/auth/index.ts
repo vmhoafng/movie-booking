@@ -68,37 +68,6 @@ export const getCurrentUser = createAsyncThunk(
 	}
 );
 
-export const updateImage = createAsyncThunk<IUser, IPutAvatarPayload>(
-	'@@auth/updateImage',
-	async (payload, thunkApi) => {
-		const { data } = await Axios.axiosPutWithFile(
-			ENDPOINTS.PROFILE.UPDATE_AVATAR,
-			payload
-		);
-		return data;
-	}
-);
-export const updateProfile = createAsyncThunk<void, IPutProfile>(
-	'@@auth/updateProfile',
-	async (payload, thunkApi) => {
-		const { data } = await api.profileService.putProfile(payload);
-		return data;
-	}
-);
-export const checkPassword = createAsyncThunk<void, ICheckPassword>(
-	'@@auth/updateProfile',
-	async (payload, thunkApi) => {
-		const { data } = await api.profileService.checkPassword(payload);
-		return data;
-	}
-);
-export const updatePassword = createAsyncThunk<void, IPutPassword>(
-	'@@auth/updateProfile',
-	async (payload, thunkApi) => {
-		const { data } = await api.profileService.putPassword(payload);
-		return data;
-	}
-);
 //create user slice
 export const userSlice = createSlice({
 	name: 'auth',
@@ -110,6 +79,9 @@ export const userSlice = createSlice({
 		},
 
 		selectSeat: (state, action) => {},
+		changeVerifyState: (state, action) => {
+			state.user.verify = action.payload;
+		},
 	},
 	extraReducers(builder) {
 		builder
@@ -133,24 +105,10 @@ export const userSlice = createSlice({
 			.addCase(getCurrentUser.pending, (state) => {
 				state.isLoading = true;
 			});
-
-		builder.addCase(updateImage.fulfilled, (state, action) => {
-			//@ts-ignore
-			state.user = { ...state.user, ...action.payload };
-		});
-		builder
-			.addCase(updateProfile.fulfilled, (state, action) => {
-				//@ts-ignore
-				state.user = { ...action.payload.user, token: action.payload.token };
-				state.isLoading = false;
-			})
-			.addCase(updateProfile.pending, (state) => {
-				state.isLoading = true;
-			});
 	},
 });
 
 //export user actions
-export const { resetAuth } = userSlice.actions;
+export const { resetAuth, changeVerifyState } = userSlice.actions;
 //export user reducer
 export default userSlice.reducer;
