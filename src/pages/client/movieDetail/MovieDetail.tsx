@@ -11,10 +11,10 @@ import "swiper/css/scrollbar";
 
 import useWindowDimensions from "../../../app/hooks/useWindowDimensions";
 import Button from "../../../app/components/button/Button";
-
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import LoadingAnimation from "../../../app/components/loading/LoadingAnimation";
 import Poster from "@/app/components/poster/Poster";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useRedux } from "@/app/hooks";
 import {
    getByStatus,
@@ -25,7 +25,8 @@ import {
 import { ICinema } from "@/app/types/cinema";
 import { Listbox, Transition } from "@headlessui/react";
 import Icon from "@/app/components/icon/Icon";
-import { SelectOption } from "@/app/components/inputs/SelectInput";
+import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
+import Input from "@/app/components/inputs/Input";
 // import Swiper from "swiper";
 function MovieDetail() {
    const { width } = useWindowDimensions();
@@ -56,13 +57,15 @@ function MovieDetail() {
       value: "",
    });
 
+   // console.log(selected);
+
    return (
       <>
          {isLoading && <LoadingAnimation />}
          {!isError ? (
             <div className="w-full px-[15px] md:px-0 md:mx-auto bg-bgPrimary">
                <div className="w-full xl:flex xl:gap-14 2xl:gap-24">
-                  <div className="xl:w-[calc(100%-300px-80px)] lg:text-sm lg:py-2">
+                  <div className="xl:w-[calc(100%-300px-80px)] lg:text-sm lg:py-2 xl:flex-1 2xl:w-auto">
                      <div className="flex flex-col md:flex-row gap-5 justify-center items-center py-6 lg:py-8 border-b border-dashed border-borderColor">
                         <img
                            src={detail.horizontal_poster}
@@ -228,17 +231,17 @@ function MovieDetail() {
                      </div>
                      <div className="flex flex-col gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
                         <Title active>Lịch chiếu</Title>
-                        <div className="">
+                        <div className="flex md:flex-row flex-col w-full justify-start md:items-center items-start md:gap-0 gap-2">
                            <Listbox value={selected} onChange={setSelected}>
-                              <div className={`relative `}>
+                              <div className="relative w-full md:w-auto">
                                  <Listbox.Button
                                     className={
-                                       "bg-[#EFEFEF]/20 relative w-full rounded border text-left py-[1px]  pl-[15px]"
+                                       "md:w-[260px] w-full h-9 bg-[#EFEFEF]/20 relative rounded border text-left lg:py-2 pl-[15px]"
                                     }
                                  >
                                     <span
-                                       className={`block truncate text-[15px] ${
-                                          !selected.value && "text-slate-300"
+                                       className={`block truncate text-sm ${
+                                          !selected.value && "text-white/90"
                                        }`}
                                     >
                                        {selected.label}
@@ -256,12 +259,12 @@ function MovieDetail() {
                                     leaveFrom="opacity-100"
                                     leaveTo="opacity-0"
                                  >
-                                    <Listbox.Options className="absolute mt-1 z-30 bg-bgPrimary border border-borderColor rounded w-full flex flex-col">
+                                    <Listbox.Options className="absolute mt-1 z-30 text-white/90 bg-bgPrimary border border-borderColor rounded w-full flex flex-col overflow-hidden">
                                        {(detail.cinema || []).map((option) => {
                                           return (
                                              <Listbox.Option
                                                 key={option.id}
-                                                className={`text-[15px] cursor-pointer`}
+                                                className={`text-[15px] cursor-pointer p-2 hover:bg-highlight transition-all duration-100`}
                                                 value={option.id}
                                              >
                                                 {option.name}
@@ -272,6 +275,16 @@ function MovieDetail() {
                                  </Transition>
                               </div>
                            </Listbox>
+                           <div className="flex relative w-full justify-center md:w-[260px] md:ml-4 h-9 text-white/90 bg-[#EFEFEF]/20 rounded border text-left">
+                              <input
+                                 type="date"
+                                 className="bg-transparent w-full flex-1 ring-0 outline-none z-10 h-9 px-4 text-sm"
+                              />
+                              <Icon
+                                 icon="calendar"
+                                 className="absolute right-4 top-[7px] z-0"
+                              ></Icon>
+                           </div>
                         </div>
                         {(detail.cinema || []).map((cinema) => {
                            return (
@@ -282,15 +295,6 @@ function MovieDetail() {
                               />
                            );
                         })}
-                        {/* {showtime.map((item) => {
-                           return (
-                              <ShowTimeBoard
-                                 times={item.times}
-                                 cinema={item.cinema}
-                                 key={item.key}
-                              />
-                           );
-                        })} */}
                      </div>
                      <div className="flex flex-col xl:hidden gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor overflow-hidden">
                         <Title active>Phim đang chiếu</Title>
