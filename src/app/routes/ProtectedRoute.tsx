@@ -21,15 +21,14 @@ function ProtectedRoute({
 	const { dispatch, appSelector } = useRedux();
 	const location = useLocation();
 	const navigate = useNavigate();
-	const { user, isLoading } = appSelector((state) => state.auth);
-	console.log(isLoading);
+	const { user } = appSelector((state) => state.auth);
 
 	useEffect(() => {
 		if (!user.role && authUtils.isAuthenticated()) {
 			const promise = dispatch(getCurrentUser());
 			return () => promise.abort();
 		}
-	}, [dispatch, user.role]);
+	}, [dispatch, user]);
 
 	useEffect(() => {
 		if (!authUtils.isAuthenticated())
