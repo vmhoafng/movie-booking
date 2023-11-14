@@ -18,6 +18,8 @@ import 'swiper/css/scrollbar';
 import useWindowDimensions from '../../../app/hooks/useWindowDimensions.js';
 import { useRedux } from '@/app/hooks';
 import { getMovies } from '@/app/redux/movies/movies.slice';
+import { Link } from 'react-router-dom';
+import { PATHS } from '@/app/constants/path';
 
 function Landing() {
 	const { appSelector, dispatch } = useRedux();
@@ -37,13 +39,13 @@ function Landing() {
 						<p className="text-white lg:text-xl xl:text-[22px]  underline md:underline-offset-8 decoration-highlight ">
 							PHIM ĐANG CHIẾU{' '}
 						</p>
-						<a
-							href="/"
+						<Link
+							to={`${PATHS.MOVIES.IDENTITY}${PATHS.MOVIES.LIST}?q=showing-now`}
 							className="hidden lg:inline text-highlight text-[15px] lg:text-base"
 						>
 							{' '}
 							Xem tất cả
-						</a>
+						</Link>
 					</div>
 					<div className="w-full hidden lg:block">
 						<Swiper
@@ -103,13 +105,13 @@ function Landing() {
 						<p className="text-white lg:text-xl xl:text-[22px]  underline md:underline-offset-8 decoration-highlight ">
 							PHIM SẮP CHIẾU
 						</p>
-						<a
-							href="/"
+						<Link
+							to={`${PATHS.MOVIES.IDENTITY}${PATHS.MOVIES.LIST}?q=coming-soon`}
 							className=" hidden lg:inline text-highlight text-[15px] lg:text-base"
 						>
 							{' '}
 							Xem tất cả
-						</a>
+						</Link>
 					</div>
 					<div className="w-full hidden lg:block">
 						<Swiper
@@ -163,7 +165,12 @@ function Landing() {
 						))}
 					</div>
 					<div className="text-center lg:hidden mt-[30px] ">
-						<p className="text-highlight text-[15px] font-bold">Xem tất cả</p>
+						<Link
+							to={`${PATHS.MOVIES.IDENTITY}`}
+							className="text-highlight text-[15px] font-bold"
+						>
+							Xem tất cả
+						</Link>
 					</div>
 				</div>
 			</div>
