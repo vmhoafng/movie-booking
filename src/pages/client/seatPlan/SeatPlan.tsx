@@ -2,45 +2,62 @@ import api from "../../../app/services/api";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Title from "../../../app/components/Title";
-import BookingTitle from "../payment/components/BookingTitle";
-import BookingSubtitle from "../payment/components/BookingSubtitle";
 import SeatRow from "./components/SeatRow";
-import Button from "../../../app/components/button/Button";
 import Ticket from "./components/Ticket";
+import { ISeatData, ISeatRow, ISeatType, ITicketType } from "./type";
+import { ITicket } from "@/app/types/profile";
 
 function SeatPlan() {
    const { showtimeId } = useParams();
-   const [seats, setSeats] = useState();
-   const [seatRow, setSeatRow] = useState([]);
+   const [seatData, setSeatData] = useState<ISeatData>();
+   const [seatRow, setSeatRow] = useState<ISeatRow[]>();
+   const [ticketData, setTicketData] = useState<ITicketType>();
 
-   const getSeatPlan = async (showtimeId) => {
+   const getSeatPlan = async (showtimeId: string) => {
       try {
          let res = await api.showtime.getSeatsByShowtime(showtimeId);
          console.log(res.data);
-         setSeats([...res.data.room.seats]);
+         setSeatData({ ...res.data });
       } catch (error) {
          console.log(error);
       }
    };
 
-   function splitArrayIntoChunks(arr, chunkSize) {
+   function splitArrayIntoChunks(arr: ISeatType[], chunkSize: number) {
       const chunkedArray = [];
       for (let i = 0; i < arr.length; i += chunkSize) {
-         chunkedArray.push(arr.slice(i, i + chunkSize));
+         chunkedArray.push({
+            seats: arr.slice(i, i + chunkSize),
+            row: arr[i]?.row,
+         });
       }
+      console.log(chunkedArray);
+
       return chunkedArray;
    }
 
    useEffect(() => {
-      getSeatPlan(showtimeId);
+      getSeatPlan(showtimeId as string);
    }, [showtimeId]);
 
    useEffect(() => {
-      let temp = splitArrayIntoChunks(seats || [], 15);
-      setSeatRow(temp);
-   }, [seats]);
+      if (seatData) {
+         let temp = splitArrayIntoChunks(seatData?.room.seats || [], 15);
+         setSeatRow(temp);
+         const { movie, room, format, start_date, start_time } = seatData;
+         const ticket: ITicketType = {
+            cinema: room.cinema.name,
+            format: format.caption,
+            movie_name: movie.name,
+            showtime: `${start_date} ${start_time}`,
+            ticket_price: room.seats[0].type.price,
+            seat_id: [],
+         };
+         setTicketData(ticket);
+      }
+   }, [seatData]);
 
-   // console.log(seatRow);
+   console.log(seatData);
 
    return (
       <div className="w-full h-fit flex flex-col gap-5 sm:py-6 sm:pb-10 xl:flex-row xl:gap-14 xl:py-12 2xl:gap-20 ">
@@ -49,7 +66,13 @@ function SeatPlan() {
             <div className="flex flex-col justify-center sm:bg-[#0A1E5ECC] sm:border-borderColor sm:border-2 sm:py-8 sm:px-3 md:px-5 md:gap-4 lg:px-14 lg:gap-4 xl:bg-transparent xl:px-0 xl:gap-6 xl:border-none xl:py-5 2xl:px-5">
                <div className="w-full flex flex-col gap-[2px] sm:overflow-x-scroll md:overflow-hidden pb-2">
                   {seatRow?.map((row) => {
-                     return <SeatRow row={row} key={row.row}></SeatRow>;
+                     return (
+                        <SeatRow
+                           seats={row.seats}
+                           row={row.row}
+                           key={row.row as any}
+                        ></SeatRow>
+                     );
                   })}
                </div>
                <div className="flex flex-col gap-1 items-center font-inter mt-2">
@@ -73,7 +96,7 @@ function SeatPlan() {
                </div>
             </div>
          </div>
-         <Ticket></Ticket>
+         <Ticket ticket={ticketData as ITicketType}></Ticket>
       </div>
    );
 }
