@@ -4,7 +4,7 @@ import { ISeatRow } from "../type";
 
 const SeatRow = (row: ISeatRow) => {
    return (
-      <div className="w-full flex flex-row min-w-[600px] justify-between p-0 lg:text-sm">
+      <div className="w-full flex flex-row min-w-[590px] justify-between p-0 lg:text-sm">
          <div className="text-white">{row.row}</div>
          <div className="grid grid-cols-15 gap-[2px] p-0">
             {row.seats.map((seat) => {

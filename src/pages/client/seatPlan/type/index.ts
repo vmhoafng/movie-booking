@@ -52,6 +52,5 @@ export interface ITicketType {
    cinema: String;
    showtime: String;
    ticket_price: Number;
-   seat_id: ISeatType[];
-   // Các thuộc tính khác của seat nếu có
+   selected_seats: ISeatType[];
 }
