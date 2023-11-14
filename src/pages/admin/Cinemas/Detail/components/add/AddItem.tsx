@@ -1,9 +1,13 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CinemaForm from "../CinemaForm";
 import RoomForm from "../RoomForm";
 import Button from "@/app/components/button/Button";
 import { Link } from "react-router-dom";
 import DasboardItem from "../DashboardItem";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { useRedux } from "@/app/hooks";
 
 function AddItem() {
   const [dashboardList, setDashboardList] = useState<
@@ -35,13 +39,41 @@ function AddItem() {
       ...room,
       name: `RAP ${index + 1}`,
     }));
-    console.log(newRooms);
+    setDashboardList(newRooms);
+  };
+  const validationSchema = yup.object({
+    name: yup.string().required(),
+    address: yup.string().required(),
+    district: yup.string().required(),
+    city: yup.string().required(),
+    description: yup.string().required(),
+    phoneNumber: yup.string().required(),
+  });
+
+  const {
+    handleSubmit,
+    register,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    resolver: yupResolver<FieldValues>(validationSchema),
+  });
+
+  const { appSelector, dispatch } = useRedux();
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data, dashboardList);
+    // setDashboardList([]);
+    reset();
   };
 
   return (
-    <div className="flex flex-col items-center gap-10">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-center gap-10"
+    >
       <div className="w-full">
-        <CinemaForm />
+        <CinemaForm register={register} control={control} errors={errors} />
         <RoomForm
           handleAddRoom={handleAddRoom}
           renderDashboard={renderDashboard}
@@ -61,7 +93,7 @@ function AddItem() {
           Hủy bỏ
         </Link>
       </div>
-    </div>
+    </form>
   );
 }
 

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import Input from "../../../../app/components/inputs/Input";
 import Button from "../../../../app/components/button/Button";
@@ -13,7 +12,7 @@ import {
 import { ICheckPassword, IPutPassword } from "@/app/types/profile";
 function PasswordItem() {
   const { width } = useWindowDimensions();
-  const { appSelector, dispatch } = useRedux();
+  const { dispatch } = useRedux();
 
   const validationSchema = yup.object({
     oldPassword: yup.string(),
@@ -22,8 +21,9 @@ function PasswordItem() {
   });
   const {
     register,
+    reset,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
   } = useForm<FieldValues>({
     resolver: yupResolver(validationSchema),
   });
@@ -46,6 +46,7 @@ function PasswordItem() {
           );
         } else console.log("fail");
       });
+    reset();
   };
   return (
     <form

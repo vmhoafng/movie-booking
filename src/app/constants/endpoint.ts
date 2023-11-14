@@ -44,6 +44,9 @@ export const ENDPOINTS = {
     DASHBOARD: {
       ALL: `admin/statistical`,
     },
+    CINEMA: {
+      POST_CINEMA: "admin/cinema",
+    },
   },
 };
 
