@@ -7,7 +7,7 @@ import authUtils from '../utils/auth';
 import { getCurrentUser } from '../redux/auth';
 
 type ProtectedRouteTypes = {
-	component: React.ComponentType;
+	component?: React.ComponentType;
 	role?: string;
 	backgroundImage?: string;
 };
