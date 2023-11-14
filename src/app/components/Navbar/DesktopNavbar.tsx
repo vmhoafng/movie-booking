@@ -170,7 +170,10 @@ function DesktopNavbar() {
 	const [active, setActive] = useState<string>();
 	const location = useLocation();
 	const { appSelector } = useRedux();
-	const { verify } = appSelector((state) => state.auth.user);
+	const {
+		user: { verify },
+		userLoggedIn,
+	} = appSelector((state) => state.auth);
 	useEffect(() => {
 		setActive(location.pathname);
 	}, [location]);
@@ -212,7 +215,7 @@ function DesktopNavbar() {
 					})}
 				</div>
 			</div>
-			{!verify && <EmailNotification />}
+			{!verify && userLoggedIn && <EmailNotification />}
 		</div>
 	);
 }
