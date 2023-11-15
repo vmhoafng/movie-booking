@@ -122,6 +122,27 @@ function Schedules() {
 		);
 	}, [movies, DraggleMovie]);
 
+	function renderEventContent(eventInfo: any) {
+		return (
+			<div className="rounded-lg p-2 relative h-full w-full bg-black">
+				<img
+					className="h-full w-full object-contain"
+					src={`${eventInfo.event.extendedProps.src}`}
+					alt=""
+				/>
+				<div className="absolute p-2 left-0 right-0 bottom-0">
+					<p className="text-white text-lg">{eventInfo.event.title}</p>
+					<p className="text-white text-lg">{eventInfo.event.sub_title}</p>
+					<select>
+						<option value="A">Phòng A</option>
+						<option value="B">Phòng B</option>
+						<option value="C">Phòng C</option>
+					</select>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div>
 			<div className="">
@@ -145,7 +166,7 @@ function Schedules() {
 					slotMinTime={'07:00:00'}
 					slotMaxTime={'27:00:00'}
 					// initialEvents={events}
-					// eventContent={renderEventContent}
+					eventContent={renderEventContent}
 					allDaySlot={false}
 					droppable
 					// eventReceive={handleEventsReceived}
