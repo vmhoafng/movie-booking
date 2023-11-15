@@ -3,70 +3,70 @@ import { IPostBill } from "@/app/types/payment";
 import { ISeat } from "@/app/types/seat";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { ISeatType, ITicketType } from "@/pages/client/seatPlan/type";
 
 type IPaymentInitialState = {
-  room_name: string;
-  format: string;
-  selected_seats: ISeat[];
-  movie_name: string;
-  start_time: string;
-  start_date: string;
-  showtimeId: string;
-  total: number;
+   ticket: ITicketType;
+   selected_seats: ISeatType[];
 };
 
 const initialState: IPaymentInitialState = {
-  room_name: "RAP 1",
-  format: "Lồng tiếng",
-  selected_seats: [
-    {
-      is_reserved: false,
-      row: "J",
-      type: {
-        id: 1,
-        name: "Normal",
-        price: 50000,
-      },
-      seat_id: 142,
-      row_index: 9,
-      status: true,
-    },
-  ],
-  movie_name: "The nun",
-  start_date: "CN 17/11",
-  start_time: "15:30",
-  showtimeId: "Showtime029",
-  total: 0,
+   ticket: {
+      showtime_id: "",
+      movie_name: "",
+      format: "",
+      cinema: "",
+      showtime: "",
+      ticket_price: 0,
+   },
+   selected_seats: [],
 };
 
 export const createBill = createAsyncThunk<
-  any,
-  undefined,
-  { state: RootState }
+   any,
+   undefined,
+   { state: RootState }
 >("@@auth/createBill", async (_, thunkApi) => {
-  const { auth, payment } = thunkApi.getState();
-  const seatId: number[] = [];
+   const { auth, payment } = thunkApi.getState();
+   const seatId: number[] = [];
 
-  payment.selected_seats.forEach((s) => {
-    seatId.push(s.seat_id);
-  });
+   payment.selected_seats.forEach((s) => {
+      seatId.push(s.seat_id);
+   });
 
-  const payload: IPostBill = {
-    seatId,
-    changedPoint: auth.user.point,
-    showtimeId: payment.showtimeId,
-  };
-  const { data } = await api.paymetService.postBill(payload);
-  return data;
+   const payload: IPostBill = {
+      seatId,
+      changedPoint: auth.user.point,
+      showtimeId: payment.ticket.showtime_id,
+   };
+   const { data } = await api.paymetService.postBill(payload);
+   return data;
 });
 
 const paymentSlice = createSlice({
-  name: "@@payment",
-  initialState,
-  reducers: {},
-  extraReducers(builder) {
-    builder.addCase(createBill.fulfilled, (state, action) => {});
-  },
+   name: "@@payment",
+   initialState,
+   reducers: {
+      setTicket: (state, action) => {
+         state.ticket = { ...action.payload };
+      },
+      setSelectedSeats: (state, action) => {
+         state.selected_seats?.find(
+            (selected) => selected.seat_id === action.payload.seat_id
+         )
+            ? (state.selected_seats = state.selected_seats?.filter(
+                 (selected) => selected.seat_id !== action.payload.seat_id
+              ))
+            : (state.selected_seats = [
+                 ...state.selected_seats,
+                 action.payload,
+              ]);
+      },
+   },
+   extraReducers(builder) {
+      builder.addCase(createBill.fulfilled, (state, action) => {});
+   },
 });
 
 export default paymentSlice.reducer;
+export const { setTicket, setSelectedSeats } = paymentSlice.actions;
