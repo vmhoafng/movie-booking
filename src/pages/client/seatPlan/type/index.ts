@@ -1,56 +1,56 @@
 export interface ISeatData {
-   format: { id: Number; caption: String; version: String };
-   id: String;
+   format: { id: number; caption: string; version: string };
+   id: string;
    movie: {
-      id: String;
-      name: String;
-      director: String;
-      cast: String;
-      rating: Number;
+      id: string;
+      name: string;
+      director: string;
+      cast: string;
+      rating: number;
    };
    room: {
       cinema: {
-         id: String;
-         name: String;
-         address: String;
-         district: String;
-         city: String;
+         id: string;
+         name: string;
+         address: string;
+         district: string;
+         city: string;
       };
-      id: String;
-      name: String;
+      id: string;
+      name: string;
       seats: ISeatType[];
-      status: { id: Number; name: String };
-      totalSeats: Number;
+      status: { id: number; name: string };
+      totalSeats: number;
    };
-   running_time: Number;
-   start_date: String;
-   start_time: String;
-   status: Boolean;
+   running_time: number;
+   start_date: string;
+   start_time: string;
+   status: boolean;
 }
 
 export interface ISeatType {
-   status: Boolean;
-   row: String;
+   status: boolean;
+   row: string;
    type: {
-      id: Number;
-      name: String;
-      price: Number;
+      id: number;
+      name: string;
+      price: number;
    };
-   seat_id: Number;
-   is_reserved: Boolean;
-   row_index: Number;
+   seat_id: number;
+   is_reserved: boolean;
+   row_index: number;
 }
 
 export interface ISeatRow {
-   row: String;
+   row: string;
    seats: ISeatType[];
 }
 
 export interface ITicketType {
-   movie_name: String;
-   format: String;
-   cinema: String;
-   showtime: String;
-   ticket_price: Number;
-   selected_seats: ISeatType[];
+   showtime_id: string;
+   movie_name: string;
+   format: string;
+   cinema: string;
+   showtime: string;
+   ticket_price: number;
 }

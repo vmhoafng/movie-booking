@@ -1,14 +1,11 @@
 import React from "react";
 import BookingTitle from "../../payment/components/BookingTitle";
 import BookingSubtitle from "../../payment/components/BookingSubtitle";
-import Button from "../../../../app/components/button/Button";
-import { ITicketType } from "../type";
-import { setTicket } from "@/app/redux/payment";
 import { useRedux } from "@/app/hooks";
-import { Link } from "react-router-dom";
+import { ITicketType } from "../../seatPlan/type";
 
-function Ticket({ ticket }: { ticket: ITicketType }) {
-   const { dispatch, appSelector } = useRedux();
+function PaymentTicket({ ticket }: { ticket: ITicketType }) {
+   const { appSelector } = useRedux();
    const selected_seats = appSelector((state) => state.payment.selected_seats);
    console.log(selected_seats);
 
@@ -71,27 +68,14 @@ function Ticket({ ticket }: { ticket: ITicketType }) {
             <div className="flex items-center justify-between">
                <BookingTitle>Tổng</BookingTitle>
                <BookingSubtitle>
-                  {ticket?.ticket_price * selected_seats.length} VND
+                  <span className="text-highlight text-base font-semibold">
+                     {ticket?.ticket_price * selected_seats.length} VND
+                  </span>
                </BookingSubtitle>
             </div>
-         </div>
-         <div className="w-full my-4 hidden xl:block">
-            <Link to={`/payment`}>
-               <Button fullWidth onClick={() => dispatch(setTicket(ticket))}>
-                  Thanh toán
-               </Button>
-            </Link>
-         </div>
-
-         <div className="lg:mt-1 xl:hidden">
-            <Link to={`/payment`}>
-               <Button large onClick={() => dispatch(setTicket(ticket))}>
-                  Thanh toán
-               </Button>
-            </Link>
          </div>
       </div>
    );
 }
 
-export default Ticket;
+export default PaymentTicket;
