@@ -148,7 +148,7 @@ function Schedules() {
 			<div className="">
 				<FullCalendar
 					plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
-					slotDuration={'00:05'}
+					// slotDuration={'00:05'}
 					// dayCellClassNames={'border-none'}
 					locale={'vi'}
 					viewClassNames={''}
@@ -170,7 +170,7 @@ function Schedules() {
 					allDaySlot={false}
 					droppable
 					// eventReceive={handleEventsReceived}
-					eventsSet={handleEventsReceived}
+					// eventsSet={handleEventsReceived}
 					displayEventEnd
 					eventDurationEditable={false}
 					// validRange={(nowDate) => {
