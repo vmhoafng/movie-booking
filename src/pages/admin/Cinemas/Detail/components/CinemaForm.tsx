@@ -1,39 +1,26 @@
 import Input from "@/app/components/inputs/Input";
 import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
 import Title from "@/app/components/Title";
-import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
+import { FieldValues, UseFormRegister, FieldErrors } from "react-hook-form";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { IPutProfile } from "@/app/types/profile";
-function CinemaForm() {
-  const genderOptions: SelectOption[] = [
-    { label: "", value: "" },
+import { ICinema } from "@/app/types/cinema";
+interface CinemaFormProps {
+  control?: any;
+  register?: UseFormRegister<FieldValues>;
+  errors?: FieldErrors;
+  currentCinema?: ICinema & { status: string };
+}
+function CinemaForm({
+  register,
+  control,
+  errors,
+  currentCinema,
+}: CinemaFormProps) {
+  const statusOptions: SelectOption[] = [
     { label: "Hoạt động", value: "Hoạt động" },
     { label: "Đóng", value: "Đóng" },
     { label: "Bảo trì", value: "Bảo trì" },
   ];
-  const validationSchema = yup.object({
-    fullName: yup.string(),
-    dateOfBirth: yup.string(),
-    gender: yup.string(),
-    phoneNumber: yup.string(),
-    email: yup.string().email(),
-  });
-
-  const {
-    handleSubmit,
-    register,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<FieldValues>({
-    resolver: yupResolver<FieldValues>(validationSchema),
-  });
-
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-  };
 
   return (
     <div>
@@ -44,12 +31,12 @@ function CinemaForm() {
         <div className="w-full flex items-start justify-between">
           <div className="w-[480px]">
             <Input
-              id="cinema"
+              id="name"
               type=""
               label="Rạp"
               col
-              // register={register}
-              // errors={errors}
+              register={register}
+              errors={errors}
             />
           </div>
           <div className="w-[320px]">
@@ -58,30 +45,30 @@ function CinemaForm() {
               type="tel"
               label="Số điện thoại"
               col
-              // register={register}
-              // errors={errors}
+              register={register}
+              errors={errors}
             />
           </div>
           <div className="w-[300px] flex flex-col items-start gap-1 py-[3px]">
             <label
               className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
-              htmlFor="gender"
+              htmlFor="status"
             >
-              Giới tính
+              Trạng thái
             </label>
             <SelectInput
-              id="gender"
+              required
+              id="status"
               control={control}
-              options={[
-                { label: "Nam", value: "Nam" },
-                { label: "Nữ", value: "Nữ" },
-                { label: "Khác", value: "Khác" },
-              ]}
-              placeholder="Chọn giới tính"
-              name="gender"
+              options={statusOptions}
+              placeholder="Chọn trạng thái"
+              name="status"
               onChange={() => {}}
               register={register}
               inputClassName="w-full"
+              value={statusOptions.find(
+                (status) => status.value === currentCinema?.status
+              )}
               optionClassName="
                 z-30
                 text-white/90
@@ -117,8 +104,8 @@ function CinemaForm() {
               type=""
               label="Địa chỉ"
               col
-              // register={register}
-              // errors={errors}
+              register={register}
+              errors={errors}
             />
           </div>
           <div className="w-[320px]">
@@ -127,8 +114,8 @@ function CinemaForm() {
               type=""
               label="Quận/Huyện"
               col
-              // register={register}
-              // errors={errors}
+              register={register}
+              errors={errors}
             />
           </div>
           <div className="w-[300px]">
@@ -137,8 +124,8 @@ function CinemaForm() {
               type=""
               label="Tỉnh/Thành Phó"
               col
-              // register={register}
-              // errors={errors}
+              register={register}
+              errors={errors}
             />
           </div>
         </div>

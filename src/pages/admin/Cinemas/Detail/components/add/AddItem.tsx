@@ -4,13 +4,19 @@ import RoomForm from "../RoomForm";
 import Button from "@/app/components/button/Button";
 import { Link } from "react-router-dom";
 import DasboardItem from "../DashboardItem";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { useRedux } from "@/app/hooks";
+import { ICinema, initSeats } from "@/app/types/cinema";
+import { postCinema } from "@/app/redux/cinema";
 
 function AddItem() {
   const [dashboardList, setDashboardList] = useState<
     Array<Record<string, any>>
   >([]);
   const handleAddRoom = () => {
-    setDashboardList([...dashboardList, { number: 150 }]);
+    setDashboardList([...dashboardList, { totalSeats: 150, seats: initSeats }]);
   };
   const handleRemoveRoom = (index: number) => {
     const newRoom = [...dashboardList];
@@ -35,13 +41,44 @@ function AddItem() {
       ...room,
       name: `RAP ${index + 1}`,
     }));
-    console.log(newRooms);
+    setDashboardList(newRooms);
+  };
+  const validationSchema = yup.object({
+    name: yup.string().required(),
+    address: yup.string().required(),
+    district: yup.string().required(),
+    city: yup.string().required(),
+    status: yup.string().required(),
+    phoneNumber: yup.string().required(),
+  });
+
+  const {
+    handleSubmit,
+    register,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    resolver: yupResolver<FieldValues>(validationSchema),
+  });
+
+  const { dispatch } = useRedux();
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const payload = { ...data, rooms: dashboardList, description: "" };
+    dispatch(postCinema(payload as ICinema)).then((data) =>
+      console.log(data.payload)
+    );
+    // setDashboardList([]);
+    reset();
   };
 
   return (
-    <div className="flex flex-col items-center gap-10">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-center gap-10"
+    >
       <div className="w-full">
-        <CinemaForm />
+        <CinemaForm register={register} control={control} errors={errors} />
         <RoomForm
           handleAddRoom={handleAddRoom}
           renderDashboard={renderDashboard}
@@ -61,7 +98,7 @@ function AddItem() {
           Hủy bỏ
         </Link>
       </div>
-    </div>
+    </form>
   );
 }
 

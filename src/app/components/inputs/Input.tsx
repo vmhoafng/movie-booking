@@ -94,7 +94,7 @@ const Input = ({
           type={type}
           disabled={disabled}
           placeholder={placeholder}
-          autoComplete="off"
+          autoComplete="new-password"
           defaultValue={inputValue}
           {...(register && register(id, { required }))}
           className={clsx(

@@ -1,16 +1,14 @@
-import BookingMobileItem from "./components/BookingMobileItem";
-import BookingDesktopItem from "./components/BookingDesktopItem";
 import PaymentForm from "./components/PaymentForm";
-import Ticket from "../seatPlan/components/Ticket";
 import { useRedux } from "@/app/hooks";
+import PaymentTicket from "./components/PaymentTicket";
 export default function Payment() {
    const { appSelector } = useRedux();
    const ticket = appSelector((state) => state.payment.ticket);
    return (
       <div
          className="flex
-      flex-col
-      lg:flex-row
+      flex-col-reverse
+      xl:flex-row
       justify-center
       items-center
       lg:items-start
@@ -23,9 +21,8 @@ export default function Payment() {
      "
       >
          {/* <BookingMobileItem /> */}
-         <Ticket ticket={ticket}></Ticket>
          <PaymentForm />
-         {/* <BookingDesktopItem /> */}
+         <PaymentTicket ticket={ticket}></PaymentTicket>
       </div>
    );
 }
