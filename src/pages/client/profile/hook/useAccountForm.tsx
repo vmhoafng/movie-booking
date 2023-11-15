@@ -93,7 +93,7 @@ export default function useAccountForm() {
             </div>
           ));
         }
-        if (!errors) {
+        if (errors) {
           return toast.custom((t) => (
             <div
               className="flex

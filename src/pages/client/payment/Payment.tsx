@@ -1,12 +1,14 @@
-import BookingMobileItem from "./components/BookingMobileItem";
-import BookingDesktopItem from "./components/BookingDesktopItem";
 import PaymentForm from "./components/PaymentForm";
+import { useRedux } from "@/app/hooks";
+import PaymentTicket from "./components/PaymentTicket";
 export default function Payment() {
-  return (
-    <div
-      className="flex
-      flex-col
-      lg:flex-row
+   const { appSelector } = useRedux();
+   const ticket = appSelector((state) => state.payment.ticket);
+   return (
+      <div
+         className="flex
+      flex-col-reverse
+      xl:flex-row
       justify-center
       items-center
       lg:items-start
@@ -17,10 +19,10 @@ export default function Payment() {
       lg:gap-5
       2xl:gap-20
      "
-    >
-      <BookingMobileItem />
-      <PaymentForm />
-      <BookingDesktopItem />
-    </div>
-  );
+      >
+         {/* <BookingMobileItem /> */}
+         <PaymentForm />
+         <PaymentTicket ticket={ticket}></PaymentTicket>
+      </div>
+   );
 }

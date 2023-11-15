@@ -2,13 +2,13 @@ import React from "react";
 import { CRUDButtonProps } from "./CRUDButton.type";
 import { Link } from "react-router-dom";
 
-const common = "text-[12px] hover:cursor-pointer ";
+const common = "text-[12px] text-center hover:cursor-pointer ";
 const variants = {
   Add: `py-2
 	px-3 
 	block 
 	rounded 
-	w-[120px] 
+	min-w-[120px] 
 	bg-admin-button-add/20 
 	text-admin-button-add 
 	border border-admin-button-add 
