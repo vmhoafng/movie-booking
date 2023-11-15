@@ -94,7 +94,7 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 		resolver: yupResolver<any>(validateMovieDetail),
 		mode: 'onChange',
 		defaultValues:
-			mode === 'create'
+			mode === 'edit'
 				? async () =>
 						await dispatch(getMovieDetailById(movieId!)).then((data: any) => {
 							setMovie(data.payload);

@@ -72,24 +72,45 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 		});
 	}, []);
 
+	const modeConfigs = {
+		edit: {
+			ControlBar: (
+				<ControlBar title="QUẢN LÝ PHIM" subTitle="CHỈNH SỬA">
+					<div className="flex gap-2 items-center">
+						<div className="">
+							<CRUDButton
+								onClick={handleCancel}
+								disabled={!isDirty}
+								variant="Cancel"
+							>
+								Hủy bỏ
+							</CRUDButton>
+						</div>
+						<div className="">
+							<CRUDButton disabled={!isDirty} variant="Save" type="submit">
+								Cập nhật
+							</CRUDButton>
+						</div>
+					</div>
+				</ControlBar>
+			),
+		},
+		create: {
+			ControlBar: (
+				<ControlBar title="QUẢN LÝ PHIM" subTitle="THÊM PHIM">
+					<div className="">
+						<CRUDButton variant="Add" type="submit">
+							Thêm mới
+						</CRUDButton>
+					</div>
+				</ControlBar>
+			),
+		},
+	};
+
 	return (
 		<form className="relative" onSubmit={submitEdit}>
-			<ControlBar title="QUẢN LÝ PHIM" subTitle="CHỈNH SỬA">
-				<div className="">
-					<CRUDButton
-						onClick={handleCancel}
-						disabled={!isDirty}
-						variant="Cancel"
-					>
-						Hủy bỏ
-					</CRUDButton>
-				</div>
-				<div className="">
-					<CRUDButton disabled={!isDirty} variant="Save" type="submit">
-						Cập nhật
-					</CRUDButton>
-				</div>
-			</ControlBar>
+			{modeConfigs[mode].ControlBar}
 			<div className="flex gap-[30px] py-[25px] border-b-[1px] border-dashed border-borderColor ">
 				<div className="">
 					<Dropzone

@@ -167,8 +167,12 @@ const movieManageRoutes = {
 			element: <LoadComponent component={movieListAdmin} />,
 		},
 		{
-			path: PATHS.ADMIN.MOVIES.DETAIL,
+			path: PATHS.ADMIN.MOVIES.ADD,
 			element: <LoadComponent component={movieDetailAdmin} />,
+		},
+		{
+			path: PATHS.ADMIN.MOVIES.DETAIL,
+			element: <LoadComponent component={movieDetailAdmin} mode="edit" />,
 		},
 	],
 };
