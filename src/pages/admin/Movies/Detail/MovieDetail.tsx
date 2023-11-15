@@ -19,6 +19,7 @@ import { IMovieFormat, IMovieGenre } from '@/app/types/movie';
 import MultipleSelect from '@/app/components/inputs/MultipleSelect';
 import { useEffect, useMemo, useState } from 'react';
 import { Axios } from '@/app/utils/api';
+import ControlBar from '../../components/controlBar/ControlBar';
 
 const statusOptions: SelectOption[] = [
 	{
@@ -28,26 +29,6 @@ const statusOptions: SelectOption[] = [
 	{
 		label: 'Sắp chiếu',
 		value: 1,
-	},
-];
-
-const movieFormat: SelectOption[] = [
-	{ label: 'Vietsub-2D', value: 1 },
-	{ label: 'Lồng tiếng-2D', value: 2 },
-];
-
-const genreOptions: SelectOption[] = [
-	{
-		value: 1,
-		label: 'Kinh dị',
-	},
-	{
-		value: 2,
-		label: 'Hành động',
-	},
-	{
-		value: 3,
-		label: 'Viễn tưởng',
 	},
 ];
 
@@ -93,7 +74,7 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 
 	return (
 		<form className="relative" onSubmit={submitEdit}>
-			<div className="absolute top-0 right-0 flex gap-8 items-center">
+			<ControlBar title="QUẢN LÝ PHIM" subTitle="CHỈNH SỬA">
 				<div className="">
 					<CRUDButton
 						onClick={handleCancel}
@@ -108,7 +89,7 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 						Cập nhật
 					</CRUDButton>
 				</div>
-			</div>
+			</ControlBar>
 			<div className="flex gap-[30px] py-[25px] border-b-[1px] border-dashed border-borderColor ">
 				<div className="">
 					<Dropzone
