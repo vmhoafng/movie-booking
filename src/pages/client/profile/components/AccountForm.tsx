@@ -2,7 +2,6 @@ import Input from "@/app/components/inputs/Input";
 import Button from "@/app/components/button/Button";
 import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { Toaster } from "sonner";
 import useAccountForm from "../hook/useAccountForm";
 const genderOptions: SelectOption[] = [
   { label: "", value: "" },
@@ -16,20 +15,6 @@ function AccountItem() {
     useAccountForm();
   return (
     <div>
-      <Toaster
-        position="top-center"
-        toastOptions={{
-          style: {
-            padding: 0,
-            border: "none",
-            width: "fit-content",
-            right: 0,
-            background: "transparent",
-          },
-        }}
-        expand
-        gap={10}
-      />
       <form
         onSubmit={handleEditAccount}
         className="w-full lg:w-[344px] xl:w-[470px] 2xl:w-[550px] flex flex-col gap-[25px] py-10 lg:py-5"

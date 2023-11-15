@@ -1,11 +1,10 @@
 import api from "../../../app/services/api";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import Title from "../../../app/components/Title";
 import SeatRow from "./components/SeatRow";
 import Ticket from "./components/Ticket";
 import { ISeatData, ISeatRow, ISeatType, ITicketType } from "./type";
-import { ITicket } from "@/app/types/profile";
 
 function SeatPlan() {
    const { showtimeId } = useParams();
@@ -16,7 +15,6 @@ function SeatPlan() {
    const getSeatPlan = async (showtimeId: string) => {
       try {
          let res = await api.showtime.getSeatsByShowtime(showtimeId);
-         console.log(res.data);
          setSeatData({ ...res.data });
       } catch (error) {
          console.log(error);
@@ -31,10 +29,10 @@ function SeatPlan() {
             row: arr[i]?.row,
          });
       }
-      console.log(chunkedArray);
-
       return chunkedArray;
    }
+
+   const renderSeatRow = useMemo
 
    useEffect(() => {
       getSeatPlan(showtimeId as string);
@@ -43,33 +41,30 @@ function SeatPlan() {
    useEffect(() => {
       if (seatData) {
          let temp = splitArrayIntoChunks(seatData?.room.seats || [], 15);
-         setSeatRow(temp);
          const { movie, room, format, start_date, start_time } = seatData;
          const ticket: ITicketType = {
+            showtime_id: showtimeId as string,
             cinema: room.cinema.name,
             format: format.caption,
             movie_name: movie.name,
             showtime: `${start_time} | ${start_date}`,
             ticket_price: room.seats[0].type.price,
-            selected_seats: [],
          };
+         setSeatRow(temp);
          setTicketData(ticket);
       }
-   }, [seatData]);
-
-   console.log(seatData);
+   }, [seatData, showtimeId]);
 
    return (
       <div className="w-full h-fit flex flex-col gap-5 sm:py-6 sm:pb-10 xl:flex-row xl:gap-14 xl:py-12 2xl:gap-20 ">
          <div className="flex flex-col sm:gap-5 xl:gap-6 flex-1 h-[510px] ">
             <Title active>Chọn ghế</Title>
             <div className="flex flex-col justify-center sm:bg-[#0A1E5ECC] sm:border-borderColor sm:border-2 sm:py-8 sm:px-3 md:px-5 md:gap-4 lg:px-14 lg:gap-4 xl:bg-transparent xl:px-0 xl:gap-6 xl:border-none xl:py-5 2xl:px-5">
-               <div className="w-full flex flex-col gap-[2px] sm:overflow-x-scroll md:overflow-hidden pb-2 scroll-smooth">
+               <div className="w-full flex flex-col-reverse gap-[2px] sm:overflow-x-scroll md:overflow-hidden pb-2 scroll-smooth">
                   {seatRow?.map((row) => {
                      return (
                         <SeatRow
-                           seats={row.seats}
-                           row={row.row}
+                           row={row}
                            key={row.row as any}
                         ></SeatRow>
                      );
