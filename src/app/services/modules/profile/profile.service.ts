@@ -18,12 +18,7 @@ const moviesService = {
 		});
 	},
 	putPassword: (payload: IPutPassword) => {
-		return Axios.axiosPutWithToken(ENDPOINTS.PROFILE.CHANGEPASSWORD, '', {
-			params: {
-				oldPassword: payload.oldPassword,
-				newPassword: payload.newPassword,
-			},
-		});
+		return Axios.axiosPutWithToken(ENDPOINTS.PROFILE.CHANGEPASSWORD, payload);
 	},
 	getBills: (payload: IGetBills) => {
 		return Axios.axiosGetWithToken(ENDPOINTS.PROFILE.BILLS, {

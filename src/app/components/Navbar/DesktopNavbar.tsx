@@ -3,7 +3,7 @@ import Search from '../inputs/Search';
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PATHS } from '@/app/constants/path';
 import { ArrowRightIcon, Bars3Icon } from '@heroicons/react/24/solid';
 import { useRedux } from '@/app/hooks';
@@ -27,6 +27,7 @@ function classNames(...classes: any[]) {
 const Profile = () => {
 	const { dispatch, appSelector } = useRedux();
 	const { user, userLoggedIn } = appSelector((state) => state.auth);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (!user.role && authUtils.isAuthenticated()) {
@@ -36,6 +37,7 @@ const Profile = () => {
 	}, [dispatch, userLoggedIn, user]);
 
 	const handleLogout = () => {
+		navigate(`/${PATHS.HOME.IDENTITY}`);
 		dispatch(resetAuth());
 	};
 
@@ -170,7 +172,10 @@ function DesktopNavbar() {
 	const [active, setActive] = useState<string>();
 	const location = useLocation();
 	const { appSelector } = useRedux();
-	const { verify } = appSelector((state) => state.auth.user);
+	const {
+		user: { verify },
+		userLoggedIn,
+	} = appSelector((state) => state.auth);
 	useEffect(() => {
 		setActive(location.pathname);
 	}, [location]);
@@ -212,7 +217,7 @@ function DesktopNavbar() {
 					})}
 				</div>
 			</div>
-			{!verify && <EmailNotification />}
+			{!verify && userLoggedIn && <EmailNotification />}
 		</div>
 	);
 }

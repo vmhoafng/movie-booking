@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+   useCallback,
+   useEffect,
+   useMemo,
+   useRef,
+   useState,
+} from "react";
 import Title from "../../../app/components/Title";
 import ShowTimeBoard from "./components/ShowTimeBoard";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
@@ -17,16 +23,14 @@ import Poster from "@/app/components/poster/Poster";
 import { useParams } from "react-router-dom";
 import { useRedux } from "@/app/hooks";
 import {
-   getByStatus,
    getMovieDetail,
    getMovies,
    getShowtimeByMovie,
 } from "@/app/redux/movies/movies.slice";
-import { ICinema } from "@/app/types/cinema";
 import { Listbox, Transition } from "@headlessui/react";
 import Icon from "@/app/components/icon/Icon";
 import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
-import Input from "@/app/components/inputs/Input";
+
 // import Swiper from "swiper";
 function MovieDetail() {
    const { width } = useWindowDimensions();
@@ -34,7 +38,21 @@ function MovieDetail() {
    const { appSelector, dispatch } = useRedux();
    const { movies, showingNow, isLoading, isError, errorMessage, detail } =
       appSelector((state) => state.movies);
-
+   const [date, setDate] = useState(
+      new Date(Date.now()).toISOString().split("T")[0]
+   );
+   const optionized = useMemo(() => {
+      return [
+         { value: "", label: "Tất cả" },
+         ...(detail.cinema || []).map((c) => {
+            return {
+               value: c.name,
+               label: c.name,
+            };
+         }),
+      ];
+   }, [detail]);
+   const [selected, setSelected] = useState<SelectOption>(optionized[0]);
    const { movieId } = useParams();
 
    useEffect(() => {
@@ -47,17 +65,27 @@ function MovieDetail() {
          dispatch(
             getShowtimeByMovie({
                id: detail.id,
-               date: "2023-11-15",
+               date: date,
             })
          );
-   }, [detail.id]);
+      setSelected(optionized[0]);
+   }, [detail.id, date]);
 
-   const [selected, setSelected] = useState<SelectOption>({
-      label: "Tất cả",
-      value: "",
-   });
+   const renderShowtimes = useCallback(() => {
+      return (detail.cinema || []).map((cinema: any) => {
+         const regex = new RegExp(`${selected.value}`, "i");
 
-   // console.log(selected);
+         if (regex.test(cinema.name))
+            return (
+               <ShowTimeBoard
+                  showtimes={cinema.showtime}
+                  cinema={cinema.name}
+                  key={cinema.id}
+               />
+            );
+         return <></>;
+      });
+   }, [detail, selected]);
 
    return (
       <>
@@ -260,14 +288,14 @@ function MovieDetail() {
                                     leaveTo="opacity-0"
                                  >
                                     <Listbox.Options className="absolute mt-1 z-30 text-white/90 bg-bgPrimary border border-borderColor rounded w-full flex flex-col overflow-hidden">
-                                       {(detail.cinema || []).map((option) => {
+                                       {(optionized || []).map((option) => {
                                           return (
                                              <Listbox.Option
-                                                key={option.id}
+                                                key={option.label}
                                                 className={`text-[15px] cursor-pointer p-2 hover:bg-highlight transition-all duration-100`}
-                                                value={option.id}
+                                                value={option}
                                              >
-                                                {option.name}
+                                                {option.label}
                                              </Listbox.Option>
                                           );
                                        })}
@@ -278,6 +306,8 @@ function MovieDetail() {
                            <div className="flex relative w-full justify-center md:w-[260px] md:ml-4 h-9 text-white/90 bg-[#EFEFEF]/20 rounded border text-left">
                               <input
                                  type="date"
+                                 value={date}
+                                 onChange={(e) => setDate(e.target.value)}
                                  className="bg-transparent w-full flex-1 ring-0 outline-none z-10 h-9 px-4 text-sm"
                               />
                               <Icon
@@ -286,15 +316,7 @@ function MovieDetail() {
                               ></Icon>
                            </div>
                         </div>
-                        {(detail.cinema || []).map((cinema) => {
-                           return (
-                              <ShowTimeBoard
-                                 showtimes={cinema.showtime}
-                                 cinema={cinema.name}
-                                 key={cinema.id}
-                              />
-                           );
-                        })}
+                        {renderShowtimes()}
                      </div>
                      <div className="flex flex-col xl:hidden gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor overflow-hidden">
                         <Title active>Phim đang chiếu</Title>
