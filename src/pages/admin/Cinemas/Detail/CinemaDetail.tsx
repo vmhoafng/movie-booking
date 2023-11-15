@@ -1,25 +1,22 @@
-import Title from "@/app/components/Title";
 import AddItem from "./components/add/AddItem";
-import { useParams, useSearchParams } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useCallback } from "react";
 import CinemaList from "../List";
+import EditItem from "./components/edit/EditItem";
 
 function CinemaDetail() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  // useEffect(() => {
-  //   setSearchParams({ q: searchParams.get("q") || "" });
-  // }, [searchParams]);
   const { cinemaId } = useParams();
-  console.log(cinemaId);
 
   const components = useCallback(() => {
     switch (cinemaId) {
       case "add":
         return <AddItem />;
-      default:
+      case "":
         return <CinemaList />;
+      default:
+        return <EditItem id={cinemaId!} />;
     }
-  }, [searchParams]);
+  }, [cinemaId]);
   return <div>{components()}</div>;
 }
 

@@ -6,7 +6,7 @@ export const ENDPOINTS = {
   MOVIE_SLUG: `landing/movie/${ROUTE_PARAMS.MOVIE_SLUG}`,
   GET_SHOWTIME_BY_CINEMA_DATE: `landing/cinema/${ROUTE_PARAMS.CINEMA_ID}/showtime`,
   CINEMA_MOVIES_SHOWTIME: "landing/cinema/movie/showtime",
-  SHOWTIME_BY_MOVIE: `lading/movie/${ROUTE_PARAMS.MOVIE_ID}/showtime`,
+  SHOWTIME_BY_MOVIE: `landing/movie/${ROUTE_PARAMS.MOVIE_ID}/showtime`,
   SEARCH_MOVIE: `landing/searchMovie`,
   SHOWTIME_SEAT: `landing/showtime/${ROUTE_PARAMS.SHOWTIME_ID}/seats`,
   MOVIE_GENRES: `landing/movieGenres`,
@@ -28,6 +28,8 @@ export const ENDPOINTS = {
     FORGOT_PASSWORD: "auth/sendToResetPass",
     RESET_PATH: "auth/resetPass",
     REGISTER: "auth/register",
+    VERIFY_EMAIL: "guest/verifyAccount",
+    REQUEST_VERIFY_EMAIL: "guest/sendToVerifyAccount",
   },
 
   ADMIN: {
@@ -45,7 +47,7 @@ export const ENDPOINTS = {
       ALL: `admin/statistical`,
     },
     CINEMA: {
-      POST_CINEMA: "admin/cinema",
+      POST_CINEMA: "admin/cinemaRoom",
     },
   },
 };

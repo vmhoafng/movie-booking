@@ -29,6 +29,13 @@ export const getCinemas = createAsyncThunk<ICinemaList>(
     return data;
   }
 );
+export const getCurrentCinema = createAsyncThunk(
+  "@@cinema/getCurrentCinema",
+  async (payload, thunkApi) => {
+    const { data } = await api.cinemaService.getAll();
+    return data;
+  }
+);
 
 export const showtimeByCinema = createAsyncThunk(
   "@@cinema/showtime",
@@ -41,7 +48,13 @@ export const showtimeByCinema = createAsyncThunk(
     return data;
   }
 );
-
+export const postCinema = createAsyncThunk(
+  "@@cinema/postCinema",
+  async (payload: ICinema, thunkApi) => {
+    const { data } = await api.cinemaService.postCinema(payload);
+    return data;
+  }
+);
 export const cinemaSlice = createSlice({
   name: "cinema",
   initialState,

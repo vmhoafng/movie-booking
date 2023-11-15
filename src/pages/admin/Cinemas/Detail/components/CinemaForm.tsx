@@ -1,24 +1,22 @@
 import Input from "@/app/components/inputs/Input";
 import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
 import Title from "@/app/components/Title";
-import {
-  useForm,
-  FieldValues,
-  SubmitHandler,
-  UseFormRegister,
-  FieldErrors,
-} from "react-hook-form";
+import { FieldValues, UseFormRegister, FieldErrors } from "react-hook-form";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { IPutProfile } from "@/app/types/profile";
+import { ICinema } from "@/app/types/cinema";
 interface CinemaFormProps {
   control?: any;
   register?: UseFormRegister<FieldValues>;
   errors?: FieldErrors;
+  currentCinema?: ICinema & { status: string };
 }
-function CinemaForm({ register, control, errors }: CinemaFormProps) {
-  const genderOptions: SelectOption[] = [
+function CinemaForm({
+  register,
+  control,
+  errors,
+  currentCinema,
+}: CinemaFormProps) {
+  const statusOptions: SelectOption[] = [
     { label: "Hoạt động", value: "Hoạt động" },
     { label: "Đóng", value: "Đóng" },
     { label: "Bảo trì", value: "Bảo trì" },
@@ -54,19 +52,23 @@ function CinemaForm({ register, control, errors }: CinemaFormProps) {
           <div className="w-[300px] flex flex-col items-start gap-1 py-[3px]">
             <label
               className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
-              htmlFor="description"
+              htmlFor="status"
             >
               Trạng thái
             </label>
             <SelectInput
-              id="description"
+              required
+              id="status"
               control={control}
-              options={genderOptions}
+              options={statusOptions}
               placeholder="Chọn trạng thái"
-              name="description"
+              name="status"
               onChange={() => {}}
               register={register}
               inputClassName="w-full"
+              value={statusOptions.find(
+                (status) => status.value === currentCinema?.status
+              )}
               optionClassName="
                 z-30
                 text-white/90

@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 import Title from '../../../app/components/Title';
 import ShowTimeBoard from './components/ShowTimeBoard';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
@@ -11,18 +17,20 @@ import 'swiper/css/scrollbar';
 
 import useWindowDimensions from '../../../app/hooks/useWindowDimensions';
 import Button from '../../../app/components/button/Button';
-
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import LoadingAnimation from '../../../app/components/loading/LoadingAnimation';
 import Poster from '@/app/components/poster/Poster';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useRedux } from '@/app/hooks';
 import {
-	getByStatus,
 	getMovieDetail,
 	getMovies,
 	getShowtimeByMovie,
 } from '@/app/redux/movies/movies.slice';
-import { ICinema } from '@/app/types/cinema';
+import { Listbox, Transition } from '@headlessui/react';
+import Icon from '@/app/components/icon/Icon';
+import SelectInput, { SelectOption } from '@/app/components/inputs/SelectInput';
+
 // import Swiper from "swiper";
 function MovieDetail() {
 	const { width } = useWindowDimensions();
@@ -30,7 +38,21 @@ function MovieDetail() {
 	const { appSelector, dispatch } = useRedux();
 	const { movies, showingNow, isLoading, isError, errorMessage, detail } =
 		appSelector((state) => state.movies);
-
+	const [date, setDate] = useState(
+		new Date(Date.now()).toISOString().split('T')[0]
+	);
+	const optionized = useMemo(() => {
+		return [
+			{ value: '', label: 'Tất cả' },
+			...(detail.cinema || []).map((c) => {
+				return {
+					value: c.name,
+					label: c.name,
+				};
+			}),
+		];
+	}, [detail]);
+	const [selected, setSelected] = useState<SelectOption>(optionized[0]);
 	const { movieId } = useParams();
 
 	useEffect(() => {
@@ -43,18 +65,34 @@ function MovieDetail() {
 			dispatch(
 				getShowtimeByMovie({
 					id: detail.id,
-					date: '2023-11-15',
+					date: date,
 				})
 			);
-	}, [detail.id]);
+		setSelected(optionized[0]);
+	}, [detail.id, date]);
 
+	const renderShowtimes = useCallback(() => {
+		return (detail.cinema || []).map((cinema: any) => {
+			const regex = new RegExp(`${selected.value}`, 'i');
+
+			if (regex.test(cinema.name))
+				return (
+					<ShowTimeBoard
+						showtimes={cinema.showtime}
+						cinema={cinema.name}
+						key={cinema.id}
+					/>
+				);
+			return <></>;
+		});
+	}, [detail, selected]);
 	return (
 		<>
 			{isLoading && <LoadingAnimation />}
 			{!isError ? (
 				<div className="w-full px-[15px] md:px-0 md:mx-auto bg-bgPrimary">
 					<div className="w-full xl:flex xl:gap-14 2xl:gap-24">
-						<div className="xl:w-[calc(100%-300px-80px)] lg:text-sm lg:py-2">
+						<div className="xl:w-[calc(100%-300px-80px)] lg:text-sm lg:py-2 xl:flex-1 2xl:w-auto">
 							<div className="flex flex-col md:flex-row gap-5 justify-center items-center py-6 lg:py-8 border-b border-dashed border-borderColor">
 								<img
 									src={detail.horizontal_poster}
@@ -202,7 +240,61 @@ function MovieDetail() {
 							</div>
 							<div className="flex flex-col gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
 								<Title active>Lịch chiếu</Title>
-								{(detail.cinema || []).map((cinema) => {
+								<div className="flex md:flex-row flex-col w-full justify-start md:items-center items-start md:gap-0 gap-2">
+									<Listbox value={selected} onChange={setSelected}>
+										<div className="relative w-full md:w-auto">
+											<Listbox.Button
+												className={
+													'md:w-[260px] w-full h-9 bg-[#EFEFEF]/20 relative rounded border text-left lg:py-2 pl-[15px]'
+												}
+											>
+												<span
+													className={`block truncate text-sm ${
+														!selected.value && 'text-white/90'
+													}`}
+												>
+													{selected.label}
+												</span>
+												<span className="absolute inset-y-0 right-0 pr-[15px] flex items-center">
+													<Icon icon="chevronDown" className="w-5 h-5" />
+												</span>
+											</Listbox.Button>
+											<Transition
+												as={React.Fragment}
+												leave="transition ease-in duration-100"
+												leaveFrom="opacity-100"
+												leaveTo="opacity-0"
+											>
+												<Listbox.Options className="absolute mt-1 z-30 text-white/90 bg-bgPrimary border border-borderColor rounded w-full flex flex-col overflow-hidden">
+													{(optionized || []).map((option) => {
+														return (
+															<Listbox.Option
+																key={option.label}
+																className={`text-[15px] cursor-pointer p-2 hover:bg-highlight transition-all duration-100`}
+																value={option}
+															>
+																{option.label}
+															</Listbox.Option>
+														);
+													})}
+												</Listbox.Options>
+											</Transition>
+										</div>
+									</Listbox>
+									<div className="flex relative w-full justify-center md:w-[260px] md:ml-4 h-9 text-white/90 bg-[#EFEFEF]/20 rounded border text-left">
+										<input
+											type="date"
+											value={date}
+											onChange={(e) => setDate(e.target.value)}
+											className="bg-transparent w-full flex-1 ring-0 outline-none z-10 h-9 px-4 text-sm"
+										/>
+										<Icon
+											icon="calendar"
+											className="absolute right-4 top-[7px] z-0"
+										></Icon>
+									</div>
+								</div>
+								{/* {(detail.cinema || []).map((cinema) => {
 									return (
 										<ShowTimeBoard
 											showtimes={cinema.showtime}
@@ -210,16 +302,8 @@ function MovieDetail() {
 											key={cinema.id}
 										/>
 									);
-								})}
-								{/* {showtime.map((item) => {
-                           return (
-                              <ShowTimeBoard
-                                 times={item.times}
-                                 cinema={item.cinema}
-                                 key={item.key}
-                              />
-                           );
-                        })} */}
+								})} */}
+								{renderShowtimes()}
 							</div>
 							<div className="flex flex-col xl:hidden gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor overflow-hidden">
 								<Title active>Phim đang chiếu</Title>

@@ -78,34 +78,37 @@ export const userSlice = createSlice({
 			return initialState;
 		},
 
-    selectSeat: (state, action) => {},
-  },
-  extraReducers(builder) {
-    builder
-      .addCase(login.fulfilled, (state, action) => {
-        state.user = { ...action.payload.user, token: action.payload.token };
-        state.isAuthenticated = true;
-        state.userLoggedIn = true;
-        state.isLoading = false;
-        authUtils.setSessionToken(action.payload.token);
-      })
-      .addCase(login.pending, (state) => {
-        state.isLoading = true;
-      });
-    builder
-      .addCase(getCurrentUser.fulfilled, (state, action) => {
-        state.user = { ...action.payload };
-        state.isAuthenticated = true;
-        state.userLoggedIn = true;
-        state.isLoading = false;
-      })
-      .addCase(getCurrentUser.pending, (state) => {
-        state.isLoading = true;
-      });
-  },
+		selectSeat: (state, action) => {},
+		changeVerifyState: (state, action) => {
+			state.user.verify = action.payload;
+		},
+	},
+	extraReducers(builder) {
+		builder
+			.addCase(login.fulfilled, (state, action) => {
+				state.user = { ...action.payload.user, token: action.payload.token };
+				state.isAuthenticated = true;
+				state.userLoggedIn = true;
+				state.isLoading = false;
+				authUtils.setSessionToken(action.payload.token);
+			})
+			.addCase(login.pending, (state) => {
+				state.isLoading = true;
+			});
+		builder
+			.addCase(getCurrentUser.fulfilled, (state, action) => {
+				state.user = { ...action.payload };
+				state.isAuthenticated = true;
+				state.userLoggedIn = true;
+				state.isLoading = false;
+			})
+			.addCase(getCurrentUser.pending, (state) => {
+				state.isLoading = true;
+			});
+	},
 });
 
 //export user actions
-export const { resetAuth } = userSlice.actions;
+export const { resetAuth, changeVerifyState } = userSlice.actions;
 //export user reducer
 export default userSlice.reducer;

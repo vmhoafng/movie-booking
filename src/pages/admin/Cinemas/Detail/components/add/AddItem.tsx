@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import CinemaForm from "../CinemaForm";
 import RoomForm from "../RoomForm";
 import Button from "@/app/components/button/Button";
@@ -8,13 +8,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { useRedux } from "@/app/hooks";
+import { ICinema, initSeats } from "@/app/types/cinema";
+import { postCinema } from "@/app/redux/cinema";
 
 function AddItem() {
   const [dashboardList, setDashboardList] = useState<
     Array<Record<string, any>>
   >([]);
   const handleAddRoom = () => {
-    setDashboardList([...dashboardList, { number: 150 }]);
+    setDashboardList([...dashboardList, { totalSeats: 150, seats: initSeats }]);
   };
   const handleRemoveRoom = (index: number) => {
     const newRoom = [...dashboardList];
@@ -46,7 +48,7 @@ function AddItem() {
     address: yup.string().required(),
     district: yup.string().required(),
     city: yup.string().required(),
-    description: yup.string().required(),
+    status: yup.string().required(),
     phoneNumber: yup.string().required(),
   });
 
@@ -60,9 +62,12 @@ function AddItem() {
     resolver: yupResolver<FieldValues>(validationSchema),
   });
 
-  const { appSelector, dispatch } = useRedux();
+  const { dispatch } = useRedux();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data, dashboardList);
+    const payload = { ...data, rooms: dashboardList, description: "" };
+    dispatch(postCinema(payload as ICinema)).then((data) =>
+      console.log(data.payload)
+    );
     // setDashboardList([]);
     reset();
   };

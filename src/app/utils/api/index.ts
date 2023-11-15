@@ -25,9 +25,6 @@ instance.interceptors.response.use(
 			case 403:
 				message = 'Access forbidden';
 				break;
-			case 404:
-				message = `Something bad happened :'(`;
-				break;
 			// case 409:
 			// 	message = `Conflict`;
 			// 	break;
