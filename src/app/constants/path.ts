@@ -50,7 +50,9 @@ export const PATHS = {
 		IDENTITY: 'ticket/:showtimeId',
 		DETAIL: '',
 	},
-
+	FORGOT_PASSWORD: {
+		IDENTITY: 'forgot-password',
+	},
 	ADMIN: {
 		IDENTITY: 'admin',
 		MOVIES: {
