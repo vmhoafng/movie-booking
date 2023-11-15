@@ -11,18 +11,16 @@ import { PulseLoader } from "react-spinners";
 import { dirtyValue } from "@/app/utils";
 import { toast } from "sonner";
 import Icon from "@/app/components/icon/Icon";
-import { UserData } from "@/app/redux/auth";
+import { UserData, getCurrentUser } from "@/app/redux/auth";
 
 export default function useAccountForm() {
   const { width } = useWindowDimensions();
   const { appSelector, dispatch } = useRedux();
-  const { user, isLoading } = appSelector((state) => state.auth);
-  const [currentUser, setCurrentUser] = useState<UserData>();
+  const { user: currentUser } = appSelector((state) => state.auth);
+  const { isLoading } = appSelector((state) => state.profile);
   useEffect(() => {
-    if (!isLoading) {
-      setCurrentUser(user);
-    }
-  }, [user, currentUser, isLoading]);
+    dispatch(getCurrentUser);
+  }, [dispatch]);
   const validationSchema = yup.object({
     fullName: yup.string(),
     dateOfBirth: yup.string(),
@@ -121,6 +119,22 @@ export default function useAccountForm() {
       }
     );
   };
+
+  useEffect(() => {
+    toast.promise(response, {
+      loading: "Sending...",
+      success: (data: any) => {
+        dispatch(changeVerifyState(true));
+        clearInterval(timeoutRef.current);
+        return "Thành công";
+      },
+      error: (err: any) => {
+        setDisable(false);
+        setIsError(true);
+        return "Error: " + err;
+      },
+    });
+  });
   useEffect(() => {
     reset({
       fullName: currentUser?.full_name,
@@ -137,5 +151,6 @@ export default function useAccountForm() {
     currentUser,
     handleEditAccount: handleSubmit(onSubmit),
     width,
+    isLoading,
   };
 }

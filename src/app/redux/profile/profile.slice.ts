@@ -96,6 +96,20 @@ export const profileSlice = createSlice({
         state.isLoading = true;
       });
     builder
+      .addCase(updatePassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(updatePassword.pending, (state) => {
+        state.isLoading = true;
+      });
+    builder
+      .addCase(checkPassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(checkPassword.pending, (state) => {
+        state.isLoading = true;
+      });
+    builder
       .addCase(getBills.fulfilled, (state, action) => {
         //@ts-ignore
         state.bills = [...action.payload.data];
@@ -103,6 +117,9 @@ export const profileSlice = createSlice({
       })
       .addCase(getBills.pending, (state) => {
         state.isLoading = true;
+      })
+      .addCase(getBills.rejected, (state) => {
+        state.isLoading = false;
       });
   },
 });

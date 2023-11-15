@@ -11,8 +11,15 @@ const genderOptions: SelectOption[] = [
 ];
 
 function AccountItem() {
-  const { register, errors, control, currentUser, handleEditAccount, width } =
-    useAccountForm();
+  const {
+    register,
+    errors,
+    control,
+    currentUser,
+    handleEditAccount,
+    width,
+    isLoading,
+  } = useAccountForm();
   return (
     <div>
       <form
@@ -21,6 +28,7 @@ function AccountItem() {
       >
         <div className="flex flex-col gap-[10px]">
           <Input
+            disabled={isLoading}
             id="fullName"
             label="Họ và Tên"
             col
@@ -30,6 +38,7 @@ function AccountItem() {
           />
           <div className="w-full flex gap-[10px] lg:flex-col xl:flex-row xl:gap-[30px] 2xl:gap-5">
             <Input
+              disabled={isLoading}
               id="dateOfBirth"
               label="Ngày sinh"
               type="date"
@@ -46,6 +55,7 @@ function AccountItem() {
                 Giới tính
               </label>
               <SelectInput
+                disabled={isLoading}
                 id="gender"
                 control={control}
                 options={[
@@ -90,6 +100,7 @@ function AccountItem() {
             </div>
           </div>
           <Input
+            disabled={isLoading}
             id="email"
             type="email"
             label="Email"
@@ -98,6 +109,7 @@ function AccountItem() {
             errors={errors}
           />
           <Input
+            disabled={isLoading}
             id="phoneNumber"
             type="tel"
             label="Số điện thoại"
@@ -107,7 +119,13 @@ function AccountItem() {
           />
         </div>
         <div className="hidden xl:block w-full border-t border-dashed border-borderColor" />
-        <Button type="submit" large secondary fullWidth={width > 900}>
+        <Button
+          disabled={isLoading}
+          type="submit"
+          large
+          secondary
+          fullWidth={width > 900}
+        >
           Cập nhật
         </Button>
       </form>

@@ -11,10 +11,11 @@ import {
 } from "@/app/redux/profile/profile.slice";
 import { ICheckPassword, IPutPassword } from "@/app/types/profile";
 import { toast } from "sonner";
+import { useCallback, useEffect } from "react";
 function PasswordItem() {
   const { width } = useWindowDimensions();
-  const { dispatch } = useRedux();
-
+  const { appSelector, dispatch } = useRedux();
+  const { isLoading } = appSelector((state) => state.profile);
   const validationSchema = yup.object({
     oldPass: yup.string().required(),
     newPass: yup.string().required(),
@@ -33,7 +34,6 @@ function PasswordItem() {
       .then((data) => data.payload)
       .then((callback) => {
         console.log(callback);
-
         if (callback && data.newPass.trim().length < 8)
           return toast.error("Mật khẩu cần tối thiểu 8 ký tự");
         if (data.newPass !== data.confirmNewPass)
@@ -55,14 +55,15 @@ function PasswordItem() {
       });
     reset();
   };
-  return (
-    <div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="lg:w-[250px] xl:w-[280px] 2xl:w-[400px] flex flex-col py-[25px] gap-[25px] lg:py-5"
-      >
+  useEffect(() => {
+    console.log(isLoading);
+  }, [isLoading]);
+  const renderForm = useCallback(
+    () => (
+      <>
         <div className="flex flex-col gap-[10px]">
           <Input
+            disabled={isLoading}
             type="password"
             id="oldPass"
             label="Mật khẩu hiện tại"
@@ -71,6 +72,7 @@ function PasswordItem() {
             errors={errors}
           />
           <Input
+            disabled={isLoading}
             type="password"
             id="newPass"
             label="Mật khẩu mới"
@@ -79,6 +81,7 @@ function PasswordItem() {
             errors={errors}
           />
           <Input
+            disabled={isLoading}
             type="password"
             id="confirmNewPass"
             label="Xác nhận mật khẩu mới"
@@ -88,9 +91,20 @@ function PasswordItem() {
           />
         </div>
         <div className="hidden xl:block w-full border-t border-dashed border-borderColor" />
-        <Button large secondary fullWidth={width > 900}>
+        <Button disabled={isLoading} large secondary fullWidth={width > 900}>
           Thay đổi
         </Button>
+      </>
+    ),
+    [errors, isLoading, register, width]
+  );
+  return (
+    <div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="lg:w-[250px] xl:w-[280px] 2xl:w-[400px] flex flex-col py-[25px] gap-[25px] lg:py-5"
+      >
+        {renderForm()}
       </form>
     </div>
   );
