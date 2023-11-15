@@ -1,41 +1,30 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Title from '../../../app/components/Title';
 import Poster from '../../../app/components/poster/Poster';
 import { useSearchParams } from 'react-router-dom';
 import { useRedux } from '@/app/hooks';
-import { getByStatus } from '@/app/redux/movies/movies.slice';
+import { getMovies } from '@/app/redux/movies/movies.slice';
 import MovieSkeletion from '../../../app/components/poster/PosterSkeletion';
-type ParamsType = 'coming-soon' | 'showing-now';
+import { IMovie } from '@/app/types/movie';
 function Movies() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { appSelector, dispatch } = useRedux();
-
+	const { movies, comingSoon, showingNow } = appSelector(
+		(state) => state.movies
+	);
+	const [movieByStatus, setMovieByStatus] = useState<IMovie[]>([]);
 	useEffect(() => {
 		setSearchParams({ q: searchParams.get('q') || 'showing-now' });
 	}, []);
 	useEffect(() => {
-		dispatch(
-			getByStatus({
-				status: searchParams.get('q') as ParamsType,
-			})
-		);
-	}, [searchParams, dispatch]);
-	const { movies, isLoading } = appSelector((state) => state.movies);
-	console.log(movies);
+		!movies.length && dispatch(getMovies());
+		searchParams.get('q') === 'showing-now' && setMovieByStatus(showingNow);
+		searchParams.get('q') === 'coming-soon' && setMovieByStatus(comingSoon);
+	}, [searchParams, dispatch, showingNow, comingSoon, movies]);
 	const renderMovies = useCallback(() => {
-		if (isLoading)
-			return (
-				<>
-					{Array(9)
-						.fill(0)
-						.map((_, i) => (
-							<MovieSkeletion key={i} />
-						))}
-				</>
-			);
 		return (
 			<>
-				{movies.map((movie) => (
+				{movieByStatus.map((movie) => (
 					<Poster
 						key={movie.id}
 						name={movie.name}
@@ -48,7 +37,7 @@ function Movies() {
 				))}
 			</>
 		);
-	}, [isLoading, movies]);
+	}, [movieByStatus]);
 	return (
 		<div className="bg-bgPrimary w-full">
 			<div className="mx-auto">
@@ -73,7 +62,17 @@ function Movies() {
 					</div>
 
 					<div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 gap-2 md:gap-5">
-						{renderMovies()}
+						{!movieByStatus.length ? (
+							<>
+								{Array(8)
+									.fill(0)
+									.map((_, i) => (
+										<MovieSkeletion key={i} />
+									))}
+							</>
+						) : (
+							renderMovies()
+						)}
 					</div>
 				</div>
 			</div>

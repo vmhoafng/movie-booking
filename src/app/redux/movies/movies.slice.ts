@@ -101,14 +101,14 @@ const moviesSlice = createSlice({
 				state.isLoading = true;
 			})
 			.addCase(getMovieDetail.fulfilled, (state, action) => {
-				state.detail = { ...action.payload };
+				state.detail = { ...state.detail, ...action.payload };
 				state.isLoading = false;
 			})
 			.addCase(getMovieDetail.pending, (state) => {
 				state.isLoading = true;
 			});
 		builder.addCase(getShowtimeByMovie.fulfilled, (state, action) => {
-			state.detail.cinema = action.payload;
+			state.detail.cinema = action.payload.data;
 		});
 		builder.addCase(getMovies.fulfilled, (state, action) => {
 			state.movies = [...action.payload.data];

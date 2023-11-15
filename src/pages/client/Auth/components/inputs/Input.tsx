@@ -26,9 +26,6 @@ const Input: React.FC<InputProps> = ({
    min,
    max,
 }) => {
-   // const [value, setValue] = useState("");
-   console.log(errors[id]?.message);
-
    return (
       <div id="auth" className="flex flex-col items-start gap-1">
          <label

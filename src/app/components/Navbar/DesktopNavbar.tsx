@@ -3,13 +3,15 @@ import Search from '../inputs/Search';
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PATHS } from '@/app/constants/path';
-import { Bars3Icon } from '@heroicons/react/24/solid';
+import { ArrowRightIcon, Bars3Icon } from '@heroicons/react/24/solid';
 import { useRedux } from '@/app/hooks';
 import authUtils from '@/app/utils/auth';
 import { getCurrentUser, resetAuth } from '@/app/redux/auth';
 import Button from '../button/Button';
+import { Axios } from '@/app/utils/api';
+import { ENDPOINTS } from '@/app/constants/endpoint';
 
 const navigation = [
 	{ name: 'TRANG CHỦ', to: PATHS.HOME.IDENTITY },
@@ -25,6 +27,7 @@ function classNames(...classes: any[]) {
 const Profile = () => {
 	const { dispatch, appSelector } = useRedux();
 	const { user, userLoggedIn } = appSelector((state) => state.auth);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (!user.role && authUtils.isAuthenticated()) {
@@ -34,6 +37,7 @@ const Profile = () => {
 	}, [dispatch, userLoggedIn, user]);
 
 	const handleLogout = () => {
+		navigate(`/${PATHS.HOME.IDENTITY}`);
 		dispatch(resetAuth());
 	};
 
@@ -101,6 +105,21 @@ const Profile = () => {
 									</div>
 								)}
 							</Menu.Item>
+							{user.role === 'ADMIN' && (
+								<Menu.Item>
+									{({ active }) => (
+										<Link
+											to={PATHS.ADMIN.IDENTITY}
+											className={classNames(
+												active ? 'bg-gray-100' : '',
+												'block px-4 py-2 text-sm text-gray-700'
+											)}
+										>
+											Trang ADMIN
+										</Link>
+									)}
+								</Menu.Item>
+							)}
 						</Menu.Items>
 					</Menu>
 				</div>
@@ -120,16 +139,49 @@ const Profile = () => {
 	);
 };
 
+const EmailNotification = () => {
+	const handleCallAPi = () => {
+		const response = Axios.axiosGetWithToken(
+			ENDPOINTS.AUTH.REQUEST_VERIFY_EMAIL
+		).catch((err) => {
+			console.log(err);
+		});
+	};
+
+	return (
+		<div
+			className="bg-yellow-300 px-2 text-center py-1 font-bold text-sm text-bgPrimary  "
+			style={{ textShadow: 'none' }}
+		>
+			<p className="">
+				Tài khoản của bạn chưa được xác minh bằng email, xác nhận email để mọi
+				thứ xảy ra mượt mà nhất
+				<Link
+					to={PATHS.AUTH.EMAIL}
+					onClick={handleCallAPi}
+					className="ml-4 text-yellow-300  rounded-full bg-bgPrimary px-3 py-1"
+				>
+					Xác minh <ArrowRightIcon className="inline-block h-4 w-4 " />
+				</Link>
+			</p>
+		</div>
+	);
+};
+
 function DesktopNavbar() {
 	const [active, setActive] = useState<string>();
 	const location = useLocation();
-
+	const { appSelector } = useRedux();
+	const {
+		user: { verify },
+		userLoggedIn,
+	} = appSelector((state) => state.auth);
 	useEffect(() => {
 		setActive(location.pathname);
 	}, [location]);
 
 	return (
-		<div className="fixed top-0 left-0 right-0 bg-bgPrimaryBar items-center justify-between w-full z-50 shadow-[0px_30px_120px_0px_rgba(0,0,0,0.3)]">
+		<div className="fixed top-0 left-0 right-0 bg-bgPrimaryBar  items-center justify-between w-full z-50 shadow-[0px_30px_120px_0px_rgba(0,0,0,0.3)]">
 			<div className="h-[96px] w-full container gap-[27.5px]  md:gap-[75px] items-center flex justify-between mx-auto px-[15px] md:px-0">
 				<div className="box-border lg:flex-1 max-w-[96px] md:max-w-[127px] items-center justify-center ">
 					<img className="w-full" src={'./assets/images/Logo.png'} alt="" />
@@ -165,6 +217,7 @@ function DesktopNavbar() {
 					})}
 				</div>
 			</div>
+			{!verify && userLoggedIn && <EmailNotification />}
 		</div>
 	);
 }
