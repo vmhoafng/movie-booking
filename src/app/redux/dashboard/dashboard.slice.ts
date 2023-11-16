@@ -36,7 +36,7 @@ const initialState: IDashboardState = {
 };
 
 export const getAll = createAsyncThunk(
-   "@@movies/getAll",
+   "@@dashboard/getAll",
    async (date: string) => {
       const { data } = await api.dashboardService.getDashboardData(date);
       return data;
@@ -44,13 +44,13 @@ export const getAll = createAsyncThunk(
 );
 
 const dashboardSlice = createSlice({
-   name: "movies",
+   name: "dashboard",
    initialState,
    reducers: {},
    extraReducers(builder) {
       builder
          .addCase(getAll.fulfilled, (state, action) => {
-            // console.log(action.payload);
+            console.log(action.payload);
             state.data = [...action.payload];
             state.isLoading = false;
             state.isError = false;
@@ -58,7 +58,7 @@ const dashboardSlice = createSlice({
          .addCase(getAll.pending, (state) => {
             state.isLoading = true;
          })
-         .addCase(getAll.rejected, (state, action) => {
+         .addCase(getAll.rejected, (state) => {
             state.isLoading = false;
             state.isError = true;
          });

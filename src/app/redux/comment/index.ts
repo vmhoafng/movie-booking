@@ -1,6 +1,6 @@
 import api from "@/app/services/api";
 import { ICommentList, ICommentStatus } from "@/app/types/comment";
-import { IMovie, IMovieSlug, IgetByStatus } from "@/app/types/movie";
+// import { IMovie, IMovieSlug, IgetByStatus } from "@/app/types/movie";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface ICommentsState {
@@ -50,7 +50,8 @@ const commentsSlice = createSlice({
    extraReducers(builder) {
       builder
          .addCase(getAll.fulfilled, (state, action) => {
-            state.comment.data = [action.payload.data];
+            console.log(action.payload.data);
+            state.comment.data = action.payload.data;
             state.comment.total = action.payload.total;
             state.isLoading = false;
             state.isError = false;
