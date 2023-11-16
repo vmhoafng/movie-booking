@@ -10,7 +10,7 @@ type TCinemaState = {
   isLoading: boolean;
   selected: number;
   date: string;
-  rooms: [];
+  rooms: any[];
 };
 
 const initialState: TCinemaState = {
@@ -29,10 +29,10 @@ export const getCinemas = createAsyncThunk<ICinemaList>(
     return data;
   }
 );
-export const getCurrentCinema = createAsyncThunk(
-  "@@cinema/getCurrentCinema",
-  async (payload, thunkApi) => {
-    const { data } = await api.cinemaService.getAll();
+export const getRooms = createAsyncThunk(
+  "@@cinema/getRooms",
+  async (payload: string, thunkApi) => {
+    const { data } = await api.cinemaService.getRooms(payload);
     return data;
   }
 );
@@ -51,8 +51,8 @@ export const showtimeByCinema = createAsyncThunk(
 export const postCinema = createAsyncThunk(
   "@@cinema/postCinema",
   async (payload: ICinema, thunkApi) => {
-    const { data } = await api.cinemaService.postCinema(payload);
-    return data;
+    const res = await api.cinemaService.postCinema(payload);
+    return res.data;
   }
 );
 export const cinemaSlice = createSlice({
@@ -80,6 +80,14 @@ export const cinemaSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getCinemas.pending, (state, action) => {
+        state.isLoading = true;
+      });
+    builder
+      .addCase(getRooms.fulfilled, (state, action) => {
+        state.rooms = [...action.payload];
+        state.isLoading = false;
+      })
+      .addCase(getRooms.pending, (state, action) => {
         state.isLoading = true;
       });
     builder.addCase(showtimeByCinema.fulfilled, (state, action) => {

@@ -5,7 +5,7 @@ import { useController } from "react-hook-form";
 interface SwitchButtonProps {
   disabled?: boolean;
   value: boolean;
-  onChange: () => void;
+  onChange: (e?: any) => void;
 }
 
 function SwitchButton({ value, onChange, disabled }: SwitchButtonProps) {

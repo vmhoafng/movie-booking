@@ -8,8 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { useRedux } from "@/app/hooks";
-import { initSeats } from "@/app/types/cinema";
-import { getCinemas } from "@/app/redux/cinema";
+import { initSeats } from "@/app/constants/data";
+import { getCinemas, getRooms } from "@/app/redux/cinema";
 import Table from "../../../../components/table/Table";
 import Pagination from "../../../../components/pagination/Pagination";
 interface EditItemProps {
@@ -29,12 +29,14 @@ function EditItem({ id }: EditItemProps) {
   const { cinemas } = appSelector((state) => state.cinema);
   useEffect(() => {
     dispatch(getCinemas());
-  }, [dispatch]);
+    dispatch(getRooms(id));
+  }, [dispatch, id]);
+  console.log();
+
   const [currentCinema] = useMemo(
     () => cinemas.filter((cinema) => cinema.id === id),
     [cinemas, id]
   );
-  console.log(currentCinema);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Number of items to display per page
@@ -65,7 +67,7 @@ function EditItem({ id }: EditItemProps) {
       address: currentCinema?.address,
       district: currentCinema?.district,
       city: currentCinema?.city,
-      status: currentCinema?.description,
+      status: currentCinema?.status,
       phoneNumber: currentCinema?.phone_number,
     });
   }, [currentCinema, reset]);
@@ -79,7 +81,12 @@ function EditItem({ id }: EditItemProps) {
         className="flex flex-col items-center gap-10"
       >
         <div className="w-full flex flex-col gap-4">
-          <CinemaForm register={register} control={control} errors={errors} />
+          <CinemaForm
+            register={register}
+            control={control}
+            errors={errors}
+            currentCinema={currentCinema}
+          />
           <div>
             <Table
               data={cinemas}
@@ -103,7 +110,7 @@ function EditItem({ id }: EditItemProps) {
           </Button>
           <Link
             className="text-white/50 text-sm font-semibold font-inter"
-            to="/"
+            to="/admin/cinema"
           >
             Hủy bỏ
           </Link>

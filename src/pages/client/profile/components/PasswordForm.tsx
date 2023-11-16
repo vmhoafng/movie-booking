@@ -12,6 +12,8 @@ import {
 import { ICheckPassword, IPutPassword } from "@/app/types/profile";
 import { toast } from "sonner";
 import { useCallback, useEffect } from "react";
+import Icon from "@/app/components/icon/Icon";
+import { PulseLoader } from "react-spinners";
 function PasswordItem() {
   const { width } = useWindowDimensions();
   const { appSelector, dispatch } = useRedux();
@@ -29,35 +31,177 @@ function PasswordItem() {
   } = useForm<FieldValues>({
     resolver: yupResolver<FieldValues>(validationSchema),
   });
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    await dispatch(checkPassword({ password: data?.oldPass } as ICheckPassword))
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    dispatch(checkPassword({ password: data?.oldPass } as ICheckPassword))
       .then((data) => data.payload)
       .then((callback) => {
-        console.log(callback);
+        if (!callback)
+          return toast.error(
+            <div
+              className="flex
+        items-center
+        justify-between
+        bg-error/20
+        px-2
+        py-3
+        rounded
+        min-w-[200px]
+        text-error
+        font-bold
+        text-base
+        gap-7"
+            >
+              <div className="flex items-center gap-2">
+                <div>Mật khẩu hiện tại không chính xác</div>
+              </div>
+              <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+                <Icon icon="close" />
+              </div>
+            </div>
+          );
         if (callback && data.newPass.trim().length < 8)
-          return toast.error("Mật khẩu cần tối thiểu 8 ký tự");
+          return toast.error(
+            <div
+              className="flex
+            items-center
+            justify-between
+            bg-error/20
+            px-2
+            py-3
+            rounded
+            min-w-[200px]
+            text-error
+            font-bold
+            text-base
+            gap-7"
+            >
+              <div className="flex items-center gap-2">
+                <div>Mật khẩu cần tối thiểu 8 ký tự</div>
+              </div>
+              <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+                <Icon icon="close" />
+              </div>
+            </div>
+          );
         if (data.newPass !== data.confirmNewPass)
-          return toast.error("Mật khẩu xác nhận không trùng khớp");
+          return toast.error(
+            <div
+              className="flex
+          items-center
+          justify-between
+          bg-error/20
+          px-2
+          py-3
+          rounded
+          min-w-[200px]
+          text-error
+          font-bold
+          text-base
+          gap-7"
+            >
+              <div className="flex items-center gap-2">
+                <div>Mật khẩu xác nhận không trùng khớp</div>
+              </div>
+              <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+                <Icon icon="close" />
+              </div>
+            </div>
+          );
         if (
           callback &&
           data.newPass.trim() !== "" &&
           data.newPass === data.confirmNewPass
         ) {
-          dispatch(
+          const res = dispatch(
             updatePassword({
               oldPass: data?.oldPass,
               newPass: data?.newPass,
             } as IPutPassword)
           );
-          return toast.success("Thay đổi mật khẩu thành công");
+          toast.promise(res, {
+            loading: (
+              <div
+                className="flex
+                  items-center
+                  justify-between
+                  bg-warning/20
+                  px-2
+                  py-3
+                  rounded
+                  min-w-[200px]
+                  text-warning
+                  font-bold
+                  text-base
+                  gap-7"
+              >
+                <div className="flex items-center gap-2">
+                  <div>Đang tải</div>
+                  <PulseLoader color="#FAC917" size={5} />
+                </div>
+                <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+                  <Icon icon="close" />
+                </div>
+              </div>
+            ),
+            success: (data: any) => {
+              return (
+                <div
+                  className="flex
+                      items-center
+                      justify-between
+                      bg-highlight/20
+                      px-2
+                      py-3
+                      rounded
+                      min-w-[200px]
+                      text-highlight
+                      font-bold
+                      text-base
+                      gap-7"
+                >
+                  <div>Thay đổi thông tin thành công</div>
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => toast.dismiss()}
+                  >
+                    <Icon icon="close" />
+                  </div>
+                </div>
+              );
+            },
+            error: (err: any) => {
+              return (
+                <div
+                  className="flex
+                  items-center
+                  justify-between
+                  bg-error/20
+                  px-2
+                  py-3
+                  rounded
+                  min-w-[200px]
+                  text-error
+                  font-bold
+                  text-base
+                  gap-7"
+                >
+                  <div className="flex items-center gap-2">
+                    <div>Chưa thể thay đổi thông tin</div>
+                  </div>
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => toast.dismiss()}
+                  >
+                    <Icon icon="close" />
+                  </div>
+                </div>
+              );
+            },
+          });
+          reset();
         }
-        return toast.error("Thay đổi mật khẩu thất bại");
       });
-    reset();
   };
-  useEffect(() => {
-    console.log(isLoading);
-  }, [isLoading]);
   const renderForm = useCallback(
     () => (
       <>

@@ -49,7 +49,7 @@ function AccountItem() {
             />
             <div className="flex w-full py-[3px] flex-col items-start gap-1">
               <label
-                className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
+                className="text-white/90 text-[15px] font-bold leading-6"
                 htmlFor="gender"
               >
                 Giới tính
