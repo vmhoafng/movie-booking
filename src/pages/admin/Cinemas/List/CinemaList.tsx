@@ -24,8 +24,6 @@ function CinemaList() {
     dispatch(getCinemas());
   }, [dispatch]);
   const { cinemas } = appSelector((state) => state.cinema);
-  console.log(cinemas );
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Number of items to display per page
   const pageCount = Math.ceil(cinemas.length / itemsPerPage);

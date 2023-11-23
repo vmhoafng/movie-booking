@@ -33,16 +33,20 @@ function EditItem({ id }: EditItemProps) {
   useEffect(() => {
     dispatch(getCinemaById(id));
   }, [dispatch, id]);
-  const newRooms = rooms.map((room) => ({
-    id: room.id,
-    name: room.name,
-    status: room.status.name,
-    totalSeats: 150,
-  }));
+  const newRooms = useMemo(
+    () =>
+      rooms.map((room) => ({
+        id: room.id,
+        name: room.name,
+        status: room.status.name,
+        totalSeats: 150,
+      })),
+    [rooms]
+  );
   const [roomsData, setRoomsData] = useState(newRooms);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Number of items to display per page
-  const pageCount = Math.ceil(roomsData.length / itemsPerPage);
+  const pageCount = Math.ceil(newRooms.length / itemsPerPage);
   const handlePageChange = (selectedPage: number) => {
     setCurrentPage(selectedPage + 1);
   };
@@ -175,7 +179,7 @@ function EditItem({ id }: EditItemProps) {
                   icon: PencilIcon,
                 },
               ]}
-              data={roomsData}
+              data={newRooms}
               columns={columns}
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
@@ -187,7 +191,7 @@ function EditItem({ id }: EditItemProps) {
               onPageChange={handlePageChange}
               currentPage={currentPage}
               itemPerPage={itemsPerPage}
-              dataLength={roomsData.length}
+              dataLength={newRooms.length}
             />
           </div>
         </div>
