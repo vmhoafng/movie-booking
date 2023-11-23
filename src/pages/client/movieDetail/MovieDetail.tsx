@@ -1,10 +1,4 @@
-import React, {
-   useCallback,
-   useEffect,
-   useMemo,
-   useRef,
-   useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Title from "../../../app/components/Title";
 import ShowTimeBoard from "./components/ShowTimeBoard";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
@@ -17,7 +11,6 @@ import "swiper/css/scrollbar";
 
 import useWindowDimensions from "../../../app/hooks/useWindowDimensions";
 import Button from "../../../app/components/button/Button";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import LoadingAnimation from "../../../app/components/loading/LoadingAnimation";
 import Poster from "@/app/components/poster/Poster";
 import { useParams } from "react-router-dom";
@@ -29,7 +22,7 @@ import {
 } from "@/app/redux/movies/movies.slice";
 import { Listbox, Transition } from "@headlessui/react";
 import Icon from "@/app/components/icon/Icon";
-import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
+import { SelectOption } from "@/app/components/inputs/SelectInput";
 
 // import Swiper from "swiper";
 function MovieDetail() {
@@ -69,6 +62,7 @@ function MovieDetail() {
             })
          );
       setSelected(optionized[0]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [detail.id, date]);
 
    const renderShowtimes = useCallback(() => {
