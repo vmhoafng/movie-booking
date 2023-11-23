@@ -8,6 +8,7 @@ interface PaginationProps {
   currentPage: number;
   itemPerPage: number;
   dataLength: number;
+  of?: string;
 }
 // Index.tsx
 // const [currentPage, setCurrentPage] = useState(1);
@@ -33,6 +34,7 @@ const Pagination = ({
   currentPage,
   itemPerPage,
   dataLength,
+  of,
 }: PaginationProps) => {
   const handlePageClick = (data: { selected: number }) => {
     onPageChange(data.selected);
@@ -47,7 +49,7 @@ const Pagination = ({
         {isLastPage
           ? dataLength
           : (currentPage - 1) * itemPerPage + itemPerPage}{" "}
-        of {dataLength} rating
+        of {dataLength} {of}
       </div>
       <ReactPaginate
         pageCount={pageCount}

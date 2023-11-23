@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 
 import useWindowDimensions from "@/app/hooks/useWindowDimensions";
@@ -11,24 +11,22 @@ import { PulseLoader } from "react-spinners";
 import { dirtyValue } from "@/app/utils";
 import { toast } from "sonner";
 import Icon from "@/app/components/icon/Icon";
-import { UserData } from "@/app/redux/auth";
+import { getCurrentUser } from "@/app/redux/auth";
 
 export default function useAccountForm() {
   const { width } = useWindowDimensions();
   const { appSelector, dispatch } = useRedux();
-  const { user, isLoading } = appSelector((state) => state.auth);
-  const [currentUser, setCurrentUser] = useState<UserData>();
+  const { user: currentUser } = appSelector((state) => state.auth);
+  const { isLoading } = appSelector((state) => state.profile);
   useEffect(() => {
-    if (!isLoading) {
-      setCurrentUser(user);
-    }
-  }, [user, currentUser, isLoading]);
+    dispatch(getCurrentUser);
+  }, [dispatch]);
   const validationSchema = yup.object({
-    fullName: yup.string(),
-    dateOfBirth: yup.string(),
-    gender: yup.string(),
-    phoneNumber: yup.string(),
-    email: yup.string().email(),
+    fullName: yup.string().required(),
+    dateOfBirth: yup.string().required(),
+    gender: yup.string().required(),
+    phoneNumber: yup.string().required(),
+    email: yup.string().email().required(),
   });
 
   const {
@@ -41,86 +39,88 @@ export default function useAccountForm() {
     resolver: yupResolver<FieldValues>(validationSchema),
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    dispatch(updateProfile(dirtyValue(dirtyFields, data) as IPutProfile)).then(
-      (data) => {
-        if (isLoading) {
-          return toast.custom((t) => (
-            <div
-              className="flex
-            items-center
-            justify-between
-            bg-warning/20
-            px-2
-            py-3
-            rounded
-            min-w-[200px]
-            text-warning
-            font-bold
-            text-base
-            gap-7"
-            >
-              <div className="flex items-center gap-2">
-                <div>Thao tác quá nhanh</div>
-                <PulseLoader color="#FAC917" size={5} />
-              </div>
-              <div className="cursor-pointer" onClick={() => toast.dismiss(t)}>
-                <Icon icon="close" />
-              </div>
-            </div>
-          ));
-        }
-        if (data.type === "@@auth/updateProfile/fulfilled") {
-          return toast.custom((t) => (
-            <div
-              className="flex
+  const onSubmit: SubmitHandler<FieldValues> = useCallback(
+    (data) => {
+      const res = dispatch(
+        updateProfile(dirtyValue(dirtyFields, data) as IPutProfile)
+      );
+      toast.promise(res, {
+        loading: (
+          <div
+            className="flex
               items-center
               justify-between
-              bg-highlight/20
+              bg-warning/20
               px-2
               py-3
               rounded
               min-w-[200px]
-              text-highlight
+              text-warning
+              font-bold
+              text-base
+              gap-7"
+          >
+            <div className="flex items-center gap-2">
+              <div>Đang tải</div>
+              <PulseLoader color="#FAC917" size={5} />
+            </div>
+            <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+              <Icon icon="close" />
+            </div>
+          </div>
+        ),
+        success: (data: any) => {
+          return (
+            <div
+              className="flex
+                  items-center
+                  justify-between
+                  bg-highlight/20
+                  px-2
+                  py-3
+                  rounded
+                  min-w-[200px]
+                  text-highlight
+                  font-bold
+                  text-base
+                  gap-7"
+            >
+              <div>Thay đổi thông tin thành công</div>
+              <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+                <Icon icon="close" />
+              </div>
+            </div>
+          );
+        },
+        error: (err: any) => {
+          return (
+            <div
+              className="flex
+              items-center
+              justify-between
+              bg-error/20
+              px-2
+              py-3
+              rounded
+              min-w-[200px]
+              text-error
               font-bold
               text-base
               gap-7"
             >
-              <div>Thay đổi thông tin thành công</div>
-              <div className="cursor-pointer" onClick={() => toast.dismiss(t)}>
-                <Icon icon="close" />
-              </div>
-            </div>
-          ));
-        }
-        if (errors) {
-          return toast.custom((t) => (
-            <div
-              className="flex
-          items-center
-          justify-between
-          bg-error/20
-          px-2
-          py-3
-          rounded
-          min-w-[200px]
-          text-error
-          font-bold
-          text-base
-          gap-7"
-            >
               <div className="flex items-center gap-2">
                 <div>Chưa thể thay đổi thông tin</div>
               </div>
-              <div className="cursor-pointer" onClick={() => toast.dismiss(t)}>
+              <div className="cursor-pointer" onClick={() => toast.dismiss()}>
                 <Icon icon="close" />
               </div>
             </div>
-          ));
-        }
-      }
-    );
-  };
+          );
+        },
+      });
+    },
+    [dirtyFields, dispatch]
+  );
   useEffect(() => {
     reset({
       fullName: currentUser?.full_name,
@@ -137,5 +137,6 @@ export default function useAccountForm() {
     currentUser,
     handleEditAccount: handleSubmit(onSubmit),
     width,
+    isLoading,
   };
 }

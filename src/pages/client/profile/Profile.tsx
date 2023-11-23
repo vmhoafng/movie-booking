@@ -7,7 +7,22 @@ import { Toaster } from "sonner";
 export default function Profile() {
   return (
     <div>
-      <Toaster richColors expand gap={10} closeButton position="top-center" />
+      <Toaster
+        richColors
+        expand
+        gap={10}
+        closeButton
+        position="top-center"
+        toastOptions={{
+          style: {
+            background: "transparent",
+            padding: 0,
+            width: "fit-content",
+            border: 0,
+            marginTop: 180,
+          },
+        }}
+      />
       <div
         className="
            w-full

@@ -8,8 +8,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { useRedux } from "@/app/hooks";
-import { ICinema, initSeats } from "@/app/types/cinema";
+import { ICinema } from "@/app/types/cinema";
+import { initSeats } from "@/app/constants/data";
 import { postCinema } from "@/app/redux/cinema";
+import { toast } from "sonner";
 
 function AddItem() {
   const [dashboardList, setDashboardList] = useState<
@@ -64,11 +66,19 @@ function AddItem() {
 
   const { dispatch } = useRedux();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const payload = { ...data, rooms: dashboardList, description: "" };
-    dispatch(postCinema(payload as ICinema)).then((data) =>
-      console.log(data.payload)
-    );
-    // setDashboardList([]);
+    const payload = { ...data, rooms: dashboardList, description: "may gay" };
+    const res = dispatch(postCinema(payload as ICinema));
+    console.log(res);
+    toast.promise(res, {
+      loading: "Đang tải...",
+      success: (data: any) => {
+        return "Thêm mới thành công";
+      },
+      error: (err: any) => {
+        return "Error: " + err;
+      },
+    });
+    setDashboardList([]);
     reset();
   };
 
@@ -94,7 +104,10 @@ function AddItem() {
         >
           Thêm rạp
         </Button>
-        <Link className="text-white/50 text-sm font-semibold font-inter" to="/">
+        <Link
+          className="text-white/50 text-sm font-semibold font-inter"
+          to="/admin/cinema"
+        >
           Hủy bỏ
         </Link>
       </div>

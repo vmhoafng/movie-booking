@@ -44,25 +44,25 @@ export const updateImage = createAsyncThunk<IUser, IPutAvatarPayload>(
     return data;
   }
 );
-export const updateProfile = createAsyncThunk<void, IPutProfile>(
+export const updateProfile = createAsyncThunk(
   "@@auth/updateProfile",
-  async (payload, thunkApi) => {
-    const { data } = await api.profileService.putProfile(payload);
-    return data;
+  async (payload: IPutProfile) => {
+    const res = await api.profileService.putProfile(payload);
+    return res.data;
   }
 );
 export const checkPassword = createAsyncThunk<void, ICheckPassword>(
   "@@auth/checkPassword",
   async (payload, thunkApi) => {
-    const { data } = await api.profileService.checkPassword(payload);
-    return data;
+    const res = await api.profileService.checkPassword(payload);
+    return res.data;
   }
 );
 export const updatePassword = createAsyncThunk<void, IPutPassword>(
   "@@auth/updatePassword",
   async (payload, thunkApi) => {
-    const { data } = await api.profileService.putPassword(payload);
-    return data;
+    const res = await api.profileService.putPassword(payload);
+    return res.data;
   }
 );
 export const getBills = createAsyncThunk(
@@ -73,7 +73,7 @@ export const getBills = createAsyncThunk(
   }
 );
 
-export const profileSlice = createSlice({
+export const  profileSlice = createSlice({
   name: "profile",
   initialState,
   reducers: {
@@ -96,6 +96,20 @@ export const profileSlice = createSlice({
         state.isLoading = true;
       });
     builder
+      .addCase(updatePassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(updatePassword.pending, (state) => {
+        state.isLoading = true;
+      });
+    builder
+      .addCase(checkPassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(checkPassword.pending, (state) => {
+        state.isLoading = true;
+      });
+    builder
       .addCase(getBills.fulfilled, (state, action) => {
         //@ts-ignore
         state.bills = [...action.payload.data];
@@ -103,6 +117,9 @@ export const profileSlice = createSlice({
       })
       .addCase(getBills.pending, (state) => {
         state.isLoading = true;
+      })
+      .addCase(getBills.rejected, (state) => {
+        state.isLoading = false;
       });
   },
 });

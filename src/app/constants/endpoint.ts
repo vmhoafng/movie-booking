@@ -48,9 +48,13 @@ export const ENDPOINTS = {
 		},
 		CINEMA: {
 			POST_CINEMA: 'admin/cinemaRoom',
+			GET_ROOMS_BY_CINEMA_ID: `admin/cinema/${ROUTE_PARAMS.CINEMA_ID}/rooms`,
 		},
 		SCHEDULE: {
 			LIST: 'admin/cinema/room/showtime',
+		},
+		ACCOUNT: {
+			ALL: 'admin/users',
 		},
 	},
 };

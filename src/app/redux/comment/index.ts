@@ -2,11 +2,13 @@ import api from "@/app/services/api";
 import { ICommentList, ICommentStatus } from "@/app/types/comment";
 // import { IMovie, IMovieSlug, IgetByStatus } from "@/app/types/movie";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 interface ICommentsState {
    comment: ICommentList;
    isLoading: boolean;
    isError: boolean;
+   // isUpdate
    errorMessage: string | undefined;
 }
 
@@ -32,13 +34,18 @@ export const getAll = createAsyncThunk("@@movies/getAll", async () => {
    return data;
 });
 
-export const putCommentStatus = createAsyncThunk(
+export const putCommentStatus = createAsyncThunk<
+   any,
+   { id: string; payload: ICommentStatus },
+   { state: RootState }
+>(
    "@@movies/putCommentStatus",
    async (
       { id, payload }: { id: string; payload: ICommentStatus },
       thunkApi
    ) => {
       const { data } = await api.commentService.putStatus(id, payload);
+      thunkApi.dispatch(getAll());
       return data;
    }
 );

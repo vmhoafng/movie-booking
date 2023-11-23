@@ -8,7 +8,7 @@ interface CinemaFormProps {
   control?: any;
   register?: UseFormRegister<FieldValues>;
   errors?: FieldErrors;
-  currentCinema?: ICinema & { status: string };
+  currentCinema?: ICinema;
 }
 function CinemaForm({
   register,
