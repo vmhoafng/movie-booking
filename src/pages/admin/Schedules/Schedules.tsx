@@ -1,191 +1,151 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
+import React, {
+	memo,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
+import interactionPlugin, {
+	Draggable,
+	EventReceiveArg,
+} from '@fullcalendar/interaction';
 import { IMovie } from '@/app/types/movie';
 import { useRedux } from '@/app/hooks';
-import { getByStatus, getMovies } from '@/app/redux/movies/movies.slice';
+import { getMovies } from '@/app/redux/movies/movies.slice';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { EventImpl } from '@fullcalendar/core/internal';
-import { EventApi, EventInput } from '@fullcalendar/core';
+import { getAllSchedules } from '@/app/redux/admin/showtime/showtime.admin.slice';
+
+import { Toaster, toast as t } from 'sonner';
+import Modal from '@/app/components/Modal';
+import CRUDButton from '../components/buttons/CRUDButton';
+import CreateShowtimeForm from './components/CreateShowtimeForm';
+import DraggableMovie from './components/DraggableMovie/DraggableMovie';
 
 function Schedules() {
 	const [movies, setMovies] = useState<IMovie[]>([]);
-	const { dispatch } = useRedux();
-	const [events, setEvents] = useState<EventApi[]>([]);
-	const DraggleMovie = memo(({ movie }: { movie: IMovie }) => {
-		let elRef: any = useRef(null);
+	const { dispatch, appSelector } = useRedux();
+	const { cinemas } = appSelector((state) => state.schedule);
+	const [events, setEvents] = useState<any>([]);
 
-		useEffect(() => {
-			let draggable = new Draggable(elRef.current, {
-				eventData: function (event: IMovie) {
-					return {
-						id: movie.id,
-						title: movie.name,
-						duration: {
-							minute: movie.running_time,
-						},
-						extendedProps: {
-							sub_title: movie.sub_name,
-							src: movie.poster,
-						},
-						create: true,
-					};
-				},
-			});
-			return () => draggable.destroy();
-		}, [movie]);
+	const handleEventsReceived = (eventInfo: any) => {
+		const { event } = eventInfo;
 
-		return (
-			<div
-				ref={elRef}
-				id={movie.id}
-				className="fc-event relative h-[290px] flex-[0_0_190px]  fc-h-event mb-1 fc-daygrid-event fc-daygrid-block-event bg-black"
-			>
-				<div className=" flex gap-2 items-center absolute top-2  rounded-full py-1  bg-white left-2  px-2">
-					<span className="relative flex h-3 w-3">
-						<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-						<span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-					</span>
-					<span className="text-sky-500">{movie.status.description}</span>
-				</div>
-				<img
-					className="h-full object-cover"
-					src={`${movie.poster}`}
-					alt={movie.name}
-				/>
-				<div className="absolute bg-gradient-to-t h-[20%] pt-3 px-2 from-black to-black/50  bottom-0  left-0 right-0  ">
-					<p className="text-white truncate">{movie.name}</p>
-					<p className="text-white truncate text-white/60">{movie.sub_name}</p>
-				</div>
-			</div>
-		);
-	});
-
-	const handleEventsReceived = (eventInfo: EventApi[]) => {
-		setEvents(eventInfo);
+		const collapsedEvent = event.toPlainObject({
+			collapseExtendedProps: true,
+		});
+		const date = collapsedEvent.start.split('T');
+		const start_date = date[0];
+		const start_time = date[1];
 	};
 
 	useEffect(() => {
 		dispatch(getMovies()).then((data: any) => {
 			setMovies(data.payload.data);
 		});
-	}, [dispatch]);
+		!cinemas.length && dispatch(getAllSchedules());
+	}, [dispatch, cinemas]);
+
+	useEffect(() => {
+		const data =
+			cinemas[0]?.rooms[0]?.showtimes.map((s) => {
+				const start = new Date(s.start_date + `T${s.start_time}`);
+				const end = new Date(s.start_date + `T${s.start_time}`);
+				end.setTime(start.getTime() + s.running_time * 1000 * 60);
+				const event: any = {
+					// title: s.movie.name,
+					allDay: false,
+					// sub_title: s.movie.sub_name,
+					start: start.toJSON(),
+					extendedProps: {
+						...s.movie,
+					},
+					end: end.toJSON(),
+				};
+				return event;
+			}) || [];
+		setEvents([...data]);
+	}, [cinemas]);
 
 	const renderMovieDraggable = useCallback(() => {
 		return (
 			<div className=" w-full flex flex-wrap gap-4 mt-4">
-				{/* <Swiper
-					className=""
-					modules={[Navigation, Pagination, A11y]}
-					breakpoints={{
-						900: {
-							width: 790,
-							slidesPerView: 3,
-							spaceBetween: 20,
-						},
-						1024: {
-							width: 960,
-							slidesPerView: 3,
-							spaceBetween: 30,
-						},
-						1366: {
-							width: 1200,
-							slidesPerView: 3.8,
-							spaceBetween: 30,
-						},
-					}}
-				>
-					{(movies || []).map((movie) => (
-						<SwiperSlide className="flex">
-							<DraggleMovie key={movie.id} movie={movie} />
-						</SwiperSlide>
-					))}
-				</Swiper> */}
 				{(movies || []).map((movie) => (
-					<DraggleMovie key={movie.id} movie={movie} />
+					<DraggableMovie key={movie.id} movie={movie} />
 				))}
-				{/* <Swiper
-					slidesPerView={3}
-					spaceBetween={3}
-					wrapperClass="flex"
-					modules={[Navigation, Pagination, A11y]}
-					width={1200}
-				>
-					{(movies || []).map((movie) => (
-						<SwiperSlide className="">
-							<DraggleMovie key={movie.id} movie={movie} />
-						</SwiperSlide>
-					))}
-				</Swiper> */}
 			</div>
 		);
-	}, [movies, DraggleMovie]);
+	}, [movies]);
 
-	function renderEventContent(eventInfo: any) {
+	function renderEventContent(
+		eventInfo: EventReceiveArg & { timeText: string }
+	) {
+		const { event } = eventInfo;
+		const movie = event.toPlainObject({
+			collapseExtendedProps: true,
+		}) as IMovie;
 		return (
 			<div className="rounded-lg p-2 relative h-full w-full bg-black">
 				<img
 					className="h-full w-full object-contain"
-					src={`${eventInfo.event.extendedProps.src}`}
+					src={`${movie.poster}`}
 					alt=""
 				/>
-				<div className="absolute p-2 left-0 right-0 bottom-0">
-					<p className="text-white text-lg">{eventInfo.event.title}</p>
-					<p className="text-white text-lg">{eventInfo.event.sub_title}</p>
-					<select>
-						<option value="A">Phòng A</option>
-						<option value="B">Phòng B</option>
-						<option value="C">Phòng C</option>
-					</select>
+				<div className="absolute bg-gradient-to-t h-[20%] pt-3 px-2 from-black bottom-0 top-0  left-0 right-0  ">
+					<p className="text-white truncate">{eventInfo.timeText} </p>
+
+					<p className="text-white truncate">{eventInfo.event.title}</p>
+					<p className="text-white truncate text-white/60">{movie.sub_name}</p>
 				</div>
 			</div>
 		);
 	}
 
 	return (
-		<div>
-			<div className="">
-				<FullCalendar
-					plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
-					// slotDuration={'00:05'}
-					// dayCellClassNames={'border-none'}
-					locale={'vi'}
-					viewClassNames={''}
-					dayHeaderClassNames={' border rounded bg-lightPrimary'}
-					firstDay={1}
-					titleFormat={{
-						weekday: 'long',
-						day: '2-digit',
-					}}
-					dayHeaderFormat={{
-						weekday: 'long',
-					}}
-					height={500}
-					editable
-					slotMinTime={'07:00:00'}
-					slotMaxTime={'27:00:00'}
-					// initialEvents={events}
-					eventContent={renderEventContent}
-					allDaySlot={false}
-					droppable
-					// eventReceive={handleEventsReceived}
-					// eventsSet={handleEventsReceived}
-					displayEventEnd
-					eventDurationEditable={false}
-					// validRange={(nowDate) => {
-					// 	const endday = new Date(nowDate);
-					// 	endday.setDate(nowDate.getDate() + 2 * 7);
-					// 	return {
-					// 		start: nowDate,
-					// 		end: endday,
-					// 	};
-					// }}
-				/>
+		<>
+			<Modal>
+				<Modal.Open opens="test">
+					<CRUDButton variant="Add">Open</CRUDButton>
+				</Modal.Open>
+				<Modal.Window name="test">
+					<CreateShowtimeForm movie={movies[0]} />
+				</Modal.Window>
+			</Modal>
+			<Toaster position="top-center" expand gap={10} closeButton richColors />
+			<div>
+				<div className="">
+					<FullCalendar
+						plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
+						slotDuration={'00:15'}
+						locale={'vi'}
+						viewClassNames={''}
+						dayHeaderClassNames={' border rounded bg-lightPrimary'}
+						firstDay={1}
+						titleFormat={{
+							weekday: 'long',
+							day: '2-digit',
+						}}
+						dayHeaderFormat={{
+							weekday: 'long',
+						}}
+						editable={false}
+						slotMinTime={'07:00:00'}
+						slotMaxTime={'27:00:00'}
+						eventContent={renderEventContent}
+						allDaySlot={false}
+						droppable
+						events={events}
+						eventReceive={handleEventsReceived}
+						displayEventEnd
+						eventDurationEditable={false}
+						eventOverlap={false}
+					/>
+				</div>
+				{renderMovieDraggable()}
 			</div>
-			{renderMovieDraggable()}
-			<button onClick={() => console.log(events)}>Test</button>
-		</div>
+		</>
 	);
 }
 
