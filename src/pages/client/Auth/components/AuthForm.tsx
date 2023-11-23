@@ -190,7 +190,7 @@ const AuthForm = () => {
                 window.open(
                   "https://booking-movie-backend-3a547b1ac2e9.herokuapp.com/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth2/redirect",
                   "newwindow",
-                  "width=400, height=550, "
+                  "width=400, height=550"
                 );
                 return false;
               }}
