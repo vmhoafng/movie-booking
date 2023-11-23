@@ -13,13 +13,12 @@ export type ICinema = {
   status?: string;
   rooms?: roomType[];
 };
-
+export type IRoomStatus = {
+  roomId: string;
+  statusId: number;
+};
 export type roomType = { totalSeats: number; name: string; seats: seatType[] };
 export type seatType = { row: string; row_index: string; type_id: string };
-export type IPostRoom = {
-  totalSeats: number;
-  name: string;
-};
 export type ICinemaList = ICinema[];
 
 export type ICinemaShowtimeList = ICinema & { showtime: IShowtime[] };

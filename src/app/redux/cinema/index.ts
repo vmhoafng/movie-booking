@@ -1,5 +1,5 @@
 import api from "@/app/services/api";
-import { ICinema, ICinemaList } from "@/app/types/cinema";
+import { ICinema, ICinemaList, IRoomStatus } from "@/app/types/cinema";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IShowtimeGetByCinema } from "@/app/types/showtime";
 import { IMovie } from "@/app/types/movie";
@@ -65,6 +65,20 @@ export const postCinema = createAsyncThunk(
     return res.data;
   }
 );
+export const updateCinema = createAsyncThunk(
+  "@@cinema/updateCinema",
+  async (payload: ICinema, thunkApi) => {
+    const res = await api.cinemaService.updateCinema(payload);
+    return res.data;
+  }
+);
+export const updateRoomStatus = createAsyncThunk(
+  "@@room/updateRoomStatus",
+  async (payload: IRoomStatus, thunkApi) => {
+    const res = await api.cinemaService.updateRoomStatus(payload);
+    return res.data;
+  }
+);
 export const cinemaSlice = createSlice({
   name: "cinema",
   initialState,
@@ -94,7 +108,7 @@ export const cinemaSlice = createSlice({
       });
     builder
       .addCase(getCinemaById.fulfilled, (state, action) => {
-        state.currentCinema = {...action.payload};
+        state.currentCinema = { ...action.payload };
         state.rooms = [...action.payload.rooms];
         state.isLoading = false;
       })

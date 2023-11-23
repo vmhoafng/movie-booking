@@ -1,5 +1,5 @@
 import { ENDPOINTS, getEndPoint } from "@/app/constants/endpoint";
-import { ICinema } from "@/app/types/cinema";
+import { ICinema, IRoomStatus } from "@/app/types/cinema";
 import { Axios } from "@/app/utils/api";
 
 const cinemaService = {
@@ -14,7 +14,38 @@ const cinemaService = {
     );
   },
   postCinema: async (payload: ICinema) => {
-    console.log(payload);
+    return await Axios.axiosPostWithToken(
+      ENDPOINTS.ADMIN.CINEMA.POST_CINEMA,
+      payload
+    );
+  },
+  updateCinema: async (payload: ICinema) => {
+    const patchData = {
+      name: payload.name,
+      address: payload.address,
+      district: payload.district,
+      city: payload.city,
+      description: payload.description,
+      phoneNumber: payload.phone_number,
+      status: payload.status,
+    };
+    return await Axios.axiosPutWithToken(
+      getEndPoint(ENDPOINTS.ADMIN.CINEMA.POST_CINEMA, {
+        cinemaId: payload.id,
+      }),
+      patchData
+    );
+  },
+  updateRoomStatus: async (payload: IRoomStatus) => {
+    return await Axios.axiosPutWithToken(
+      getEndPoint(ENDPOINTS.ADMIN.CINEMA.POST_CINEMA, {
+        roomId: payload.roomId,
+        statusId: payload.statusId,
+      }),
+      ""
+    );
+  },
+  deleteCinema: async (payload: ICinema) => {
     return await Axios.axiosPostWithToken(
       ENDPOINTS.ADMIN.CINEMA.POST_CINEMA,
       payload
