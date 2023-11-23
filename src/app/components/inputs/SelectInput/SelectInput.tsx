@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SelectInputProps, SelectOption } from "./SelectInput.type";
 import { Listbox, Transition } from "@headlessui/react";
 import { Controller } from "react-hook-form";
+import clsx from "clsx";
 
 function SelectInput({
   id,
@@ -39,19 +40,26 @@ function SelectInput({
         render={({ field }) => (
           <div className={inputClassName}>
             <Listbox
+              disabled={disabled}
               value={selected}
               onChange={(e) => {
+                onChange && onChange(e);
                 setSelected(e);
                 field.onChange(e.value);
               }}
             >
-              <div className="relative">
+              <div
+                className={`relative ${
+                  disabled && "opacity-50 cursor-default"
+                }`}
+              >
                 <Listbox.Button
-                  className={
+                  className={clsx(
                     !buttonClassName
                       ? "bg-[#EFEFEF]/20 relative w-full rounded border text-left py-[1px]  pl-[15px]"
-                      : buttonClassName
-                  }
+                      : buttonClassName,
+                    disabled && "opacity-50 cursor-default"
+                  )}
                 >
                   <span
                     className={`block truncate text-[15px] ${

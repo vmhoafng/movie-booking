@@ -8,12 +8,14 @@ interface RatingListProps {
 }
 
 const RatingList = ({ data, currentPage, itemsPerPage }: RatingListProps) => {
+   console.log(data);
+
    const startIndex = (currentPage - 1) * itemsPerPage;
    const endIndex = startIndex + itemsPerPage;
-   const displayedData = data.slice(startIndex, endIndex);
+   const displayedData = data?.slice(startIndex, endIndex);
    return (
       <>
-         {displayedData.map((comment) => {
+         {displayedData?.map((comment) => {
             return <Rating data={comment} key={comment.id}></Rating>;
          })}
       </>
