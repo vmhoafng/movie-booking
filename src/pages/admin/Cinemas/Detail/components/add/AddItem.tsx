@@ -66,7 +66,7 @@ function AddItem() {
 
   const { dispatch } = useRedux();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const payload = { ...data, rooms: dashboardList, description: "may gay" };
+    const payload = { ...data, rooms: dashboardList, description: "null" };
     const res = dispatch(postCinema(payload as ICinema));
     console.log(res);
     toast.promise(res, {

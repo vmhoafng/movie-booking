@@ -18,7 +18,7 @@ function CinemaForm({
 }: CinemaFormProps) {
   const statusOptions: SelectOption[] = [
     { label: "Hoạt động", value: "Hoạt động" },
-    { label: "Đóng", value: "Đóng" },
+    { label: "Đóng cửa", value: "Đóng cửa" },
     { label: "Bảo trì", value: "Bảo trì" },
   ];
 

@@ -1,5 +1,5 @@
 import api from "@/app/services/api";
-import { ICinema, ICinemaList } from "@/app/types/cinema";
+import { ICinema, ICinemaList, IRoomStatus } from "@/app/types/cinema";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IShowtimeGetByCinema } from "@/app/types/showtime";
 import { IMovie } from "@/app/types/movie";
@@ -11,6 +11,7 @@ type TCinemaState = {
   selected: number;
   date: string;
   rooms: any[];
+  currentCinema: ICinema;
 };
 
 const initialState: TCinemaState = {
@@ -20,6 +21,15 @@ const initialState: TCinemaState = {
   selected: -1,
   isLoading: false,
   date: new Date(Date.now()).toISOString().slice(0, 10),
+  currentCinema: {
+    id: "",
+    name: "",
+    address: "",
+    district: "",
+    city: "",
+    phone_number: "",
+    description: "",
+  },
 };
 
 export const getCinemas = createAsyncThunk<ICinemaList>(
@@ -29,10 +39,10 @@ export const getCinemas = createAsyncThunk<ICinemaList>(
     return data;
   }
 );
-export const getRooms = createAsyncThunk(
-  "@@cinema/getRooms",
+export const getCinemaById = createAsyncThunk(
+  "@@cinema/getCinemaById",
   async (payload: string, thunkApi) => {
-    const { data } = await api.cinemaService.getRooms(payload);
+    const { data } = await api.cinemaService.getCinemaById(payload);
     return data;
   }
 );
@@ -52,6 +62,20 @@ export const postCinema = createAsyncThunk(
   "@@cinema/postCinema",
   async (payload: ICinema, thunkApi) => {
     const res = await api.cinemaService.postCinema(payload);
+    return res.data;
+  }
+);
+export const updateCinema = createAsyncThunk(
+  "@@cinema/updateCinema",
+  async (payload: ICinema, thunkApi) => {
+    const res = await api.cinemaService.updateCinema(payload);
+    return res.data;
+  }
+);
+export const updateRoomStatus = createAsyncThunk(
+  "@@room/updateRoomStatus",
+  async (payload: IRoomStatus, thunkApi) => {
+    const res = await api.cinemaService.updateRoomStatus(payload);
     return res.data;
   }
 );
@@ -83,11 +107,12 @@ export const cinemaSlice = createSlice({
         state.isLoading = true;
       });
     builder
-      .addCase(getRooms.fulfilled, (state, action) => {
-        state.rooms = [...action.payload];
+      .addCase(getCinemaById.fulfilled, (state, action) => {
+        state.currentCinema = { ...action.payload };
+        state.rooms = [...action.payload.rooms];
         state.isLoading = false;
       })
-      .addCase(getRooms.pending, (state, action) => {
+      .addCase(getCinemaById.pending, (state, action) => {
         state.isLoading = true;
       });
     builder.addCase(showtimeByCinema.fulfilled, (state, action) => {
