@@ -1,5 +1,5 @@
 export type IComment = {
-   id: any;
+   id: string;
    content: string;
    movie: string;
    user: string;

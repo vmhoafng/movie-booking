@@ -1,6 +1,8 @@
 export const ROUTE_PARAMS = {
 	MOVIE_ID: ':movieId',
 	CINEMA_ID: ':cinemaId',
+	ROOM_ID: ':roomId',
+	STATUS_ID: ':statusId',
 	USER_ID: ':userId',
 	SHOWTIME_ID: ':showTimeId',
 	MOVIE_SLUG: ':movieSlug',
@@ -50,7 +52,9 @@ export const PATHS = {
 		IDENTITY: 'ticket/:showtimeId',
 		DETAIL: '',
 	},
-
+	FORGOT_PASSWORD: {
+		IDENTITY: 'forgot-password',
+	},
 	ADMIN: {
 		IDENTITY: 'admin',
 		MOVIES: {

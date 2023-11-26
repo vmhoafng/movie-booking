@@ -18,10 +18,10 @@ function Dropdown({
       >
         {items.map((item) => {
           const { icon: Icon } = item;
-
           return (
             <Menu.Item key={item.label} as="li">
               <Link
+                onClick={item.onClick}
                 className={`flex items-center text-sm gap-3 hover:bg-white/10 px-5 py-[5px] text-[#9F9F9F]`}
                 to={item.to!}
               >

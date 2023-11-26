@@ -8,19 +8,14 @@ const Rating = ({ data }: { data: IComment }) => {
 
    const handleModifyStatus = useCallback(
       (id: string, payload: ICommentStatus) => {
-         console.log(id, payload);
          dispatch(putCommentStatus({ id, payload }));
       },
-      []
+      [dispatch]
    );
    return (
       <div className="w-full flex justify-center items-start py-3 border border-borderColor bg-bgPrimaryBar rounded">
          <div className="mx-4 rounded-full overflow-hidden">
-            <img
-               src="./assets/images/poster.png"
-               alt=""
-               className="w-[52px] h-[52px]"
-            />
+            <img src={data.avatar_user} alt="" className="w-[52px] h-[52px]" />
          </div>
          <div className="min-h-[52px] flex-1 flex flex-col items-start gap-3 pr-4 text-sm">
             <div className="w-full flex items-center">

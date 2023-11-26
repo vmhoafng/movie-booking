@@ -13,6 +13,7 @@ interface TableProps {
   renderCell?: (row: Record<string, any>, column: string) => ReactNode;
   currentPage: number;
   itemsPerPage: number;
+  action?: (row: any, rowIndex: any) => MenuItem<any>[];
 }
 
 //E.g Data
@@ -71,6 +72,7 @@ function Table<T>({
   currentPage,
   itemsPerPage,
   dataKeys,
+  action,
 }: TableProps) {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -95,18 +97,20 @@ function Table<T>({
         </thead>
         <tbody>
           {displayedData.map((row, rowIndex) => {
-            const items: MenuItem<T>[] = [
-              {
-                label: "Xem",
-                to: `${row.id}`,
-                icon: EyeIcon,
-              },
-              {
-                label: "Xóa",
-                onClick: () => {},
-                icon: TrashIcon,
-              },
-            ];
+            const items: MenuItem<any>[] = action
+              ? action(row, rowIndex)
+              : [
+                  {
+                    label: "Xem",
+                    to: `${row.id}`,
+                    icon: EyeIcon,
+                  },
+                  {
+                    label: "Xóa",
+                    onClick: () => console.log(row.id),
+                    icon: TrashIcon,
+                  },
+                ];
             return (
               <tr
                 key={rowIndex}
@@ -116,7 +120,20 @@ function Table<T>({
                   <td
                     title={row[dataKey]}
                     key={dataKey}
-                    className="max-w-[300px] truncate px-3 first:pl-6 last:pr-6 h-[46px] font-medium text-sm text-white/70 border-t border-borderColor whitespace-nowrap"
+                    className={`
+                    w-fit
+                    max-w-[300px]
+                    ${!renderCell && "truncate"}
+                    px-3
+                    first:pl-6
+                    last:pr-6
+                    h-[46px]
+                    font-medium
+                    text-sm
+                    text-white/70
+                    border-t
+                    border-borderColor
+                    whitespace-nowrap`}
                   >
                     {renderCell
                       ? renderCell(row, dataKey)

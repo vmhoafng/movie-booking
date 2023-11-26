@@ -68,6 +68,12 @@ const showtimes = React.lazy(() => import('@/pages/admin/Schedules'));
 //Loading
 const loading = () => <LoadingAnimation />;
 
+//Forgot password
+const forgotPassword = React.lazy(() => import('@/pages/error/ForgotPassword'));
+
+//Payment result
+const paymentResult = React.lazy(() => import('@/pages/error/PaymentResult'));
+
 type LoadComponentProps = {
 	component: React.LazyExoticComponent<() => JSX.Element>;
 	mode: string;
@@ -220,6 +226,11 @@ const scheduleRoute = {
 	],
 };
 
+const paymentResultRoute = {
+	path: 'payment-result',
+	element: <LoadComponent component={paymentResult} />,
+};
+
 function AllRoutes() {
 	return useRoutes([
 		authRoute,
@@ -248,7 +259,7 @@ function AllRoutes() {
 				<ProtectedRoute component={Layout} backgroundImage="bg-01.jpg" />
 			),
 
-			children: [ticketRoute],
+			children: [ticketRoute, paymentResultRoute],
 		},
 		{
 			path: '/',
@@ -263,6 +274,16 @@ function AllRoutes() {
 				<ProtectedRoute component={Layout} backgroundImage="bg-04.jpg" />
 			),
 			children: [paymentRoute],
+		},
+		{
+			path: '/',
+			element: <Layout backgroundImage="bg-01.jpg" />,
+			children: [
+				{
+					path: PATHS.FORGOT_PASSWORD.IDENTITY,
+					element: <LoadComponent component={forgotPassword} />,
+				},
+			],
 		},
 		{
 			path: PATHS.ADMIN.IDENTITY,
