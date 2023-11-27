@@ -1,0 +1,29 @@
+.fc-event {
+	box-shadow: none !important;
+}
+
+:root {
+	--fc-border-color: #314c81;
+}
+
+.fc-prev-button,
+.fc-next-button {
+	border-radius: 4px;
+	padding: 8px !important;
+	width: 32px;
+	height: 32px;
+}
+
+.fc-button {
+	background-color: #0e1946 !important;
+	border: 1px solid #314c81 !important;
+	font-size: 14px !important;
+}
+
+.fc-icon {
+	display: flex;
+	align-items: center;
+	justify-items: center;
+	font-size: 1rem !important;
+	/* margin-bottom: 1px; */
+}
