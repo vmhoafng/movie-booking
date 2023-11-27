@@ -9,38 +9,44 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { useRedux } from "@/app/hooks";
 import { initSeats } from "@/app/constants/data";
-import { getCinemas, getRooms } from "@/app/redux/cinema";
+import { getCinemas, getCinemaById } from "@/app/redux/cinema";
 import Table from "../../../../components/table/Table";
 import Pagination from "../../../../components/pagination/Pagination";
+import Status from "@/pages/admin/components/Status";
+import clsx from "clsx";
+import {
+  ChevronDownIcon,
+  EyeIcon,
+  PencilIcon,
+  TrashIcon,
+} from "@heroicons/react/20/solid";
+import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
+
 interface EditItemProps {
   id: string;
 }
-const dataKeys = ["id", "name", "address", "district", "city", "phone_number"];
-const columns = [
-  "ID",
-  "Phòng",
-  "Số ghế",
-  "Đã đặt",
-  "Số ghế trống",
-  "Trạng thái",
-];
+const dataKeys = ["id", "name", "totalSeats", "status"];
+const columns = ["ID", "Phòng", "Số ghế", "Trạng thái"];
 function EditItem({ id }: EditItemProps) {
   const { appSelector, dispatch } = useRedux();
-  const { cinemas } = appSelector((state) => state.cinema);
+  const { currentCinema, rooms } = appSelector((state) => state.cinema);
   useEffect(() => {
-    dispatch(getCinemas());
-    dispatch(getRooms(id));
+    dispatch(getCinemaById(id));
   }, [dispatch, id]);
-  console.log();
-
-  const [currentCinema] = useMemo(
-    () => cinemas.filter((cinema) => cinema.id === id),
-    [cinemas, id]
+  const newRooms = useMemo(
+    () =>
+      rooms.map((room) => ({
+        id: room.id,
+        name: room.name,
+        status: room.status.name,
+        totalSeats: 150,
+      })),
+    [rooms]
   );
-
+  const [roomsData, setRoomsData] = useState(newRooms);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Number of items to display per page
-  const pageCount = Math.ceil(cinemas.length / itemsPerPage);
+  const pageCount = Math.ceil(newRooms.length / itemsPerPage);
   const handlePageChange = (selectedPage: number) => {
     setCurrentPage(selectedPage + 1);
   };
@@ -74,6 +80,76 @@ function EditItem({ id }: EditItemProps) {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     reset();
   };
+  const [editStatus, setEditStatus] = useState();
+  const statusOptions: SelectOption[] = [
+    { label: "Hoạt động", value: "Hoạt động" },
+    { label: "Đóng cửa", value: "Đóng cửa" },
+    { label: "Bảo trì", value: "Bảo trì" },
+  ];
+  const renderCell = useCallback(
+    (row: any, dataKeys: any) => {
+      if (dataKeys === "status" && editStatus !== row.id)
+        return (
+          <Status
+            status={
+              clsx(
+                row["status"] === "Hoạt động" && "active",
+                row["status"] === "Bảo trì" && "warning",
+                row["status"] === "Đóng cửa" && "disable"
+              ) as "active" | "warning" | "disabled"
+            }
+          >
+            {row["status"]}
+          </Status>
+        );
+      if (dataKeys === "status" && editStatus === row.id)
+        return (
+          <SelectInput
+            required
+            id="status"
+            control={control}
+            options={statusOptions}
+            placeholder="Chọn trạng thái"
+            name="status"
+            onChange={(e) => {
+              console.log(e);
+            }}
+            register={register}
+            inputClassName="w-full"
+            value={statusOptions.find(
+              (status) => status.value === currentCinema?.status
+            )}
+            optionClassName="
+            z-30
+            text-white/90
+            hover:bg-white/10
+            px-[15px] 
+            py-2
+            transition-all
+            duration-150"
+            buttonClassName="
+            text-start
+            block
+            w-full
+            px-[15px]
+            rounded
+            border
+            shadow-sm
+            bg-white/10
+            outline-0
+            text-white/90
+            border-borderColor
+            focus:border-borderColor
+            relative
+            h-[35px]"
+            //@ts-ignore
+            endIcon={ChevronDownIcon}
+          />
+        );
+      return <span className="">{row[dataKeys]}</span>;
+    },
+    [control, currentCinema?.status, editStatus, register, statusOptions]
+  );
   return (
     <div>
       <form
@@ -89,18 +165,33 @@ function EditItem({ id }: EditItemProps) {
           />
           <div>
             <Table
-              data={cinemas}
+              action={(row) => [
+                {
+                  label: row.id !== editStatus ? "Sửa" : "Hủy",
+                  onClick: () => {
+                    if (row.id !== editStatus) {
+                      return setEditStatus(row.id);
+                    }
+                    row["status"] = row.id;
+
+                    return setEditStatus(undefined);
+                  },
+                  icon: PencilIcon,
+                },
+              ]}
+              data={newRooms}
               columns={columns}
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
               dataKeys={dataKeys}
+              renderCell={renderCell}
             />
             <Pagination
               pageCount={pageCount}
               onPageChange={handlePageChange}
               currentPage={currentPage}
               itemPerPage={itemsPerPage}
-              dataLength={cinemas.length}
+              dataLength={newRooms.length}
             />
           </div>
         </div>

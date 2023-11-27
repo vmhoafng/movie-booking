@@ -2,7 +2,7 @@ export type MenuItem<T> = {
 	label: string;
 	icon?: any;
 	to?: string;
-	onClick?: (data: T) => void;
+	onClick?: () => void;
 };
 
 export type DropdownProps = {

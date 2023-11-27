@@ -43,6 +43,7 @@ function SelectInput({
               disabled={disabled}
               value={selected}
               onChange={(e) => {
+                onChange && onChange(e);
                 setSelected(e);
                 field.onChange(e.value);
               }}
