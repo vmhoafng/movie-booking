@@ -12,6 +12,7 @@ export type OpenProps = {
 	children: React.ReactElement;
 	opens: string;
 	isOpen?: boolean;
+	disabled?: boolean;
 };
 
 export type WindowProps = {

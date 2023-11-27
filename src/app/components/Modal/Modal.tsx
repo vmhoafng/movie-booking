@@ -39,13 +39,16 @@ function Modal({ children }: ModalProps) {
 	);
 }
 
-function Open({ children, opens: opensWindowName }: OpenProps) {
+function Open({
+	children,
+	opens: opensWindowName,
+	disabled = false,
+}: OpenProps) {
 	const { open } = useContext(ModalContext)!;
 
 	return cloneElement(children, {
 		onClick: () => {
-			console.log('Attempting to open modal with name:', opensWindowName);
-			open(opensWindowName);
+			!disabled && open(opensWindowName);
 		},
 	});
 }

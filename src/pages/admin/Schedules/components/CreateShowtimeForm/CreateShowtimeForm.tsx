@@ -14,7 +14,10 @@ function CreateShowtimeForm({
 		collapseExtendedProps: true,
 	});
 
-	const { dispatch } = useRedux();
+	const { dispatch, appSelector } = useRedux();
+	const { selectedRoom, cinemas, selectedCinema } = appSelector(
+		(s) => s.schedule
+	);
 	const handleConfirmModal = () => {
 		const date = movie.start.split('T');
 		const start_date = date[0];
@@ -24,7 +27,7 @@ function CreateShowtimeForm({
 			createShowtime({
 				format_id: 1,
 				movie_id: movie.id,
-				room_id: 'Room001',
+				room_id: cinemas[selectedCinema]?.rooms![selectedRoom].id,
 				start_date,
 				start_time,
 			})
@@ -33,47 +36,51 @@ function CreateShowtimeForm({
 		});
 	};
 
+	console.log(movie);
+
 	return (
-		<div className="relative  flex flex-col">
-			<div className="w-full ">
-				<img
-					src={movie?.horizontal_poster}
-					className=" w-full object-cover h-[340px]"
-					alt=""
-				/>
-			</div>
-			<div className="bg-white h-fit">
-				<div className=" h-[220px] gap-5 flex  ml-2 mt-[-15%]   items-end ">
+		<form>
+			<div className="relative  flex flex-col">
+				<div className="w-full ">
 					<img
-						src={movie?.poster}
-						className=" border w-[180px]   rounded-lg"
+						src={movie?.horizontal_poster}
+						className=" w-full object-cover h-[340px]"
 						alt=""
 					/>
-					<div className="bg-white p-6 ">
-						<h1 className="text-4xl">{movie?.name}</h1>
+				</div>
+				<div className="bg-white h-fit">
+					<div className=" h-[220px] gap-5 flex  ml-2 mt-[-15%]   items-end ">
+						<img
+							src={movie?.poster}
+							className=" border w-[180px]   rounded-lg"
+							alt=""
+						/>
+						<div className="bg-white p-6 ">
+							<h1 className="text-4xl">{movie?.name}</h1>
+						</div>
+					</div>
+					<div className=" flex gap-5">
+						<CRUDButton
+							variant="Add"
+							onClick={() => {
+								handleConfirmModal();
+							}}
+						>
+							Thêm
+						</CRUDButton>
+						<CRUDButton
+							variant="Cancel"
+							onClick={() => {
+								onCloseModal!();
+								eventInfo.revert();
+							}}
+						>
+							Hủy
+						</CRUDButton>
 					</div>
 				</div>
-				<div className=" flex gap-5">
-					<CRUDButton
-						variant="Add"
-						onClick={() => {
-							handleConfirmModal();
-						}}
-					>
-						Thêm
-					</CRUDButton>
-					<CRUDButton
-						variant="Cancel"
-						onClick={() => {
-							onCloseModal!();
-							eventInfo.revert();
-						}}
-					>
-						Hủy
-					</CRUDButton>
-				</div>
 			</div>
-		</div>
+		</form>
 	);
 }
 

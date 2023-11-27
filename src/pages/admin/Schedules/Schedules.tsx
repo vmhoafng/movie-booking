@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import interactionPlugin, { EventReceiveArg } from '@fullcalendar/interaction';
 import { IMovie } from '@/app/types/movie';
 import { useRedux } from '@/app/hooks';
@@ -6,7 +6,11 @@ import { getMovies } from '@/app/redux/movies/movies.slice';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { getAllSchedules } from '@/app/redux/admin/showtime/showtime.admin.slice';
+import {
+	getAllSchedules,
+	setSelectedCinema,
+	setSelectedRoom,
+} from '@/app/redux/admin/showtime/showtime.admin.slice';
 import './style.css';
 import { Toaster, toast as t } from 'sonner';
 import ConfirmModal from './components/ConfirmModal';
@@ -16,11 +20,13 @@ import DraggableMovie from './components/DraggableMovie/DraggableMovie';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import Modal from '@/app/components/Modal';
 import DeleteShowtimeForm from './components/DeleteShowtimeForm/DeleteShowtimeForm';
+import { roomType } from '@/app/types/cinema';
 
 function Schedules() {
 	const [movies, setMovies] = useState<IMovie[]>([]);
 	const { dispatch, appSelector } = useRedux();
-	const { cinemas, isLoading } = appSelector((state) => state.schedule);
+	const { cinemas, isLoading, selectedRoom, showtimes, selectedCinema } =
+		appSelector((state) => state.schedule);
 	const [events, setEvents] = useState<any>([]);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [currentEvent, setCurrentEvent] = useState(null);
@@ -40,27 +46,46 @@ function Schedules() {
 		!cinemas.length && dispatch(getAllSchedules());
 	}, [isLoading]);
 
+	const buttons = useMemo(() => {
+		return (cinemas[selectedCinema]?.rooms || []).reduce((acc, room, index) => {
+			//@ts-ignore
+			// delete room.showtimes;
+
+			return {
+				...acc,
+				[`room${index}`]: {
+					text: room.name.split('-')[0],
+					click(ev: any, element: HTMLElement) {
+						dispatch(setSelectedRoom(index));
+					},
+				},
+			};
+		}, {});
+	}, [isLoading, cinemas, dispatch, selectedCinema]);
+
 	useEffect(() => {
 		const data =
-			cinemas[0]?.rooms[0]?.showtimes.map((s) => {
-				const start = new Date(s.start_date + `T${s.start_time}`);
-				const end = new Date(s.start_date + `T${s.start_time}`);
-				end.setTime(start.getTime() + s.running_time * 1000 * 60);
+			showtimes.map((s) => {
+				const start = new Date(s!.start_date + `T${s!.start_time}`);
+				const end = new Date(s!.start_date + `T${s!.start_time}`);
+				end.setTime(start.getTime() + s!.running_time * 1000 * 60);
 				const event: any = {
 					// title: s.movie.name,
 					allDay: false,
 					// sub_title: s.movie.sub_name,
-					id: s.id,
+					id: s!.id,
 					start: start.toJSON(),
 					extendedProps: {
-						...s.movie,
+						...s!.movie,
+						room_id: s!.room_id,
 					},
 					end: end.toJSON(),
 				};
 				return event;
 			}) || [];
+
 		setEvents([...data]);
-	}, [isLoading]);
+	}, [isLoading, selectedRoom, showtimes]);
 
 	const renderMovieDraggable = useCallback(() => {
 		return (
@@ -72,69 +97,59 @@ function Schedules() {
 		);
 	}, [movies]);
 
-	function renderEventContent(
-		eventInfo: EventReceiveArg & { timeText: string }
-	) {
-		const { event } = eventInfo;
-		const movie = event.toPlainObject({
-			collapseExtendedProps: true,
-		}) as IMovie & { start: string };
-		return (
-			<div className="rounded-lg p-3  h-full w-full border-none">
-				<div className="shadow-2xl h-full relative ">
-					<div className="bg-[#0E1946] px-2 flex ">
-						<p className="text-lightPrimary truncate">{eventInfo.timeText} </p>
-						<div className="ml-auto">
-							<Modal>
-								<Modal.Open opens="confirm">
-									<XMarkIcon
-										className="h-5 w-5 hover:cursor-pointer text-borderColor"
-										// onClick={handleClick}
-									/>
-								</Modal.Open>
-								<Modal.Window name="confirm">
-									<DeleteShowtimeForm movie={movie} eventInfo={eventInfo} />
-								</Modal.Window>
-							</Modal>
+	const renderEventContent = useCallback(
+		(eventInfo: EventReceiveArg & { timeText: string }) => {
+			const { event } = eventInfo;
+			const movie = event.toPlainObject({
+				collapseExtendedProps: true,
+			}) as IMovie & { start: string; room_id: string };
+			const currentRoom =
+				movie.room_id === cinemas[selectedCinema]?.rooms![selectedRoom]?.id;
+			return (
+				<div
+					key={movie.id + movie.room_id + event.id}
+					className={`${
+						currentRoom ? '' : 'opacity-25'
+					} rounded-lg p-3  h-full w-full border-none`}
+				>
+					<div className="shadow-2xl h-full relative ">
+						<div className="bg-[#0E1946] px-2 flex ">
+							<p className="text-lightPrimary truncate">
+								{eventInfo.timeText}{' '}
+							</p>
+							<div className="ml-auto">
+								<Modal>
+									<Modal.Open opens="confirm" disabled={!currentRoom}>
+										<XMarkIcon
+											className={`h-5 w-5 ${
+												currentRoom && 'hover:cursor-pointer'
+											}  text-borderColor`}
+											// onClick={handleClick}
+										/>
+									</Modal.Open>
+									<Modal.Window name="confirm">
+										<DeleteShowtimeForm movie={movie} eventInfo={eventInfo} />
+									</Modal.Window>
+								</Modal>
+							</div>
+						</div>
+						<img
+							className="h-full w-full object-contain"
+							src={`${movie.poster}`}
+							alt=""
+						/>
+						<div className="absolute bg-gradient-to-t h-[20%] pt-3 px-2 from-black bottom-0  left-0 right-0  ">
+							<p className="text-white truncate">{movie.name}</p>
+							<p className="text-white truncate text-white/60">
+								{movie.sub_name}
+							</p>
 						</div>
 					</div>
-					<img
-						className="h-full w-full object-contain"
-						src={`${movie.poster}`}
-						alt=""
-					/>
-					<div className="absolute bg-gradient-to-t h-[20%] pt-3 px-2 from-black bottom-0  left-0 right-0  ">
-						<p className="text-white truncate">{movie.name}</p>
-						<p className="text-white truncate text-white/60">
-							{movie.sub_name}
-						</p>
-					</div>
 				</div>
-			</div>
-		);
-	}
-
-	const a =
-		//@ts-ignore
-		cinemas[0]?.rooms.reduce((buttons = {}, room, index) => {
-			//@ts-ignore
-			delete room.showtimes;
-			console.log(room);
-
-			//@ts-ignore
-			buttons[`${index}`] = {
-				test: {
-					text: room.name,
-					click(ev: any, element: any) {
-						console.log(ev);
-						console.log(element);
-					},
-				},
-			};
-			console.log(buttons);
-
-			return buttons;
-		});
+			);
+		},
+		[selectedRoom, cinemas, selectedCinema]
+	);
 
 	return (
 		<>
@@ -143,6 +158,23 @@ function Schedules() {
 				<CreateShowtimeForm eventInfo={currentEvent} />
 			</ConfirmModal>
 			<div>
+				<div className="">
+					<select
+						name=""
+						id=""
+						onChange={(e) => {
+							dispatch(setSelectedCinema(+e.target.value));
+						}}
+					>
+						{cinemas.map((c, index) => {
+							return (
+								<option key={c.name} value={index}>
+									{c.name}
+								</option>
+							);
+						})}
+					</select>
+				</div>
 				<div className="">
 					<FullCalendar
 						plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
@@ -185,17 +217,9 @@ function Schedules() {
 						displayEventEnd
 						eventDurationEditable={false}
 						eventOverlap={false}
-						customButtons={{
-							test: {
-								text: 'Room 001',
-								click(ev, element) {
-									console.log(ev);
-									console.log(element);
-								},
-							},
-						}}
+						customButtons={buttons}
 						headerToolbar={{
-							right: 'prev,next today test',
+							right: `${Object.keys(buttons || {}).join(' ') || ''} prev,next`,
 							left: '',
 							center: '',
 						}}

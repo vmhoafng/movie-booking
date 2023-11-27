@@ -8,26 +8,26 @@ import {
 } from '@/app/types/showtime';
 import { Axios } from '@/app/utils/api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { async } from 'q';
-
-type ICinemaSchedule = ICinema & {
-	rooms: [
-		{
-			id: string;
-			name: string;
-			showtimes: [IShowtime & { movie: IMovie }];
-		}
-	];
+type IShowtimeList = IShowtime & {
+	movie: IMovie;
+	room_id: string;
+	start: string;
 };
 
 type IScheduleState = {
-	cinemas: ICinemaSchedule[];
+	cinemas: ICinema[];
 	isLoading: boolean;
+	selectedCinema: number;
+	selectedRoom: number;
+	showtimes: IShowtimeList[];
 };
 
 const initialState: IScheduleState = {
 	cinemas: [],
 	isLoading: false,
+	selectedCinema: 0,
+	selectedRoom: 0,
+	showtimes: [],
 };
 
 export const getAllSchedules = createAsyncThunk<any, undefined>(
@@ -66,12 +66,45 @@ export const deleteShowtime = createAsyncThunk<any, IDeleteShowtime>(
 const scheduleSlice = createSlice({
 	name: '@@schedule',
 	initialState,
-	reducers: {},
+	reducers: {
+		setSelectedRoom: (state, action) => {
+			state.selectedRoom = action.payload;
+		},
+		setSelectedCinema: (state, action) => {
+			const { cinemas } = state;
+			// const index = cinemas.findIndex((c) => c.id === action.payload.id) || 0;
+			state.selectedCinema = action.payload;
+
+			//@ts-ignore
+			state.showtimes = cinemas[state.selectedCinema]?.rooms.flatMap(
+				(room) =>
+					(room.showtimes || []).map((show) => {
+						return {
+							...show,
+							room_id: room.id,
+						};
+					}),
+				1
+			);
+			state.selectedRoom = 0;
+		},
+	},
 	extraReducers(builder) {
 		builder
 			.addCase(getAllSchedules.fulfilled, (state, action) => {
 				state.cinemas = action.payload;
 				state.isLoading = false;
+				state.showtimes = action.payload[0]?.rooms.flatMap(
+					(room: any) =>
+						(room.showtimes || []).map((show: any) => {
+							return {
+								...show,
+								room_id: room.id,
+							};
+						}),
+					1
+				);
+				console.log(state.showtimes);
 			})
 			.addCase(getAllSchedules.pending, (state, action) => {
 				state.isLoading = true;
@@ -80,12 +113,14 @@ const scheduleSlice = createSlice({
 				state.isLoading = false;
 			});
 		builder.addCase(createShowtime.fulfilled, (state, action) => {
-			console.log('Succeed');
+			state.showtimes = [...state.showtimes];
 		});
 		builder.addCase(deleteShowtime.fulfilled, (state, action) => {
 			console.log('Deleted');
 		});
 	},
 });
+
+export const { setSelectedRoom, setSelectedCinema } = scheduleSlice.actions;
 
 export default scheduleSlice.reducer;

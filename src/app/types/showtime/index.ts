@@ -1,4 +1,4 @@
-import { IMovieFormat } from '../movie';
+import { IMovie, IMovieFormat } from '../movie';
 
 export type IShowtime = {
 	id: string;
@@ -7,6 +7,7 @@ export type IShowtime = {
 	start_date: string;
 	start_time: number;
 	running_time: number;
+	movie?: IMovie;
 };
 
 export type IShowtimeGetByCinema = {

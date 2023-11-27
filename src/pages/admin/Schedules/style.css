@@ -4,6 +4,7 @@
 
 :root {
 	--fc-border-color: #314c81;
+	--fc-daygrid-event-dot-width: 5px;
 }
 
 .fc-prev-button,
