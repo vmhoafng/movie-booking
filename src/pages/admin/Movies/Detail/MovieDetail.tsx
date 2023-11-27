@@ -20,6 +20,7 @@ import MultipleSelect from '@/app/components/inputs/MultipleSelect';
 import { useEffect, useMemo, useState } from 'react';
 import { Axios } from '@/app/utils/api';
 import ControlBar from '../../components/controlBar/ControlBar';
+import ImageUploader from '../components/ImageUploader';
 
 const statusOptions: SelectOption[] = [
 	{
@@ -113,71 +114,18 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 			{modeConfigs[mode].ControlBar}
 			<div className="flex gap-[30px] py-[25px] border-b-[1px] border-dashed border-borderColor ">
 				<div className="">
-					<Dropzone
-						onDrop={(acceptedFiles) => {
-							const file = acceptedFiles[0];
-							Object.assign(file, {
-								preview: URL.createObjectURL(file),
-							});
-							setPoster(file);
-						}}
-						accept={{
-							'image/jpeg': [],
-							'image/png': [],
-						}}
-						maxFiles={1}
-					>
-						{({ getInputProps, getRootProps }) => (
-							<div
-								className="w-[180px] hover:cursor-pointer h-[270px]"
-								{...getRootProps()}
-							>
-								<input {...getInputProps()} />
-								{poster?.preview || movie?.poster ? (
-									<img
-										className="h-full w-full border"
-										src={poster?.preview || movie?.poster}
-										alt=""
-									/>
-								) : (
-									<ImageHolder>Poster</ImageHolder>
-								)}
-							</div>
-						)}
-					</Dropzone>
+					<ImageUploader
+						label="Poster"
+						initialImage={movie?.poster}
+						onFilePreview={setPoster}
+					/>
 					<div className="mt-[10px]">
-						<Dropzone
-							onDrop={(acceptedFiles) => {
-								const file: TFile = acceptedFiles[0];
-								Object.assign(file, {
-									preview: URL.createObjectURL(file),
-								});
-								setHorPoster(file);
-							}}
-							accept={{
-								'image/jpeg': [],
-								'image/png': [],
-							}}
-							maxFiles={1}
-						>
-							{({ getInputProps, getRootProps }) => (
-								<div
-									className="w-[180px] hover:cursor-pointer h-[120px]"
-									{...getRootProps()}
-								>
-									<input {...getInputProps()} />
-									{horPoster?.preview || movie?.horizontal_poster ? (
-										<img
-											className="h-full w-full border"
-											src={horPoster?.preview || movie?.horizontal_poster}
-											alt=""
-										/>
-									) : (
-										<ImageHolder>Poster</ImageHolder>
-									)}
-								</div>
-							)}
-						</Dropzone>
+						<ImageUploader
+							label="Poster"
+							onFilePreview={setHorPoster}
+							variant="horizontal"
+							initialImage={movie?.horizontal_poster}
+						/>
 					</div>
 				</div>
 				<div className="flex-1">

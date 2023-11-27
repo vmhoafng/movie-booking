@@ -34,18 +34,7 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 		director: yup.string().required(),
 		rated: yup.number().required('Độ tuổi phim không được để trống'),
 		trailer: yup.string().required(),
-		releaseDate: yup
-			.string()
-			.test(
-				'test-validReleaseDate',
-				'Ngày công chiếu bé hơn ngày hiện tại',
-				(value: any) => {
-					const currentDate = new Date(Date.now());
-					const releaseDate = new Date(value);
-					return currentDate < releaseDate;
-				}
-			)
-			.required(),
+		releaseDate: yup.string().required(),
 		endDate: yup
 			.string()
 			.test({
@@ -65,8 +54,8 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 			.required(),
 		runningTime: yup
 			.number()
-			.typeError('Thời lượng phải là số')
-			.required('Test'),
+			.typeError('Thời lượng phải là số và không được để trống')
+			.required(''),
 		statusId: yup.number().required(),
 		genre: yup
 			.array()
@@ -89,7 +78,7 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 		reset,
 		handleSubmit,
 		control,
-		formState: { isDirty, errors },
+		formState: { isDirty, errors, isLoading },
 	} = useForm({
 		resolver: yupResolver<any>(validateMovieDetail),
 		mode: 'onChange',
@@ -139,6 +128,8 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 	const handleCancel = () => {
 		reset({}, { keepDefaultValues: true });
 	};
+
+	console.log(isLoading);
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		const deletedIds = (imageInitialState.current || [])
