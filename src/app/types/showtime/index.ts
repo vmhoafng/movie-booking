@@ -18,3 +18,15 @@ export type IShowtimeGetByMovie = {
 	movieId: string;
 	date: string;
 };
+
+export type ICreateShowtime = {
+	start_date: string;
+	start_time: string;
+	movie_id: string;
+	format_id: number;
+	room_id: string;
+};
+
+export type IDeleteShowtime = {
+	id: string;
+};

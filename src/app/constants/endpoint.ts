@@ -52,6 +52,8 @@ export const ENDPOINTS = {
 		},
 		SCHEDULE: {
 			LIST: 'admin/cinema/room/showtime',
+			POST_SHOWTIME: 'admin/showtime',
+			DELETE_SHOWTIME: `admin/showtime/${ROUTE_PARAMS.SHOWTIME_ID}`,
 		},
 		ACCOUNT: {
 			ALL: 'admin/users',

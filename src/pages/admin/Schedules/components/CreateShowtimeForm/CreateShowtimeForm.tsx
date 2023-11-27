@@ -1,9 +1,37 @@
 import React from 'react';
 import { CreateShowtimeFormProps } from './CreateShowtimeForm.type';
 import CRUDButton from '@/pages/admin/components/buttons/CRUDButton';
+import { useRedux } from '@/app/hooks';
+import { createShowtime } from '@/app/redux/admin/showtime/showtime.admin.slice';
 
-function CreateShowtimeForm({ movie, onCloseModal }: CreateShowtimeFormProps) {
-	console.log(movie);
+function CreateShowtimeForm({
+	eventInfo,
+	onCloseModal,
+}: CreateShowtimeFormProps) {
+	console.log(eventInfo);
+	const { event } = eventInfo;
+	const movie = event.toPlainObject({
+		collapseExtendedProps: true,
+	});
+
+	const { dispatch } = useRedux();
+	const handleConfirmModal = () => {
+		const date = movie.start.split('T');
+		const start_date = date[0];
+		const start_time = date[1].split('+')[0];
+
+		dispatch(
+			createShowtime({
+				format_id: 1,
+				movie_id: movie.id,
+				room_id: 'Room001',
+				start_date,
+				start_time,
+			})
+		).then(() => {
+			onCloseModal!();
+		});
+	};
 
 	return (
 		<div className="relative  flex flex-col">
@@ -25,11 +53,24 @@ function CreateShowtimeForm({ movie, onCloseModal }: CreateShowtimeFormProps) {
 						<h1 className="text-4xl">{movie?.name}</h1>
 					</div>
 				</div>
-				<div className="mt-1 px-4">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla ut
-					incidunt nemo consequuntur animi nihil adipisci delectus error eveniet
-					facere sint, autem itaque consectetur consequatur, numquam placeat
-					quasi ullam. Doloribus?
+				<div className=" flex gap-5">
+					<CRUDButton
+						variant="Add"
+						onClick={() => {
+							handleConfirmModal();
+						}}
+					>
+						Thêm
+					</CRUDButton>
+					<CRUDButton
+						variant="Cancel"
+						onClick={() => {
+							onCloseModal!();
+							eventInfo.revert();
+						}}
+					>
+						Hủy
+					</CRUDButton>
 				</div>
 			</div>
 		</div>

@@ -1,15 +1,5 @@
-import React, {
-	memo,
-	useCallback,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-} from 'react';
-import interactionPlugin, {
-	Draggable,
-	EventReceiveArg,
-} from '@fullcalendar/interaction';
+import React, { useCallback, useEffect, useState } from 'react';
+import interactionPlugin, { EventReceiveArg } from '@fullcalendar/interaction';
 import { IMovie } from '@/app/types/movie';
 import { useRedux } from '@/app/hooks';
 import { getMovies } from '@/app/redux/movies/movies.slice';
@@ -17,28 +7,30 @@ import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { getAllSchedules } from '@/app/redux/admin/showtime/showtime.admin.slice';
-
+import './style.css';
 import { Toaster, toast as t } from 'sonner';
-import Modal from '@/app/components/Modal';
+import ConfirmModal from './components/ConfirmModal';
 import CRUDButton from '../components/buttons/CRUDButton';
 import CreateShowtimeForm from './components/CreateShowtimeForm';
 import DraggableMovie from './components/DraggableMovie/DraggableMovie';
+import { XMarkIcon } from '@heroicons/react/24/solid';
+import Modal from '@/app/components/Modal';
+import DeleteShowtimeForm from './components/DeleteShowtimeForm/DeleteShowtimeForm';
 
 function Schedules() {
 	const [movies, setMovies] = useState<IMovie[]>([]);
 	const { dispatch, appSelector } = useRedux();
-	const { cinemas } = appSelector((state) => state.schedule);
+	const { cinemas, isLoading } = appSelector((state) => state.schedule);
 	const [events, setEvents] = useState<any>([]);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [currentEvent, setCurrentEvent] = useState(null);
 
 	const handleEventsReceived = (eventInfo: any) => {
 		const { event } = eventInfo;
 
-		const collapsedEvent = event.toPlainObject({
-			collapseExtendedProps: true,
-		});
-		const date = collapsedEvent.start.split('T');
-		const start_date = date[0];
-		const start_time = date[1];
+		setCurrentEvent(eventInfo);
+
+		setIsOpen(true);
 	};
 
 	useEffect(() => {
@@ -46,7 +38,7 @@ function Schedules() {
 			setMovies(data.payload.data);
 		});
 		!cinemas.length && dispatch(getAllSchedules());
-	}, [dispatch, cinemas]);
+	}, [isLoading]);
 
 	useEffect(() => {
 		const data =
@@ -58,6 +50,7 @@ function Schedules() {
 					// title: s.movie.name,
 					allDay: false,
 					// sub_title: s.movie.sub_name,
+					id: s.id,
 					start: start.toJSON(),
 					extendedProps: {
 						...s.movie,
@@ -67,7 +60,7 @@ function Schedules() {
 				return event;
 			}) || [];
 		setEvents([...data]);
-	}, [cinemas]);
+	}, [isLoading]);
 
 	const renderMovieDraggable = useCallback(() => {
 		return (
@@ -85,35 +78,70 @@ function Schedules() {
 		const { event } = eventInfo;
 		const movie = event.toPlainObject({
 			collapseExtendedProps: true,
-		}) as IMovie;
+		}) as IMovie & { start: string };
 		return (
-			<div className="rounded-lg p-2 relative h-full w-full bg-black">
-				<img
-					className="h-full w-full object-contain"
-					src={`${movie.poster}`}
-					alt=""
-				/>
-				<div className="absolute bg-gradient-to-t h-[20%] pt-3 px-2 from-black bottom-0 top-0  left-0 right-0  ">
-					<p className="text-white truncate">{eventInfo.timeText} </p>
-
-					<p className="text-white truncate">{eventInfo.event.title}</p>
-					<p className="text-white truncate text-white/60">{movie.sub_name}</p>
+			<div className="rounded-lg p-3  h-full w-full border-none">
+				<div className="shadow-2xl h-full relative ">
+					<div className="bg-[#0E1946] px-2 flex ">
+						<p className="text-lightPrimary truncate">{eventInfo.timeText} </p>
+						<div className="ml-auto">
+							<Modal>
+								<Modal.Open opens="confirm">
+									<XMarkIcon
+										className="h-5 w-5 hover:cursor-pointer text-borderColor"
+										// onClick={handleClick}
+									/>
+								</Modal.Open>
+								<Modal.Window name="confirm">
+									<DeleteShowtimeForm movie={movie} eventInfo={eventInfo} />
+								</Modal.Window>
+							</Modal>
+						</div>
+					</div>
+					<img
+						className="h-full w-full object-contain"
+						src={`${movie.poster}`}
+						alt=""
+					/>
+					<div className="absolute bg-gradient-to-t h-[20%] pt-3 px-2 from-black bottom-0  left-0 right-0  ">
+						<p className="text-white truncate">{movie.name}</p>
+						<p className="text-white truncate text-white/60">
+							{movie.sub_name}
+						</p>
+					</div>
 				</div>
 			</div>
 		);
 	}
 
+	const a =
+		//@ts-ignore
+		cinemas[0]?.rooms.reduce((buttons = {}, room, index) => {
+			//@ts-ignore
+			delete room.showtimes;
+			console.log(room);
+
+			//@ts-ignore
+			buttons[`${index}`] = {
+				test: {
+					text: room.name,
+					click(ev: any, element: any) {
+						console.log(ev);
+						console.log(element);
+					},
+				},
+			};
+			console.log(buttons);
+
+			return buttons;
+		});
+
 	return (
 		<>
-			<Modal>
-				<Modal.Open opens="test">
-					<CRUDButton variant="Add">Open</CRUDButton>
-				</Modal.Open>
-				<Modal.Window name="test">
-					<CreateShowtimeForm movie={movies[0]} />
-				</Modal.Window>
-			</Modal>
 			<Toaster position="top-center" expand gap={10} closeButton richColors />
+			<ConfirmModal isOpen={isOpen} setIsOpen={setIsOpen}>
+				<CreateShowtimeForm eventInfo={currentEvent} />
+			</ConfirmModal>
 			<div>
 				<div className="">
 					<FullCalendar
@@ -121,26 +149,56 @@ function Schedules() {
 						slotDuration={'00:15'}
 						locale={'vi'}
 						viewClassNames={''}
-						dayHeaderClassNames={' border rounded bg-lightPrimary'}
+						eventClassNames={'border-none bg-transparent'}
+						dayHeaderClassNames={
+							' border  bg-[#0E1946] text-[12px] font-semibold'
+						}
 						firstDay={1}
 						titleFormat={{
 							weekday: 'long',
 							day: '2-digit',
 						}}
+						slotLabelClassNames={'text-[12px] font-semibold'}
 						dayHeaderFormat={{
 							weekday: 'long',
+							month: 'numeric',
+							day: 'numeric',
+							omitCommas: true,
 						}}
+						dayHeaderContent={(args) => {
+							const { text } = args;
+							let regex = /(\d{2}\/\d{2})/;
+							const newStr = text.replace(regex, '[$1]');
+							return newStr;
+						}}
+						dayCellClassNames={'border-borderColor '}
 						editable={false}
 						slotMinTime={'07:00:00'}
 						slotMaxTime={'27:00:00'}
 						eventContent={renderEventContent}
 						allDaySlot={false}
 						droppable
+						height={600}
+						stickyHeaderDates
 						events={events}
 						eventReceive={handleEventsReceived}
 						displayEventEnd
 						eventDurationEditable={false}
 						eventOverlap={false}
+						customButtons={{
+							test: {
+								text: 'Room 001',
+								click(ev, element) {
+									console.log(ev);
+									console.log(element);
+								},
+							},
+						}}
+						headerToolbar={{
+							right: 'prev,next today test',
+							left: '',
+							center: '',
+						}}
 					/>
 				</div>
 				{renderMovieDraggable()}
