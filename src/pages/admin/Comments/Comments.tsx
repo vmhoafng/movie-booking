@@ -26,7 +26,7 @@ function Comments() {
 
    const [status, setStatus] = useState<ICommentStatus | "ALL">("ALL");
    const [currentPage, setCurrentPage] = useState(1);
-   const itemsPerPage = 1;
+   const itemsPerPage = 6;
    const pageCount = Math.ceil(comment.data?.length / itemsPerPage);
    const handlePageChange = (selectedPage: number) => {
       setCurrentPage(selectedPage + 1);
