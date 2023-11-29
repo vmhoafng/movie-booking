@@ -36,18 +36,25 @@ function MovieList() {
     dispatch(getMovies());
   }, [dispatch]);
   const { movies } = appSelector((state) => state.movies);
+  const [showByStatus, setShowByStatus] = useState("");
   const dataMovies = useMemo(
     () =>
-      movies.map((movie) => ({
-        id: movie.id,
-        name: movie.name,
-        sub_name: movie.sub_name,
-        end_date: movie.end_date,
-        running_time: `${movie.running_time} phút`,
-        rating: `${movie.rating}/10 (${movie.rated})`,
-        status: movie.status.description,
-      })),
-    [movies]
+      movies
+        .filter((movie) =>
+          showByStatus
+            ? movie.status.description === showByStatus
+            : movie.status.description
+        )
+        .map((movie) => ({
+          id: movie.id,
+          name: movie.name,
+          sub_name: movie.sub_name,
+          end_date: movie.end_date,
+          running_time: `${movie.running_time} phút`,
+          rating: `${movie.rating}/10 (${movie.rated})`,
+          status: movie.status.description,
+        })),
+    [movies, showByStatus]
   );
   console.log(dataMovies);
 
@@ -58,9 +65,9 @@ function MovieList() {
     setCurrentPage(selectedPage + 1);
   };
   const statusOptions: SelectOption[] = [
+    { label: "All", value: "" },
     { label: "Showing now", value: "Showing now" },
-    { label: "Showing now", value: "Showing now" },
-    { label: "Showing now", value: "Showing now" },
+    { label: "Coming soon", value: "Coming soon" },
   ];
   const renderCell = useCallback((row: any, dataKeys: any) => {
     if (dataKeys === "status")
@@ -90,7 +97,12 @@ function MovieList() {
               options={statusOptions}
               placeholder="Trạng thái"
               name="status"
-              onChange={() => {}}
+              onChange={(e) => {
+                setShowByStatus(e.value as string);
+              }}
+              value={statusOptions.find(
+                (status) => status.value === showByStatus
+              )}
               // register={register}
               inputClassName="w-full"
               optionClassName="
