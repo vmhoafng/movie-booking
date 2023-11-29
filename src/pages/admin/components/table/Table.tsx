@@ -105,11 +105,6 @@ function Table<T>({
                     to: `${row.id}`,
                     icon: EyeIcon,
                   },
-                  {
-                    label: "Xóa",
-                    onClick: () => console.log(row.id),
-                    icon: TrashIcon,
-                  },
                 ];
             return (
               <tr

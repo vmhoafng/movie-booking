@@ -109,7 +109,14 @@ export const cinemaSlice = createSlice({
     builder
       .addCase(getCinemaById.fulfilled, (state, action) => {
         state.currentCinema = { ...action.payload };
-        state.rooms = [...action.payload.rooms];
+        state.rooms = [
+          ...action.payload.rooms.map((room: any) => ({
+            id: room.id,
+            name: room.name,
+            status: room.status.name,
+            totalSeats: 150,
+          })),
+        ];
         state.isLoading = false;
       })
       .addCase(getCinemaById.pending, (state, action) => {

@@ -185,13 +185,18 @@ const AuthForm = () => {
               onClick={() => socialAction("github")}
             />
             <a
+              target="_blank"
               onClick={(e) => {
                 e.preventDefault();
-                window.open(
+                var wd = window.open(
                   "https://booking-movie-backend-3a547b1ac2e9.herokuapp.com/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth2/redirect",
                   "newwindow",
                   "width=400, height=550"
                 );
+                setTimeout(() => {
+                  // @ts-ignore
+                  wd && wd.close();
+                }, 10000);
                 return false;
               }}
               href="undefined"
