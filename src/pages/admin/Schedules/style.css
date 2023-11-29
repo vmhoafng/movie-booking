@@ -15,10 +15,37 @@
 	height: 32px;
 }
 
+/* 
+black: {
+    100: "#cfd1da",
+    200: "#9fa3b5",
+    300: "#6e7590",
+    400: "#3e476b",
+    500: "#0e1946",
+    600: "#0b1438",
+    700: "#080f2a",
+    800: "#060a1c",
+    900: "#03050e"
+}, 
+
+
+*/
+
 .fc-button {
 	background-color: #0e1946 !important;
 	border: 1px solid #314c81 !important;
 	font-size: 14px !important;
+	outline: none !important;
+}
+
+.fc-button.active {
+	background-color: #3e476b !important;
+	font-weight: 800;
+	/* border: 1px solid #596f9a !important; */
+	/* font-size: 14px !important; */
+}
+
+.fc-button:focus {
 }
 
 .fc-icon {
