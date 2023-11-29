@@ -1,5 +1,5 @@
 import api from "@/app/services/api";
-import { ICommentList, ICommentStatus } from "@/app/types/comment";
+import { ICommentList, ICommentStatus, INewComment } from "@/app/types/comment";
 // import { IMovie, IMovieSlug, IgetByStatus } from "@/app/types/movie";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
@@ -50,6 +50,14 @@ export const putCommentStatus = createAsyncThunk<
    }
 );
 
+export const postComment = createAsyncThunk(
+   "@@comment/postComment",
+   async (payload: INewComment) => {
+      const data = await api.commentService.postComment(payload);
+      return data;
+   }
+);
+
 const commentsSlice = createSlice({
    name: "movies",
    initialState,
@@ -89,6 +97,13 @@ const commentsSlice = createSlice({
             state.isLoading = false;
             state.isError = true;
             state.errorMessage = action.error.message;
+         })
+         .addCase(postComment.pending, (state) => {
+            state.isLoading = true;
+         })
+         .addCase(postComment.rejected, (state) => {
+            state.isLoading = false;
+            state.isError = false;
          });
    },
 });

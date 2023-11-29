@@ -1,5 +1,5 @@
 import { ENDPOINTS, getEndPoint } from "@/app/constants/endpoint";
-import { ICommentStatus } from "@/app/types/comment";
+import { ICommentStatus, INewComment } from "@/app/types/comment";
 import { Axios } from "@/app/utils/api";
 const commentService = {
    getAll: async () => {
@@ -15,8 +15,6 @@ const commentService = {
    },
 
    putStatus: async (id: string, payload: ICommentStatus) => {
-      console.log(id, payload);
-
       return await Axios.axiosPutWithToken(
          getEndPoint(ENDPOINTS.ADMIN.COMMENT.MODIFY_STATUS, {
             commentId: id,
@@ -28,6 +26,10 @@ const commentService = {
             },
          }
       );
+   },
+
+   postComment: async (payload: INewComment) => {
+      return await Axios.axiosPostWithToken(ENDPOINTS.POST_COMMENT, payload);
    },
 };
 
