@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 function Ticket({ ticket }: { ticket: ITicketType }) {
    const { dispatch, appSelector } = useRedux();
    const selected_seats = appSelector((state) => state.payment.selected_seats);
-   console.log(selected_seats);
 
    return (
       <div className="bg-[#0A1E5ECC] flex flex-col items-center sm:text-sm sm:pb-4 sm:px-4 md:px-8 lg:px-12 w-full xl:w-[240px] xl:py-2 xl:px-[30px] 2xl:w-[300px] 2xl:px-9 font-inter border-2 xl:border border-borderColor">
@@ -85,7 +84,11 @@ function Ticket({ ticket }: { ticket: ITicketType }) {
 
          <div className="lg:mt-1 xl:hidden">
             <Link to={`/payment`}>
-               <Button large onClick={() => dispatch(setTicket(ticket))}>
+               <Button
+                  large
+                  onClick={() => dispatch(setTicket(ticket))}
+                  disabled
+               >
                   Thanh toán
                </Button>
             </Link>

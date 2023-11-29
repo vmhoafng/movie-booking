@@ -16,19 +16,14 @@ const Seat = ({
    return (
       <button
          className={clsx(
-            "relactive flex justify-center items-center h-8 w-8 border-2 border-bgPrimary rounded-lg text-center  cursor-pointer transition-colors duration-150",
-            !seat?.is_reserved
-               ? "bg-borderColor hover:bg-highlight"
-               : "bg-gradientStart select-none",
+            "flex justify-center items-center h-8 w-8 border-2 border-bgPrimary rounded-lg text-center hover:bg-highlight cursor-pointer transition-colors",
+            seat?.status ? "bg-borderColor" : "bg-gradientStart hover:none",
             is_reserved && "bg-highlight"
          )}
-         disabled={seat?.is_reserved}
+         disabled={!seat?.status}
          onClick={() => dispatch(setSelectedSeats(seat))}
       >
          <span className="text-sm">{seat?.row_index as any}</span>
-         {/* {seat?.is_reserved === true && (
-            <div className="absolute top-0 left-0 w-full h-full"></div>
-         )} */}
       </button>
    );
 };

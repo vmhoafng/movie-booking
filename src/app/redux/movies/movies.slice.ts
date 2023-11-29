@@ -84,7 +84,6 @@ const moviesSlice = createSlice({
 		selectMovie: (state, action) => {
 			const { movies } = state;
 			const index = movies.findIndex((c) => c.slug === action.payload);
-			console.log(index);
 
 			if (index !== -1) {
 				state.selected = index;

@@ -1,10 +1,4 @@
-import React, {
-   useCallback,
-   useEffect,
-   useMemo,
-   useRef,
-   useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Title from "../../../app/components/Title";
 import ShowTimeBoard from "./components/ShowTimeBoard";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
@@ -14,10 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-
 import useWindowDimensions from "../../../app/hooks/useWindowDimensions";
-import Button from "../../../app/components/button/Button";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import LoadingAnimation from "../../../app/components/loading/LoadingAnimation";
 import Poster from "@/app/components/poster/Poster";
 import { useParams } from "react-router-dom";
@@ -29,7 +20,9 @@ import {
 } from "@/app/redux/movies/movies.slice";
 import { Listbox, Transition } from "@headlessui/react";
 import Icon from "@/app/components/icon/Icon";
-import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
+import { SelectOption } from "@/app/components/inputs/SelectInput";
+import IsShowingMovies from "./components/IsShowingMovies";
+import Comment from "./components/Comment";
 
 // import Swiper from "swiper";
 function MovieDetail() {
@@ -52,6 +45,7 @@ function MovieDetail() {
          }),
       ];
    }, [detail]);
+
    const [selected, setSelected] = useState<SelectOption>(optionized[0]);
    const { movieId } = useParams();
 
@@ -69,7 +63,8 @@ function MovieDetail() {
             })
          );
       setSelected(optionized[0]);
-   }, [detail.id, date]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [dispatch, detail.id, date]);
 
    const renderShowtimes = useCallback(() => {
       return (detail.cinema || []).map((cinema: any) => {
@@ -86,6 +81,14 @@ function MovieDetail() {
          return <></>;
       });
    }, [detail, selected]);
+
+   const renderIsShowingMovies = useMemo(() => {
+      return <IsShowingMovies showingNow={showingNow}></IsShowingMovies>;
+   }, [showingNow]);
+
+   const renderComments = useMemo(() => {
+      return <Comment data={detail}></Comment>;
+   }, [detail]);
 
    return (
       <>
@@ -356,28 +359,12 @@ function MovieDetail() {
                            })}
                         </Swiper>
                      </div>
-                  </div>
-
-                  <div className="w-fit hidden xl:flex xl:flex-col gap-5 justify-start items-start py-6 xl:py-8">
-                     <Title active>Phim đang chiếu</Title>
-                     <div className="flex flex-col w-fit gap-4">
-                        {showingNow.map((movie) => {
-                           return (
-                              <Poster
-                                 horizontal
-                                 key={movie.id}
-                                 src={movie.poster}
-                                 name={movie.name}
-                                 subname={movie.sub_name}
-                                 to={`/movies/${movie.slug}`}
-                              />
-                           );
-                        })}
+                     <div className="flex flex-col gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor">
+                        <Title active>Bình luận</Title>
+                        {renderComments}
                      </div>
-                     <Button fullWidth medium onClick={() => {}}>
-                        Xem thêm
-                     </Button>
                   </div>
+                  {renderIsShowingMovies}
                </div>
             </div>
          ) : (
