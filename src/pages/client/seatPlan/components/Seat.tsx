@@ -4,14 +4,19 @@ import { ISeatType } from "../type";
 import { useRedux } from "@/app/hooks";
 import { setSelectedSeats } from "@/app/redux/payment";
 
-const Seat = ({ seat, is_reserved }: { seat: ISeatType, is_reserved: boolean }) => {
-   const { dispatch, } = useRedux();
-
+const Seat = ({
+   seat,
+   is_reserved,
+}: {
+   seat: ISeatType;
+   is_reserved: boolean;
+}) => {
+   const { dispatch } = useRedux();
 
    return (
       <button
          className={clsx(
-            "flex justify-center items-center h-8 w-8 border-2 border-bgPrimary rounded-lg text-center hover:bg-highlight cursor-pointer transition-colors duration-150",
+            "flex justify-center items-center h-8 w-8 border-2 border-bgPrimary rounded-lg text-center hover:bg-highlight cursor-pointer transition-colors",
             seat?.status ? "bg-borderColor" : "bg-gradientStart hover:none",
             is_reserved && "bg-highlight"
          )}

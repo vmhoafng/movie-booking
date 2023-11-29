@@ -1,22 +1,18 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import CinemaForm from "../CinemaForm";
-import RoomForm from "../RoomForm";
 import Button from "@/app/components/button/Button";
 import { Link } from "react-router-dom";
-import DasboardItem from "../DashboardItem";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { useRedux } from "@/app/hooks";
-import { initSeats } from "@/app/constants/data";
-import { getCinemas, getCinemaById } from "@/app/redux/cinema";
+import { getCinemaById } from "@/app/redux/cinema";
 import Table from "../../../../components/table/Table";
 import Pagination from "../../../../components/pagination/Pagination";
 import Status from "@/pages/admin/components/Status";
 import clsx from "clsx";
 import {
   ChevronDownIcon,
-  EyeIcon,
   PencilIcon,
   TrashIcon,
 } from "@heroicons/react/20/solid";
@@ -33,20 +29,13 @@ function EditItem({ id }: EditItemProps) {
   useEffect(() => {
     dispatch(getCinemaById(id));
   }, [dispatch, id]);
-  const newRooms = useMemo(
-    () =>
-      rooms.map((room) => ({
-        id: room.id,
-        name: room.name,
-        status: room.status.name,
-        totalSeats: 150,
-      })),
-    [rooms]
-  );
-  const [roomsData, setRoomsData] = useState(newRooms);
+  const [roomsData, setRoomsData] = useState<any>([]);
+
+  console.log(rooms, roomsData);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Number of items to display per page
-  const pageCount = Math.ceil(newRooms.length / itemsPerPage);
+  const pageCount = Math.ceil(roomsData.length / itemsPerPage);
   const handlePageChange = (selectedPage: number) => {
     setCurrentPage(selectedPage + 1);
   };
@@ -113,6 +102,15 @@ function EditItem({ id }: EditItemProps) {
             name="status"
             onChange={(e) => {
               console.log(e);
+              const newRoom = rooms.map((room) => {
+                if (room.id === row.id)
+                  return {
+                    ...room,
+                    status: e.value,
+                  };
+                return room;
+              });
+              console.log(newRoom);
             }}
             register={register}
             inputClassName="w-full"
@@ -179,7 +177,7 @@ function EditItem({ id }: EditItemProps) {
                   icon: PencilIcon,
                 },
               ]}
-              data={newRooms}
+              data={roomsData}
               columns={columns}
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
@@ -191,7 +189,7 @@ function EditItem({ id }: EditItemProps) {
               onPageChange={handlePageChange}
               currentPage={currentPage}
               itemPerPage={itemsPerPage}
-              dataLength={newRooms.length}
+              dataLength={roomsData.length}
             />
           </div>
         </div>

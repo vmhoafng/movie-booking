@@ -8,6 +8,7 @@ import { PATHS } from '../constants/path';
 import LoadingAnimation from '../components/loading/LoadingAnimation';
 import AdminLayout from '../components/layouts/AdminLayout';
 import VerifyEmail from '../../pages/client/VerifyEmail';
+import Error404 from '@/pages/error/Error404';
 
 //Lazy loading pages
 //landing
@@ -217,7 +218,7 @@ const scheduleRoute = {
 	children: [
 		{
 			path: PATHS.ADMIN.SHOWTIMES.LIST,
-			elemen: <LoadComponent component={showtimes} />,
+			element: <LoadComponent component={showtimes} />,
 		},
 	],
 };
@@ -298,6 +299,11 @@ function AllRoutes() {
 				dashboardRoute,
 				scheduleRoute,
 			],
+		},
+		{
+			path: '/*',
+			element: <Error404 />,
+			index: true,
 		},
 	]);
 }

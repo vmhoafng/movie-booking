@@ -95,7 +95,6 @@ export const userSlice = createSlice({
       authUtils.setSessionToken();
       return initialState;
     },
-
     selectSeat: (state, action) => {},
     changeVerifyState: (state, action) => {
       state.user.verify = action.payload;
