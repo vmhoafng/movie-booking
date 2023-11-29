@@ -64,17 +64,19 @@ function Poster({
             lg:group-hover:opacity-100
             "
         >
-          <Button
-            highlight
-            rounded
-            uppercase
-            borderWhite
-            small={horizontal || (width > 960 && width < 1200)}
-            medium={!horizontal}
-            onClick={onClick}
-          >
-            <Link to={to!}> buy ticket</Link>
-          </Button>
+          <Link to={to!}>
+            <Button
+              highlight
+              rounded
+              uppercase
+              borderWhite
+              small={horizontal || (width > 960 && width < 1200)}
+              medium={!horizontal}
+              onClick={onClick}
+            >
+              buy ticket
+            </Button>
+          </Link>
         </div>
       </div>
       <div
@@ -114,7 +116,7 @@ function Poster({
         <div
           className={clsx(
             "uppercase text-white/60 font-bold transition-all duration-100 ease-linear lg:group-hover:px-[10px] truncate",
-            horizontal ? "text-xs xl:text-[13px]" : "text-sm "
+            horizontal ? "text-xs xl:text-[13px] xl:leading-7" : "text-sm "
           )}
         >
           {subname}
