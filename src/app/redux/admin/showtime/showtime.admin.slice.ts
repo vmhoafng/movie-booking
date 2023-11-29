@@ -68,25 +68,32 @@ const scheduleSlice = createSlice({
 	initialState,
 	reducers: {
 		setSelectedRoom: (state, action) => {
+			const { cinemas } = state;
 			state.selectedRoom = action.payload;
+			state.showtimes =
+				//@ts-ignore
+				cinemas[state.selectedCinema]?.rooms[state.selectedRoom].showtimes?.map(
+					(show: any) => {
+						return {
+							...show,
+						};
+					}
+				) || [];
 		},
 		setSelectedCinema: (state, action) => {
 			const { cinemas } = state;
-			// const index = cinemas.findIndex((c) => c.id === action.payload.id) || 0;
-			state.selectedCinema = action.payload;
+			state.selectedRoom = 0;
 
-			//@ts-ignore
-			state.showtimes = cinemas[state.selectedCinema]?.rooms.flatMap(
-				(room) =>
-					(room.showtimes || []).map((show) => {
+			state.selectedCinema = action.payload;
+			state.showtimes =
+				//@ts-ignore
+				cinemas[state.selectedCinema]?.rooms[state.selectedRoom].showtimes?.map(
+					(show: any) => {
 						return {
 							...show,
-							room_id: room.id,
 						};
-					}),
-				1
-			);
-			state.selectedRoom = 0;
+					}
+				) || [];
 		},
 	},
 	extraReducers(builder) {
@@ -94,17 +101,16 @@ const scheduleSlice = createSlice({
 			.addCase(getAllSchedules.fulfilled, (state, action) => {
 				state.cinemas = action.payload;
 				state.isLoading = false;
-				state.showtimes = action.payload[0]?.rooms.flatMap(
-					(room: any) =>
-						(room.showtimes || []).map((show: any) => {
-							return {
-								...show,
-								room_id: room.id,
-							};
-						}),
-					1
-				);
-				console.log(state.showtimes);
+
+				state.showtimes =
+					//@ts-ignore
+					action.payload[state.selectedCinema]?.rooms[
+						state.selectedRoom
+					].showtimes?.map((show: any) => {
+						return {
+							...show,
+						};
+					}) || [];
 			})
 			.addCase(getAllSchedules.pending, (state, action) => {
 				state.isLoading = true;
@@ -113,10 +119,30 @@ const scheduleSlice = createSlice({
 				state.isLoading = false;
 			});
 		builder.addCase(createShowtime.fulfilled, (state, action) => {
-			state.showtimes = [...state.showtimes];
+			const data = action.payload;
+			const showtime = {
+				id: data.id,
+				format: data.format,
+				movie: data.movie,
+				room_id: data.room.id,
+				running_time: data.running_time,
+				start_date: data.start_date,
+				start_time: data.start_time,
+				status: data.status,
+			} as IShowtimeList;
+			state.cinemas[state.selectedCinema]?.rooms![
+				state.selectedRoom
+			].showtimes?.push(showtime);
 		});
 		builder.addCase(deleteShowtime.fulfilled, (state, action) => {
-			console.log('Deleted');
+			const deletedId = action.payload;
+			const newShowtimes =
+				(state.showtimes.filter(
+					(show) => show.id !== deletedId
+				) as IShowtimeList[]) || [];
+
+			state.cinemas[state.selectedCinema].rooms![state.selectedRoom].showtimes =
+				[...newShowtimes];
 		});
 	},
 });

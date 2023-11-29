@@ -12,7 +12,7 @@ function ConfirmModal({ isOpen, setIsOpen, children }: ConfirmModalProps) {
 			className="fixed top-0 left-0 w-full h-screen backdrop-filter z-[1000] bg-black/40"
 			// onClick={close}
 		>
-			<div className="fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-white py-[32px] px-[46px]">
+			<div className="fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-[#0E1946] py-[32px] px-[46px]">
 				<div>{cloneElement(children, { onCloseModal: close })}</div>
 			</div>
 		</div>,

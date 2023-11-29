@@ -47,6 +47,7 @@ function DeleteShowtimeForm({
 					phim <span className="underline">{movie.name}</span> vào lúc{' '}
 					{eventInfo.timeText}{' '}
 				</p>
+
 				<p>
 					{date.toLocaleString('vi-VN', {
 						day: 'numeric',
@@ -54,7 +55,6 @@ function DeleteShowtimeForm({
 						month: 'long',
 					})}
 				</p>
-
 				<p className="mt-4">Bạn vẫn muốn tiếp tục chứ?</p>
 			</div>
 			<div className="flex justify-center gap-4 mt-4 items-center">

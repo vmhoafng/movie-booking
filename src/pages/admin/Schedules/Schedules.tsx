@@ -12,15 +12,13 @@ import {
 	setSelectedRoom,
 } from '@/app/redux/admin/showtime/showtime.admin.slice';
 import './style.css';
-import { Toaster, toast as t } from 'sonner';
+import { Toaster } from 'sonner';
 import ConfirmModal from './components/ConfirmModal';
-import CRUDButton from '../components/buttons/CRUDButton';
 import CreateShowtimeForm from './components/CreateShowtimeForm';
 import DraggableMovie from './components/DraggableMovie/DraggableMovie';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import Modal from '@/app/components/Modal';
 import DeleteShowtimeForm from './components/DeleteShowtimeForm/DeleteShowtimeForm';
-import { roomType } from '@/app/types/cinema';
 
 function Schedules() {
 	const [movies, setMovies] = useState<IMovie[]>([]);
@@ -31,11 +29,18 @@ function Schedules() {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [currentEvent, setCurrentEvent] = useState(null);
 
+	const start = useMemo(() => {
+		const nowDate = new Date();
+		return new Date(nowDate.setDate(nowDate.getDate() - nowDate.getDay() + 7));
+	}, []);
+
+	const end = useMemo(() => {
+		const nowDate = new Date();
+		return new Date(nowDate.setDate(nowDate.getDate() - nowDate.getDay() + 15));
+	}, []);
+
 	const handleEventsReceived = (eventInfo: any) => {
-		const { event } = eventInfo;
-
 		setCurrentEvent(eventInfo);
-
 		setIsOpen(true);
 	};
 
@@ -43,8 +48,8 @@ function Schedules() {
 		dispatch(getMovies()).then((data: any) => {
 			setMovies(data.payload.data);
 		});
-		!cinemas.length && dispatch(getAllSchedules());
-	}, [isLoading]);
+		dispatch(getAllSchedules());
+	}, []);
 
 	const buttons = useMemo(() => {
 		return (cinemas[selectedCinema]?.rooms || []).reduce((acc, room, index) => {
@@ -55,13 +60,25 @@ function Schedules() {
 				...acc,
 				[`room${index}`]: {
 					text: room.name.split('-')[0],
+					title: room.name,
 					click(ev: any, element: HTMLElement) {
 						dispatch(setSelectedRoom(index));
 					},
 				},
 			};
 		}, {});
-	}, [isLoading, cinemas, dispatch, selectedCinema]);
+	}, [cinemas, dispatch, selectedCinema]);
+
+	useEffect(() => {
+		const elButtons = document.querySelectorAll('.fc-toolbar-chunk>.fc-button');
+		elButtons?.forEach((el) => {
+			el.classList.remove('active');
+		});
+		const button = document.querySelector(
+			`.fc-toolbar-chunk>.fc-room${selectedRoom}-button`
+		);
+		button?.classList.add('active');
+	}, [buttons, selectedRoom]);
 
 	useEffect(() => {
 		const data =
@@ -103,42 +120,44 @@ function Schedules() {
 			const movie = event.toPlainObject({
 				collapseExtendedProps: true,
 			}) as IMovie & { start: string; room_id: string };
-			const currentRoom =
-				movie.room_id === cinemas[selectedCinema]?.rooms![selectedRoom]?.id;
+
+			const startDay = new Date(movie.start);
+			const isValid = startDay <= end && startDay >= start;
 			return (
 				<div
 					key={movie.id + movie.room_id + event.id}
-					className={`${
-						currentRoom ? '' : 'opacity-25'
-					} rounded-lg p-3  h-full w-full border-none`}
+					className={`px-2.5 overflow-hidden h-full w-full`}
 				>
-					<div className="shadow-2xl h-full relative ">
+					<div className="shadow-2xl h-full relative  ">
 						<div className="bg-[#0E1946] px-2 flex ">
 							<p className="text-lightPrimary truncate">
 								{eventInfo.timeText}{' '}
 							</p>
 							<div className="ml-auto">
-								<Modal>
-									<Modal.Open opens="confirm" disabled={!currentRoom}>
-										<XMarkIcon
-											className={`h-5 w-5 ${
-												currentRoom && 'hover:cursor-pointer'
-											}  text-borderColor`}
-											// onClick={handleClick}
-										/>
-									</Modal.Open>
-									<Modal.Window name="confirm">
-										<DeleteShowtimeForm movie={movie} eventInfo={eventInfo} />
-									</Modal.Window>
-								</Modal>
+								{isValid && (
+									<Modal>
+										<Modal.Open opens="confirm">
+											<XMarkIcon
+												className="h-5 w-5 
+													hover:cursor-pointer
+												text-borderColor"
+											/>
+										</Modal.Open>
+										<Modal.Window name="confirm">
+											<DeleteShowtimeForm movie={movie} eventInfo={eventInfo} />
+										</Modal.Window>
+									</Modal>
+								)}
 							</div>
 						</div>
-						<img
-							className="h-full w-full object-contain"
-							src={`${movie.poster}`}
-							alt=""
-						/>
-						<div className="absolute bg-gradient-to-t h-[20%] pt-3 px-2 from-black bottom-0  left-0 right-0  ">
+						<div className="">
+							<img
+								className="h-full w-full object-contain "
+								src={`${movie.poster}`}
+								alt=""
+							/>
+						</div>
+						<div className="absolute bg-gradient-to-t pt-3 px-2 from-black bottom-0  left-0 right-0  ">
 							<p className="text-white truncate">{movie.name}</p>
 							<p className="text-white truncate text-white/60">
 								{movie.sub_name}
@@ -159,23 +178,35 @@ function Schedules() {
 			</ConfirmModal>
 			<div>
 				<div className="">
-					<select
-						name=""
-						id=""
-						onChange={(e) => {
-							dispatch(setSelectedCinema(+e.target.value));
-						}}
+					<label
+						htmlFor="cinema1"
+						className=" ml-auto flex justify-end items-center gap-4"
 					>
-						{cinemas.map((c, index) => {
-							return (
-								<option key={c.name} value={index}>
-									{c.name}
-								</option>
-							);
-						})}
-					</select>
+						<span>Rạp: </span>
+						<select
+							name="cinema"
+							id="cinema1"
+							title="cinema"
+							className="bg-[#EFEFEF]/20 py-[7.5px] px-[15px] text-center block border appearance-none border-[#fff]/80 rounded "
+							onChange={(e) => {
+								dispatch(setSelectedCinema(+e.target.value));
+							}}
+						>
+							{cinemas.map((c, index) => {
+								return (
+									<option
+										className="bg-[#31375A]  py-[10px]"
+										key={c.name}
+										value={index}
+									>
+										{c.name}
+									</option>
+								);
+							})}
+						</select>
+					</label>
 				</div>
-				<div className="">
+				<div className="mt-5">
 					<FullCalendar
 						plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
 						slotDuration={'00:15'}
@@ -223,6 +254,11 @@ function Schedules() {
 							left: '',
 							center: '',
 						}}
+						eventConstraint={{
+							start,
+							end,
+						}}
+						// slotEventOverlap={false}
 					/>
 				</div>
 				{renderMovieDraggable()}

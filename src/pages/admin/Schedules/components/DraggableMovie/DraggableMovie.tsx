@@ -12,7 +12,7 @@ const DraggableMovie = memo(({ movie }: { movie: IMovie }) => {
 					id: movie.id,
 					title: movie.name,
 					duration: {
-						minute: movie.running_time + 15,
+						minute: movie.running_time + 30,
 					},
 					extendedProps: {
 						...movie,
@@ -28,7 +28,7 @@ const DraggableMovie = memo(({ movie }: { movie: IMovie }) => {
 		<div
 			ref={elRef}
 			id={movie.id}
-			className="fc-event relative h-[290px] flex-[0_0_190px]  fc-h-event mb-1 fc-daygrid-event fc-daygrid-block-event bg-black"
+			className=" relative h-[290px] z-30 flex-[0_0_190px]  fc-h-event mb-1   bg-black"
 		>
 			<img
 				className="h-full object-cover"
