@@ -19,7 +19,7 @@ const CommentForm = ({ movieId }: { movieId: string }) => {
 
    const [newComment, setNewComment] = useState<INewComment>({
       content: "",
-      movieId: "",
+      movieId: movieId,
       rating: 0,
    });
 
