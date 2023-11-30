@@ -13,6 +13,7 @@ import {
 } from '@/app/types/movie';
 import { useEffect, useRef, useState } from 'react';
 import { TFile } from '@/app/components/upload/FileUploader';
+import { toast } from 'sonner';
 
 export default function useMovieDetail(mode: 'edit' | 'create') {
 	const { movieId } = useParams();
@@ -26,14 +27,14 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 	const validateMovieDetail = yup.object<IMovie>({
 		name: yup.string().required('Tên phim không được để trống'),
 		subName: yup.string().required('Tên việt hóa phải được cung cấp'),
-		description: yup.string().required('Nội dung phim không được để tróng6'),
+		description: yup.string().required('Nội dung phim không được để trống'),
 		// country: yup.string().required(),
 		language: yup.string().required('Ngôn ngữ phim không được để trống'),
 		producer: yup.string().required(),
-		cast: yup.string().required(),
-		director: yup.string().required(),
+		cast: yup.string().required('Vai diễn không được để trống'),
+		director: yup.string().required('Đạo diễn không được để trống'),
 		rated: yup.number().required('Độ tuổi phim không được để trống'),
-		trailer: yup.string().required(),
+		trailer: yup.string().required('Trailer không được để trống'),
 		releaseDate: yup.string().required(),
 		endDate: yup
 			.string()
@@ -77,6 +78,8 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 		register,
 		reset,
 		handleSubmit,
+		setError,
+		clearErrors,
 		control,
 		formState: { isDirty, errors, isLoading },
 	} = useForm({
@@ -129,9 +132,20 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 		reset({}, { keepDefaultValues: true });
 	};
 
-	console.log(isLoading);
-
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
+		if (!movie?.poster && !poster) {
+			setError('poster', { message: 'Thiếu ảnh dọc của phim' });
+			return;
+		}
+		if (!movie?.horizontal_poster && !horPoster) {
+			setError('hor_poster', { message: 'Thiếu ảnh ngang của phim' });
+			return;
+		}
+		if (!movie?.images?.length && !images?.length) {
+			setError('images', { message: 'Phải có ít nhất một ảnh của phim' });
+			return;
+		}
+
 		const deletedIds = (imageInitialState.current || [])
 			.filter((image) => {
 				console.log((images || []).indexOf(image));
@@ -149,7 +163,15 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 			...(files && { images: files }),
 			...(deletedIds?.length && { imageIds: deletedIds }),
 		};
-		dispatch(putMovie({ id: movieId!, payload }));
+		toast.promise(dispatch(putMovie({ id: movieId!, payload })), {
+			loading: 'Phim đang được cập nhật...',
+			success: () => {
+				return 'Cập nhật thành công';
+			},
+			error: (err) => {
+				return 'Cập nhật thất bại ' + err;
+			},
+		});
 	};
 
 	return {
@@ -163,6 +185,7 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 		movie,
 		isDirty,
 		images,
+		clearErrors,
 		files,
 		setPoster,
 		setHorPoster,

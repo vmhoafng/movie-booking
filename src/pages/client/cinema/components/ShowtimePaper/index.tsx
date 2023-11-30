@@ -6,7 +6,7 @@ import { useRedux } from '@/app/hooks';
 function ShowtimePaper({ movie }: ShowtimePaperProps) {
 	const { appSelector } = useRedux();
 	const { date } = appSelector((state) => state.cinema);
-	const { running_time, name, sub_name, poster, showtimes } = movie;
+	const { running_time, name, sub_name, horizontal_poster, showtimes } = movie;
 	const hours = Math.floor(running_time / 60);
 	const minutes = running_time % 60;
 
@@ -29,7 +29,7 @@ function ShowtimePaper({ movie }: ShowtimePaperProps) {
 	return (
 		<div className="last:border-b-0 border-b-[1px] flex gap-5 pt-5 pb-5">
 			<div className=" w-[9.375rem] md:w-[13.75rem] flex-[0_0_30%] ">
-				<img className=" w-full" src={poster} alt={name} />
+				<img className=" w-full" src={horizontal_poster} alt={name} />
 			</div>
 			<div className="flex gap-2 flex-col ">
 				<p className="uppercase text-sm md:text-[16px]">{name}</p>

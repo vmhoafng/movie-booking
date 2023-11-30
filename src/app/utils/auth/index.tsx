@@ -16,6 +16,11 @@ class AuthUtils {
 		}
 	}
 
+	setCookieToken(token?: string): void {
+		if (token) {
+		}
+	}
+
 	isAuthenticated(): boolean {
 		const token = this.getSessionToken();
 

@@ -1,4 +1,5 @@
 import { IMovieImage } from '@/app/types/movie';
+import { FieldErrors } from 'react-hook-form';
 
 export type TFile = File & {
 	preview?: string;
@@ -6,6 +7,9 @@ export type TFile = File & {
 };
 
 export type TFileUploaderProps = {
+	id: string;
+	errors: FieldErrors;
+	clear: (s: string) => void;
 	containerClassName?: string;
 	dropZoneClassName?: string;
 	showPreview?: boolean;

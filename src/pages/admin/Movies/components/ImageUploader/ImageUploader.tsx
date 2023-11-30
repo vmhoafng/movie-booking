@@ -14,13 +14,18 @@ function ImageUploader({
 	onFilePreview,
 	label,
 	variant = 'vertical',
+	id,
+	errors,
+	clear,
 }: ImageUploaderProps) {
 	const [image, setImage] = useState<TFile | undefined>();
+
 	return (
 		<div className="">
 			<Dropzone
 				onDrop={(acceptedFiles) => {
 					const file = acceptedFiles[0];
+					clear(id);
 					Object.assign(file, {
 						preview: URL.createObjectURL(file),
 					});
@@ -34,21 +39,28 @@ function ImageUploader({
 				maxFiles={1}
 			>
 				{({ getInputProps, getRootProps }) => (
-					<div
-						className={'hover:cursor-pointer ' + variants[variant]}
-						{...getRootProps()}
-					>
-						<input {...getInputProps()} />
-						{image?.preview || initialImage ? (
-							<img
-								className="h-full w-full border"
-								src={image?.preview || initialImage}
-								alt=""
-							/>
-						) : (
-							<ImageHolder>{label}</ImageHolder>
+					<>
+						<div
+							className={'hover:cursor-pointer ' + variants[variant]}
+							{...getRootProps()}
+						>
+							<input {...getInputProps()} />
+							{image?.preview || initialImage ? (
+								<img
+									className="h-full w-full border"
+									src={image?.preview || initialImage}
+									alt=""
+								/>
+							) : (
+								<ImageHolder>{label}</ImageHolder>
+							)}
+						</div>
+						{errors[id] && (
+							<p className="mt-1 text-sm text-red-500/80">
+								{errors[id]?.message?.toString()}
+							</p>
 						)}
-					</div>
+					</>
 				)}
 			</Dropzone>
 			{/* <div className="mt-[10px]">
