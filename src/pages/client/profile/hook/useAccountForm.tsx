@@ -12,6 +12,8 @@ import { dirtyValue } from "@/app/utils";
 import { toast } from "sonner";
 import Icon from "@/app/components/icon/Icon";
 import { getCurrentUser } from "@/app/redux/auth";
+import { Axios } from "@/app/utils/api";
+import { ENDPOINTS } from "@/app/constants/endpoint";
 
 export default function useAccountForm() {
   const { width } = useWindowDimensions();
@@ -41,80 +43,89 @@ export default function useAccountForm() {
 
   const onSubmit: SubmitHandler<FieldValues> = useCallback(
     (data) => {
-      const res = dispatch(
-        updateProfile(dirtyValue(dirtyFields, data) as IPutProfile)
+      const res = Axios.axiosPutWithToken(
+        ENDPOINTS.PROFILE.UPDATE_PROFILE,
+        dirtyValue(dirtyFields, data) as IPutProfile
       );
+      // dispatch(
+      //   updateProfile(dirtyValue(dirtyFields, data) as IPutProfile)
+      // );
+      console.log(res);
+
       toast.promise(res, {
-        loading: (
-          <div
-            className="flex
-              items-center
-              justify-between
-              bg-warning/20
-              px-2
-              py-3
-              rounded
-              min-w-[200px]
-              text-warning
-              font-bold
-              text-base
-              gap-7"
-          >
-            <div className="flex items-center gap-2">
-              <div>Đang tải</div>
-              <PulseLoader color="#FAC917" size={5} />
-            </div>
-            <div className="cursor-pointer" onClick={() => toast.dismiss()}>
-              <Icon icon="close" />
-            </div>
-          </div>
-        ),
+        loading:
+          //   <div
+          //     className="flex
+          //       items-center
+          //       justify-between
+          //       bg-warning/20
+          //       px-2
+          //       py-3
+          //       rounded
+          //       min-w-[200px]
+          //       text-warning
+          //       font-bold
+          //       text-base
+          //       gap-7"
+          //   >
+          //     <div className="flex items-center gap-2">
+          //       <div>Đang tải</div>
+          //       <PulseLoader color="#FAC917" size={5} />
+          //     </div>
+          //     <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+          //       <Icon icon="close" />
+          //     </div>
+          //   </div>
+          // ),
+          "Đang tải",
         success: (data: any) => {
           return (
-            <div
-              className="flex
-                  items-center
-                  justify-between
-                  bg-highlight/20
-                  px-2
-                  py-3
-                  rounded
-                  min-w-[200px]
-                  text-highlight
-                  font-bold
-                  text-base
-                  gap-7"
-            >
-              <div>Thay đổi thông tin thành công</div>
-              <div className="cursor-pointer" onClick={() => toast.dismiss()}>
-                <Icon icon="close" />
-              </div>
-            </div>
+            // <div
+            //   className="flex
+            //       items-center
+            //       justify-between
+            //       bg-highlight/20
+            //       px-2
+            //       py-3
+            //       rounded
+            //       min-w-[200px]
+            //       text-highlight
+            //       font-bold
+            //       text-base
+            //       gap-7"
+            // >
+            //   <div>Thay đổi thông tin thành công</div>
+            //   <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+            //     <Icon icon="close" />
+            //   </div>
+            // </div>
+            "Thay đổi thông tin thành công"
           );
         },
         error: (err: any) => {
           return (
-            <div
-              className="flex
-              items-center
-              justify-between
-              bg-error/20
-              px-2
-              py-3
-              rounded
-              min-w-[200px]
-              text-error
-              font-bold
-              text-base
-              gap-7"
-            >
-              <div className="flex items-center gap-2">
-                <div>Chưa thể thay đổi thông tin</div>
-              </div>
-              <div className="cursor-pointer" onClick={() => toast.dismiss()}>
-                <Icon icon="close" />
-              </div>
-            </div>
+            // <div
+            //   className="flex
+            //   items-center
+            //   justify-between
+            //   bg-error/20
+            //   px-2
+            //   py-3
+            //   rounded
+            //   min-w-[200px]
+            //   text-error
+            //   font-bold
+            //   text-base
+            //   gap-7"
+            // >
+            //   <div className="flex items-center gap-2">
+            //     <div>Chưa thể thay đổi thông tin</div>
+            //   </div>
+            //   <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+            //     <Icon icon="close" />
+            //   </div>
+            // </div>
+            `${err}`
           );
         },
       });

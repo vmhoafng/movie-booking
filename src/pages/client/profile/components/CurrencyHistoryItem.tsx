@@ -20,7 +20,6 @@ function CurrencyHistoryItem({
   showtime,
   paymentAt,
 }: CurrencyHistoryItemProps) {
-  console.log(paymentAt);
 
   return (
     <Menu.Item
@@ -41,6 +40,7 @@ function CurrencyHistoryItem({
           <Subtitle>
             <div className="flex justify-start items-end gap-1">
               <div className="leading-5">{showtime.split(" ")[2]}</div>
+              <div className="leading-6">|</div>
               <div className="leading-5">{`${showtime.split(" ")[0]} ${
                 showtime.split(" ")[1]
               }`}</div>
