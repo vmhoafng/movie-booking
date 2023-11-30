@@ -37,75 +37,78 @@ function PasswordItem() {
       .then((callback) => {
         if (!callback)
           return toast.error(
-            <div
-              className="flex
-        items-center
-        justify-between
-        bg-error/20
-        px-2
-        py-3
-        rounded
-        min-w-[200px]
-        text-error
-        font-bold
-        text-base
-        gap-7"
-            >
-              <div className="flex items-center gap-2">
-                <div>Mật khẩu hiện tại không chính xác</div>
-              </div>
-              <div className="cursor-pointer" onClick={() => toast.dismiss()}>
-                <Icon icon="close" />
-              </div>
-            </div>
+            //     <div
+            //       className="flex
+            // items-center
+            // justify-between
+            // bg-error/20
+            // px-2
+            // py-3
+            // rounded
+            // min-w-[200px]
+            // text-error
+            // font-bold
+            // text-base
+            // gap-7"
+            //     >
+            //       <div className="flex items-center gap-2">
+            //         <div>Mật khẩu hiện tại không chính xác</div>
+            //       </div>
+            //       <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+            //         <Icon icon="close" />
+            //       </div>
+            //     </div>
+            "Mật khẩu hiện tại không chính xác"
           );
         if (callback && data.newPass.trim().length < 8)
           return toast.error(
-            <div
-              className="flex
-            items-center
-            justify-between
-            bg-error/20
-            px-2
-            py-3
-            rounded
-            min-w-[200px]
-            text-error
-            font-bold
-            text-base
-            gap-7"
-            >
-              <div className="flex items-center gap-2">
-                <div>Mật khẩu cần tối thiểu 8 ký tự</div>
-              </div>
-              <div className="cursor-pointer" onClick={() => toast.dismiss()}>
-                <Icon icon="close" />
-              </div>
-            </div>
+            // <div
+            //   className="flex
+            // items-center
+            // justify-between
+            // bg-error/20
+            // px-2
+            // py-3
+            // rounded
+            // min-w-[200px]
+            // text-error
+            // font-bold
+            // text-base
+            // gap-7"
+            // >
+            //   <div className="flex items-center gap-2">
+            //     <div>Mật khẩu cần tối thiểu 8 ký tự</div>
+            //   </div>
+            //   <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+            //     <Icon icon="close" />
+            //   </div>
+            // </div>
+            "Mật khẩu cần tối thiểu 8 ký tự"
           );
         if (data.newPass !== data.confirmNewPass)
           return toast.error(
-            <div
-              className="flex
-          items-center
-          justify-between
-          bg-error/20
-          px-2
-          py-3
-          rounded
-          min-w-[200px]
-          text-error
-          font-bold
-          text-base
-          gap-7"
-            >
-              <div className="flex items-center gap-2">
-                <div>Mật khẩu xác nhận không trùng khớp</div>
-              </div>
-              <div className="cursor-pointer" onClick={() => toast.dismiss()}>
-                <Icon icon="close" />
-              </div>
-            </div>
+            //   <div
+            //     className="flex
+            // items-center
+            // justify-between
+            // bg-error/20
+            // px-2
+            // py-3
+            // rounded
+            // min-w-[200px]
+            // text-error
+            // font-bold
+            // text-base
+            // gap-7"
+            //   >
+            //     <div className="flex items-center gap-2">
+            //       <div>Mật khẩu xác nhận không trùng khớp</div>
+            //     </div>
+            //     <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+            //       <Icon icon="close" />
+            //     </div>
+            //   </div>
+            "Mật khẩu xác nhận không trùng khớp"
           );
         if (
           callback &&
@@ -119,82 +122,84 @@ function PasswordItem() {
             } as IPutPassword)
           );
           toast.promise(res, {
-            loading: (
-              <div
-                className="flex
-                  items-center
-                  justify-between
-                  bg-warning/20
-                  px-2
-                  py-3
-                  rounded
-                  min-w-[200px]
-                  text-warning
-                  font-bold
-                  text-base
-                  gap-7"
-              >
-                <div className="flex items-center gap-2">
-                  <div>Đang tải</div>
-                  <PulseLoader color="#FAC917" size={5} />
-                </div>
-                <div className="cursor-pointer" onClick={() => toast.dismiss()}>
-                  <Icon icon="close" />
-                </div>
-              </div>
-            ),
+            loading:
+              // <div
+              //   className="flex
+              //     items-center
+              //     justify-between
+              //     bg-warning/20
+              //     px-2
+              //     py-3
+              //     rounded
+              //     min-w-[200px]
+              //     text-warning
+              //     font-bold
+              //     text-base
+              //     gap-7"
+              // >
+              //   <div className="flex items-center gap-2">
+              //     <div>Đang tải</div>
+              //     <PulseLoader color="#FAC917" size={5} />
+              //   </div>
+              //   <div className="cursor-pointer" onClick={() => toast.dismiss()}>
+              //     <Icon icon="close" />
+              //   </div>
+              // </div>
+              "Đang tải",
             success: (data: any) => {
               return (
-                <div
-                  className="flex
-                      items-center
-                      justify-between
-                      bg-highlight/20
-                      px-2
-                      py-3
-                      rounded
-                      min-w-[200px]
-                      text-highlight
-                      font-bold
-                      text-base
-                      gap-7"
-                >
-                  <div>Thay đổi thông tin thành công</div>
-                  <div
-                    className="cursor-pointer"
-                    onClick={() => toast.dismiss()}
-                  >
-                    <Icon icon="close" />
-                  </div>
-                </div>
+                // <div
+                //   className="flex
+                //       items-center
+                //       justify-between
+                //       bg-highlight/20
+                //       px-2
+                //       py-3
+                //       rounded
+                //       min-w-[200px]
+                //       text-highlight
+                //       font-bold
+                //       text-base
+                //       gap-7"
+                // >
+                //   <div>Thay đổi thông tin thành công</div>
+                //   <div
+                //     className="cursor-pointer"
+                //     onClick={() => toast.dismiss()}
+                //   >
+                //     <Icon icon="close" />
+                //   </div>
+                // </div>
+                "Thay đổi mật khẩu thành công"
               );
             },
             error: (err: any) => {
               return (
-                <div
-                  className="flex
-                  items-center
-                  justify-between
-                  bg-error/20
-                  px-2
-                  py-3
-                  rounded
-                  min-w-[200px]
-                  text-error
-                  font-bold
-                  text-base
-                  gap-7"
-                >
-                  <div className="flex items-center gap-2">
-                    <div>Chưa thể thay đổi thông tin</div>
-                  </div>
-                  <div
-                    className="cursor-pointer"
-                    onClick={() => toast.dismiss()}
-                  >
-                    <Icon icon="close" />
-                  </div>
-                </div>
+                // <div
+                //   className="flex
+                //   items-center
+                //   justify-between
+                //   bg-error/20
+                //   px-2
+                //   py-3
+                //   rounded
+                //   min-w-[200px]
+                //   text-error
+                //   font-bold
+                //   text-base
+                //   gap-7"
+                // >
+                //   <div className="flex items-center gap-2">
+                //     <div>Chưa thể thay đổi thông tin</div>
+                //   </div>
+                //   <div
+                //     className="cursor-pointer"
+                //     onClick={() => toast.dismiss()}
+                //   >
+                //     <Icon icon="close" />
+                //   </div>
+                // </div>
+                err
               );
             },
           });

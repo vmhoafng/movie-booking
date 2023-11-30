@@ -31,7 +31,7 @@ function SelectInput({
     } else {
       setSelected(value);
     }
-  }, [value, options, placeholder]);
+  }, []);
   if (control) {
     return (
       <Controller
@@ -45,7 +45,7 @@ function SelectInput({
               onChange={(e) => {
                 onChange && onChange(e);
                 setSelected(e);
-                // field.onChange(e.value);
+                field.onChange(e.value);
               }}
             >
               <div
