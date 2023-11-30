@@ -61,6 +61,19 @@ export const login = createAsyncThunk(
   }
 );
 
+export const loginByToken = createAsyncThunk(
+  "@@auth/loginByToken",
+  async (token: string, thunkApi) => {
+    const { data } = await Axios.axiosGet(ENDPOINTS.PROFILE.DATA, {
+      header: {
+        authorization: token
+      }
+      signal: thunkApi.signal,
+    });
+    return data;
+  }
+);
+
 export const getCurrentUser = createAsyncThunk(
   "@@auth/getCurrentUser",
   async (_, thunkApi) => {
