@@ -26,13 +26,13 @@ const columns = ["ID", "Phòng", "Số ghế", "Trạng thái"];
 function EditItem({ id }: EditItemProps) {
   const { appSelector, dispatch } = useRedux();
   const { currentCinema, rooms } = appSelector((state) => state.cinema);
+  const [roomsData, setRoomsData] = useState(rooms);
   useEffect(() => {
     dispatch(getCinemaById(id));
   }, [dispatch, id]);
-  const [roomsData, setRoomsData] = useState<any>([]);
-
-  console.log(rooms, roomsData);
-
+  useEffect(() => {
+    setRoomsData(rooms);
+  }, [rooms]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Number of items to display per page
   const pageCount = Math.ceil(roomsData.length / itemsPerPage);

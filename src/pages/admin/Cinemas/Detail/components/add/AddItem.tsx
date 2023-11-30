@@ -12,6 +12,8 @@ import { ICinema } from "@/app/types/cinema";
 import { initSeats } from "@/app/constants/data";
 import { postCinema } from "@/app/redux/cinema";
 import { toast } from "sonner";
+import { Axios } from "@/app/utils/api";
+import { ENDPOINTS } from "@/app/constants/endpoint";
 
 function AddItem() {
   const [dashboardList, setDashboardList] = useState<
@@ -67,8 +69,11 @@ function AddItem() {
   const { dispatch } = useRedux();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const payload = { ...data, rooms: dashboardList, description: "null" };
-    const res = dispatch(postCinema(payload as ICinema));
-    console.log(res);
+    const res =
+      //  dispatch(
+      // postCinema(payload as ICinema)
+      Axios.axiosPostWithToken(ENDPOINTS.ADMIN.CINEMA.POST_CINEMA, payload);
+    // );
     toast.promise(res, {
       loading: "Đang tải...",
       success: (data: any) => {
