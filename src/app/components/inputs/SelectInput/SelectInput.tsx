@@ -31,7 +31,7 @@ function SelectInput({
     } else {
       setSelected(value);
     }
-  }, [value, options, placeholder]);
+  }, []);
   if (control) {
     return (
       <Controller

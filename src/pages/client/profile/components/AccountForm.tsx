@@ -65,12 +65,13 @@ function AccountItem() {
                 ]}
                 placeholder="Chọn giới tính"
                 name="gender"
-                onChange={() => {}}
                 register={register}
                 inputClassName="w-full"
-                value={genderOptions.find(
-                  (gender) => gender.value === currentUser?.gender
-                )}
+                value={{
+                  value: currentUser?.gender,
+                  label: currentUser?.gender,
+                }}
+                onChange={(e) => {}}
                 optionClassName="
                   z-30
                   text-white/90
