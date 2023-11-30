@@ -3,12 +3,12 @@ import Search from '../inputs/Search';
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { useLocation } from 'react-router';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { PATHS } from '@/app/constants/path';
 import { ArrowRightIcon, Bars3Icon } from '@heroicons/react/24/solid';
 import { useRedux } from '@/app/hooks';
 import authUtils from '@/app/utils/auth';
-import { getCurrentUser, resetAuth } from '@/app/redux/auth';
+import { getCurrentUser, loginWithToken, resetAuth } from '@/app/redux/auth';
 import Button from '../button/Button';
 import { Axios } from '@/app/utils/api';
 import { ENDPOINTS } from '@/app/constants/endpoint';
@@ -30,13 +30,21 @@ const Profile = () => {
 	const { dispatch, appSelector } = useRedux();
 	const { user, userLoggedIn } = appSelector((state) => state.auth);
 	const navigate = useNavigate();
-
+	const [params, setParams] = useSearchParams();
+	useEffect(() => {
+		const token = params.get('token');
+		const exist = !!+params.get('exist')!;
+		window.history.replaceState(null, '', '/');
+		if (token) {
+			dispatch(loginWithToken({ token, exist }));
+		}
+	}, [params, dispatch]);
 	useEffect(() => {
 		if (!user.role && authUtils.isAuthenticated()) {
 			const promise = dispatch(getCurrentUser());
 			return () => promise.abort();
 		}
-	}, [dispatch, userLoggedIn, user]);
+	}, [dispatch, userLoggedIn, user, params]);
 
 	const handleLogout = () => {
 		navigate(`/${PATHS.HOME.IDENTITY}`);
