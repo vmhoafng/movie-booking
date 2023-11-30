@@ -1,7 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Title from "../../../app/components/Title";
 import ShowTimeBoard from "./components/ShowTimeBoard";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import {
+   Navigation,
+   Pagination,
+   Scrollbar,
+   A11y,
+   Autoplay,
+} from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 // import { Swiper as SwiperType } from "swiper/types";
 import "swiper/css";
@@ -27,10 +33,13 @@ import Comment from "./components/Comment";
 // import Swiper from "swiper";
 function MovieDetail() {
    const { width } = useWindowDimensions();
+   console.log(width);
+
    const [trailer, setTrailer] = useState(true);
    const { appSelector, dispatch } = useRedux();
    const { movies, showingNow, isLoading, isError, errorMessage, detail } =
       appSelector((state) => state.movies);
+
    const [date, setDate] = useState(
       new Date(Date.now()).toISOString().split("T")[0]
    );
@@ -48,6 +57,10 @@ function MovieDetail() {
 
    const [selected, setSelected] = useState<SelectOption>(optionized[0]);
    const { movieId } = useParams();
+
+   if (errorMessage) {
+      alert(errorMessage);
+   }
 
    useEffect(() => {
       if (!movies.length) dispatch(getMovies());
@@ -121,7 +134,7 @@ function MovieDetail() {
                               <div className="flex flex-col gap-1 md:gap-0">
                                  <div className="flex justify-start items-center gap-2 text-white/60 md:text-sm ">
                                     <h4 className="">Đánh giá:</h4>
-                                    <span>{detail.rating}/10</span>
+                                    <span>{detail.rating}/5</span>
                                     <img
                                        src="/assets/icons/star.svg"
                                        alt=""
@@ -324,23 +337,33 @@ function MovieDetail() {
                      <div className="flex flex-col xl:hidden gap-4 justify-center items-start py-6 lg:py-8 border-b border-dashed border-borderColor overflow-hidden">
                         <Title active>Phim đang chiếu</Title>
                         <Swiper
-                           modules={[Navigation, Pagination, Scrollbar, A11y]}
-                           // onSwiper={(swiper: SwiperType) => console.log(swiper)}
-                           // onSlideChange={() => console.log("slide change")}
-
+                           modules={[
+                              Navigation,
+                              Pagination,
+                              Scrollbar,
+                              A11y,
+                              Autoplay,
+                           ]}
+                           autoplay={{
+                              delay: 3300,
+                              disableOnInteraction: false,
+                           }}
                            breakpoints={{
                               390: {
-                                 width: width,
+                                 width: width - 30,
                                  slidesPerView: 2,
                                  spaceBetween: 10,
                               },
-                              680: {
+                              681: {
+                                 width: 640,
                                  slidesPerView: 3,
                                  spaceBetween: 36,
                               },
-                              900: {
+                              901: {
+                                 width: 790,
                                  slidesPerView: 4,
-                                 spaceBetween: 10,
+                                 spaceBetween: 36,
+                                 centeredSlides: false,
                               },
                            }}
                         >
