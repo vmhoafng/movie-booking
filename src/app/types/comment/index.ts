@@ -3,6 +3,7 @@ export type IComment = {
    content: string;
    movie: string;
    user: string;
+   user_id: string;
    status: string;
    create_date: string;
    avatar_user: string;

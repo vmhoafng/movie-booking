@@ -35,8 +35,6 @@ const initialDate = new Date();
 function Dashboard() {
    const { appSelector, dispatch } = useRedux();
    const { data, isLoading } = appSelector((state) => state.dashboard);
-   console.log(data);
-
    const [chartType, setChartType] = useState<chartType>("revenue");
    const [chart, setChart] = useState<IChartItem[]>([]);
    const [date, setDate] = useState(formatDate(initialDate));

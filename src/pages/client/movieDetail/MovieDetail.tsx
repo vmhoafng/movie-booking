@@ -235,8 +235,6 @@ function MovieDetail() {
                                     Scrollbar,
                                     A11y,
                                  ]}
-                                 // onSwiper={(swiper: SwiperType) => console.log(swiper)}
-                                 // onSlideChange={() => console.log("slide change")}
                                  breakpoints={{
                                     390: {
                                        slidesPerView: 1,
@@ -248,7 +246,7 @@ function MovieDetail() {
                                     },
                                     900: {
                                        slidesPerView: 1,
-                                       // spaceBetween: 40,
+                                       spaceBetween: 40,
                                     },
                                  }}
                               >
