@@ -7,6 +7,7 @@ import LoadingAnimation from '@/app/components/loading/LoadingAnimation';
 import { toast } from 'sonner';
 import { Axios } from '@/app/utils/api';
 import { PATHS } from '@/app/constants/path';
+import Error404 from './Error404';
 
 type status = 'succeed' | 'failure';
 
@@ -77,7 +78,12 @@ const PaymentResult = () => {
 		});
 	}, [id]);
 
-	if (!id) return <Navigate to={'/error'} />;
+	if (!id)
+		return (
+			<div className=" absolute left-0 right-0">
+				<Error404 />
+			</div>
+		);
 	if (id && loading)
 		return (
 			<div className="bg-bgPrimary absolute top-0 left-0 bottom-0 right-0 z-[10000]">
