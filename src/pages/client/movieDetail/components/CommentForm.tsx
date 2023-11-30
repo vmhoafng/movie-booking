@@ -3,13 +3,19 @@ import LoadingAnimation from "@/app/components/loading/LoadingAnimation";
 import { useRedux } from "@/app/hooks";
 import { postComment } from "@/app/redux/comment";
 import { INewComment } from "@/app/types/comment";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import Modal from "./Modal";
 
 const CommentForm = ({ movieId }: { movieId: string }) => {
    const { appSelector, dispatch } = useRedux();
    const { user } = appSelector((state) => state.auth);
-   const { isLoading } = appSelector((state) => state.comment);
-   console.log("loading: ", isLoading);
+   const { isLoading, errorMessage } = appSelector((state) => state.comment);
+   let [isOpen, setIsOpen] = useState(false);
+   let [modalContent, setModalContent] = useState({
+      title: "",
+      content: "",
+      error: "",
+   });
 
    const [newComment, setNewComment] = useState<INewComment>({
       content: "",
@@ -17,7 +23,15 @@ const CommentForm = ({ movieId }: { movieId: string }) => {
       rating: 0,
    });
 
-   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+   function closeModal() {
+      setIsOpen(false);
+   }
+
+   function openModal() {
+      setIsOpen(true);
+   }
+
+   const handleOnChangeComment = (e: React.FocusEvent<HTMLInputElement>) => {
       setNewComment({ ...newComment, content: e.target.value });
    };
 
@@ -50,6 +64,51 @@ const CommentForm = ({ movieId }: { movieId: string }) => {
       return starList;
    };
 
+   const handleIsNotLogin = () => {
+      setModalContent({
+         title: "Tài khoản chưa đăng nhập",
+         content: "Vui lòng đăng nhập để bình luận",
+         error: "login",
+      });
+      setIsOpen(true);
+   };
+
+   const handleHasCommented = () => {
+      setModalContent({
+         title: "Bạn đã thực hiện đánh giá phim.",
+         content: "Mỗi tài khoản chỉ được đánh giá phim một lần.",
+         error: "hasCommented",
+      });
+      setIsOpen(true);
+   };
+
+   const handleInvalid = () => {
+      setModalContent({
+         title: "Đánh giá và bình luận không được trống.",
+         content:
+            "Vui lòng kiểm tra lại nội dung bình luận và đánh giá của bạn.",
+         error: "invalid",
+      });
+      setIsOpen(true);
+   };
+
+   const handlePostComment = async () => {
+      await dispatch(postComment(newComment));
+      setNewComment({ ...newComment, content: "", rating: 0 });
+      setModalContent({
+         title: "Cảm ơn về chia sẻ của bạn.",
+         content: "Nội dung đánh giá của bạn đang chờ được kiểm duyệt.",
+         error: "",
+      });
+      setIsOpen(true);
+   };
+
+   const clearError = useCallback(() => {
+      setModalContent({ ...modalContent, error: "" });
+      setNewComment({ ...newComment, content: "", rating: 0 });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [user]);
+
    useEffect(() => {
       setNewComment({ ...newComment, movieId: movieId });
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,6 +117,17 @@ const CommentForm = ({ movieId }: { movieId: string }) => {
    return (
       <>
          {isLoading && <LoadingAnimation></LoadingAnimation>}
+         {isOpen && (
+            <Modal
+               title={modalContent.title}
+               description={modalContent.content}
+               closeModal={closeModal}
+               openModal={openModal}
+               onClick={clearError}
+               isOpen={isOpen}
+               error={modalContent.error}
+            ></Modal>
+         )}
          <div className="w-full flex justify-center items-start mt-2">
             <div className="mx-4 rounded-full overflow-hidden">
                {user?.avatar ? (
@@ -81,7 +151,16 @@ const CommentForm = ({ movieId }: { movieId: string }) => {
                   </svg>
                )}
             </div>
-            <div className="min-h-[52px] flex-1 flex flex-col items-start gap-2 pr-4 text-sm">
+            <div
+               className="min-h-[52px] flex-1 flex flex-col items-start gap-2 pr-4 text-sm"
+               onClick={() => {
+                  if (!user.email) {
+                     handleIsNotLogin();
+                  } else if (errorMessage === "User has commented") {
+                     handleHasCommented();
+                  }
+               }}
+            >
                <div className="w-full flex items-center">
                   <div className="flex justify-start items-center mr-3">
                      <h3 className="text-white/90">
@@ -95,14 +174,25 @@ const CommentForm = ({ movieId }: { movieId: string }) => {
                <input
                   className="w-full text-white/60 pt-2 pb-1 text-left outline-none ring-0 border-b border-borderColor bg-transparent placeholder:text-white/40"
                   placeholder="Nhập bình luận..."
-                  onBlur={handleOnBlur}
+                  value={newComment.content}
+                  onChange={handleOnChangeComment}
                ></input>
             </div>
          </div>
          <Button
             medium
             onClick={() => {
-               dispatch(postComment(newComment));
+               if (!user.email) {
+                  handleIsNotLogin();
+               } else if (errorMessage === "User has commented") {
+                  handleHasCommented();
+               } else {
+                  if (newComment.content === "" || newComment.rating === 0) {
+                     handleInvalid();
+                  } else {
+                     handlePostComment();
+                  }
+               }
             }}
          >
             Bình luận
