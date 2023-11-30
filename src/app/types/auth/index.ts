@@ -9,3 +9,7 @@ export type IPutAvatarPayload = {
   avatar: TFile;
 };
 
+export type ILoginWithToken = {
+  token: string;
+  exist: number;
+};
