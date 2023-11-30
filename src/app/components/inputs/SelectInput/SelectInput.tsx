@@ -45,7 +45,7 @@ function SelectInput({
               onChange={(e) => {
                 onChange && onChange(e);
                 setSelected(e);
-                field.onChange(e.value);
+                // field.onChange(e.value);
               }}
             >
               <div
