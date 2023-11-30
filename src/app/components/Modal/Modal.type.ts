@@ -19,3 +19,4 @@ export type WindowProps = {
 	children: React.ReactElement;
 	name: string;
 };
+	

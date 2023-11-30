@@ -21,6 +21,7 @@ const initialState: ICommentsState = {
    isError: false,
    errorMessage: "",
 };
+
 export const getCommentByStatus = createAsyncThunk(
    "@@movies/getCommentByStatus",
    async (payload: ICommentStatus) => {
@@ -101,9 +102,15 @@ const commentsSlice = createSlice({
          .addCase(postComment.pending, (state) => {
             state.isLoading = true;
          })
-         .addCase(postComment.rejected, (state) => {
+         .addCase(postComment.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.isError = false;
+            state.isError = true;
+            state.errorMessage = "User has commented";
+         })
+         .addCase(postComment.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.errorMessage = action.error.message;
          });
    },
 });
