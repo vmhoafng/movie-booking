@@ -33,8 +33,6 @@ import Comment from "./components/Comment";
 // import Swiper from "swiper";
 function MovieDetail() {
    const { width } = useWindowDimensions();
-   console.log(width);
-
    const [trailer, setTrailer] = useState(true);
    const { appSelector, dispatch } = useRedux();
    const { movies, showingNow, isLoading, isError, errorMessage, detail } =

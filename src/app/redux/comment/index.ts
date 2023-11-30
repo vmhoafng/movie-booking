@@ -102,6 +102,11 @@ const commentsSlice = createSlice({
          .addCase(postComment.pending, (state) => {
             state.isLoading = true;
          })
+         .addCase(postComment.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.errorMessage = "User has commented";
+         })
          .addCase(postComment.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;

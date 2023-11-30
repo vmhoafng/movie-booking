@@ -1,22 +1,12 @@
-import Button from "@/app/components/button/Button";
 import { useRedux } from "@/app/hooks";
-import { postComment } from "@/app/redux/comment";
-import { INewComment } from "@/app/types/comment";
 import { IMovie } from "@/app/types/movie";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import CommentForm from "./CommentForm";
 import LoadingAnimation from "@/app/components/loading/LoadingAnimation";
 
 const Comment = ({ data }: { data: IMovie }) => {
-   const { appSelector, dispatch } = useRedux();
-   const { user } = appSelector((state) => state.auth);
-   const { isLoading, errorMessage } = appSelector((state) => state.comment);
-
-   // let commented = data?.comment.find((comment) => comment.)
-
-   if (errorMessage) {
-      console.log(errorMessage);
-   }
+   const { appSelector } = useRedux();
+   const { isLoading } = appSelector((state) => state.comment);
 
    const renderComment = useMemo(() => {
       return (data?.comment || []).map((comment) => (
