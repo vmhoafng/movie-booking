@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Axios } from "../../utils/api";
 import authUtils from "../../utils/auth";
 import { SignalIcon } from "@heroicons/react/20/solid";
-import { IPostLoginPayload, IPutAvatarPayload } from "@/app/types/auth";
+import { IPostLoginPayload, IPutAvatarPayload, ILoginWithToken} from "@/app/types/auth";
 import { ENDPOINTS } from "@/app/constants/endpoint";
 import { IPostBill } from "@/app/types/payment";
 import api from "@/app/services/api";
@@ -63,14 +63,14 @@ export const login = createAsyncThunk(
 
 export const loginByToken = createAsyncThunk(
   "@@auth/loginByToken",
-  async (token: string, thunkApi) => {
+  async (payload:ILoginWithToken,thunkApi) => {
     const { data } = await Axios.axiosGet(ENDPOINTS.PROFILE.DATA, {
       header: {
         authorization: token
       }
       signal: thunkApi.signal,
     });
-    return data;
+    return {token: payload.token, user: data, exist: payload.exist};
   }
 );
 
