@@ -11,5 +11,5 @@ export type IPutAvatarPayload = {
 
 export type ILoginWithToken = {
   token: string;
-  exist: number;
+  exist: boolean;
 };
