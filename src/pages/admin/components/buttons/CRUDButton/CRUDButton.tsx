@@ -75,7 +75,12 @@ function CRUDButton({
 }: CRUDButtonProps) {
 	if (to)
 		return (
-			<Link to={to} className={` ${common} ${variants[variant]}`}>
+			<Link
+				to={to}
+				className={` ${common} ${variants[variant]}`}
+				relative="route"
+				replace
+			>
 				{children}
 			</Link>
 		);

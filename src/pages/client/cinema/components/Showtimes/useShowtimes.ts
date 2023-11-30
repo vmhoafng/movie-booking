@@ -39,9 +39,9 @@ export const useShowtimes = () => {
 		}));
 	};
 
-	const handleOnPickDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleOnPickDate = (e: any) => {
 		setSearchParams((prev: URLSearchParams) => ({
-			date: e.target.value,
+			date: e,
 			cinema: prev.get('cinema') || '',
 		}));
 	};

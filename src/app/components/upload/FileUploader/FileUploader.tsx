@@ -15,6 +15,9 @@ function FileUploader({
 	onFileUpload,
 	onRemovePreviewFile,
 	initialState,
+	id,
+	errors,
+	clear,
 }: TFileUploaderProps) {
 	const { selectedFiles, removeFile, handleAcceptedFiles } = useFileUploader(
 		showPreview,
@@ -55,8 +58,6 @@ function FileUploader({
 											<div
 												className="group/cross overflow-hidden cursor-pointer "
 												onClick={() => {
-													console.log(!initialState?.[index]?.path);
-
 													!initialState?.[index]?.path && removeFile(file);
 													onRemovePreviewFile &&
 														onRemovePreviewFile(file, index);
@@ -95,9 +96,10 @@ function FileUploader({
 				accept={{
 					'image/*': [],
 				}}
-				onDrop={(acceptedFiles) =>
-					handleAcceptedFiles(acceptedFiles, onFileUpload)
-				}
+				onDrop={(acceptedFiles) => {
+					clear(id);
+					handleAcceptedFiles(acceptedFiles, onFileUpload);
+				}}
 			>
 				{({ getRootProps, getInputProps, isDragActive }) => (
 					<div
@@ -122,6 +124,9 @@ function FileUploader({
 				)}
 			</Dropzone>
 			{renderPreview()}
+			<div className="mt-1 text-sm text-red-500/80 ">
+				{errors[id]?.message?.toString()}
+			</div>
 		</div>
 	);
 }

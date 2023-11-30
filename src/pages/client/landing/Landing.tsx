@@ -33,7 +33,7 @@ function Landing() {
 	return (
 		<div className="bg-bgPrimary md:w-full md:h-full flex flex-col md:flex-col items-center self-stretch overflow-hidden">
 			<div className="bg-bgPrimary md:w-full   flex items-center flex-col self-stretch ">
-				<div className=" flex w-full flex-col items-center md:gap-[40px] py-[50px] border-b-2 border-[#314C81]">
+				<div className=" flex w-full flex-col items-center gap-[32px] md:gap-[40px] py-[50px] border-b-2 border-[#314C81]">
 					<div className=" flex w-full md:h-[33px] justify-between font-bold items-end self-stretch ">
 						<p className="text-white lg:text-xl xl:text-[22px]  underline md:underline-offset-8 decoration-highlight ">
 							PHIM ĐANG CHIẾU{' '}
@@ -49,6 +49,7 @@ function Landing() {
 					<div className="w-full hidden lg:block">
 						<Swiper
 							modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+							loop={true}
 							autoplay={{
 								delay: 3300,
 								disableOnInteraction: false,
@@ -73,7 +74,7 @@ function Landing() {
 						>
 							{showingNow.map((movie) => {
 								return (
-									<SwiperSlide>
+									<SwiperSlide key={movie.id}>
 										<Poster
 											name={movie.name}
 											subname={movie.sub_name}
@@ -89,6 +90,7 @@ function Landing() {
 					<div className="lg:hidden grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-5">
 						{showingNow.map((movie) => (
 							<Poster
+								key={movie.id}
 								name={movie.name}
 								subname={movie.sub_name}
 								src={movie.poster}
@@ -99,7 +101,7 @@ function Landing() {
 					</div>
 				</div>
 
-				<div className=" flex w-full flex-col items-center md:gap-[40px] py-[50px] border-b-2 border-[#314C81]">
+				<div className=" flex w-full flex-col items-center gap-[32px] md:gap-[40px] py-[50px] border-b-2 border-[#314C81]">
 					<div className=" flex w-full md:h-[33px] justify-between font-bold items-end self-stretch ">
 						<p className="text-white lg:text-xl xl:text-[22px]  underline md:underline-offset-8 decoration-highlight ">
 							PHIM SẮP CHIẾU
@@ -115,6 +117,7 @@ function Landing() {
 					<div className="w-full hidden lg:block">
 						<Swiper
 							modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+							loop={true}
 							autoplay={{
 								delay: 3300,
 								disableOnInteraction: false,
@@ -123,7 +126,7 @@ function Landing() {
 								900: {
 									width: 790,
 									slidesPerView: 3,
-									spaceBetween: 20,
+									spaceBetween: 30,
 								},
 								1024: {
 									width: 960,
@@ -139,7 +142,7 @@ function Landing() {
 						>
 							{comingSoon.map((movie) => {
 								return (
-									<SwiperSlide>
+									<SwiperSlide key={movie.id}>
 										<Poster
 											name={movie.name}
 											subname={movie.sub_name}
@@ -155,6 +158,7 @@ function Landing() {
 					<div className="lg:hidden grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-5">
 						{comingSoon.map((movie) => (
 							<Poster
+								key={movie.id}
 								name={movie.name}
 								subname={movie.sub_name}
 								src={movie.poster}
