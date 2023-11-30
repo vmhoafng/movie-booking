@@ -5,10 +5,18 @@ import { postComment } from "@/app/redux/comment";
 import { INewComment } from "@/app/types/comment";
 import React, { useCallback, useEffect, useState } from "react";
 import Modal from "./Modal";
+import { UserData } from "@/app/redux/auth";
 
-const CommentForm = ({ movieId }: { movieId: string }) => {
+const CommentForm = ({
+   movieId,
+   hasCommented,
+   user,
+}: {
+   movieId: string;
+   hasCommented: boolean;
+   user: UserData;
+}) => {
    const { appSelector, dispatch } = useRedux();
-   const { user } = appSelector((state) => state.auth);
    const { isLoading, errorMessage } = appSelector((state) => state.comment);
    let [isOpen, setIsOpen] = useState(false);
    let [modalContent, setModalContent] = useState({
@@ -156,7 +164,10 @@ const CommentForm = ({ movieId }: { movieId: string }) => {
                onClick={() => {
                   if (!user.email) {
                      handleIsNotLogin();
-                  } else if (errorMessage === "User has commented") {
+                  } else if (
+                     errorMessage === "User has commented" ||
+                     hasCommented
+                  ) {
                      handleHasCommented();
                   }
                }}
@@ -184,7 +195,10 @@ const CommentForm = ({ movieId }: { movieId: string }) => {
             onClick={() => {
                if (!user.email) {
                   handleIsNotLogin();
-               } else if (errorMessage === "User has commented") {
+               } else if (
+                  errorMessage === "User has commented" ||
+                  hasCommented
+               ) {
                   handleHasCommented();
                } else {
                   if (newComment.content === "" || newComment.rating === 0) {

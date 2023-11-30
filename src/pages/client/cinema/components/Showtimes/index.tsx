@@ -5,6 +5,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { useShowtimes } from './useShowtimes';
+import DatePickSlider from '@/app/components/inputs/DatePickSlider';
 
 function Showtimes() {
 	const {
@@ -49,7 +50,7 @@ function Showtimes() {
 						return ratingA - ratingB;
 					})
 					.map((movie) => (
-						<ShowtimePaper movie={movie} />
+						<ShowtimePaper key={movie.id} movie={movie} />
 					))}
 			</>
 		);
@@ -61,18 +62,22 @@ function Showtimes() {
 				LỊCH CHIẾU
 			</h3>
 			{/* <Title active>LỊCH CHIẾU</Title> */}
-			<div className="flex w-full gap-6 mt-[25px] lg:flex-row flex-col">
+			<div className="flex w-full gap-6 mt-[25px]  flex-col">
 				<SelectInput
 					options={options}
 					placeholder="Chọn rạp"
-					inputClassName="flex-1"
-					optionClassName="py-1 hover:bg-highlight"
+					inputClassName="flex-1 "
+					optionClassName="pl-[15px] py-[7.5px] hover:bg-highlight"
 					value={options[selected!]}
 					//@ts-ignore
 					endIcon={ChevronDownIcon}
 					onChange={handleOnChange}
 				/>
-				<label
+				<DatePickSlider
+					value={date}
+					handleOnClick={(day) => handleOnPickDate(day)}
+				/>
+				{/* <label
 					htmlFor="date-picker"
 					className="items-center relative justify-between flex-1 text-[15px] pl-[15px] bg-[#EFEFEF]/20 rounded border"
 				>
@@ -88,7 +93,7 @@ function Showtimes() {
 					<span className="] absolute top-[1px] right-[15px]">
 						<CalendarIcon className="h-5 w-5" />
 					</span>
-				</label>
+				</label> */}
 			</div>
 
 			<div className="flex flex-col mt-[25px] gap-[1px] ">{renderMovies()}</div>

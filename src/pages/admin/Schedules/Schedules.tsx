@@ -31,12 +31,12 @@ function Schedules() {
 
 	const start = useMemo(() => {
 		const nowDate = new Date();
-		return new Date(nowDate.setDate(nowDate.getDate() - nowDate.getDay() + 7));
+		return new Date(nowDate.setDate(nowDate.getDate() - nowDate.getDay() + 14));
 	}, []);
 
 	const end = useMemo(() => {
 		const nowDate = new Date();
-		return new Date(nowDate.setDate(nowDate.getDate() - nowDate.getDay() + 15));
+		return new Date(nowDate.setDate(nowDate.getDate() - nowDate.getDay() + 22));
 	}, []);
 
 	const handleEventsReceived = (eventInfo: any) => {
@@ -87,9 +87,8 @@ function Schedules() {
 				const end = new Date(s!.start_date + `T${s!.start_time}`);
 				end.setTime(start.getTime() + s!.running_time * 1000 * 60);
 				const event: any = {
-					// title: s.movie.name,
 					allDay: false,
-					// sub_title: s.movie.sub_name,
+
 					id: s!.id,
 					start: start.toJSON(),
 					extendedProps: {

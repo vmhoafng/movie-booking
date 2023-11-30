@@ -62,6 +62,7 @@ export const ENDPOINTS = {
 		},
 		ACCOUNT: {
 			ALL: 'admin/users',
+			DETAIL: `admin/user/${ROUTE_PARAMS.USER_ID}`,
 		},
 	},
 };
