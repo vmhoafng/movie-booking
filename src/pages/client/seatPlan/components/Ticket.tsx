@@ -76,7 +76,11 @@ function Ticket({ ticket }: { ticket: ITicketType }) {
          </div>
          <div className="w-full my-4 hidden xl:block">
             <Link to={`/payment`}>
-               <Button fullWidth onClick={() => dispatch(setTicket(ticket))}>
+               <Button
+                  fullWidth
+                  onClick={() => dispatch(setTicket(ticket))}
+                  disabled={selected_seats.length > 0 ? false : true}
+               >
                   Thanh toán
                </Button>
             </Link>
@@ -87,7 +91,7 @@ function Ticket({ ticket }: { ticket: ITicketType }) {
                <Button
                   large
                   onClick={() => dispatch(setTicket(ticket))}
-                  disabled
+                  disabled={selected_seats.length > 0 ? false : true}
                >
                   Thanh toán
                </Button>
