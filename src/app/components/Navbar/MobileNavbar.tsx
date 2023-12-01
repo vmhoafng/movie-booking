@@ -6,28 +6,39 @@ import { useRedux } from '@/app/hooks';
 import { setOpen } from '@/app/redux/layout';
 import useOutsideClick from '@/app/hooks/useOutsideClick';
 import { createPortal } from 'react-dom';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { PATHS } from '@/app/constants/path';
 import useNavbar from './useNavbar';
+import { resetAuth } from '@/app/redux/auth';
 
-const navigation = [
-	{ name: 'TRANG CHỦ', to: PATHS.HOME.IDENTITY },
-	// { name: 'ĐẶT VÉ', to: '' },
-	{ name: 'PHIM', to: PATHS.MOVIES.IDENTITY },
-	{ name: 'RẠP/VÉ', to: PATHS.CINEMA.IDENTITY },
-	// { name: 'THÀNH VIÊN', to: '' },
-];
 function classNames(...classes: any[]) {
 	return classes.filter(Boolean).join(' ');
 }
 
 function MobileNavbar() {
-	const { dispatch } = useRedux();
-
+	const { dispatch, appSelector } = useRedux();
+	const { userLoggedIn } = appSelector((state) => state.auth);
 	const { active } = useNavbar();
+
+	const navigation = [
+		{ name: 'TRANG CHỦ', to: PATHS.HOME.IDENTITY },
+		// { name: 'ĐẶT VÉ', to: '' },
+		{ name: 'PHIM', to: PATHS.MOVIES.IDENTITY },
+		{ name: 'RẠP/VÉ', to: PATHS.CINEMA.IDENTITY },
+	].concat(
+		userLoggedIn
+			? [{ name: 'THÔNG TIN ', to: PATHS.AUTH.IDENTITY }]
+			: [{ name: 'ĐĂNG NHẬP', to: PATHS.AUTH.IDENTITY }]
+	);
 
 	const handleClose = () => {
 		dispatch(setOpen(false));
+	};
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+		navigate(`/${PATHS.HOME.IDENTITY}`);
+		dispatch(resetAuth());
 	};
 
 	const ref = useOutsideClick(handleClose);
@@ -41,6 +52,7 @@ function MobileNavbar() {
 				<ul className="flex pt-[40px] text-center flex-col text-white text-[12px]  font-bold items-center gap-4">
 					{navigation.map((n) => {
 						const regex = new RegExp(`^/${n.to}$`);
+
 						return (
 							<li key={n.name} className="py-[18px] w-full">
 								<Link
@@ -57,6 +69,20 @@ function MobileNavbar() {
 							</li>
 						);
 					})}
+					{userLoggedIn && (
+						<li className="py-[18px] w-full">
+							<Link
+								to={''}
+								className={classNames(
+									'text-gray-300  hover:text-white',
+									'block w-full'
+								)}
+								onClick={handleLogout}
+							>
+								ĐĂNG XUẤT
+							</Link>
+						</li>
+					)}
 				</ul>
 			</div>
 		</div>,

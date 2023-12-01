@@ -61,6 +61,14 @@ export const putMovie = createAsyncThunk<
 	return data;
 });
 
+export const createMovie = createAsyncThunk<void, IPutMovieDetails>(
+	'@@movies/createMovie',
+	async (payload) => {
+		const response = await api.moviesService.postMovie(payload);
+		// return response;
+	}
+);
+
 export const getMovieDetailById = createAsyncThunk<IMovie, string>(
 	'@@movies/getMovieDetail',
 	async (id: string, thunkApi) => {
@@ -89,6 +97,9 @@ const moviesSlice = createSlice({
 				state.selected = index;
 			}
 		},
+		resetError: (state) => {
+			state.isError = false;
+		},
 	},
 	extraReducers(builder) {
 		builder
@@ -102,9 +113,14 @@ const moviesSlice = createSlice({
 			.addCase(getMovieDetail.fulfilled, (state, action) => {
 				state.detail = { ...state.detail, ...action.payload };
 				state.isLoading = false;
+				state.isError = false;
 			})
 			.addCase(getMovieDetail.pending, (state) => {
 				state.isLoading = true;
+			})
+			.addCase(getMovieDetail.rejected, (state) => {
+				state.isLoading = false;
+				state.isError = true;
 			});
 		builder.addCase(getShowtimeByMovie.fulfilled, (state, action) => {
 			state.detail.cinema = action.payload.data;
@@ -117,6 +133,6 @@ const moviesSlice = createSlice({
 	},
 });
 
-export const { selectMovie } = moviesSlice.actions;
+export const { selectMovie, resetError } = moviesSlice.actions;
 
 export default moviesSlice;

@@ -55,6 +55,10 @@ const moviesService = {
 		);
 	},
 
+	postMovie: (payload: IPutMovieDetails) => {
+		return Axios.axiosPostWithFile(ENDPOINTS.ADMIN.MOVIE.POST, payload);
+	},
+
 	getAllMovies: async () => {
 		return Axios.axiosGet(ENDPOINTS.MOVIES);
 	},
