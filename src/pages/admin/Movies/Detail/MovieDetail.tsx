@@ -35,7 +35,7 @@ const statusOptions: SelectOption[] = [
 	},
 	{
 		label: 'Ngừng chiếu',
-		value: 3,
+		value: 4,
 	},
 ];
 
@@ -55,6 +55,7 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 		setPoster,
 		setImages,
 		submitEdit,
+		submitCreate,
 	} = useMovieDetail(mode);
 
 	const [formats, setFormats] = useState<SelectOption[]>([]);
@@ -100,6 +101,7 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 					</div>
 				</ControlBar>
 			),
+			handle: submitEdit,
 		},
 		create: {
 			ControlBar: (
@@ -111,13 +113,16 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 					</div>
 				</ControlBar>
 			),
+			handle: submitCreate,
 		},
 	};
+
+	console.log(errors);
 
 	return (
 		<>
 			<Toaster position="top-center" expand gap={10} closeButton richColors />
-			<form className="relative" onSubmit={submitEdit}>
+			<form className="relative" onSubmit={modeConfigs[mode].handle}>
 				{modeConfigs[mode].ControlBar}
 				<div className="flex gap-[30px] py-[25px] border-b-[1px] border-dashed border-borderColor ">
 					<div className="">
@@ -275,24 +280,29 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 								<p className="flex-[0_0_160px] text-white/70">
 									Ngày ngưng chiếu
 								</p>
-								<input
-									id="end_date"
-									type="date"
-									className=" pl-[15px] text-[14px] w-[300px] rounded border  bg-[#EFEFEF]/20 outline-none"
-									placeholder="YYYY-MM-DD"
-									{...register('endDate', {})}
-								/>
+								<div className="">
+									<input
+										id="end_date"
+										type="date"
+										className=" pl-[15px] text-[14px] w-[300px] rounded border  bg-[#EFEFEF]/20 outline-none"
+										placeholder="YYYY-MM-DD"
+										{...register('endDate', {})}
+									/>
+									{errors['endDate'] && (
+										<div className="text-sm mt-1 text-red-500/80 ">
+											{errors['endDate'].message?.toString()}
+										</div>
+									)}
+								</div>
 
 								<span className="absolute top-[1px] right-[15px]">
 									<CalendarIcon className="h-5 w-5" />
 								</span>
-								{errors['endDate'] && (
-									<div>{errors['endDate'].message?.toString()}</div>
-								)}
 							</label>
+
 							<label className="flex  w-[450px] ">
 								<p className="flex-[0_0_160px] text-white/70">Trạng thái</p>
-								<SelectInput
+								{/* <SelectInput
 									inputClassName="w-[300px]"
 									id="statusId"
 									name="statusId"
@@ -300,12 +310,25 @@ function MovieDetail({ mode = 'create' }: MovieDetailProps) {
 									control={control}
 									value={useMemo(() => {
 										return statusOptions.find(
-											(o) => o.value === (movie?.status.id || 1)
+											(o) => o.value === (movie?.status.id || 0)
 										);
 									}, [movie])}
 									//@ts-ignore
 									endIcon={ChevronDownIcon}
-								/>
+								/> */}
+								<select
+									className=" bg-[#EFEFEF]/20  px-[15px] text-center block border appearance-none border-[#fff]/80 rounded"
+									{...register('statusId')}
+								>
+									{statusOptions.map((status) => (
+										<option
+											className="bg-[#31375A] py-[10px]"
+											value={status.value}
+										>
+											{status.label}
+										</option>
+									))}
+								</select>
 							</label>
 						</div>
 					</div>

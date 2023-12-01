@@ -39,6 +39,7 @@ export const ENDPOINTS = {
 			DETAIL: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
 			LIST: `admin/movie`,
 			PUT: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
+			POST: 'admin/movie',
 		},
 		COMMENT: {
 			ALL: 'admin/comments',
