@@ -17,6 +17,9 @@ import {
   TrashIcon,
 } from "@heroicons/react/20/solid";
 import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
+import { Axios } from "@/app/utils/api";
+import { ENDPOINTS, getEndPoint } from "@/app/constants/endpoint";
+import { toast } from "sonner";
 
 interface EditItemProps {
   id: string;
@@ -67,7 +70,30 @@ function EditItem({ id }: EditItemProps) {
     });
   }, [currentCinema, reset]);
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    reset();
+    const patchData = {
+      name: data.name,
+      address: data.address,
+      district: data.district,
+      city: data.city,
+      description: data.description,
+      phoneNumber: data.phone_number,
+      status: data.status,
+    };
+    const res = Axios.axiosPutWithToken(
+      getEndPoint(ENDPOINTS.ADMIN.CINEMA.POST_CINEMA, {
+        cinemaId: data.id,
+      }),
+      patchData
+    );
+    toast.promise(res, {
+      loading: "Đang tải...",
+      success: (data: any) => {
+        return "Thêm mới thành công";
+      },
+      error: (err: any) => {
+        return "Error: " + err;
+      },
+    });
   };
   const [editStatus, setEditStatus] = useState();
   const statusOptions: SelectOption[] = [
@@ -101,7 +127,6 @@ function EditItem({ id }: EditItemProps) {
             placeholder="Chọn trạng thái"
             name="status"
             onChange={(e) => {
-              console.log(e);
               const newRoom = rooms.map((room) => {
                 if (room.id === row.id)
                   return {
