@@ -24,9 +24,6 @@ const SeatRow = ({ row }: { row: ISeatRow }) => {
          }),
       [row, selected_seats]
    );
-
-   console.log("render seat row " + row.row);
-
    return (
       <div className="w-full flex flex-row min-w-[590px] justify-between p-0 lg:text-sm">
          <div className="text-white">{row?.row}</div>

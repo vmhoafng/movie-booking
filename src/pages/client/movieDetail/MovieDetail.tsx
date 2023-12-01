@@ -32,6 +32,7 @@ import IsShowingMovies from './components/IsShowingMovies';
 import Comment from './components/Comment';
 import DatePickSlider from '@/app/components/inputs/DatePickSlider';
 import ItemNotFound from '@/pages/error/ItemNotFound';
+import { setSelectedSeats } from '@/app/redux/payment';
 
 // import Swiper from "swiper";
 function MovieDetail() {

@@ -13,15 +13,15 @@ export default function Profile() {
         gap={10}
         closeButton
         position="top-center"
-        toastOptions={{
-          style: {
-            background: "transparent",
-            padding: 0,
-            width: "fit-content",
-            border: 0,
-            marginTop: 180,
-          },
-        }}
+        // toastOptions={{
+        //   style: {
+        //     background: "transparent",
+        //     padding: 0,
+        //     width: "fit-content",
+        //     border: 0,
+        //     marginTop: 180,
+        //   },
+        // }}
       />
       <div
         className="
