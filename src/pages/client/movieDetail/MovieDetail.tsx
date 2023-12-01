@@ -29,6 +29,7 @@ import Icon from "@/app/components/icon/Icon";
 import { SelectOption } from "@/app/components/inputs/SelectInput";
 import IsShowingMovies from "./components/IsShowingMovies";
 import Comment from "./components/Comment";
+import { setSelectedSeats } from "@/app/redux/payment";
 
 // import Swiper from "swiper";
 function MovieDetail() {
