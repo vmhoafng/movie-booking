@@ -34,37 +34,38 @@ export const ENDPOINTS = {
     CHECK_FORGOT_PASSWORD: "auth/checkUrlToResetPass",
   },
 
-  ADMIN: {
-    MOVIE: {
-      DETAIL: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
-      LIST: `admin/movies`,
-      PUT: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
-    },
-    COMMENT: {
-      ALL: "admin/comments",
-      BY_STATUS: `admin/comments/status`,
-      MODIFY_STATUS: `admin/moderationComment/${ROUTE_PARAMS.COMMENT_ID}`,
-    },
-    DASHBOARD: {
-      ALL: `admin/statistical`,
-    },
-    CINEMA: {
-      POST_CINEMA: "admin/cinemaRoom",
-      UPDATE_CINEMA: `admin/cinema/${ROUTE_PARAMS.CINEMA_ID}`,
-      GET_ROOMS_BY_CINEMA_ID: `admin/cinema/${ROUTE_PARAMS.CINEMA_ID}/rooms`,
-      GET_CINEMA_BY_ID: `admin/cinema/${ROUTE_PARAMS.CINEMA_ID}`,
-      UPDATE_ROOM: `admin/room/${ROUTE_PARAMS.ROOM_ID}/status/${ROUTE_PARAMS.STATUS_ID}`,
-    },
-    SCHEDULE: {
-      LIST: "admin/cinema/room/showtime",
-      POST_SHOWTIME: "admin/showtime",
-      DELETE_SHOWTIME: `admin/showtime/${ROUTE_PARAMS.SHOWTIME_ID}`,
-    },
-    ACCOUNT: {
-      ALL: "admin/users",
-      DETAIL: `admin/user/${ROUTE_PARAMS.USER_ID}`,
-    },
-  },
+	ADMIN: {
+		MOVIE: {
+			DETAIL: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
+			LIST: `admin/movie`,
+			PUT: `admin/movie/${ROUTE_PARAMS.MOVIE_ID}`,
+			POST: 'admin/movie',
+		},
+		COMMENT: {
+			ALL: 'admin/comments',
+			BY_STATUS: `admin/comments/status`,
+			MODIFY_STATUS: `admin/moderationComment/${ROUTE_PARAMS.COMMENT_ID}`,
+		},
+		DASHBOARD: {
+			ALL: `admin/statistical`,
+		},
+		CINEMA: {
+			POST_CINEMA: 'admin/cinemaRoom',
+			UPDATE_CINEMA: `admin/cinema/${ROUTE_PARAMS.CINEMA_ID}`,
+			GET_ROOMS_BY_CINEMA_ID: `admin/cinema/${ROUTE_PARAMS.CINEMA_ID}/rooms`,
+			GET_CINEMA_BY_ID: `admin/cinema/${ROUTE_PARAMS.CINEMA_ID}`,
+			UPDATE_ROOM: `admin/room/${ROUTE_PARAMS.ROOM_ID}/status/${ROUTE_PARAMS.STATUS_ID}`,
+		},
+		SCHEDULE: {
+			LIST: 'admin/cinema/room/showtime',
+			POST_SHOWTIME: 'admin/showtime',
+			DELETE_SHOWTIME: `admin/showtime/${ROUTE_PARAMS.SHOWTIME_ID}`,
+		},
+		ACCOUNT: {
+			ALL: 'admin/users',
+			DETAIL: `admin/user/${ROUTE_PARAMS.USER_ID}`,
+		},
+	},
 };
 
 export const getEndPoint = (endpoint: string, arg: Object) => {

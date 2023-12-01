@@ -46,14 +46,18 @@ const moviesService = {
     );
   },
 
-  putMovie: (id: string, payload: IPutMovieDetails) => {
-    return Axios.axiosPutWithFile(
-      getEndPoint(ENDPOINTS.ADMIN.MOVIE.PUT, {
-        movieId: id,
-      }),
-      payload
-    );
-  },
+	putMovie: (id: string, payload: IPutMovieDetails) => {
+		return Axios.axiosPutWithFile(
+			getEndPoint(ENDPOINTS.ADMIN.MOVIE.PUT, {
+				movieId: id,
+			}),
+			payload
+		);
+	},
+
+	postMovie: (payload: IPutMovieDetails) => {
+		return Axios.axiosPostWithFile(ENDPOINTS.ADMIN.MOVIE.POST, payload);
+	},
 
   getAllMovies: async () => {
     return Axios.axiosGet(ENDPOINTS.MOVIES);

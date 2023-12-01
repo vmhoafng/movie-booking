@@ -46,7 +46,7 @@ function DatePickSlider({ handleOnClick, value }: DatePickSliderProps) {
 						>
 							<button
 								className={clsx(
-									'p-2 border flex flex-col min-w-[90px] gap-1 items-center text-[14px] font-bold rounded',
+									'p-2 border flex flex-col min-w-[90px] gap-1 items-center text-white text-[14px] font-bold rounded',
 									active === i
 										? 'bg-highlight/20 border-highlight text-highlight'
 										: 'bg-[#EFEFEF]/20'

@@ -3,7 +3,11 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { useRedux } from '@/app/hooks';
-import { getMovieDetailById, putMovie } from '@/app/redux/movies/movies.slice';
+import {
+	createMovie,
+	getMovieDetailById,
+	putMovie,
+} from '@/app/redux/movies/movies.slice';
 import {
 	IMovie,
 	IMovieFormat,
@@ -30,10 +34,13 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 		description: yup.string().required('Nội dung phim không được để trống'),
 		// country: yup.string().required(),
 		language: yup.string().required('Ngôn ngữ phim không được để trống'),
-		producer: yup.string().required(),
+		producer: yup.string().required('Nhà sản xuất không được để trống'),
 		cast: yup.string().required('Vai diễn không được để trống'),
 		director: yup.string().required('Đạo diễn không được để trống'),
-		rated: yup.number().required('Độ tuổi phim không được để trống'),
+		rated: yup
+			.number()
+			.typeError('Độ tuổi phim không được để trống')
+			.required('Độ tuổi phim không được để trống'),
 		trailer: yup.string().required('Trailer không được để trống'),
 		releaseDate: yup.string().required(),
 		endDate: yup
@@ -132,7 +139,7 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 		reset({}, { keepDefaultValues: true });
 	};
 
-	const onSubmit: SubmitHandler<FieldValues> = (data) => {
+	const onSubmitEdit: SubmitHandler<FieldValues> = (data) => {
 		if (!movie?.poster && !poster) {
 			setError('poster', { message: 'Thiếu ảnh dọc của phim' });
 			return;
@@ -148,8 +155,6 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 
 		const deletedIds = (imageInitialState.current || [])
 			.filter((image) => {
-				console.log((images || []).indexOf(image));
-
 				return (images || []).indexOf(image) === -1;
 			})
 			.map((i) => i.id);
@@ -174,8 +179,42 @@ export default function useMovieDetail(mode: 'edit' | 'create') {
 		});
 	};
 
+	const onSubmitAdd: SubmitHandler<FieldValues> = (data) => {
+		if (!poster) {
+			setError('poster', { message: 'Thiếu ảnh dọc của phim' });
+
+			return;
+		}
+		if (!horPoster) {
+			setError('hor_poster', { message: 'Thiếu ảnh ngang của phim' });
+			return;
+		}
+		if (!files?.length) {
+			setError('images', { message: 'Phải có ít nhất một ảnh của phim' });
+			return;
+		}
+		const payload: IPutMovieDetails = {
+			movie: JSON.stringify({
+				...data,
+			}),
+			...(poster && { poster }),
+			...(horPoster && { horPoster }),
+			...(files && { images: files }),
+		};
+		toast.promise(dispatch(createMovie(payload)), {
+			loading: 'Phim đang được cập nhật...',
+			success: () => {
+				return 'Thêm thành công';
+			},
+			error: (err) => {
+				return 'Thêm thất bại ' + err;
+			},
+		});
+	};
+
 	return {
-		submitEdit: handleSubmit(onSubmit),
+		submitEdit: handleSubmit(onSubmitEdit),
+		submitCreate: handleSubmit(onSubmitAdd),
 		handleCancel,
 		register,
 		control,
