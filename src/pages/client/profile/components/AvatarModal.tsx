@@ -39,12 +39,9 @@ function AvatarModal({ onClick }: AvatarModalProps) {
         />
         <div className="sm:max-w-lg w-full p-10 bg-bgPrimaryBar rounded-xl z-10 m-auto">
           <div className="text-center">
-            <h2 className="mt-5 text-3xl font-bold text-gray-900">
-              File Upload!
+            <h2 className="mt-5 text-xl font-bold text-gray-900">
+              Tải ảnh lên
             </h2>
-            <p className="mt-2 text-sm text-gray-400">
-              Lorem ipsum is placeholder text.
-            </p>
           </div>
           <form className="mt-8 space-y-3" action="#" method="POST">
             <div className="grid grid-cols-1 space-y-2">

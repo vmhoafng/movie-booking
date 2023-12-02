@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Title from "./Title";
-import Input from "@/app/components/inputs/Input";
 import {
   useForm,
   FieldValues,
@@ -9,16 +8,20 @@ import {
 } from "react-hook-form";
 import Button from "@/app/components/button/Button";
 import SwitchButton from "@/app/components/button/SwitchButton";
-import useWindowDimensions from "@/app/hooks/useWindowDimensions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import PaymentItem from "./PaymentItem";
 import { useRedux } from "@/app/hooks";
 import { createBill } from "@/app/redux/payment";
-import { useNavigate } from "react-router-dom";
-import { UserData, getCurrentUser } from "@/app/redux/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { UserData } from "@/app/redux/auth";
+import { ITicketType } from "../../seatPlan/type";
 
-function PaymentForm() {
+interface PaymentFormProps {
+  ticket: ITicketType;
+}
+
+function PaymentForm({ ticket }: PaymentFormProps) {
   const { dispatch, appSelector } = useRedux();
   const { user, isLoading } = appSelector((state) => state.auth);
   const [currentUser, setCurrentUser] = useState<UserData>();
@@ -62,7 +65,6 @@ function PaymentForm() {
          flex-col
          items-center
          w-full
-         w-full
          xl:w-[660px]
          2xl:w-[710px]
          px-5
@@ -104,9 +106,12 @@ function PaymentForm() {
         <Button highlight fullWidth type="submit">
           Thanh toán
         </Button>
-        <div className="text-lightPrimary font-semibold leading-6 cursor-pointer">
+        <Link
+          to={`/ticket/${ticket.showtime_id}`}
+          className="text-lightPrimary font-semibold leading-6 cursor-pointer"
+        >
           Quay lại
-        </div>
+        </Link>
       </div>
     </form>
   );

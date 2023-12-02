@@ -17,6 +17,9 @@ import {
   TrashIcon,
 } from "@heroicons/react/20/solid";
 import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
+import { Axios } from "@/app/utils/api";
+import { ENDPOINTS, getEndPoint } from "@/app/constants/endpoint";
+import { toast } from "sonner";
 
 interface EditItemProps {
   id: string;
@@ -26,13 +29,13 @@ const columns = ["ID", "Phòng", "Số ghế", "Trạng thái"];
 function EditItem({ id }: EditItemProps) {
   const { appSelector, dispatch } = useRedux();
   const { currentCinema, rooms } = appSelector((state) => state.cinema);
+  const [roomsData, setRoomsData] = useState(rooms);
   useEffect(() => {
     dispatch(getCinemaById(id));
   }, [dispatch, id]);
-  const [roomsData, setRoomsData] = useState<any>([]);
-
-  console.log(rooms, roomsData);
-
+  useEffect(() => {
+    setRoomsData(rooms);
+  }, [rooms]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Number of items to display per page
   const pageCount = Math.ceil(roomsData.length / itemsPerPage);
@@ -67,7 +70,30 @@ function EditItem({ id }: EditItemProps) {
     });
   }, [currentCinema, reset]);
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    reset();
+    const patchData = {
+      name: data.name,
+      address: data.address,
+      district: data.district,
+      city: data.city,
+      description: data.description,
+      phoneNumber: data.phone_number,
+      status: data.status,
+    };
+    const res = Axios.axiosPutWithToken(
+      getEndPoint(ENDPOINTS.ADMIN.CINEMA.POST_CINEMA, {
+        cinemaId: data.id,
+      }),
+      patchData
+    );
+    toast.promise(res, {
+      loading: "Đang tải...",
+      success: (data: any) => {
+        return "Thêm mới thành công";
+      },
+      error: (err: any) => {
+        return "Error: " + err;
+      },
+    });
   };
   const [editStatus, setEditStatus] = useState();
   const statusOptions: SelectOption[] = [
@@ -101,7 +127,6 @@ function EditItem({ id }: EditItemProps) {
             placeholder="Chọn trạng thái"
             name="status"
             onChange={(e) => {
-              console.log(e);
               const newRoom = rooms.map((room) => {
                 if (room.id === row.id)
                   return {

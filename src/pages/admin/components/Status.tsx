@@ -14,7 +14,7 @@ function Status({ children, status }: StatusProps) {
   return (
     <div
       className={clsx(
-        "px-2 py-1 text-xs font-bold w-fit rounded",
+        "px-2 py-1 text-xs font-bold w-full rounded text-center",
         variants[status]
       )}
     >

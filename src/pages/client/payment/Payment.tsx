@@ -2,11 +2,11 @@ import PaymentForm from "./components/PaymentForm";
 import { useRedux } from "@/app/hooks";
 import PaymentTicket from "./components/PaymentTicket";
 export default function Payment() {
-   const { appSelector } = useRedux();
-   const ticket = appSelector((state) => state.payment.ticket);
-   return (
-      <div
-         className="flex
+  const { appSelector } = useRedux();
+  const ticket = appSelector((state) => state.payment.ticket);
+  return (
+    <div
+      className="flex
       flex-col-reverse
       xl:flex-row
       justify-center
@@ -19,10 +19,10 @@ export default function Payment() {
       lg:gap-5
       2xl:gap-20
      "
-      >
-         {/* <BookingMobileItem /> */}
-         <PaymentForm />
-         <PaymentTicket ticket={ticket}></PaymentTicket>
-      </div>
-   );
+    >
+      {/* <BookingMobileItem /> */}
+      <PaymentForm ticket={ticket} />
+      <PaymentTicket ticket={ticket}></PaymentTicket>
+    </div>
+  );
 }

@@ -3,7 +3,7 @@ import useSearchTopbar from "../../../../app/components/inputs/SearchTopbar/useS
 import Table from "../../components/table/Table";
 import Pagination from "../../components/pagination/Pagination";
 import { useRedux } from "@/app/hooks";
-import { getMovies } from "@/app/redux/movies/movies.slice";
+import { getMovies, getMoviesAdmin } from "@/app/redux/movies/movies.slice";
 import Title from "@/app/components/Title";
 import ControlBar from "../../components/controlBar/ControlBar";
 import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
@@ -33,7 +33,7 @@ const columns = [
 function MovieList() {
   const { appSelector, dispatch } = useRedux();
   useEffect(() => {
-    dispatch(getMovies());
+    dispatch(getMoviesAdmin());
   }, [dispatch]);
   const { movies } = appSelector((state) => state.movies);
   const [showByStatus, setShowByStatus] = useState("");
@@ -56,8 +56,6 @@ function MovieList() {
         })),
     [movies, showByStatus]
   );
-  console.log(dataMovies);
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Number of items to display per page
   const pageCount = Math.ceil(dataMovies.length / itemsPerPage);
@@ -68,7 +66,10 @@ function MovieList() {
     { label: "All", value: "" },
     { label: "Showing now", value: "Showing now" },
     { label: "Coming soon", value: "Coming soon" },
+    { label: "No show", value: "No show" },
   ];
+  console.log(dataMovies);
+  
   const renderCell = useCallback((row: any, dataKeys: any) => {
     if (dataKeys === "status")
       return (
@@ -77,7 +78,7 @@ function MovieList() {
             clsx(
               row["status"] === "Showing now" && "active",
               row["status"] === "Coming soon" && "warning",
-              row["status"] === "Disable" && "disable"
+              row["status"] === "No show" && "disabled"
             ) as "active" | "warning" | "disabled"
           }
         >
