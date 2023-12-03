@@ -62,11 +62,11 @@ export const putMovie = createAsyncThunk<
 });
 
 export const createMovie = createAsyncThunk<void, IPutMovieDetails>(
-	'@@movies/createMovie',
-	async (payload) => {
-		const response = await api.moviesService.postMovie(payload);
-		// return response;
-	}
+  "@@movies/createMovie",
+  async (payload) => {
+    const response = await api.moviesService.postMovie(payload);
+    // return response;
+  }
 );
 
 export const getMovieDetailById = createAsyncThunk<IMovie, string>(
@@ -99,44 +99,47 @@ const moviesSlice = createSlice({
       const { movies } = state;
       const index = movies.findIndex((c) => c.slug === action.payload);
 
-			if (index !== -1) {
-				state.selected = index;
-			}
-		},
-		resetError: (state) => {
-			state.isError = false;
-		},
-	},
-	extraReducers(builder) {
-		builder
-			.addCase(getByStatus.fulfilled, (state, action) => {
-				state.movies = [...(action.payload.data[0].movies || [])];
-				state.isLoading = false;
-			})
-			.addCase(getByStatus.pending, (state) => {
-				state.isLoading = true;
-			})
-			.addCase(getMovieDetail.fulfilled, (state, action) => {
-				state.detail = { ...state.detail, ...action.payload };
-				state.isLoading = false;
-				state.isError = false;
-			})
-			.addCase(getMovieDetail.pending, (state) => {
-				state.isLoading = true;
-			})
-			.addCase(getMovieDetail.rejected, (state) => {
-				state.isLoading = false;
-				state.isError = true;
-			});
-		builder.addCase(getShowtimeByMovie.fulfilled, (state, action) => {
-			state.detail.cinema = action.payload.data;
-		});
-		builder.addCase(getMovies.fulfilled, (state, action) => {
-			state.movies = [...action.payload.data];
-			state.showingNow = action.payload.data.filter((m) => m.status.id === 2);
-			state.comingSoon = action.payload.data.filter((m) => m.status.id === 1);
-		});
-	},
+      if (index !== -1) {
+        state.selected = index;
+      }
+    },
+    resetError: (state) => {
+      state.isError = false;
+    },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(getByStatus.fulfilled, (state, action) => {
+        state.movies = [...(action.payload.data[0].movies || [])];
+        state.isLoading = false;
+      })
+      .addCase(getByStatus.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getMovieDetail.fulfilled, (state, action) => {
+        state.detail = { ...state.detail, ...action.payload };
+        state.isLoading = false;
+        state.isError = false;
+      })
+      .addCase(getMovieDetail.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getMovieDetail.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      });
+    builder.addCase(getShowtimeByMovie.fulfilled, (state, action) => {
+      state.detail.cinema = action.payload.data;
+    });
+    builder.addCase(getMovies.fulfilled, (state, action) => {
+      state.movies = [...action.payload.data];
+      state.showingNow = action.payload.data.filter((m) => m.status.id === 2);
+      state.comingSoon = action.payload.data.filter((m) => m.status.id === 1);
+    });
+    builder.addCase(getMoviesAdmin.fulfilled, (state, action) => {
+      state.movies = [...action.payload.data];
+    });
+  },
 });
 
 export const { selectMovie, resetError } = moviesSlice.actions;

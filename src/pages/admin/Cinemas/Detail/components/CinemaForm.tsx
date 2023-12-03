@@ -61,7 +61,6 @@ function CinemaForm({
               id="status"
               control={control}
               options={statusOptions}
-              placeholder="Chọn trạng thái"
               name="status"
               onChange={() => {}}
               register={register}

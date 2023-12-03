@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  ForwardedRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import CinemaForm from "../CinemaForm";
 import Button from "@/app/components/button/Button";
 import { Link } from "react-router-dom";
@@ -20,6 +26,7 @@ import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
 import { Axios } from "@/app/utils/api";
 import { ENDPOINTS, getEndPoint } from "@/app/constants/endpoint";
 import { toast } from "sonner";
+import useOutsideClick from "@/app/hooks/useOutsideClick";
 
 interface EditItemProps {
   id: string;
@@ -27,6 +34,7 @@ interface EditItemProps {
 const dataKeys = ["id", "name", "totalSeats", "status"];
 const columns = ["ID", "Phòng", "Số ghế", "Trạng thái"];
 function EditItem({ id }: EditItemProps) {
+  const ref = useOutsideClick(() => setEditStatus(undefined));
   const { appSelector, dispatch } = useRedux();
   const { currentCinema, rooms } = appSelector((state) => state.cinema);
   const [roomsData, setRoomsData] = useState(rooms);
@@ -119,30 +127,31 @@ function EditItem({ id }: EditItemProps) {
         );
       if (dataKeys === "status" && editStatus === row.id)
         return (
-          <SelectInput
-            required
-            id="status"
-            control={control}
-            options={statusOptions}
-            placeholder="Chọn trạng thái"
-            name="status"
-            onChange={(e) => {
-              const newRoom = rooms.map((room) => {
-                if (room.id === row.id)
-                  return {
-                    ...room,
-                    status: e.value,
-                  };
-                return room;
-              });
-              console.log(newRoom);
-            }}
-            register={register}
-            inputClassName="w-full"
-            value={statusOptions.find(
-              (status) => status.value === currentCinema?.status
-            )}
-            optionClassName="
+          <div ref={ref as ForwardedRef<HTMLDivElement>}>
+            <SelectInput
+              required
+              id="status"
+              control={control}
+              options={statusOptions}
+              placeholder="Chọn trạng thái"
+              name="status"
+              onChange={(e) => {
+                const newRoom = rooms.map((room) => {
+                  if (room.id === row.id)
+                    return {
+                      ...room,
+                      status: e.value,
+                    };
+                  return room;
+                });
+                console.log(newRoom);
+              }}
+              register={register}
+              inputClassName="w-full"
+              value={statusOptions.find(
+                (status) => status.value === currentCinema?.status
+              )}
+              optionClassName="
             z-30
             text-white/90
             hover:bg-white/10
@@ -150,7 +159,7 @@ function EditItem({ id }: EditItemProps) {
             py-2
             transition-all
             duration-150"
-            buttonClassName="
+              buttonClassName="
             text-start
             block
             w-full
@@ -165,9 +174,10 @@ function EditItem({ id }: EditItemProps) {
             focus:border-borderColor
             relative
             h-[35px]"
-            //@ts-ignore
-            endIcon={ChevronDownIcon}
-          />
+              //@ts-ignore
+              endIcon={ChevronDownIcon}
+            />
+          </div>
         );
       return <span className="">{row[dataKeys]}</span>;
     },
