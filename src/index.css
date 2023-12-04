@@ -57,6 +57,6 @@ select:-webkit-autofill:focus {
 
 @layer components {
   .container {
-    @apply sm:max-w-none md:max-w-[640px] lg:max-w-[790px] xl:max-w-[960px] 2xl:max-w-[1200px];
+    @apply max-w-none md:max-w-[640px] lg:max-w-[790px] xl:max-w-[960px] 2xl:max-w-[1200px];
   }
 }

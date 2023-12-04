@@ -37,7 +37,7 @@ function AvatarModal({ onClick }: AvatarModalProps) {
           className="bg-bgPrimaryLayer absolute w-full h-full"
           onClick={onClick}
         />
-        <div className="sm:max-w-lg w-full p-10 bg-bgPrimaryBar rounded-xl z-10 m-auto">
+        <div className="max-w-lg w-full p-10 bg-bgPrimaryBar rounded-xl z-10 m-auto">
           <div className="text-center">
             <h2 className="mt-5 text-xl font-bold text-gray-900">
               Tải ảnh lên
