@@ -51,7 +51,7 @@ function MovieList() {
           sub_name: movie.sub_name,
           end_date: movie.end_date,
           running_time: `${movie.running_time} phút`,
-          rating: `${movie.rating}/10 (${movie.rated})`,
+          rating: `${movie.rating}/10 (${movie.sum_of_ratings})`,
           status: movie.status.description,
         })),
     [movies, showByStatus]
@@ -69,7 +69,7 @@ function MovieList() {
     { label: "No show", value: "No show" },
   ];
   console.log(dataMovies);
-  
+
   const renderCell = useCallback((row: any, dataKeys: any) => {
     if (dataKeys === "status")
       return (
@@ -132,11 +132,7 @@ function MovieList() {
               //@ts-ignore
               endIcon={ChevronDownIcon}
             />
-            <CRUDButton
-              to="/admin/movies/create"
-              onClick={() => {}}
-              variant="Add"
-            >
+            <CRUDButton to="/admin/movies/add" onClick={() => {}} variant="Add">
               Thêm mới
             </CRUDButton>
           </div>
