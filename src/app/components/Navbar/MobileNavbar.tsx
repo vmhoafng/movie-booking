@@ -10,6 +10,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { PATHS } from '@/app/constants/path';
 import useNavbar from './useNavbar';
 import { resetAuth } from '@/app/redux/auth';
+import { useSpring, animated, useTransition } from '@react-spring/web';
 
 function classNames(...classes: any[]) {
 	return classes.filter(Boolean).join(' ');
@@ -18,7 +19,14 @@ function classNames(...classes: any[]) {
 function MobileNavbar() {
 	const { dispatch, appSelector } = useRedux();
 	const { userLoggedIn } = appSelector((state) => state.auth);
+	const { isOpen } = appSelector((state) => state.layout);
 	const { active } = useNavbar();
+
+	const transitions = useTransition(isOpen, {
+		from: { x: 220 },
+		leave: { x: 220 },
+		enter: { x: 0 },
+	});
 
 	const navigation = [
 		{ name: 'TRANG CHỦ', to: PATHS.HOME.IDENTITY },
@@ -43,51 +51,57 @@ function MobileNavbar() {
 
 	const ref = useOutsideClick(handleClose);
 
-	return createPortal(
-		<div className="fixed top-0 left-0 w-full h-screen bg-black/40 z-[100]">
-			<div
-				className="w-[200px] h-full ml-auto  bg-bgPrimary"
-				ref={ref as ForwardedRef<HTMLDivElement>}
-			>
-				<ul className="flex pt-[40px] text-center flex-col text-white text-[12px]  font-bold items-center gap-4">
-					{navigation.map((n) => {
-						const regex = new RegExp(`^/${n.to}$`);
+	return transitions((style, item) => (
+		<div className="">
+			{item &&
+				createPortal(
+					<div className="fixed top-0 left-0 w-full h-screen bg-black/40 z-[100]">
+						<animated.div
+							className="w-[200px] h-full ml-auto  bg-bgPrimary"
+							ref={ref as ForwardedRef<HTMLDivElement>}
+							style={style}
+						>
+							<ul className="flex pt-[40px] text-center flex-col text-white text-[12px]  font-bold items-center gap-4">
+								{navigation.map((n) => {
+									const regex = new RegExp(`^/${n.to}$`);
 
-						return (
-							<li key={n.name} className="py-[18px] w-full">
-								<Link
-									className={classNames(
-										regex.test(active!)
-											? ' text-highlight'
-											: 'text-gray-300  hover:text-white',
-										'block w-full'
-									)}
-									to={n.to}
-								>
-									{n.name}
-								</Link>
-							</li>
-						);
-					})}
-					{userLoggedIn && (
-						<li className="py-[18px] w-full">
-							<Link
-								to={''}
-								className={classNames(
-									'text-gray-300  hover:text-white',
-									'block w-full'
+									return (
+										<li key={n.name} className="py-[18px] w-full">
+											<Link
+												className={classNames(
+													regex.test(active!)
+														? ' text-highlight'
+														: 'text-gray-300  hover:text-white',
+													'block w-full'
+												)}
+												to={n.to}
+											>
+												{n.name}
+											</Link>
+										</li>
+									);
+								})}
+								{userLoggedIn && (
+									<li className="py-[18px] w-full">
+										<Link
+											to={''}
+											className={classNames(
+												'text-gray-300  hover:text-white',
+												'block w-full'
+											)}
+											onClick={handleLogout}
+										>
+											ĐĂNG XUẤT
+										</Link>
+									</li>
 								)}
-								onClick={handleLogout}
-							>
-								ĐĂNG XUẤT
-							</Link>
-						</li>
-					)}
-				</ul>
-			</div>
-		</div>,
-		document.body
-	);
+							</ul>
+						</animated.div>
+					</div>,
+					document.body
+				)}
+		</div>
+	));
 }
 
 export default MobileNavbar;
