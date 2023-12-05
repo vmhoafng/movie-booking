@@ -132,7 +132,7 @@ const AuthForm = () => {
                         <div className="mt-4 flex justify-center gap-4">
                             <AuthSocialButton
                                 icon={'/assets/icons/twitter.svg'}
-                                onClick={() => socialAction('github')}
+                                onClick={() => {}}
                             />
                             <Link
                                 to="https://booking-movie-backend-3a547b1ac2e9.herokuapp.com/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth2/redirect"
@@ -157,7 +157,7 @@ const AuthForm = () => {
                             </Link>
                             <AuthSocialButton
                                 icon={'/assets/icons/facebook.svg'}
-                                onClick={() => socialAction('facebook')}
+                                onClick={() => {}}
                             />
                         </div>
                     </div>
