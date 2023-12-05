@@ -1,11 +1,11 @@
-import Input from "@/app/components/inputs/Input";
-import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
-import Title from "@/app/components/Title";
-import { FieldValues, UseFormRegister, FieldErrors } from "react-hook-form";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { ICinema } from "@/app/types/cinema";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import axios from "axios";
+import Input from '@/app/components/inputs/Input';
+import SelectInput, { SelectOption } from '@/app/components/inputs/SelectInput';
+import Title from '@/app/components/Title';
+import { FieldValues, UseFormRegister, FieldErrors } from 'react-hook-form';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { ICinema } from '@/app/types/cinema';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import axios from 'axios';
 interface CinemaFormProps {
     control?: any;
     register?: UseFormRegister<FieldValues>;
@@ -19,21 +19,21 @@ function CinemaForm({
     currentCinema,
 }: CinemaFormProps) {
     const statusOptions: SelectOption[] = [
-        { label: "Hoạt động", value: "Hoạt động" },
-        { label: "Đóng cửa", value: "Đóng cửa" },
-        { label: "Bảo trì", value: "Bảo trì" },
+        { label: 'Hoạt động', value: 'Hoạt động' },
+        { label: 'Đóng cửa', value: 'Đóng cửa' },
+        { label: 'Đang bảo trì', value: 'Đang bảo trì' },
     ];
 
     const [citys, setCitys] = useState<SelectOption[]>([
         {
-            label: "",
-            value: "",
+            label: '',
+            value: '',
         },
     ]);
     const [districts, setDistricts] = useState<SelectOption[]>([
         {
-            label: "",
-            value: "",
+            label: '',
+            value: '',
         },
     ]);
     const [provinces, setProvinces] = useState<any[]>([]);
@@ -46,7 +46,7 @@ function CinemaForm({
     );
     useEffect(() => {
         axios
-            .get("https://provinces.open-api.vn/api/", {
+            .get('https://provinces.open-api.vn/api/', {
                 params: { depth: 2 },
             })
             .then((data) => {
@@ -69,8 +69,8 @@ function CinemaForm({
                               }))
                         : [
                               {
-                                  label: "",
-                                  value: "",
+                                  label: '',
+                                  value: '',
                               },
                           ];
                 setDistricts(districts);
@@ -137,8 +137,8 @@ function CinemaForm({
                                                   currentCinema.status,
                                           )
                                         : {
-                                              label: "",
-                                              value: "",
+                                              label: '',
+                                              value: '',
                                           },
                                 [currentCinema?.status],
                             )}
@@ -217,8 +217,8 @@ function CinemaForm({
                                                   currentCinema.city,
                                           )
                                         : {
-                                              label: "",
-                                              value: "",
+                                              label: '',
+                                              value: '',
                                           },
                                 [currentCinema, provincesValid],
                             )}
@@ -275,8 +275,8 @@ function CinemaForm({
                                                   currentCinema?.district,
                                           )
                                         : {
-                                              label: "",
-                                              value: "",
+                                              label: '',
+                                              value: '',
                                           },
                                 [
                                     districts,
