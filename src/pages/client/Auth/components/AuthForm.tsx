@@ -74,12 +74,32 @@ const AuthForm = () => {
         <>
             {isLoading && createPortal(<LoadingAnimation />, document.body)}
             <div className="mx-auto w-full md:w-[540px] shadow-2xl shadow-black/50">
-                <div className="absolute p-4 top-0 left-0">
-                    <Link to={'/'} className="text-white" replace>
-                        Quay lại trang chủ
+                <div className="absolute p-4 top-0 right-0">
+                    <Link
+                        to={'/'}
+                        className="flex items-center text-lightPrimary"
+                        replace
+                    >
+                        <span className="text-lightPrimary uppercase text-sm font-bold">
+                            trang chủ
+                        </span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="w-5 h-5 mb-[2px] ml-1"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+                            />
+                        </svg>
                     </Link>
                 </div>
-                <div className="bg-primaryBar px-10 py-16 rounded-lg px-10 w-full">
+                <div className="bg-primaryBar px-10 py-16 rounded-lg w-full">
                     <div className="mx-auto w-full max-w-md ">
                         <h2 className="flex flex-col justify-center items-center text-center font-bold tracking-tighter pb-8">
                             <div className="mb-3 text-highlight text-2xl [text-shadow:0.5px_0.5px_1px_var(--tw-shadow-color)] shadow-black/50">
