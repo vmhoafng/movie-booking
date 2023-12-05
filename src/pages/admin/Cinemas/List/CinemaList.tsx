@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import useSearchTopbar from "../../../../app/components/inputs/SearchTopbar/useSearchTopbar";
 import Table from "../../components/table/Table";
 import Pagination from "../../components/pagination/Pagination";
 import { useRedux } from "@/app/hooks";
-import { getCinemas } from "@/app/redux/cinema";
+import { getAdminCinemas, getCinemas } from "@/app/redux/cinema";
 import Title from "@/app/components/Title";
 import ControlBar from "../../components/controlBar/ControlBar";
 import SelectInput, { SelectOption } from "@/app/components/inputs/SelectInput";
 import CRUDButton from "../../components/buttons/CRUDButton";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import axios from "axios";
 const dataKeys = ["id", "name", "address", "district", "city", "phone_number"];
 const columns = [
   "ID",
@@ -20,34 +21,68 @@ const columns = [
 ];
 function CinemaList() {
   const { appSelector, dispatch } = useRedux();
+  const [showByCity, setShowByCity] = useState("");
+  const [citys, setCitys] = useState<SelectOption[]>([
+    {
+      label: "",
+      value: "",
+    },
+  ]);
   useEffect(() => {
-    dispatch(getCinemas());
+    dispatch(getAdminCinemas());
   }, [dispatch]);
   const { cinemas } = appSelector((state) => state.cinema);
+  const dataCinemas = useMemo(
+    () =>
+      cinemas
+        .filter((cinema) => (showByCity ? cinema.city === showByCity : cinema))
+        .map((cinema) => ({
+          id: cinema.id,
+          name: cinema.name,
+          address: cinema.address,
+          district: cinema.district,
+          city: cinema.city,
+          phone_number: cinema.phone_number,
+        })),
+    [cinemas, showByCity]
+  );
+  useEffect(() => {
+    axios
+      .get("https://provinces.open-api.vn/api/", {
+        params: { depth: 2 },
+      })
+      .then((data) => {
+        const cityOptions = data.data.map((city: any) => ({
+          label: city.name,
+          value: city.name,
+        }));
+        setCitys(cityOptions);
+      });
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Number of items to display per page
-  const pageCount = Math.ceil(cinemas.length / itemsPerPage);
+  const pageCount = Math.ceil(dataCinemas.length / itemsPerPage);
   const handlePageChange = (selectedPage: number) => {
     setCurrentPage(selectedPage + 1);
   };
-  const genderOptions: SelectOption[] = [
-    { label: "Hồ Chí Minh", value: "Hồ Chí Minh" },
-    { label: "Đóng", value: "Đóng" },
-    { label: "Bảo trì", value: "Bảo trì" },
-  ];
+  const cityOptions: SelectOption[] = useMemo(
+    () => [{ label: "Tất cả", value: "" }, ...citys],
+    [citys]
+  );
+
   return (
     <div className="">
       <div className="my-6">
         <ControlBar title="Quản lí rạp" subTitle="Hệ thống rạp">
-          <div className="flex gap-5">
+          <div className="flex justify-between gap-5">
             <SelectInput
-              id="gender"
-              // control={control}
-              options={genderOptions}
+              id="city"
+              options={cityOptions}
               placeholder="Tỉnh thành"
-              name="gender"
-              onChange={() => {}}
-              // register={register}
+              name="city"
+              onChange={(e) => {
+                setShowByCity(e.value as string);
+              }}
               inputClassName="w-full"
               optionClassName="
                 z-30
@@ -82,7 +117,7 @@ function CinemaList() {
         </ControlBar>
       </div>
       <Table
-        data={cinemas}
+        data={dataCinemas}
         columns={columns}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
@@ -93,7 +128,7 @@ function CinemaList() {
         onPageChange={handlePageChange}
         currentPage={currentPage}
         itemPerPage={itemsPerPage}
-        dataLength={cinemas.length}
+        dataLength={dataCinemas.length}
       />
     </div>
   );

@@ -78,25 +78,27 @@ function EditItem({ id }: EditItemProps) {
     });
   }, [currentCinema, reset]);
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const patchData = {
+    const cinemaData = {
       name: data.name,
       address: data.address,
       district: data.district,
       city: data.city,
-      description: data.description,
-      phoneNumber: data.phone_number,
+      description: "null",
+      phoneNumber: data.phoneNumber,
       status: data.status,
     };
-    const res = Axios.axiosPutWithToken(
-      getEndPoint(ENDPOINTS.ADMIN.CINEMA.POST_CINEMA, {
-        cinemaId: data.id,
+    console.log(cinemaData);
+
+    const cinema = Axios.axiosPutWithToken(
+      getEndPoint(ENDPOINTS.ADMIN.CINEMA.UPDATE_CINEMA, {
+        cinemaId: id,
       }),
-      patchData
+      cinemaData
     );
-    toast.promise(res, {
+    toast.promise(cinema, {
       loading: "Đang tải...",
       success: (data: any) => {
-        return "Thêm mới thành công";
+        return "Sửa rạp thành công";
       },
       error: (err: any) => {
         return "Error: " + err;
@@ -118,7 +120,7 @@ function EditItem({ id }: EditItemProps) {
               clsx(
                 row["status"] === "Hoạt động" && "active",
                 row["status"] === "Bảo trì" && "warning",
-                row["status"] === "Đóng cửa" && "disable"
+                row["status"] === "Đóng cửa" && "disabled"
               ) as "active" | "warning" | "disabled"
             }
           >
@@ -136,15 +138,44 @@ function EditItem({ id }: EditItemProps) {
               placeholder="Chọn trạng thái"
               name="status"
               onChange={(e) => {
-                const newRoom = rooms.map((room) => {
-                  if (room.id === row.id)
+                const newRoom = roomsData.map((room) => {
+                  if (room.id === row.id) {
+                    const statusId = () => {
+                      switch (e.value) {
+                        case "Hoạt động":
+                          return 1;
+                        case "Bảo trì":
+                          return 0;
+                        case "Đóng cửa":
+                          return -1;
+                        default:
+                          break;
+                      }
+                    };
+                    const axios = Axios.axiosPutWithToken(
+                      getEndPoint(ENDPOINTS.ADMIN.CINEMA.UPDATE_ROOM, {
+                        roomId: room.id,
+                        statusId: statusId,
+                      }),
+                      ""
+                    );
+                    toast.promise(axios, {
+                      loading: "Đang tải...",
+                      success: (data: any) => {
+                        return "Sửa rạp thành công";
+                      },
+                      error: (err: any) => {
+                        return "Error: " + err;
+                      },
+                    });
                     return {
                       ...room,
                       status: e.value,
                     };
+                  }
                   return room;
                 });
-                console.log(newRoom);
+                setRoomsData(newRoom);
               }}
               register={register}
               inputClassName="w-full"

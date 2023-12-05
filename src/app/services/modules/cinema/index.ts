@@ -6,6 +6,14 @@ const cinemaService = {
   getAll: async () => {
     return await Axios.axiosGet(ENDPOINTS.CINEMA_MOVIES_SHOWTIME);
   },
+  getAdminCinemas: async () => {
+    return await Axios.axiosGet(ENDPOINTS.CINEMA_LIST, {
+      params: {
+        size: 9999,
+        page: 1,
+      },
+    });
+  },
   getCinemaById: async (payload: string) => {
     return await Axios.axiosGetWithToken(
       getEndPoint(ENDPOINTS.ADMIN.CINEMA.GET_CINEMA_BY_ID, {

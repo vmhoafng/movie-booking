@@ -39,6 +39,13 @@ export const getCinemas = createAsyncThunk<ICinemaList>(
     return data;
   }
 );
+export const getAdminCinemas = createAsyncThunk<ICinemaList>(
+  "@@cinema/getAdminCinemas",
+  async (_, thunkApi) => {
+    const { data } = await api.cinemaService.getAdminCinemas();
+    return data;
+  }
+);
 export const getCinemaById = createAsyncThunk(
   "@@cinema/getCinemaById",
   async (payload: string, thunkApi) => {
@@ -104,6 +111,15 @@ export const cinemaSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getCinemas.pending, (state, action) => {
+        state.isLoading = true;
+      });
+    builder
+      .addCase(getAdminCinemas.fulfilled, (state, action) => {
+        //@ts-ignore
+        state.cinemas = [...action.payload.data] as ICinemaList;
+        state.isLoading = false;
+      })
+      .addCase(getAdminCinemas.pending, (state, action) => {
         state.isLoading = true;
       });
     builder
