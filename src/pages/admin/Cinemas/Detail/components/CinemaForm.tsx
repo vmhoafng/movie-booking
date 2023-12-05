@@ -181,7 +181,7 @@ function CinemaForm({
                             errors={errors}
                         />
                     </div>
-                    <div className="w-[320px]">
+                    <div className="w-[320px] flex flex-col items-start gap-1 py-[3px]">
                         <label
                             className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
                             htmlFor="city"
@@ -249,7 +249,7 @@ function CinemaForm({
                             endIcon={ChevronDownIcon}
                         />
                     </div>
-                    <div className="w-[300px]">
+                    <div className="w-[300px] flex flex-col items-start gap-1 py-[3px]">
                         <label
                             className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
                             htmlFor="district"
