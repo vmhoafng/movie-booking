@@ -87,18 +87,14 @@ function EditItem({ id }: EditItemProps) {
       phoneNumber: data.phoneNumber,
       status: data.status,
     };
+    console.log(cinemaData);
+
     const cinema = Axios.axiosPutWithToken(
       getEndPoint(ENDPOINTS.ADMIN.CINEMA.UPDATE_CINEMA, {
         cinemaId: id,
       }),
       cinemaData
     );
-    // const room = Axios.axiosPutWithToken(
-    //   getEndPoint(ENDPOINTS.ADMIN.CINEMA.POST_CINEMA, {
-    //     cinemaId: data.id,
-    //   }),
-    //   patchData
-    // );
     toast.promise(cinema, {
       loading: "Đang tải...",
       success: (data: any) => {

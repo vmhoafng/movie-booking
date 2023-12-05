@@ -4,6 +4,8 @@ import Title from "@/app/components/Title";
 import { FieldValues, UseFormRegister, FieldErrors } from "react-hook-form";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { ICinema } from "@/app/types/cinema";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import axios from "axios";
 interface CinemaFormProps {
   control?: any;
   register?: UseFormRegister<FieldValues>;
@@ -22,6 +24,63 @@ function CinemaForm({
     { label: "Bảo trì", value: "Bảo trì" },
   ];
 
+  const [citys, setCitys] = useState<SelectOption[]>([
+    {
+      label: "",
+      value: "",
+    },
+  ]);
+  const [districts, setDistricts] = useState<SelectOption[]>([
+    {
+      label: "",
+      value: "",
+    },
+  ]);
+  const [provinces, setProvinces] = useState<any[]>([]);
+  const [currentCity, setCurrentCity] = useState(currentCinema?.city);
+  const provincesValid = useMemo(
+    () =>
+      provinces.filter((city) => city.name === currentCinema?.city).length > 0,
+    [currentCinema?.city, provinces]
+  );
+  useEffect(() => {
+    axios
+      .get("https://provinces.open-api.vn/api/", {
+        params: { depth: 2 },
+      })
+      .then((data) => {
+        const cityOptions = data.data.map((city: any) => ({
+          label: city.name,
+          value: city.name,
+        }));
+        setProvinces(data.data);
+        setCitys(cityOptions);
+        const districts: [] =
+          currentCinema?.city && provincesValid
+            ? data.data
+                .filter((opt: any): any => opt.name === currentCinema?.city)[0]
+                .districts.map((district: any) => ({
+                  value: district.name,
+                  label: district.name,
+                }))
+            : [
+                {
+                  label: "",
+                  value: "",
+                },
+              ];
+        setDistricts(districts);
+        setCurrentCity(currentCinema?.city);
+      });
+  }, [currentCinema, currentCinema?.city, provincesValid]);
+  const cityOptions: SelectOption[] = useMemo(
+    () => citys!,
+    [citys, currentCinema]
+  );
+  const districtOptions: SelectOption[] = useMemo(
+    () => districts!,
+    [districts, currentCinema]
+  );
   return (
     <div>
       <div className="my-6">
@@ -108,23 +167,122 @@ function CinemaForm({
             />
           </div>
           <div className="w-[320px]">
-            <Input
-              id="district"
-              type=""
-              label="Quận/Huyện"
-              col
+            <label
+              className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
+              htmlFor="city"
+            >
+              Thành phố
+            </label>
+            <SelectInput
+              required
+              id="city"
+              control={control}
+              options={cityOptions}
+              name="city"
+              onChange={(e) => {
+                setCurrentCity(e.label);
+                const district: any[] = provinces
+                  .filter((opt: any): any => opt.name === e.value)[0]
+                  .districts.map((district: any) => ({
+                    value: district.name,
+                    label: district.name,
+                  }));
+                setDistricts(district);
+              }}
               register={register}
-              errors={errors}
+              inputClassName="w-full"
+              value={useMemo(
+                () =>
+                  currentCinema?.city && provincesValid
+                    ? cityOptions.find(
+                        (city) => city.value === currentCinema.city
+                      )
+                    : {
+                        label: "",
+                        value: "",
+                      },
+                [currentCinema, provincesValid]
+              )}
+              optionClassName="
+                z-30
+                text-white/90
+                hover:bg-white/10
+                px-[15px] 
+                py-2
+                transition-all
+                duration-150"
+              buttonClassName="
+                text-start
+                block
+                w-full
+                px-[15px]
+                rounded
+                border
+                shadow-sm
+                bg-white/10
+                outline-0
+                text-white/90
+                border-borderColor
+                focus:border-borderColor
+                relative
+                h-[35px]"
+              //@ts-ignore
+              endIcon={ChevronDownIcon}
             />
           </div>
           <div className="w-[300px]">
-            <Input
-              id="city"
-              type=""
-              label="Tỉnh/Thành Phó"
-              col
+            <label
+              className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
+              htmlFor="district"
+            >
+              Quận/Huyện
+            </label>
+            <SelectInput
+              required
+              id="district"
+              control={control}
+              options={districtOptions}
+              name="district"
+              onChange={() => {}}
               register={register}
-              errors={errors}
+              inputClassName="w-full"
+              value={useMemo(
+                () =>
+                  currentCinema?.city && currentCinema?.city === currentCity
+                    ? districtOptions.find(
+                        (district) => district.value === currentCinema?.district
+                      )
+                    : {
+                        label: "",
+                        value: "",
+                      },
+                [districts, currentCinema?.city, currentCinema, currentCity]
+              )}
+              optionClassName="
+                z-30
+                text-white/90
+                hover:bg-white/10
+                px-[15px] 
+                py-2
+                transition-all
+                duration-150"
+              buttonClassName="
+                text-start
+                block
+                w-full
+                px-[15px]
+                rounded
+                border
+                shadow-sm
+                bg-white/10
+                outline-0
+                text-white/90
+                border-borderColor
+                focus:border-borderColor
+                relative
+                h-[35px]"
+              //@ts-ignore
+              endIcon={ChevronDownIcon}
             />
           </div>
         </div>
