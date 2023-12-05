@@ -1,45 +1,45 @@
-.loader {
-   width: 50px;
-   height: 50px;
-   display: inline-block;
-   position: relative;
-   animation: appear 1.2s linear;
+.custom-loader {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    position: relative;
+    animation: appear 1.2s linear;
 }
-.loader::after,
-.loader::before {
-   content: "";
-   box-sizing: border-box;
-   width: 50px;
-   height: 50px;
-   border-radius: 50%;
-   background: #31d7a9;
-   position: absolute;
-   left: 0;
-   top: 0;
-   animation: animloader 2s linear infinite;
+.custom-loader::after,
+.custom-loader::before {
+    content: '';
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #31d7a9;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: animloader 2s linear infinite;
 }
-.loader::after {
-   animation-delay: 1s;
+.custom-loader::after {
+    animation-delay: 1s;
 }
 
 @keyframes animloader {
-   0% {
-      transform: scale(0);
-      opacity: 1;
-   }
-   100% {
-      transform: scale(1);
-      opacity: 0;
-   }
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
 }
 
 @keyframes appear {
-   0% {
-      transform: scale(0);
-      opacity: 0;
-   }
-   100% {
-      transform: scale(1);
-      opacity: 1;
-   }
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
