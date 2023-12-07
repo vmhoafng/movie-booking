@@ -60,7 +60,7 @@ const initialState: IUserInitialState = {
 export const login = createAsyncThunk(
     '@@auth/login',
     async (payload: IPostLoginPayload, thunkApi) => {
-        const response = await Axios.axiosPost('auth/authenticate', payload, {
+        const response = Axios.axiosPost('auth/authenticate', payload, {
             signal: thunkApi.signal,
         });
         return response;
@@ -134,6 +134,9 @@ export const userSlice = createSlice({
             })
             .addCase(login.pending, (state) => {
                 state.isLoading = true;
+            })
+            .addCase(login.rejected, (state, action) => {
+                state.isLoading = false;
             });
         builder
             .addCase(loginWithToken.fulfilled, (state, action) => {
