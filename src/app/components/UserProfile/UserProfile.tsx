@@ -19,7 +19,7 @@ function UserProfile() {
 		dispatch(resetAuth());
 	};
 	return (
-		<div className="flex justify-center items-center gap-[10px]">
+		<div className="flex justify-end items-center my-auto gap-[10px]">
 			<div className="text-sm">
 				<span className="block">{full_name}</span>
 				<span className="block text-right text-white/60">{role}</span>
