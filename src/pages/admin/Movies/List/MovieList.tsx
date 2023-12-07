@@ -63,7 +63,7 @@ function MovieList() {
     setCurrentPage(selectedPage + 1);
   };
   const statusOptions: SelectOption[] = [
-    { label: "All", value: "" },
+    { label: "Tất cả", value: "" },
     { label: "Showing now", value: "Showing now" },
     { label: "Coming soon", value: "Coming soon" },
     { label: "No show", value: "No show" },
@@ -117,6 +117,7 @@ function MovieList() {
               buttonClassName="
                 text-start
                 block
+                min-w-fit
                 w-[180px]
                 px-[15px]
                 rounded

@@ -31,7 +31,7 @@ function SelectInput({
     } else {
       setSelected(value);
     }
-  }, []);
+  }, [value]);
   if (control) {
     return (
       <Controller
@@ -62,9 +62,8 @@ function SelectInput({
                   )}
                 >
                   <span
-                    className={`block truncate text-[15px] ${
-                      !selected.value && "text-slate-300"
-                    }`}
+                    className={`block truncate text-[15px] pr-4
+                ${!selected.value && "text-slate-300"}`}
                   >
                     {selected.label}
                   </span>
@@ -81,7 +80,7 @@ function SelectInput({
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute mt-1 z-30 bg-bgPrimary border border-borderColor rounded w-full flex flex-col">
+                  <Listbox.Options className="absolute mt-1 z-30 bg-bgPrimary border border-borderColor rounded w-full flex flex-col max-h-[200px] overflow-y-scroll">
                     {options.map((option) => {
                       return (
                         <Listbox.Option
@@ -117,12 +116,12 @@ function SelectInput({
           <Listbox.Button
             className={
               !buttonClassName
-                ? "bg-[#EFEFEF]/20 relative w-full rounded border text-left py-[1px]  pl-[15px]"
+                ? "bg-[#EFEFEF]/20 relative w-full rounded border text-left py-[1px] pl-[15px]"
                 : buttonClassName
             }
           >
             <span
-              className={`block truncate text-[15px] ${
+              className={`block truncate text-[15px] pr-5 ${
                 !selected.value && "text-slate-300"
               }`}
             >
@@ -140,7 +139,7 @@ function SelectInput({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 z-30 bg-bgPrimary border border-borderColor rounded w-full flex flex-col">
+            <Listbox.Options className="absolute mt-1 z-30 bg-bgPrimary border border-borderColor rounded w-full flex flex-col max-h-[200px] overflow-y-scroll">
               {options
                 .filter((option) => option.label !== "")
                 .map((option) => {

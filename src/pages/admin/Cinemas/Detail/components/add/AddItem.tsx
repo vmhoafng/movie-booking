@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CinemaForm from "../CinemaForm";
 import RoomForm from "../RoomForm";
 import Button from "@/app/components/button/Button";
@@ -14,6 +14,7 @@ import { postCinema } from "@/app/redux/cinema";
 import { toast } from "sonner";
 import { Axios } from "@/app/utils/api";
 import { ENDPOINTS } from "@/app/constants/endpoint";
+import axios from "axios";
 
 function AddItem() {
   const [dashboardList, setDashboardList] = useState<
@@ -93,7 +94,11 @@ function AddItem() {
       className="flex flex-col items-center gap-10"
     >
       <div className="w-full">
-        <CinemaForm register={register} control={control} errors={errors} />
+        <CinemaForm
+          register={register}
+          control={control}
+          errors={errors}
+        />
         <RoomForm
           handleAddRoom={handleAddRoom}
           renderDashboard={renderDashboard}

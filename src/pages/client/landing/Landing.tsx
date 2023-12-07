@@ -188,152 +188,82 @@ function Landing() {
                 </div>
             </div>
 
-            <div className="flex flex-col lg:items-center self-stretch 2xl:py-[50px] xl:py-[50px] lg:py-[50px] md:py-[40px] py-[30px] md:w-full  items-start  ">
-                <div className=" ">
-                    <p className="text-white text-[22px] underline md:underline-offset-8 decoration-highlight ">
-                        LIÊN HỆ
+            <div className="flex flex-col lg:items-center self-stretch md:py-[40px] py-[30px] md:w-full  items-start  ">
+                <div className="w-full">
+                    <p className="text-white text-[22px] underline md:underline-offset-8 decoration-highlight uppercase">
+                        The cinema
                     </p>
                 </div>
             </div>
-            <div className="flex flex-col items-center  ">
-                <div className=" flex flex-col items-center w-full">
-                    <div className=" 	 2xl:items-start xl:items-start lg:items-center lg:justify-center 2xl:justify-normal md:gap-[50px] lg:gap-[40px] lg:grid grid-cols-1 lg:grid-cols-1 2xl:flex xl:flex">
-                        <div className=" 2xl:w-[650px] xl:w-[600px] md:h-[615px] h-[525px] flex-col flex items-center gap-[15px] shrink-0 w-full ">
-                            <div className="">
-                                <p className="text-white text-base md:text-lg pb-[10px]">
-                                    Họ và tên
+            <div className="w-full flex flex-col">
+                <div className="flex flex-col w-full">
+                    <div className="2xl:items-start xl:items-start lg:items-center lg:justify-center 2xl:justify-normal md:gap-[50px] lg:gap-[40px] lg:grid grid-cols-1 lg:grid-cols-1 2xl:flex xl:flex">
+                        <div className="w-full flex flex-col lg:items-start">
+                            <p className="w-full text-white text-sm lg:text-base">
+                                Chào mừng đến với{' '}
+                                <span className="text-lightPrimary">
+                                    The Cinema
+                                </span>
+                                , nơi kết hợp hòa quyện giữa nghệ thuật điện ảnh
+                                và trải nghiệm giải trí tuyệt vời. Được thành
+                                lập với sứ mệnh mang đến cho khán giả những
+                                khoảnh khắc không thể nào quên,{' '}
+                                <span className="text-lightPrimary">
+                                    The Cinema
+                                </span>{' '}
+                                không chỉ là một rạp chiếu phim thông thường, mà
+                                còn là điểm đến của sự kỳ diệu và sáng tạo.
+                                <br></br>
+                                <br></br>Tọa lạc tại trung tâm thành phố,{' '}
+                                <span className="text-lightPrimary">
+                                    The Cinema
+                                </span>{' '}
+                                gây ấn tượng ngay từ cái nhìn đầu tiên bằng kiến
+                                trúc hiện đại và tinh tế. Với hệ thống âm thanh
+                                và hình ảnh tiên tiến, chúng tôi hân hạnh đưa
+                                đến khán giả những trải nghiệm điện ảnh chất
+                                lượng nhất, đưa họ lạc vào thế giới ảo hóa và
+                                hồn lực, nơi mọi chi tiết nhỏ nhất đều được tôn
+                                vinh.
+                                <br></br>
+                                <br></br>
+                                <span className="text-lightPrimary">
+                                    The Cinema
+                                </span>{' '}
+                                tự hào về đội ngũ nhân viên chuyên nghiệp và
+                                nhiệt huyết, luôn sẵn sàng phục vụ để đảm bảo
+                                mọi chuyến phiêu lưu điện ảnh diễn ra suôn sẻ.
+                                Ngoài ra, với thực đơn đa dạng, từ đồ uống cho
+                                đến đồ ăn nhẹ, khán giả còn có cơ hội thưởng
+                                thức những món ăn ngon nhất trong không gian
+                                thoải mái và ấm cúng.
+                                <br></br>
+                                <br></br>Khôngchỉ là nơi chiếu phim,{' '}
+                                <span className="text-lightPrimary">
+                                    The Cinema
+                                </span>{' '}
+                                còn là nơi tổ chức các sự kiện đặc sắc như buổi
+                                ra mắt phim, buổi thảo luận với đạo diễn và diễn
+                                viên, tạo ra cơ hội gặp gỡ và tương tác giữa
+                                nghệ sĩ và khán giả. Chúng tôi tin rằng mỗi buổi
+                                chiếu phim không chỉ là một hiển thị, mà là một
+                                trải nghiệm tận hưởng nghệ thuật và chia sẻ cảm
+                                xúc.
+                                <br></br>
+                                <br></br>Hãy đồng hành cùng chúng tôi tại{' '}
+                                <span className="text-lightPrimary">
+                                    The Cinema
+                                </span>
+                                , nơi mà niềm đam mê điện ảnh được thăng hoa và
+                                mọi khoảnh khắc trở nên sống động.
+                                <br></br>
+                                <br></br>
+                            </p>
+                            <div className="flex flex-wrap pb-10 w-full md:flex-wrap gap-8 items-center justify-start font-extrabold">
+                                <p className="text-white mr-4 text-sm lg:text-base font-normal">
+                                    Mọi đóng góp ý kiến xin liên hệ:
                                 </p>
-                                <div className="justify-start 2xl:w-[650px] xl:w-[600px] lg:w-[680px] md:w-[640px] w-[395px] h-[45px] md:h-[40px] h-[35px]">
-                                    <input
-                                        type="text"
-                                        placeholder="Nhập họ và tên"
-                                        className="block h-full min-w-[200px] w-full rounded border px-4 shadow-sm bg-white/10 outline-0 text-white border-lightPrimary placeholder:text-white/40"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="">
-                                <p className="text-white text-base md:text-lg pb-[10px]">
-                                    Email
-                                </p>
-                                <div className="justify-start 2xl:w-[650px] xl:w-[600px] lg:w-[680px] md:w-[640px] w-[395px] h-[45px] md:h-[40px] h-[35px]">
-                                    <input
-                                        type="text"
-                                        placeholder="Nhập email"
-                                        className="md:h-[45px] block h-full min-w-[200px] w-full rounded border px-4 shadow-sm bg-white/10 outline-0 text-white border-lightPrimary placeholder:text-white/40"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="">
-                                <p className="text-white  text-lg pb-[10px]">
-                                    Số điện thoại
-                                </p>
-                                <div className="justify-start 2xl:w-[650px] xl:w-[600px] lg:w-[680px] md:w-[640px] w-[395px] h-[45px] md:h-[40px] h-[35px]">
-                                    <input
-                                        type="text"
-                                        placeholder="Nhập số điện thoại"
-                                        className=" block h-full min-w-[200px] w-full rounded border px-4 shadow-sm bg-white/10 outline-0 text-white border-lightPrimary placeholder:text-white/40"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className=" 2xl:w-[650px] xl:w-[600px] lg:w-[680px] md:w-[640px] w-[395px] md:h-[255px] h-[190px]">
-                                <p className="text-white text-base md:text-lg pb-[10px]">
-                                    Nội dung
-                                </p>
-                                <div className="justify-start 2xl:w-[650px] xl:w-[600px] lg:w-[680px] md:w-[640px] w-[395px] md:h-[200px] h-[150px]">
-                                    <textarea
-                                        placeholder=""
-                                        className="word-breakresize-none bl ock h-full min-w-[200px] w-full rounded border px-4 shadow-sm bg-white/10 outline-0 text-white border-lightPrimary placeholder:text-white/40"
-                                    />
-                                </div>
-                            </div>
-                            <div className="md:h-[50px] w-[200px] w-[160px] h-[40px] ">
-                                <Button fullWidth medium>
-                                    Gửi
-                                </Button>
-                            </div>
-                        </div>
-                        <div className=" w-full  flex flex-col items-start md:gap-[50px]">
-                            <div className="hidden md:w-[178px] md:h-[81px] flex-col items-end md:gap-[20px] xl:flex">
-                                <p className=" md:text-lg text-[#31AFD7]">
-                                    {' '}
-                                    Theo dõi chúng tôi
-                                </p>
-
-                                <div className=" md:h-[41px] md:gap-[15px] flex  ">
-                                    <div className="border rounded-full border-[#314C81]">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="42"
-                                            height="41"
-                                            viewBox="0 0 42 41"
-                                            fill="none"
-                                            className="hover:bg-highlight rounded-full"
-                                        >
-                                            <path
-                                                d="M25.73 13H23.4855C22.4933 13 21.5418 13.3941 20.8402 14.0957C20.1387 14.7972 19.7445 15.7488 19.7445 16.7409V18.9855H17.5V21.9782H19.7445V27.9636H22.7373V21.9782H24.9818L25.73 18.9855H22.7373V16.7409C22.7373 16.5425 22.8161 16.3522 22.9564 16.2119C23.0967 16.0716 23.287 15.9927 23.4855 15.9927H25.73V13Z"
-                                                fill="white"
-                                            />
-                                        </svg>
-                                    </div>
-                                    <div className="border rounded-full border-[#314C81]">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="41"
-                                            height="41"
-                                            viewBox="0 0 41 41"
-                                            fill="none"
-                                            className="hover:bg-highlight rounded-full"
-                                        >
-                                            <path
-                                                d="M28.5 13.5073C27.8036 13.9986 27.0324 14.3743 26.2164 14.62C25.7784 14.1164 25.1962 13.7595 24.5488 13.5974C23.9013 13.4354 23.2196 13.4762 22.5961 13.7142C21.9725 13.9522 21.437 14.376 21.0622 14.9282C20.6873 15.4804 20.4911 16.1345 20.5 16.8019V17.5291C19.2219 17.5623 17.9555 17.2788 16.8135 16.704C15.6714 16.1292 14.6893 15.2809 13.9545 14.2346C13.9545 14.2346 11.0455 20.78 17.5909 23.6891C16.0931 24.7058 14.3088 25.2156 12.5 25.1437C19.0455 28.78 27.0455 25.1437 27.0455 16.78C27.0448 16.5775 27.0253 16.3754 26.9873 16.1764C27.7295 15.4444 28.2533 14.5202 28.5 13.5073Z"
-                                                fill="white"
-                                            />
-                                        </svg>
-                                    </div>
-
-                                    <div className="border rounded-full border-[#314C81] p-[10px] hover:bg-highlight ">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="21"
-                                            height="21"
-                                            viewBox="0 0 21 21"
-                                            fill="none"
-                                            className=""
-                                        >
-                                            <path
-                                                d="M14.6665 2.16675H6.33317C4.03198 2.16675 2.1665 4.03223 2.1665 6.33341V14.6667C2.1665 16.9679 4.03198 18.8334 6.33317 18.8334H14.6665C16.9677 18.8334 18.8332 16.9679 18.8332 14.6667V6.33341C18.8332 4.03223 16.9677 2.16675 14.6665 2.16675Z"
-                                                stroke="white"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M13.8333 9.97501C13.9361 10.6685 13.8176 11.3769 13.4947 11.9992C13.1718 12.6215 12.6609 13.1262 12.0346 13.4414C11.4083 13.7566 10.6986 13.8663 10.0064 13.755C9.31419 13.6436 8.67472 13.3167 8.17895 12.821C7.68318 12.3252 7.35636 11.6857 7.24497 10.9935C7.13359 10.3013 7.24331 9.59159 7.55852 8.96532C7.87374 8.33905 8.37841 7.82812 9.00074 7.50521C9.62307 7.18229 10.3314 7.06383 11.0249 7.16667C11.7324 7.27158 12.3873 7.60123 12.893 8.10693C13.3987 8.61263 13.7283 9.26757 13.8333 9.97501Z"
-                                                stroke="white"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M15.0835 5.91675H15.0935"
-                                                stroke="white"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="w-full  pt-11  flex flex-col 2xl:items-start 2xl:w-[504px] xl:items-start lg:items-center md:gap-[20px]">
-                                <p className="lg:text-lg font-extrabold text-[#31AFD7] hidden xl:block">
-                                    Thông tin liên hệ
-                                </p>
-                                <div className="flex pb-10 w-full lg:justify-between md:flex-wrap xl:gap-5 items-center  justify-center lg:flex text-[13px] font-extrabold ">
+                                <div className="w-full flex flex-wrap xl:gap-12 lg:w-fit lg:justify-center justify-evenly text-sm">
                                     <div className="text-center pr-[15px] flex-[0_0_160px] xl:p-0 items-center md:gap-[30px] md:text-left flex flex-col md:flex-row ">
                                         <div className="">
                                             <svg
@@ -430,7 +360,7 @@ function Landing() {
                                                 </defs>
                                             </svg>
                                         </div>
-                                        <div className="flex flex-col lg:justify-center mt-[10px]  lg:items-start lg-pt-0 pt-[5px]  md:h-[40px] items-center md:items-start md:justify-center gap-[5px] ">
+                                        <div className="flex flex-col lg:justify-center mt-[10px] lg:items-start lg:pt-0 pt-[5px] md:h-[40px] items-center md:items-start md:justify-center gap-[5px] ">
                                             <p className="text-white w-full whitespace-nowrap">
                                                 {' '}
                                                 Số điện thoại
@@ -444,7 +374,6 @@ function Landing() {
                                             </a>
                                         </div>
                                     </div>
-                                    <div className="flex-[0_0_2px] h-[85px] md:h-[40px] lg:hidden bg-borderColor"></div>
                                     <div className="text-center flex-[0_0_160px] pl-[15px] xl:p-0 items-center md:gap-[30px]  md:text-left flex flex-col md:flex-row  ">
                                         <div className="">
                                             <svg
