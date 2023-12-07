@@ -2,7 +2,6 @@ import Icon from '@/app/components/icon/Icon';
 import SelectInput from '@/app/components/inputs/SelectInput';
 import Status from '@/pages/admin/components/Status';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import React from 'react';
 
 interface DasboardItemProps {
     onClick?: () => void;

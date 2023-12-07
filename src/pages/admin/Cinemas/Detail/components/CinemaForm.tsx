@@ -4,7 +4,7 @@ import Title from '@/app/components/Title';
 import { FieldValues, UseFormRegister, FieldErrors } from 'react-hook-form';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { ICinema } from '@/app/types/cinema';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 interface CinemaFormProps {
     control?: any;

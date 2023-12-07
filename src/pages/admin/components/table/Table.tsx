@@ -90,7 +90,7 @@ function Table<T>({
 								{renderHeader ? renderHeader(column) : column}
 							</th>
 						))}
-						<th className="text-left text-sm font-bold text-white tracking-wider px-3 first:pl-6 last:pr-6">
+						<th className="min-w-[100px] text-left text-sm font-bold text-white tracking-wider px-3 first:pl-6 last:pr-6">
 							Tác vụ
 						</th>
 					</tr>
@@ -117,7 +117,7 @@ function Table<T>({
 										key={dataKey}
 										className={`
                     w-fit
-                    max-w-[300px]
+                    max-w-[250px]
                     ${!renderCell && 'truncate'}
                     px-3
                     first:pl-6
