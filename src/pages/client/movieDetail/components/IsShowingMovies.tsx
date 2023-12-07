@@ -3,11 +3,9 @@ import Button from '@/app/components/button/Button';
 import Poster from '@/app/components/poster/Poster';
 import { IMovie } from '@/app/types/movie';
 import React from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const IsShowingMovies = ({ showingNow }: { showingNow: IMovie[] }) => {
-    const [searchParams, setSearchParams] = useSearchParams();
-
     return (
         <div className="w-fit hidden xl:flex xl:flex-col gap-5 justify-start items-start py-6 xl:py-8">
             <Title active>Phim đang chiếu</Title>
@@ -26,14 +24,7 @@ const IsShowingMovies = ({ showingNow }: { showingNow: IMovie[] }) => {
                 })}
             </div>
             <Link to={'/movies?q=showing-now'} className="w-full">
-                <Button
-                    fullWidth
-                    medium
-                    onClick={() => {
-                        setSearchParams({ q: 'showing-now' });
-                    }}
-                    //  active={searchParams.get('q') === 'showing-now'}
-                >
+                <Button fullWidth medium>
                     Xem thêm
                 </Button>
             </Link>
