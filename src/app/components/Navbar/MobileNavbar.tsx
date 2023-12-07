@@ -38,7 +38,7 @@ function MobileNavbar() {
         { name: 'RẠP/VÉ', to: PATHS.CINEMA.IDENTITY },
     ].concat(
         userLoggedIn
-            ? [{ name: 'THÔNG TIN ', to: PATHS.AUTH.IDENTITY }]
+            ? [{ name: 'THÔNG TIN ', to: PATHS.PROFILE.IDENTITY }]
             : [{ name: 'ĐĂNG NHẬP', to: PATHS.AUTH.IDENTITY }],
     );
 
