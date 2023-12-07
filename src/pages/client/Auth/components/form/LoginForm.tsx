@@ -35,13 +35,26 @@ const LoginForm = () => {
     });
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        toast.promise(dispatch(login(data as IPostLoginPayload)), {
-            loading: 'Kiểm tra thông tin đăng nhập',
-            error: () => {
-                return 'Thông tin đăng nhập không hợp lệ';
+        toast.promise(
+            dispatch(login(data as IPostLoginPayload)).then((res) => {
+                if (res.meta.requestStatus === 'rejected') {
+                    return new Promise((resolve, reject) => {
+                        return reject();
+                    });
+                }
+            }),
+            {
+                loading: 'Kiểm tra thông tin đăng nhập',
+                error: () => {
+                    return 'Thông tin đăng nhập không hợp lệ';
+                },
+                success: (data) => {
+                    console.log(data);
+
+                    return 'Đăng nhập thành công';
+                },
             },
-            success: () => 'Đăng nhập thành công',
-        });
+        );
     };
 
     return (
