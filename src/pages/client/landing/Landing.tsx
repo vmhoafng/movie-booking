@@ -198,8 +198,8 @@ function Landing() {
             <div className="w-full flex flex-col">
                 <div className="flex flex-col w-full">
                     <div className="2xl:items-start xl:items-start lg:items-center lg:justify-center 2xl:justify-normal md:gap-[50px] lg:gap-[40px] lg:grid grid-cols-1 lg:grid-cols-1 2xl:flex xl:flex">
-                        <div className="w-full flex flex-col lg:items-start md:gap-[20px]">
-                            <p className="w-full text-white text-sm">
+                        <div className="w-full flex flex-col lg:items-start">
+                            <p className="w-full text-white text-sm lg:text-base">
                                 Chào mừng đến với{' '}
                                 <span className="text-lightPrimary">
                                     The Cinema
@@ -257,12 +257,13 @@ function Landing() {
                                 , nơi mà niềm đam mê điện ảnh được thăng hoa và
                                 mọi khoảnh khắc trở nên sống động.
                                 <br></br>
+                                <br></br>
                             </p>
-                            <div className="flex flex-wrap pb-10 w-full md:flex-wrap gap-8 items-center justify-start text-base font-extrabold ">
-                                <p className="text-white mr-4">
+                            <div className="flex flex-wrap pb-10 w-full md:flex-wrap gap-8 items-center justify-start font-extrabold">
+                                <p className="text-white mr-4 text-sm lg:text-base font-normal">
                                     Mọi đóng góp ý kiến xin liên hệ:
                                 </p>
-                                <div className="w-full flex flex-wrap xl:gap-12 lg:w-fit lg:justify-center justify-between text-sm">
+                                <div className="w-full flex flex-wrap xl:gap-12 lg:w-fit lg:justify-center justify-evenly text-sm">
                                     <div className="text-center pr-[15px] flex-[0_0_160px] xl:p-0 items-center md:gap-[30px] md:text-left flex flex-col md:flex-row ">
                                         <div className="">
                                             <svg
