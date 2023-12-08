@@ -85,7 +85,7 @@ export default function Example() {
                                             }}
                                             className="flex flex-col justify-start items-center lg:flex-row text-white"
                                         >
-                                            <div className="md:h-[100px] md:w-[200px] p-2">
+                                            <div className="h-16 p-2">
                                                 <img
                                                     src={
                                                         movie.horizontal_poster
@@ -94,13 +94,13 @@ export default function Example() {
                                                     alt={movie.name}
                                                 />
                                             </div>
-                                            <div className="px-2">
+                                            <div className="px-2 text-sm">
                                                 <p
                                                     className={`block truncate ${'font-medium'}`}
                                                 >
                                                     {movie.name}
                                                 </p>
-                                                <p className="text-sm md:text-base text-white/50">
+                                                <p className="text-sm text-white/50 mt-1">
                                                     {movie.sub_name}
                                                 </p>
                                             </div>

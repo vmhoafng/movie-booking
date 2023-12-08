@@ -15,7 +15,7 @@ const IsShowingMovies = ({ showingNow }: { showingNow: IMovie[] }) => {
                         <Poster
                             horizontal
                             key={movie.id}
-                            src={movie.poster}
+                            src={movie.horizontal_poster}
                             name={movie.name}
                             subname={movie.sub_name}
                             to={`/movies/${movie.slug}`}
