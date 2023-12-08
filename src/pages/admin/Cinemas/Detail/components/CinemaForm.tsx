@@ -4,7 +4,7 @@ import Title from '@/app/components/Title';
 import { FieldValues, UseFormRegister, FieldErrors } from 'react-hook-form';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { ICinema } from '@/app/types/cinema';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 interface CinemaFormProps {
     control?: any;
@@ -181,7 +181,7 @@ function CinemaForm({
                             errors={errors}
                         />
                     </div>
-                    <div className="w-[320px]">
+                    <div className="w-[320px] flex flex-col items-start gap-1 py-[3px]">
                         <label
                             className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
                             htmlFor="city"
@@ -249,7 +249,7 @@ function CinemaForm({
                             endIcon={ChevronDownIcon}
                         />
                     </div>
-                    <div className="w-[300px]">
+                    <div className="w-[300px] flex flex-col items-start gap-1 py-[3px]">
                         <label
                             className="text-white/90 text-[15px] font-bold leading-6 min-w-[200px]"
                             htmlFor="district"

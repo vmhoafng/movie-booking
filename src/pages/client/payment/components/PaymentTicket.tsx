@@ -1,4 +1,3 @@
-import React from "react";
 import BookingTitle from "../../payment/components/BookingTitle";
 import BookingSubtitle from "../../payment/components/BookingSubtitle";
 import { useRedux } from "@/app/hooks";
