@@ -211,7 +211,7 @@ function DesktopNavbar() {
     };
 
     return (
-        <div className="fixed top-0 left-0 right-0 bg-bgPrimaryBar  items-center justify-between w-full z-50 shadow-[0px_30px_120px_0px_rgba(0,0,0,0.3)]">
+        <div className="fixed top-0 left-0 right-0 bg-bgPrimaryBar items-center justify-between w-full z-50 shadow-[0px_30px_120px_0px_rgba(0,0,0,0.3)]">
             <div className="h-[96px] w-full container gap-[27.5px]  md:gap-[75px] items-center flex justify-between mx-auto px-[15px] md:px-0">
                 <div className="box-border lg:flex-1 max-w-[96px] md:max-w-[127px] items-center justify-center ">
                     <Link to={`/${PATHS.HOME.IDENTITY}`} replace>
@@ -222,7 +222,7 @@ function DesktopNavbar() {
                         />
                     </Link>
                 </div>
-                <div className=" max-w-[600px] lg:flex-1   ">
+                <div className=" max-w-[600px] lg:flex-1">
                     <Search />
                 </div>
 

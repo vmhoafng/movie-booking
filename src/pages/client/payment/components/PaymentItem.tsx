@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import React from "react";
 import "../css/Payment.css";
 interface PaymentItemProps {
    label: string;
