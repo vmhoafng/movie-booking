@@ -51,7 +51,7 @@ function MovieList() {
                     sub_name: movie.sub_name,
                     end_date: movie.end_date,
                     running_time: `${movie.running_time} phút`,
-                    rating: `${movie.rating}/10 (${movie.number_of_ratings})`,
+                    rating: `${movie.rating}/5 (${movie.number_of_ratings})`,
                     status: movie.status.description,
                 })),
         [movies, showByStatus],
